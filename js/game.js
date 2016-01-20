@@ -6,6 +6,8 @@ function Game(startX, startY, startFace, grid, multiplier) {
   this.avatar = $('#avatar');
   this.area = $('.area');
 
+  this.messager = new Message("");
+
   this.x = startX;
   this.y = startY;
   this.face = startFace;
@@ -116,7 +118,7 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
     if (space.hasDoor()) {
       window.sessionStorage.setItem("door", space.door())
     }
-    window.location = this.grid.space(this.x, this.y).exitTo();
+    this.exit(this.grid.space(this.x, this.y).exitTo());
   }
 }
 
@@ -169,10 +171,30 @@ Game.prototype.interact = function() {
       this.status = this.focus.interact(this.face) || "free";
       if (this.status == "free") {
         this.focus = undefined;
+      } else if (this.status == "exit") {
+        this.exit(this.focus.exitTo());
       }
       break;
 
     default:
       break;
+  }
+}
+
+Game.prototype.exit = function(exitTo) {
+  var cantGo = ["colquitt", "margaret-natalie", "anne-diane", "simon", "roof"];
+
+  if ($.inArray(exitTo, cantGo) != -1) {
+    if (exitTo == "colquitt") { this.messager.setMessage("You don't know Colquitt that well..."); }
+    if (exitTo == "margaret-natalie" || exitTo == "anne-diane") { 
+      this.messager.setMessage("You don't know the people that live here that well...");
+    }
+    if (exitTo == "simon") { this.messager.setMessage("You don't know Simon that well..."); }
+    if (exitTo == "roof") { this.messager.setMessage("You need a key to the roof."); }
+
+    this.focus = this.messager;
+    this.status = this.messager.interact(this.face) || "free";
+  } else {
+    window.location = exitTo + ".html";
   }
 }

@@ -27,3 +27,7 @@ Message.prototype.interact = function(dir) {
   this.count += 1;
   return status;
 }
+
+Message.prototype.setMessage = function(message) {
+  this.message = message;
+}
