@@ -1,6 +1,7 @@
-function Elevator(floorStart) {
+function Elevator(currentSelect) {
+  currentSelect = currentSelect || 0;
   $.extend(this, new NPC(""))
-  this.currentSelect = floorStart;
+  this.currentSelect = currentSelect;
   this.floorOptions = [
     "Roof", 
     "Floor 2", 
@@ -19,7 +20,7 @@ Elevator.prototype.interact = function(dir) {
       this.displayMessage("Which floor?");
 
       this.options.show();
-      this.displayOptions(this.floorOptions);
+      this.displayOptions(this.floorOptions, true);
       break;
 
     case 1:

@@ -82,6 +82,9 @@ body {
     font-family: VT323, monospace;
     padding: 6px 28px 8px 8px;
     box-sizing: border-box; }
+    #messages .content .current-selection,
+    #options .content .current-selection {
+      color: #b24946; }
   #messages #next,
   #messages #select,
   #options #next,

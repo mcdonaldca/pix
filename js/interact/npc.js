@@ -22,11 +22,17 @@ NPC.prototype.displayMessage = function(message) {
   this.messageContent.html(message);
 }
 
-NPC.prototype.displayOptions = function(options) {
+NPC.prototype.displayOptions = function(options, mark) {
+  mark = mark || false;
   this.selectOptions = options;
   var optionsHtml = "";
   for (var i = 0; i < options.length; i ++) {
-    optionsHtml += "<div>" + options[i] + "</div>";
+    if (mark && i == this.currentSelect) {
+      optionsHtml += "<div class='current-selection'>";
+    } else {
+      optionsHtml += "<div>";
+    }
+    optionsHtml += options[i] + "</div>";
   }
   this.setSelectArrow();
   this.optionsContent.html(optionsHtml);

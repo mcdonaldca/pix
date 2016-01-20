@@ -129,6 +129,10 @@ body {
              (4px * $multiplier) 
              (4px * $multiplier);
     box-sizing: border-box;
+
+    .current-selection {
+      color: #b24946;
+    }
   }
 
   #next,
