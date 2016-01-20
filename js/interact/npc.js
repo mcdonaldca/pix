@@ -11,7 +11,7 @@ function NPC(name) {
   this.selectArrow = $("#select");
   this.optionsContent = $("#options .content");
 
-  this.currentOption = 0;
+  this.currentSelect = 0;
   this.selectOptions = [];
 }
 
@@ -33,19 +33,19 @@ NPC.prototype.displayOptions = function(options) {
 }
 
 NPC.prototype.arrowUp = function() {
-  if (this.currentOption > 0) {
-    this.currentOption -= 1;
+  if (this.currentSelect > 0) {
+    this.currentSelect -= 1;
     this.setSelectArrow();
   }
 }
 
 NPC.prototype.arrowDown = function() {
-  if (this.currentOption < this.selectOptions.length - 1) {
-    this.currentOption += 1;
+  if (this.currentSelect < this.selectOptions.length - 1) {
+    this.currentSelect += 1;
     this.setSelectArrow();
   }
 }
 
 NPC.prototype.setSelectArrow = function() {
-  this.selectArrow.css("top", (4 + 10 * this.currentOption) * this.MULT);
+  this.selectArrow.css("top", (4 + 10 * this.currentSelect) * this.MULT);
 }

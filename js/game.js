@@ -114,7 +114,6 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       // console.log(this.x, this.y);
     }
   } else if (space.hasExitAdjacent(this.face)) {
-    window.sessionStorage.setItem("from", this.grid.name);
     if (space.hasDoor()) {
       window.sessionStorage.setItem("door", space.door())
     }
@@ -182,7 +181,7 @@ Game.prototype.interact = function() {
 }
 
 Game.prototype.exit = function(exitTo) {
-  var cantGo = ["colquitt", "margaret-natalie", "anne-diane", "simon", "roof"];
+  var cantGo = ["colquitt", "margaret-natalie", "anne-diane", "simon", "elevator-roof"];
 
   if ($.inArray(exitTo, cantGo) != -1) {
     if (exitTo == "colquitt") { this.messager.setMessage("You don't know Colquitt that well..."); }
@@ -190,11 +189,12 @@ Game.prototype.exit = function(exitTo) {
       this.messager.setMessage("You don't know the people that live here that well...");
     }
     if (exitTo == "simon") { this.messager.setMessage("You don't know Simon that well..."); }
-    if (exitTo == "roof") { this.messager.setMessage("You need a key to the roof."); }
+    if (exitTo == "elevator-roof") { this.messager.setMessage("You need a key to the roof."); }
 
     this.focus = this.messager;
     this.status = this.messager.interact(this.face) || "free";
   } else {
+    window.sessionStorage.setItem("from", this.grid.name);
     window.location = exitTo + ".html";
   }
 }

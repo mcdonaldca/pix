@@ -1,9 +1,10 @@
-function Elevator() {
+function Elevator(floorStart) {
   $.extend(this, new NPC(""))
+  this.currentSelect = floorStart;
   this.floorOptions = [
-    "Roof",
-    "Floor 2",
-    "Floor 1",
+    "Roof", 
+    "Floor 2", 
+    "Floor 1", 
     "Lobby"
   ];
 }
@@ -18,12 +19,10 @@ Elevator.prototype.interact = function(dir) {
       this.displayMessage("Which floor?");
 
       this.options.show();
-      this.currentOption = 1;
       this.displayOptions(this.floorOptions);
       break;
 
     case 1:
-      console.log(this.floorOptions[this.currentOption]);
       this.displayMessage("");
       this.displayOptions([""]);
       this.messages.hide();
@@ -44,11 +43,11 @@ Elevator.prototype.interact = function(dir) {
 
 Elevator.prototype.exitTo = function() {
   var exit = "";
-  switch(this.currentOption) {
-    case 0: exit = "roof"; break;
-    case 1: exit = "floor-1"; break;
-    case 2: exit = "apt-hallway"; break;
-    case 3: exit = "lobby"; break;
+  switch(this.currentSelect) {
+    case 0: exit = "elevator-roof"; break;
+    case 1: exit = "elevator-apt-2"; break;
+    case 2: exit = "elevator-apt-1"; break;
+    case 3: exit = "elevator-lobby"; break;
     default: break;
   }
   return exit;

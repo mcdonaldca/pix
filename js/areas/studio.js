@@ -40,7 +40,7 @@ studio.addInteraction(9, 6, new SleepZone());
 studio.addInteraction(6, 2, new Liam(), ["rt", "up"]);
 studio.addInteraction(9, 0, new Message("Hm... you should probably water your plant more."), ["rt", "dw"]);
 
-studio.addExit(1, 0, ["dw"], "apt-hallway");
+studio.addExit(1, 0, ["dw"], "apt-2");
 
 if (window.sessionStorage.getItem("from") == "apt-hallway") {
   var game = new Game(1, 0, "up", studio);
