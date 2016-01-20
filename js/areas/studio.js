@@ -11,7 +11,6 @@ studio.addBlocked(3, 5, ["up"]); // Counter, from below
 studio.addBlocked(4, 5);         // Counter
 studio.addBlocked(4, 6);         // Counter
 studio.addBlocked(5, 2, ["dw"]); // Couch, from above
-//studio.addBlocked(6, 2, ["dw"]); // Couch, from above
 studio.addBlocked(5, 3, ["up"]); // Couch, from below
 studio.addBlocked(6, 3, ["up"]); // Couch, from below
 studio.addBlocked(4, 2);         // Couch
