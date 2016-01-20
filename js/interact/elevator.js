@@ -12,6 +12,7 @@ Elevator.prototype.interact = function(dir) {
       this.displayMessage("Which floor?");
 
       this.options.show();
+      this.currentOption = 1;
       this.displayOptions([
         "Roof",
         "Floor 2",
