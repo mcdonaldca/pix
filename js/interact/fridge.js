@@ -8,11 +8,11 @@ Fridge.prototype.interact = function(dir) {
   switch(this.count) {
     case 0:
       this.messages.show();
-      this.display_message("You munched some cereal.");
+      this.displayMessage("You munched some cereal.");
       break;
 
     case 1:
-      this.display_message("");
+      this.displayMessage("");
       this.messages.hide();
 
       this.count = -1;

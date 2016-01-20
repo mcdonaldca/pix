@@ -6,6 +6,7 @@ $(document).keydown(function(e) {
 
     case 38: // up
       if (game.status == "free") game.moveUp();
+      if (game.status == "convo") game.focus.arrowUp();
       break;
 
     case 39: // right
@@ -14,6 +15,7 @@ $(document).keydown(function(e) {
 
     case 40: // down
       if (game.status == "free") game.moveDown();
+      if (game.status == "convo") game.focus.arrowDown();
       break;
 
 

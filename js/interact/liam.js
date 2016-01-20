@@ -16,15 +16,15 @@ Liam.prototype.interact = function(dir) {
       }
 
       this.messages.show();
-      this.display_message("Good morning, sleepyhead!");
+      this.displayMessage("Good morning, sleepyhead!");
       break;
 
     case 1:
-      this.display_message("You better hurry to work, you're running kind of late, eh?");
+      this.displayMessage("You better hurry to work, you're running kind of late, eh?");
       break;
 
     case 2:
-      this.display_message("");
+      this.displayMessage("");
       this.messages.hide();
 
       this.avatar.css("background-image", "url(img/characters/liam_front.svg)");

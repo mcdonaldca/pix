@@ -3,17 +3,33 @@ function NPC(name) {
   this.count = 0;
 
   this.messages = $("#messages");
-  this.next_arrow = $("#next");
-  this.message_content = $("#messages .content");
+  this.nextArrow = $("#next");
+  this.messageContent = $("#messages .content");
 
   this.options = $("#options");
-  this.select_arrow = $("#select");
-  this.options_content = $("#options .content");
+  this.selectArrow = $("#select");
+  this.optionsContent = $("#options .content");
 }
 
-NPC.prototype.display_message = function(message) {
+NPC.prototype.displayMessage = function(message) {
   if (this.name != "") {
     message = this.name.toUpperCase() + ": " + message;
   }
-  this.message_content.html(message);
+  this.messageContent.html(message);
+}
+
+NPC.prototype.displayOptions = function(options) {
+  var optionsHtml = "";
+  for (var i = 0; i < options.length; i ++) {
+    optionsHtml += "<div>" + options[i] + "</div>";
+  }
+  this.optionsContent.html(optionsHtml);
+}
+
+NPC.prototype.arrowUp = function() {
+  console.log("up");
+}
+
+NPC.prototype.arrowDown = function() {
+  console.log("down");
 }

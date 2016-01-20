@@ -8,12 +8,20 @@ Elevator.prototype.interact = function(dir) {
   switch(this.count) {
     case 0:
       this.messages.show();
-      this.next_arrow.hide();
-      this.display_message("Which floor?");
+      this.nextArrow.hide();
+      this.displayMessage("Which floor?");
+
+      this.options.show();
+      this.displayOptions([
+        "Roof",
+        "Floor 2",
+        "Floor 1",
+        "Lobby"
+      ]);
       break;
 
     case 1:
-      this.display_message("");
+      this.displayMessage("");
       this.messages.hide();
 
       this.count = -1;

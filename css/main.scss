@@ -134,8 +134,6 @@ body {
   #next,
   #select {
     position: absolute;
-    bottom: 4px * $multiplier;
-    right: 4px * $multiplier;
 
     height: 9px * $multiplier;
     width: 7px * $multiplier;
@@ -145,6 +143,20 @@ body {
       height: 100%;
     }
   }
+
+  #next {
+    bottom: 4px * $multiplier;
+    right: 4px * $multiplier;
+  }
+
+  #select {
+    top: 4px * $multiplier;
+    left: 4px * $multiplier;
+  }
+}
+
+#options .content {
+  padding-left: 15px * $multiplier;
 }
 
 @import "areas/studio";

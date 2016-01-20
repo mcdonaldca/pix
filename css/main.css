@@ -87,8 +87,6 @@ body {
   #options #next,
   #options #select {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
     height: 18px;
     width: 14px; }
     #messages #next img,
@@ -97,6 +95,17 @@ body {
     #options #select img {
       width: 100%;
       height: 100%; }
+  #messages #next,
+  #options #next {
+    bottom: 8px;
+    right: 8px; }
+  #messages #select,
+  #options #select {
+    top: 8px;
+    left: 8px; }
+
+#options .content {
+  padding-left: 30px; }
 
 #studio {
   left: 16px;
