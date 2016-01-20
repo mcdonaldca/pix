@@ -1,0 +1,56 @@
+#studio {
+  left: 16px * .5 * $multiplier;
+  bottom: 16px * 1 * $multiplier;
+
+  width: 16px * 10 * $multiplier;
+  height: 16px * 9 * $multiplier;
+
+  .npc-liam {
+    left: 16px * 6 * $multiplier;
+    bottom: 16px * 2 * $multiplier;
+
+    #liam {
+      background-image: url(../img/characters/liam_front.svg);
+    }
+  }
+
+  .bed {
+    height: 48px * $multiplier;
+    width: 48px * $multiplier;
+
+    left: 16px * 7 * $multiplier;
+    bottom: 16px * 5 * $multiplier;
+  }
+
+  .counter {
+    height: 32px * $multiplier;
+    width: 32px * $multiplier;
+
+    left: 16px * 2 * $multiplier;
+    bottom: 16px * 4 * $multiplier;
+  }
+
+  .couch {
+    height: 48px * $multiplier;
+    width: 64px * $multiplier;
+
+    left: 16px * 4 * $multiplier;
+    bottom: 16px * 1 * $multiplier;
+  }
+
+  .tv {
+    height: 32px * $multiplier;
+    width: 32px * $multiplier;
+
+    left: 16px * 5 * $multiplier;
+    bottom: 16px * 0 * $multiplier;
+  }
+
+  .houseplant {
+    height: 32px * $multiplier;
+    width: 16px * $multiplier;
+
+    left: 16px * 9 * $multiplier;
+    bottom: 16px * 0 * $multiplier;
+  }
+}
