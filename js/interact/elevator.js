@@ -22,7 +22,10 @@ Elevator.prototype.interact = function(dir) {
 
     case 1:
       this.displayMessage("");
+      this.displayOptions([""]);
       this.messages.hide();
+      this.nextArrow.show();
+      this.options.hide();
 
       this.count = -1;
       status = "free";
