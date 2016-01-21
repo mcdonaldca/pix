@@ -146,6 +146,12 @@ body {
     left: 288px;
     bottom: 0px; }
 
+#apt-1 {
+  left: -512px;
+  bottom: 80px;
+  width: 896px;
+  height: 544px; }
+
 #apt-2 {
   left: -512px;
   bottom: 80px;

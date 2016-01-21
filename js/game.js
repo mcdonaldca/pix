@@ -100,6 +100,8 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       window.sessionStorage.setItem("y", this.y);
 
       this.player.css("left", this.x * this.BLOCK);
+      this.player.css("bottom", this.y * this.BLOCK);
+      
       if (this.x <= 4) {
         this.area.css("left", this.grid.max_left * this.BLOCK);
       } else if (this.x >= this.grid.width - 5) {
@@ -108,7 +110,13 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
         this.area.css("left", -1 * (this.x - 5) * this.BLOCK);
       }
 
-      this.player.css("bottom", this.y * this.BLOCK);
+      if (this.y <= 4) {
+        this.area.css("bottom", this.grid.max_bottom * this.BLOCK);
+      } else if (this.y >= this.grid.height - 5) {
+        this.area.css("bottom", this.grid.min_bottom * this.BLOCK);
+      } else {
+        this.area.css("bottom", -1 * (this.y - 5) * this.BLOCK);
+      }
 
       this.showZone();
       // console.log(this.x, this.y);
@@ -181,7 +189,13 @@ Game.prototype.interact = function() {
 }
 
 Game.prototype.exit = function(exitTo) {
-  var cantGo = ["colquitt", "margaret-natalie", "anne-diane", "simon", "elevator-roof"];
+  var cantGo = [
+    "colquitt", 
+    "margaret-natalie", 
+    "anne-diane", 
+    "simon", 
+    "elevator-roof"
+  ];
 
   if ($.inArray(exitTo, cantGo) != -1) {
     if (exitTo == "colquitt") { this.messager.setMessage("You don't know Colquitt that well..."); }

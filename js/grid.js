@@ -7,6 +7,10 @@ function Grid(width, height, name) {
   this.min_left = 
     this.width < 11 ? (11 - this.width) / 2 : -1 * (this.width - 11);
 
+  this.max_bottom = this.height < 11 ? (11 - this.height) / 2 : 0;
+  this.min_bottom = 
+    this.height < 11 ? (11 - this.height) / 2 : -1 * (this.height - 11);
+
   window.sessionStorage.setItem("room", name);
 
   this.map = new Array(width);
