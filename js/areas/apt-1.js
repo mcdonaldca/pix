@@ -75,6 +75,10 @@ apt1.addBlocked(17,  9);         // Gym Wall
 apt1.addBlocked(17, 10);         // Gym Wall
 apt1.addBlocked(17, 11);         // Gym Wall
 apt1.addBlocked(17, 12);         // Gym Wall
+apt1.addBlocked(16,  7);         // Treadmill
+apt1.addBlocked(16,  8);         // Treadmill
+apt1.addBlocked(16,  9);         // Treadmill
+apt1.addBlocked(16, 10);         // Treadmill
 apt1.addBlocked(18,  6);         // Pool Wall
 apt1.addBlocked(18,  7);         // Pool Wall
 apt1.addBlocked(18,  8);         // Pool Wall
