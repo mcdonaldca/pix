@@ -150,7 +150,17 @@ body {
   left: -512px;
   bottom: 80px;
   width: 896px;
-  height: 544px; }
+  height: 608px; }
+  #apt-1 .gym-doorframe {
+    height: 64px;
+    width: 96px;
+    left: 256px;
+    bottom: 128px; }
+  #apt-1 .gym-wall {
+    height: 64px;
+    width: 288px;
+    left: 256px;
+    bottom: 160px; }
 
 #apt-2 {
   left: -512px;

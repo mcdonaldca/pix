@@ -41,7 +41,7 @@ studio.addInteraction(9, 0, new Message("Hm... you should probably water your pl
 
 studio.addExit(1, 0, ["dw"], "apt-2");
 
-if (window.sessionStorage.getItem("from") == "apt-hallway") {
+if (window.sessionStorage.getItem("from") == "apt-2") {
   var game = new Game(1, 0, "up", studio);
 } else {
   var game = new Game(7, 4, "dw", studio);

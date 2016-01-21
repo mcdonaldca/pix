@@ -3,5 +3,21 @@
   bottom: 16px * 2.5 * $multiplier;
 
   width: 16px * 28 * $multiplier;
-  height: 16px * 17 * $multiplier;
+  height: 16px * 19 * $multiplier;
+
+  .gym-doorframe {
+    height: 16px * 2 * $multiplier;
+    width: 16px * 3 * $multiplier;
+
+    left: 16px * 8 * $multiplier;
+    bottom: 16px * 4 * $multiplier;
+  }
+
+  .gym-wall {
+    height: 16px * 2 * $multiplier;
+    width: 16px * 9 * $multiplier;
+
+    left: 16px * 8 * $multiplier;
+    bottom: 16px * 5 * $multiplier;
+  }
 }

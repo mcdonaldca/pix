@@ -88,6 +88,14 @@ Game.prototype.moveDown = function() {
 }
 
 Game.prototype.moveTo = function(to_x, to_y, from_dir) {
+  if (this.grid.space(this.x, this.y).hasExitAdjacent(this.face)) {
+    if (space.hasDoor()) {
+      window.sessionStorage.setItem("door", space.door())
+    }
+    this.exit(this.grid.space(this.x, this.y).exitTo());
+    return;
+  }
+
   if (this.validZone(to_x, to_y)) {
     space = this.grid.map[to_x][to_y];
 
@@ -121,12 +129,7 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       this.showZone();
       // console.log(this.x, this.y);
     }
-  } else if (space.hasExitAdjacent(this.face)) {
-    if (space.hasDoor()) {
-      window.sessionStorage.setItem("door", space.door())
-    }
-    this.exit(this.grid.space(this.x, this.y).exitTo());
-  }
+  } 
 }
 
 Game.prototype.validZone = function(x, y) {
