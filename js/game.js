@@ -1,4 +1,4 @@
-function Game(startX, startY, startFace, grid, multiplier) {
+function Game(startX, startY, startFace, grid) {
   this.BLOCK = 16 * 2 // (current size multiplier of 3)
 
   this.game = $("#game");
@@ -7,6 +7,8 @@ function Game(startX, startY, startFace, grid, multiplier) {
   this.area = $('.area');
 
   this.messager = new Message("");
+
+  this.grid = grid;
 
   this.x = startX;
   this.y = startY;
@@ -33,12 +35,11 @@ function Game(startX, startY, startFace, grid, multiplier) {
       break;
   }
 
-  this.grid = grid;
-
   this.moveTo(this.x, this.y, this.face);
 
   this.status = "loading";
   this.focus = undefined;
+  this.event = undefined;
 
   var that = this;
   window.setTimeout(function() {
@@ -50,21 +51,37 @@ function Game(startX, startY, startFace, grid, multiplier) {
 Game.prototype.faceLeft = function() {
   this.face = "lf";
   this.avatar.css("background-image", "url(img/characters/adele_left.svg)");
+
+  if (this.event != undefined) {
+    this.event.fireFace(this.face);
+  }
 }
 
 Game.prototype.faceUp = function() {
   this.face = "up";
   this.avatar.css("background-image", "url(img/characters/adele_back.svg)");
+
+  if (this.event != undefined) {
+    this.event.fireFace(this.face);
+  }
 }
 
 Game.prototype.faceRight = function() {
   this.face = "rt";
   this.avatar.css("background-image", "url(img/characters/adele_right.svg)");
+
+  if (this.event != undefined) {
+    this.event.fireFace(this.face);
+  }
 }
 
 Game.prototype.faceDown = function() {
   this.face = "dw";
   this.avatar.css("background-image", "url(img/characters/adele_front.svg)");
+
+  if (this.event != undefined) {
+    this.event.fireFace(this.face);
+  }
 }
 
 Game.prototype.moveLeft = function() {
@@ -103,6 +120,16 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       this.x = to_x;
       this.y = to_y;
       console.log(this.x, this.y);
+
+      if (space.hasEvent() && this.event == undefined) {
+        this.event = space.event();
+        this.event.begin(this.x, this.y, this.face);
+      } else if (space.hasEvent()) {
+        this.event.fireMove(this.x, this.y);
+      } else if (this.event != undefined) {
+        this.event.end();
+        this.event = undefined;
+      }
 
       window.sessionStorage.setItem("x", this.x);
       window.sessionStorage.setItem("y", this.y);

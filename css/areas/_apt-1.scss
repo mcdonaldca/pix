@@ -20,4 +20,41 @@
     left: 16px * 8 * $multiplier;
     bottom: 16px * 5 * $multiplier;
   }
+
+  .pool-doorframe {
+    height: 16px * 2 * $multiplier;
+    width: 16px * 3 * $multiplier;
+
+    left: 16px * 19 * $multiplier;
+    bottom: 16px * 4 * $multiplier;
+  }
+
+  .pool-wall {
+    height: 16px * 2 * $multiplier;
+    width: 16px * 9 * $multiplier;
+
+    left: 16px * 19 * $multiplier;
+    bottom: 16px * 5 * $multiplier;
+  }
+
+  .npc-doppelganger {
+    display: none;
+    left: 16px * 8 * $multiplier;
+    bottom: 16px * 13 * $multiplier;
+
+    #doppelganger {
+      background-image: url(../img/characters/adele_front.svg);
+    }
+  }
+
+  #mirror {
+    display: block;
+    z-index: 4;
+
+    height: 16px * 3 * $multiplier;
+    width: 16px * 9 * $multiplier;
+
+    left: 16px * 8 * $multiplier;
+    bottom: 16px * 13 * $multiplier;
+  }
 }

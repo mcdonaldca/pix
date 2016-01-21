@@ -29,7 +29,7 @@ body {
 
   #player {
     position: absolute;
-    z-index: 4;
+    z-index: 5;
 
     $h: 26px  * $multiplier;
     $w: 17px * $multiplier;
@@ -95,7 +95,7 @@ body {
 
   .item {
     position: absolute;
-    z-index: 5;
+    z-index: 6;
     display: none;
   }
 }
@@ -162,6 +162,18 @@ body {
 #options .content {
   padding-left: 15px * $multiplier;
 }
+
+/***************
+    Z-INDEX
+----------------
+0 : Shadow
+1 : Avatar
+2 :
+3 : NPC
+4 : Mirror (see _apt-1.scss)
+5 : Player
+6 : Item
+***************/
 
 @import "areas/studio";
 @import "areas/apt-1";

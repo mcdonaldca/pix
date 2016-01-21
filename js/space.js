@@ -71,3 +71,11 @@ Space.prototype.door = function() {
 Space.prototype.exitTo = function() {
   return this.options.exit_adj != undefined ? this.options.exit_to : "";
 }
+
+Space.prototype.hasEvent = function() {
+  return this.options.event != undefined;
+}
+
+Space.prototype.event = function() {
+  return this.options.event;
+}

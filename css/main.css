@@ -19,7 +19,7 @@ body {
     width: 100%; }
   .area #player {
     position: absolute;
-    z-index: 4;
+    z-index: 5;
     width: 34px;
     height: 52px;
     transition: left .2s, bottom .2s;
@@ -56,7 +56,7 @@ body {
       background-size: 34px 52px; }
   .area .item {
     position: absolute;
-    z-index: 5;
+    z-index: 6;
     display: none; }
 
 #messages,
@@ -110,6 +110,17 @@ body {
 #options .content {
   padding-left: 30px; }
 
+/***************
+    Z-INDEX
+----------------
+0 : Shadow
+1 : Avatar
+2 :
+3 : NPC
+4 : Mirror (see _apt-1.scss)
+5 : Player
+6 : Item
+***************/
 #studio {
   left: 16px;
   bottom: 32px;
@@ -161,6 +172,29 @@ body {
     width: 288px;
     left: 256px;
     bottom: 160px; }
+  #apt-1 .pool-doorframe {
+    height: 64px;
+    width: 96px;
+    left: 608px;
+    bottom: 128px; }
+  #apt-1 .pool-wall {
+    height: 64px;
+    width: 288px;
+    left: 608px;
+    bottom: 160px; }
+  #apt-1 .npc-doppelganger {
+    display: none;
+    left: 256px;
+    bottom: 416px; }
+    #apt-1 .npc-doppelganger #doppelganger {
+      background-image: url(../img/characters/adele_front.svg); }
+  #apt-1 #mirror {
+    display: block;
+    z-index: 4;
+    height: 96px;
+    width: 288px;
+    left: 256px;
+    bottom: 416px; }
 
 #apt-2 {
   left: -512px;

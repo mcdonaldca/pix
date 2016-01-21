@@ -42,6 +42,16 @@ Grid.prototype.addBlocked = function(x, y, dir) {
   }
 }
 
+Grid.prototype.addEventZone = function(x, y, event) {
+  options = { event: event };
+
+  if (this.map[x][y].isBasic()) {
+    this.map[x][y] = new Space(options);
+  } else {
+    this.map[x][y].updateOptions(options);
+  }
+}
+
 Grid.prototype.addShowZone = function(x, y, item) {
   options = { show: true, item: item };
 
