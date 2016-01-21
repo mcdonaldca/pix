@@ -88,22 +88,31 @@ apt1.addBlocked(18, 15);         // Pool Wall
 apt1.addBlocked(18, 16);         // Pool Wall
 
 mirror = new Mirror();
+apt1.addEventZone( 8, 10, mirror);
 apt1.addEventZone( 8, 11, mirror);
 apt1.addEventZone( 8, 12, mirror);
+apt1.addEventZone( 9, 10, mirror);
 apt1.addEventZone( 9, 11, mirror);
 apt1.addEventZone( 9, 12, mirror);
+apt1.addEventZone(10, 10, mirror);
 apt1.addEventZone(10, 11, mirror);
 apt1.addEventZone(10, 12, mirror);
+apt1.addEventZone(11, 10, mirror);
 apt1.addEventZone(11, 11, mirror);
 apt1.addEventZone(11, 12, mirror);
+apt1.addEventZone(12, 10, mirror);
 apt1.addEventZone(12, 11, mirror);
 apt1.addEventZone(12, 12, mirror);
+apt1.addEventZone(13, 10, mirror);
 apt1.addEventZone(13, 11, mirror);
 apt1.addEventZone(13, 12, mirror);
+apt1.addEventZone(14, 10, mirror);
 apt1.addEventZone(14, 11, mirror);
 apt1.addEventZone(14, 12, mirror);
+apt1.addEventZone(15, 10, mirror);
 apt1.addEventZone(15, 11, mirror);
 apt1.addEventZone(15, 12, mirror);
+apt1.addEventZone(16, 10, mirror);
 apt1.addEventZone(16, 11, mirror);
 apt1.addEventZone(16, 12, mirror);
 
@@ -127,6 +136,11 @@ apt1.addShowZone(24, 6, "pool-wall");
 apt1.addShowZone(25, 6, "pool-wall");
 apt1.addShowZone(26, 6, "pool-wall");
 apt1.addShowZone(27, 6, "pool-wall");
+apt1.addShowZone(21, 8, "water-1");
+apt1.addShowZone(22, 8, "water-1");
+apt1.addShowZone(23, 8, "water-1");
+apt1.addShowZone(24, 8, "water-1");
+apt1.addShowZone(25, 8, "water-1");
 
 apt1.addInteraction(10, 4, new Message("Gym"), ["up"]);
 apt1.addInteraction(21, 4, new Message("Pool"), ["up"]);

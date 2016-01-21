@@ -42,7 +42,8 @@ Mirror.prototype.fireFace = function(dir) {
 Mirror.prototype.fireMove = function(x, y) {
   this.x = x;
 
-  if (y == 11) { this.y = 14; }
+  if (y == 10) { this.y = 15; }
+  else if (y == 11) { this.y = 14; }
   else { this.y = 13 ;}
 
   this.doppelganger.css("left", this.x * this.BLOCK * this.MULT);

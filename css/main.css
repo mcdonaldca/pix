@@ -191,10 +191,15 @@ body {
   #apt-1 #mirror {
     display: block;
     z-index: 4;
-    height: 96px;
+    height: 128px;
     width: 288px;
     left: 256px;
     bottom: 416px; }
+  #apt-1 .water-1 {
+    height: 64px;
+    width: 160px;
+    left: 672px;
+    bottom: 224px; }
 
 #apt-2 {
   left: -512px;
