@@ -19,19 +19,19 @@ Mirror.prototype.begin = function(x, y, dir) {
 Mirror.prototype.fireFace = function(dir) {
   switch(dir) {
     case "lf":
-      this.avatar.css("background-image", "url(img/characters/adele_left.svg)");
+      this.avatar.css("background-position", -51 * this.MULT);
       break;
 
     case "up":
-      this.avatar.css("background-image", "url(img/characters/adele_front.svg)");
+      this.avatar.css("background-position", 0);
       break;
 
     case "rt":
-      this.avatar.css("background-image", "url(img/characters/adele_right.svg)");
+      this.avatar.css("background-position", -17 * this.MULT);
       break;
 
     case "dw":
-      this.avatar.css("background-image", "url(img/characters/adele_back.svg)");
+      this.avatar.css("background-position", -34 * this.MULT);
       break;
 
     default:

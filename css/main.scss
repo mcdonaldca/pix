@@ -91,7 +91,8 @@ body {
 
       z-index: 1;
 
-      background-size: $w $h;
+      background-position: 0;
+      background-size: ($w * 4) $h;
     }
   }
 
