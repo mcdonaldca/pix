@@ -106,7 +106,7 @@ Game.prototype.moveDown = function() {
 
 Game.prototype.moveTo = function(to_x, to_y, from_dir) {
   if (this.grid.space(this.x, this.y).hasExitAdjacent(this.face)) {
-    if (space.hasDoor()) {
+    if (space.hasExitDoor()) {
       window.sessionStorage.setItem("door", space.door())
     }
     this.exit(this.grid.space(this.x, this.y).exitTo());
@@ -154,14 +154,13 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       }
 
       this.showZone();
-      // console.log(this.x, this.y);
     }
   } 
 }
 
 Game.prototype.validZone = function(x, y) {
   return x >= 0 
-    && x <= this.grid.width -1 
+    && x <= this.grid.width - 1 
     && y >= 0 
     && y <= this.grid.height - 3;
 }
@@ -220,19 +219,20 @@ Game.prototype.interact = function() {
 
 Game.prototype.exit = function(exitTo) {
   var cantGo = [
-    "colquitt", 
-    "margaret-natalie", 
+    "colquitt-natalie", 
+    "margaret-kayla", 
     "anne-diane", 
-    "simon", 
+    "simon-taylor", 
     "elevator-roof"
   ];
 
   if ($.inArray(exitTo, cantGo) != -1) {
-    if (exitTo == "colquitt") { this.messager.setMessage("You don't know Colquitt that well..."); }
-    if (exitTo == "margaret-natalie" || exitTo == "anne-diane") { 
+    if (exitTo == "colquitt-natalie" 
+      || exitTo == "maragret-kayla" 
+      || exitTo == "anne-diane" 
+      || exitTo == "simon-taylor") { 
       this.messager.setMessage("You don't know the people that live here that well...");
     }
-    if (exitTo == "simon") { this.messager.setMessage("You don't know Simon that well..."); }
     if (exitTo == "elevator-roof") { this.messager.setMessage("You need a key to the roof."); }
 
     this.focus = this.messager;

@@ -16,7 +16,8 @@ body {
   position: absolute;
   transition: left .2s, bottom .2s; }
   .area img {
-    width: 100%; }
+    width: 100%;
+    height: 100%; }
   .area #player {
     position: absolute;
     z-index: 5;
@@ -158,10 +159,8 @@ body {
     bottom: 0px; }
 
 #apt-1 {
-  left: -512px;
-  bottom: 80px;
   width: 896px;
-  height: 608px; }
+  height: 576px; }
   #apt-1 .gym-doorframe {
     height: 64px;
     width: 96px;
@@ -220,8 +219,6 @@ body {
     bottom: 224px; }
 
 #apt-2 {
-  left: -512px;
-  bottom: 80px;
   width: 1152px;
   height: 192px; }
 

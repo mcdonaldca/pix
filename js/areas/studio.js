@@ -1,24 +1,4 @@
-var studio = new Grid(10, 9, "studio");
-
-studio.addBlocked(8, 5, ["dw"]); // Bed, from above
-studio.addBlocked(9, 5, ["dw"]); // Bed, from above
-studio.addBlocked(8, 6, ["up"]); // Bed, from below
-studio.addBlocked(9, 6, ["up"]); // Bed, from below
-studio.addBlocked(2, 4, ["dw"]); // Counter, from above
-studio.addBlocked(3, 4, ["dw"]); // Counter, from above
-studio.addBlocked(2, 5, ["up"]); // Counter, from below
-studio.addBlocked(3, 5, ["up"]); // Counter, from below
-studio.addBlocked(4, 5);         // Counter
-studio.addBlocked(4, 6);         // Counter
-studio.addBlocked(5, 2, ["dw"]); // Couch, from above
-studio.addBlocked(5, 3, ["up"]); // Couch, from below
-studio.addBlocked(6, 3, ["up"]); // Couch, from below
-studio.addBlocked(4, 2);         // Couch
-studio.addBlocked(7, 2);         // Couch
-studio.addBlocked(6, 2);         // Liam :)
-studio.addBlocked(5, 0);         // TV
-studio.addBlocked(6, 0);         // TV
-studio.addBlocked(9, 0);         // Houseplant
+var studio = new Grid(10, 9, "studio", "img/areas/studio_mask.png");
 
 studio.addShowZone(8, 6, "bed");
 studio.addShowZone(9, 6, "bed");

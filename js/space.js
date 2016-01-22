@@ -1,81 +1,108 @@
-function Space(options) {
-  this.options = options || {};
+function Space() {
+  this.data = {};
 }
 
-Space.prototype.isBasic = function() {
-  return options == {};
-}
-
-Space.prototype.updateOptions = function(new_options) {
-  $.extend(this.options, new_options);
+Space.prototype.setBlocked = function(dir) {
+  this.data.blocked = dir;
 }
 
 Space.prototype.isBlocked = function(dir) {
-  if (this.options.blocked != undefined) {
-    if (this.options.blocked_dir != undefined) {
-      return $.inArray(dir, this.options.blocked_dir) != -1;
-    } else {
-      return true;
-    }
+  if (this.data.blocked != undefined) {
+    return $.inArray(dir, this.data.blocked) != -1;
   }
   return false;
 }
 
 Space.prototype.blockedFrom = function() {
-  return this.isBlocked() ? this.options.blocked_dir : [];
+  return this.data.blocked != undefined ? this.data.blocked : [];
+}
+
+
+
+
+
+Space.prototype.setShowZone = function(item) {
+  this.data.show = item;
 }
 
 Space.prototype.isShowZone = function() {
-  return this.options.show != undefined && this.options.show;
+  return this.data.show != undefined;
 }
 
 Space.prototype.itemToShow = function() {
-  return this.isShowZone() ? this.options.item : "";
+  return this.isShowZone() ? this.data.show : "";
+}
+
+
+
+
+
+Space.prototype.setInteractionZone = function(interaction) {
+  this.data.interaction = interaction;
+}
+
+Space.prototype.setInteractionDirection = function(dir) {
+  this.data.interactDir = dir;
 }
 
 Space.prototype.isInteractZone = function() {
-  return this.options.interaction != undefined 
-    && this.options.interact_dir == undefined;
+  return this.data.interaction != undefined 
+    && this.data.interactDir == undefined;
 }
 
 Space.prototype.canInteract = function(dir) {
-  if (this.options.interaction != undefined) {
-    if (this.options.interact_dir != undefined) {
-      return $.inArray(dir, this.options.interact_dir) != -1;
-    }
+  if (this.data.interactDir != undefined) {
+    return $.inArray(dir, this.data.interactDir) != -1;
   }
   return false;
 }
 
 Space.prototype.interaction = function() {
-  return this.options.interaction;
+  return this.data.interaction;
 }
 
-Space.prototype.hasExitAdjacent = function(dir) {
-  if (this.options.exit_adj != undefined) {
-    if ($.inArray(dir, this.options.exit_dir) != -1) {
-      return true;
-    }
-  }
-  return false;
-}
 
-Space.prototype.hasDoor = function() {
-  return this.options.door != undefined;
-}
 
-Space.prototype.door = function() {
-  return this.hasDoor() ? this.options.door : "";
-}
 
-Space.prototype.exitTo = function() {
-  return this.options.exit_adj != undefined ? this.options.exit_to : "";
+
+Space.prototype.setEvent = function(event) {
+  this.data.event = event;
 }
 
 Space.prototype.hasEvent = function() {
-  return this.options.event != undefined;
+  return this.data.event != undefined;
 }
 
 Space.prototype.event = function() {
-  return this.options.event;
+  return this.data.event;
+}
+
+
+
+
+
+Space.prototype.setExit = function(dir, location) {
+  this.data.exit = location;
+  this.data.exit_dir = dir;
+}
+
+Space.prototype.setExitDoor = function(door) {
+  this.data.door = door;
+}
+
+Space.prototype.hasExitAdjacent = function(dir) {
+  return this.data.exit != undefined
+    && $.inArray(dir, this.data.exit_dir) != -1;
+}
+
+Space.prototype.hasExitDoor = function() {
+  return this.data.door != undefined;
+}
+
+Space.prototype.door = function() {
+  return this.hasExitDoor() ? this.data.door : "";
+}
+
+Space.prototype.exitTo = function() {
+  return this.data.exit != undefined ? this.data.exit : "";
 }
