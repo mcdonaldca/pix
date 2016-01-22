@@ -1,4 +1,4 @@
-var studio = new Grid(10, 9, "studio", "img/areas/studio_mask.png");
+var studio = new Grid(10, 9, "studio", true);
 
 studio.addShowZone(8, 6, "bed");
 studio.addShowZone(9, 6, "bed");

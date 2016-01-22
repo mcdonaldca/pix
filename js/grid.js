@@ -63,7 +63,7 @@ function Grid(width, height, name, mask) {
       }
     }
   };
-  if (mask != undefined) { image.src = mask; }
+  if (mask) { image.src = "img/areas/" + this.name + "_mask.png"; }
 }
 
 Grid.prototype.setPlacementLimits = function() {
@@ -74,9 +74,6 @@ Grid.prototype.setPlacementLimits = function() {
   this.max_bottom = this.height < 11 ? (11 - this.height) / 2 : 0;
   this.min_bottom = 
     this.height < 11 ? (11 - this.height) / 2 : -1 * (this.height - 11);
-
-  console.log(this.max_bottom);
-  console.log(this.min_bottom);
 }
 
 Grid.prototype.space = function(x, y) {

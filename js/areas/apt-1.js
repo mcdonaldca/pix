@@ -1,4 +1,4 @@
-var apt1 = new Grid(28, 18, "apt-1", "img/areas/apt-1_mask.png");
+var apt1 = new Grid(28, 18, "apt-1", true);
 
 mirror = new Mirror();
 apt1.addEventZone( 8, 10, mirror);
