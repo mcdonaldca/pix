@@ -1,5 +1,6 @@
 function Game(startX, startY, startFace, grid) {
-  this.BLOCK = 16 * 2 // (current size multiplier of 3)
+  this.MULT = 2; // (current size multiplier of 2)
+  this.BLOCK = 16 * this.MULT 
 
   this.game = $("#game");
   this.player = $('#player');
@@ -13,27 +14,7 @@ function Game(startX, startY, startFace, grid) {
   this.x = startX;
   this.y = startY;
   this.face = startFace;
-
-  switch(startFace) {
-    case "lf":
-      this.faceLeft();
-      break;
-
-    case "up":
-      this.faceUp();
-      break;
-
-    case "rt":
-      this.faceRight();
-      break;
-
-    case "dw":
-      this.faceDown();
-      break;
-
-    default:
-      break;
-  }
+  this.faceDir(this.face);
 
   this.moveTo(this.x, this.y, this.face);
 
@@ -48,36 +29,28 @@ function Game(startX, startY, startFace, grid) {
   }, 250);
 }
 
-Game.prototype.faceLeft = function() {
-  this.face = "lf";
-  this.avatar.css("background-image", "url(img/characters/adele_left.svg)");
+Game.prototype.faceDir = function(dir) {
+  this.face = dir;
+  switch(dir) {
+    case "lf":
+      this.avatar.css("background-position", -51 * this.MULT);
+      break;
 
-  if (this.event != undefined) {
-    this.event.fireFace(this.face);
+    case "up":
+      this.avatar.css("background-position", -34 * this.MULT);
+      break;
+
+    case "rt":
+      this.avatar.css("background-position", -17 * this.MULT);
+      break;
+
+    case "dw":
+      this.avatar.css("background-position", 0);
+      break;
+
+    default:
+      break;
   }
-}
-
-Game.prototype.faceUp = function() {
-  this.face = "up";
-  this.avatar.css("background-image", "url(img/characters/adele_back.svg)");
-
-  if (this.event != undefined) {
-    this.event.fireFace(this.face);
-  }
-}
-
-Game.prototype.faceRight = function() {
-  this.face = "rt";
-  this.avatar.css("background-image", "url(img/characters/adele_right.svg)");
-
-  if (this.event != undefined) {
-    this.event.fireFace(this.face);
-  }
-}
-
-Game.prototype.faceDown = function() {
-  this.face = "dw";
-  this.avatar.css("background-image", "url(img/characters/adele_front.svg)");
 
   if (this.event != undefined) {
     this.event.fireFace(this.face);
@@ -85,22 +58,22 @@ Game.prototype.faceDown = function() {
 }
 
 Game.prototype.moveLeft = function() {
-  this.faceLeft();
+  this.faceDir("lf");
   this.moveTo(this.x - 1, this.y, "lf");
 }
 
 Game.prototype.moveUp = function() {
-  this.faceUp();
+  this.faceDir("up");
   this.moveTo(this.x, this.y + 1, "up");
 }
 
 Game.prototype.moveRight = function() {
-  this.faceRight();
+  this.faceDir("rt");
   this.moveTo(this.x + 1, this.y, "rt");
 }
 
 Game.prototype.moveDown = function() {
-  this.faceDown();
+  this.faceDir("dw");
   this.moveTo(this.x, this.y - 1, "dw");
 }
 
@@ -228,7 +201,7 @@ Game.prototype.exit = function(exitTo) {
 
   if ($.inArray(exitTo, cantGo) != -1) {
     if (exitTo == "colquitt-natalie" 
-      || exitTo == "maragret-kayla" 
+      || exitTo == "margaret-kayla" 
       || exitTo == "anne-diane" 
       || exitTo == "simon-taylor") { 
       this.messager.setMessage("You don't know the people that live here that well...");

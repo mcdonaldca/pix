@@ -30,19 +30,19 @@ $(document).keydown(function(e) {
 
 
     case 65: // a
-      if (game.status == "free") game.faceLeft();
+      if (game.status == "free") game.faceDir("lf");
       break;
 
     case 87: // w
-      if (game.status == "free") game.faceUp();
+      if (game.status == "free") game.faceDir("up");
       break;
 
     case 68: // d
-      if (game.status == "free") game.faceRight();
+      if (game.status == "free") game.faceDir("rt");
       break;
 
     case 83: // s
-      if (game.status == "free") game.faceDown();
+      if (game.status == "free") game.faceDir("dw");
       break;
 
 

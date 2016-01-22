@@ -50,8 +50,9 @@ body {
 
       z-index: 1;
 
-      background-image: url(../img/characters/adele_front.svg);
-      background-size: $w $h;
+      background-image: url(../img/characters/adele.svg);
+      background-position: 0;
+      background-size: ($w * 4) $h;
     }    
   }
 
