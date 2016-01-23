@@ -49,13 +49,10 @@ apt1.addShowZone(24, 6, "pool-wall");
 apt1.addShowZone(25, 6, "pool-wall");
 apt1.addShowZone(26, 6, "pool-wall");
 apt1.addShowZone(27, 6, "pool-wall");
-apt1.addShowZone(21, 8, "water-1");
-apt1.addShowZone(22, 8, "water-1");
-apt1.addShowZone(23, 8, "water-1");
-apt1.addShowZone(24, 8, "water-1");
-apt1.addShowZone(25, 8, "water-1");
 
 apt1.addInteraction(10, 4, new Message("Gym"), ["up"]);
+apt1.addInteraction(16, 7, new Message("You don't have time to run!"), ["rt"]);
+apt1.addInteraction(16, 8, new Message("You don't have time to run!"), ["rt"]);
 apt1.addInteraction(21, 4, new Message("Pool"), ["up"]);
 
 apt1.addExit( 2, 3, ["up"], "elevator-apt-1", "left");
