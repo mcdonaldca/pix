@@ -225,4 +225,18 @@ body {
   width: 128px;
   height: 128px; }
 
+#lobby {
+  width: 320px;
+  height: 224px; }
+  #lobby .npc-holland {
+    left: 192px;
+    bottom: 128px; }
+    #lobby .npc-holland #holland {
+      background-image: url(../img/characters/holland-counter.svg); }
+  #lobby .counter {
+    height: 64px;
+    width: 32px;
+    left: 224px;
+    bottom: 96px; }
+
 /*# sourceMappingURL=main.css.map */

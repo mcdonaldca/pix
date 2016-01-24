@@ -2,8 +2,8 @@ var elevator = new Grid(4, 4, "elevator");
 
 elevator.addInteraction(0, 2, new Elevator(3), ["up"]);
 
-// elevator.addExit(1, 0, ["dw"], "lobby", "left");
-// elevator.addExit(2, 0, ["dw"], "lobby", "right");
+elevator.addExit(1, 0, ["dw"], "lobby", "left");
+elevator.addExit(2, 0, ["dw"], "lobby", "right");
 
 var game = undefined;
 if (window.sessionStorage.getItem("from") == "elevator") {
