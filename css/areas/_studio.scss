@@ -6,8 +6,8 @@
   height: 16px * 9 * $multiplier;
 
   .npc-liam {
-    left: 16px * 6 * $multiplier;
-    bottom: 16px * 2 * $multiplier;
+    left: (16px * 6 - 3) * $multiplier;
+    bottom: (16px * 2 - 1) * $multiplier;
 
     #liam {
       background-image: url(../img/characters/liam.svg);

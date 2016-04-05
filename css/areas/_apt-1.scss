@@ -19,25 +19,25 @@
   }
 
   .npc-gym-bro {
-    left: 16px * 15 * $multiplier;
-    bottom: 16px * 9 * $multiplier;
+    left: (16px * 15 - 3) * $multiplier;
+    bottom: (16px * 9 - 1) * $multiplier;
 
     #gym-bro {
       background-image: url("../img/characters/gym-bro.svg");
-      background-size: (68px * $multiplier) (26px * $multiplier);
+      background-size: (23px * 4 * $multiplier) (29px * 4 * $multiplier);
 
-      -webkit-animation: play .7s steps(4) infinite;
-              animation: play .7s steps(4) infinite;
+      -webkit-animation: run 1s steps(4) infinite;
+              animation: run 1s steps(4) infinite;
     }
 
-    @-webkit-keyframes play {
-       from { background-position:   0px 0; }
-         to { background-position: (-68px * $multiplier) 0; }
+    @-webkit-keyframes run {
+       from { background-position: 0 (-29px * $multiplier); }
+         to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
     }
 
-    @keyframes play {
-       from { background-position:   0px 0; }
-         to { background-position: (-68px * $multiplier) 0; }
+    @keyframes run {
+       from { background-position: 0 (-29px * $multiplier); }
+         to { background-position: (-92px * $multiplier) (-29px * $multiplier) }
     }
   }  
 

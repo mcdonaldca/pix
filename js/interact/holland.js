@@ -12,9 +12,9 @@ Holland.prototype.interact = function(dir) {
   switch(this.count) {
     case 0:
       if (dir == "rt") {
-        this.avatar.css("background-position", -51 * this.MULT);
+        this.avatar.css("background-position", "0 " + (-87 * this.MULT).toString() + "px");
       } else if (dir == "lf") {
-        this.avatar.css("background-position", -17 * this.MULT);
+        this.avatar.css("background-position", "0 " + (-29 * this.MULT).toString() + "px");
       }
 
       this.messages.show();
@@ -25,7 +25,7 @@ Holland.prototype.interact = function(dir) {
       this.displayMessage("");
       this.messages.hide();
 
-      this.avatar.css("background-position", 0);
+      this.avatar.css("background-position", "0 0");
       this.count = -1;
       status = "free";
       break;

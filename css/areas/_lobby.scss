@@ -3,8 +3,8 @@
   height: 16px * 7 * $multiplier;
 
   .npc-holland {
-    left: 16px * 6 * $multiplier;
-    bottom: 16px * 4 * $multiplier;
+    left: (16px * 6 - 3) * $multiplier;
+    bottom: (16px * 4 - 1) * $multiplier;
 
     #holland {
       background-image: url(../img/characters/holland-counter.svg);

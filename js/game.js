@@ -31,21 +31,22 @@ function Game(startX, startY, startFace, grid) {
 
 Game.prototype.faceDir = function(dir) {
   this.face = dir;
+  this.avatar.removeClass();
   switch(dir) {
     case "lf":
-      this.avatar.css("background-position", -51 * this.MULT);
+      this.avatar.css("background-position", "0 " + (-87 * this.MULT).toString() + "px");
       break;
 
     case "up":
-      this.avatar.css("background-position", -34 * this.MULT);
+      this.avatar.css("background-position", "0 " + (-58 * this.MULT).toString() + "px");
       break;
 
     case "rt":
-      this.avatar.css("background-position", -17 * this.MULT);
+      this.avatar.css("background-position", "0 " + (-29 * this.MULT).toString() + "px");
       break;
 
     case "dw":
-      this.avatar.css("background-position", 0);
+      this.avatar.css("background-position", "0 0");
       break;
 
     default:
@@ -107,8 +108,8 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       window.sessionStorage.setItem("x", this.x);
       window.sessionStorage.setItem("y", this.y);
 
-      this.player.css("left", this.x * this.BLOCK);
-      this.player.css("bottom", this.y * this.BLOCK);
+      this.player.css("left", this.x * this.BLOCK - (3 * this.MULT));
+      this.player.css("bottom", this.y * this.BLOCK - this.MULT);
       
       if (this.x <= 4) {
         this.area.css("left", this.grid.max_left * this.BLOCK);

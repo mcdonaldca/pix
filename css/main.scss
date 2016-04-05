@@ -32,11 +32,11 @@ body {
     position: absolute;
     z-index: 5;
 
-    $h: 26px  * $multiplier;
-    $w: 17px * $multiplier;
+    $h: 29px  * $multiplier;
+    $w: 23px * $multiplier;
 
-    width: 17px * $multiplier;
-    height: 26px  * $multiplier;
+    width: $w;
+    height: $h;
     
     transition: left .2s, bottom .2s;
 
@@ -52,8 +52,8 @@ body {
 
       background-image: url(../img/characters/adele.svg);
       background-position: 0;
-      background-size: ($w * 4) $h;
-    }    
+      background-size: ($w * 4) ($h * 4);
+    }
   }
 
   .shadow {
@@ -63,8 +63,8 @@ body {
 
     z-index: 0;
 
-    left: 1px * $multiplier;
-    bottom: -1px * $multiplier;
+    left: 4px * $multiplier;
+    bottom: 2px * $multiplier;
 
     img {
       width: 100%;
@@ -76,11 +76,11 @@ body {
     position: absolute;
     z-index: 3;
 
-    $h: 26px  * $multiplier;
-    $w: 17px * $multiplier;
+    $h: 29px  * $multiplier;
+    $w: 23px * $multiplier;
 
-    width: 17px * $multiplier;
-    height: 26px  * $multiplier;
+    width: $w;
+    height: $h;
     
     transition: left .2s, bottom .2s;
 
@@ -91,8 +91,8 @@ body {
 
       z-index: 1;
 
-      background-position: 0;
-      background-size: ($w * 4) $h;
+      background-position: 0 0;
+      background-size: ($w * 4) ($h * 4);
     }
   }
 

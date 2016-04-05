@@ -19,19 +19,19 @@ Mirror.prototype.begin = function(x, y, dir) {
 Mirror.prototype.fireFace = function(dir) {
   switch(dir) {
     case "lf":
-      this.avatar.css("background-position", -51 * this.MULT);
+      this.avatar.css("background-position", "0 " + (-87 * this.MULT).toString() + "px");
       break;
 
     case "up":
-      this.avatar.css("background-position", 0);
+      this.avatar.css("background-position", "0 0");
       break;
 
     case "rt":
-      this.avatar.css("background-position", -17 * this.MULT);
+      this.avatar.css("background-position", "0 " + (-29 * this.MULT).toString() + "px");
       break;
 
     case "dw":
-      this.avatar.css("background-position", -34 * this.MULT);
+      this.avatar.css("background-position", "0 " + (-58 * this.MULT).toString() + "px");
       break;
 
     default:
@@ -46,8 +46,8 @@ Mirror.prototype.fireMove = function(x, y) {
   else if (y == 11) { this.y = 14; }
   else { this.y = 13 ;}
 
-  this.doppelganger.css("left", this.x * this.BLOCK * this.MULT);
-  this.doppelganger.css("bottom", this.y * this.BLOCK * this.MULT);
+  this.doppelganger.css("left", (this.x * this.BLOCK - 3) * this.MULT);
+  this.doppelganger.css("bottom", (this.y * this.BLOCK - 1) * this.MULT);
 }
 
 Mirror.prototype.end = function() {
