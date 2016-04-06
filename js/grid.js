@@ -46,10 +46,10 @@ function Grid(width, height, name, mask) {
         var rt_check = (y_mid*imageData.width + x_right) * 4;
         var dw_check = (y_bottom*imageData.width + x_mid) * 4;
 
-        var lf_blocked = imageData.data[lf_check].toString(16) == 0;
-        var up_blocked = imageData.data[up_check].toString(16) == 0;
-        var rt_blocked = imageData.data[rt_check].toString(16) == 0;
-        var dw_blocked = imageData.data[dw_check].toString(16) == 0;
+        var lf_blocked = imageData.data[lf_check].toString(16) != "ff";
+        var up_blocked = imageData.data[up_check].toString(16) != "ff";
+        var rt_blocked = imageData.data[rt_check].toString(16) != "ff";
+        var dw_blocked = imageData.data[dw_check].toString(16) != "ff";
 
         var blocked_directions = [];
         if (lf_blocked) { blocked_directions.push("rt"); }
