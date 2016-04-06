@@ -167,11 +167,10 @@ Game.prototype.interact = function() {
       face_y = this.face == "dw" ? this.y - 1 : face_y;
 
       face_space = this.grid.space(face_x, face_y);
-
       if (current_space.isInteractZone()) {
         this.focus = current_space.interaction();
         this.status = current_space.interaction().interact(this.face) || "free";
-      } else if (face_space.canInteract(this.face)) {
+      } else if (face_space != undefined && face_space.canInteract(this.face)) {
         this.focus = face_space.interaction();
         this.status = face_space.interaction().interact(this.face) || "free";
       }
