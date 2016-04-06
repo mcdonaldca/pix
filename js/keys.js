@@ -18,19 +18,26 @@
 
   document.onkeydown = function(e) {
     var key = e.which;
-    if ($.inArray(key, moveKeys) == -1) { 
+    if ($.inArray(key, moveKeys) == -1 || game.status == "convo") { 
       if (key in keyActions) {
         keyActions[key]();
       }
       return true; 
     }
 
-    if (timer.key == undefined) {
+    if (timer.key == undefined || timer.key != key) {
+      if (game.face == "lf" && key == 37 ||
+          game.face == "up" && key == 38 ||
+          game.face == "rt" && key == 39 ||
+          game.face == "dw" && key == 40) {
+        keyActions[key]();
+      }
+
+      
+      if (timer.key != key) {
+        clearInterval(timer.interval);
+      }
       timer.key = key;
-      timer.interval = setInterval(keyActions[key], repeat);
-    } else if (timer.key != key) {
-      timer.key = key;
-      clearInterval(timer.interval);
       timer.interval = setInterval(keyActions[key], repeat);
     }
 
