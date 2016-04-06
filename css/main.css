@@ -144,31 +144,6 @@ body {
     bottom: 252px; }
     #studio .npc-remy #remy {
       background-image: url(../img/pets/test-pet.svg); }
-  #studio .bed {
-    height: 192px;
-    width: 192px;
-    left: 448px;
-    bottom: 320px; }
-  #studio .counter {
-    height: 128px;
-    width: 128px;
-    left: 128px;
-    bottom: 256px; }
-  #studio .couch {
-    height: 192px;
-    width: 256px;
-    left: 256px;
-    bottom: 64px; }
-  #studio .tv {
-    height: 128px;
-    width: 128px;
-    left: 320px;
-    bottom: 0px; }
-  #studio .houseplant {
-    height: 128px;
-    width: 64px;
-    left: 576px;
-    bottom: 0px; }
 
 #apt-1 {
   width: 1792px;

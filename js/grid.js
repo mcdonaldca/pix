@@ -1,9 +1,12 @@
 function Grid(width, height, name, mask) {
+  this.MULT = 4;
   this.BLOCK = 16;
 
   this.width = width;
   this.height = height;
   this.name = name;
+
+  this.area = $(".area");
 
   this.setPlacementLimits();
   window.sessionStorage.setItem("room", name);
@@ -87,9 +90,25 @@ Grid.prototype.validZone = function(x, y) {
     && y <= this.height - 1;
 }
 
-Grid.prototype.addShowZone = function(x, y, item) {
-  if ($.inArray(item, this.items) == -1) { this.items.push(item); }
-  this.space(x, y).setShowZone(item);
+Grid.prototype.addShowZone = function(height, width, item, start_coord, show_coords) {
+  this.items.push("item-" + item);
+
+  var div = document.createElement("div");
+  $(div).addClass("item item-" + item)
+        .css("height", (height * this.BLOCK * this.MULT).toString() + "px")
+        .css("width", (width * this.BLOCK * this.MULT).toString() + "px")
+        .css("left", (start_coord[0] * this.BLOCK * this.MULT).toString() + "px")
+        .css("bottom", (start_coord[1] * this.BLOCK * this.MULT).toString() + "px")
+
+  var img = document.createElement("img");
+  var src = "img/items/" + this.name + "/" + item + ".svg";
+  $(img).attr("src", src);
+  $(div).append(img);
+  this.area.append(div);
+
+  for (var i = 0; i < show_coords.length; i++) {
+    this.space(show_coords[i][0], show_coords[i][1]).setShowZone(item);
+  }
 }
 
 Grid.prototype.addInteraction = function(x, y, interaction, dir) {

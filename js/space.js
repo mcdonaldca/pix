@@ -30,7 +30,7 @@ Space.prototype.isShowZone = function() {
 }
 
 Space.prototype.itemToShow = function() {
-  return this.isShowZone() ? this.data.show : "";
+  return this.isShowZone() ? "item-" + this.data.show : "";
 }
 
 
