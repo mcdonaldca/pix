@@ -134,16 +134,6 @@ body {
   bottom: 64px;
   width: 640px;
   height: 576px; }
-  #studio .npc-liam {
-    left: 372px;
-    bottom: 124px; }
-    #studio .npc-liam #liam {
-      background-image: url(../img/characters/liam.svg); }
-  #studio .npc-remy {
-    left: 500px;
-    bottom: 252px; }
-    #studio .npc-remy #remy {
-      background-image: url(../img/pets/test-pet.svg); }
 
 #apt-1 {
   width: 1792px;

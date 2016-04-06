@@ -119,6 +119,31 @@ Grid.prototype.addInteraction = function(x, y, interaction, dir) {
   }
 }
 
+Grid.prototype.addNPC = function(x, y, interaction, dir) {
+  dir = dir || [];
+  
+  var div = document.createElement("div");
+  $(div).addClass("npc npc-" + interaction.name)
+        .css("left", ((x * this.BLOCK - 3) * this.MULT).toString() + "px")
+        .css("bottom", ((y * this.BLOCK - 1) * this.MULT).toString() + "px");
+  var avatar = document.createElement("div");
+  $(avatar).addClass("avatar").attr("id", interaction.name)
+           .css("background-image", "url(img/" + interaction.image + ".svg)");
+  interaction.avatar = $(avatar);
+
+  var shadow = document.createElement("div");
+  $(shadow).addClass("shadow");
+  var shadow_img = document.createElement("img");
+  $(shadow_img).attr("src", "img/characters/" + interaction.shadow + ".svg");
+
+  $(shadow).append(shadow_img);
+  $(div).append(avatar);
+  $(div).append(shadow);
+  this.area.append(div);
+
+  this.addInteraction(x, y, interaction, dir);
+}
+
 Grid.prototype.addEventZone = function(x, y, event) {
   this.space(x, y).setEvent(event);
 }

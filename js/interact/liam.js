@@ -1,6 +1,7 @@
 function Liam() {
   $.extend(this, new NPC("liam"));
-  this.avatar = $("#liam");
+  this.shadow = "shadow_lg";
+  this.image = "characters/liam";
 
   this.talkedTo = false;
 }

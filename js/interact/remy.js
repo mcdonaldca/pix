@@ -1,6 +1,7 @@
 function Remy() {
   $.extend(this, new NPC("remy"));
-  this.avatar = $("#remy");
+  this.shadow = "shadow_sm";
+  this.image = "pets/test-pet";
 
   this.talkedTo = false;
 }
