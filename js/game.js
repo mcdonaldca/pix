@@ -1,5 +1,5 @@
 function Game(startX, startY, startFace, grid) {
-  this.MULT = 2; // (current size multiplier of 2)
+  this.MULT = 4; // (current size multiplier of 2)
   this.BLOCK = 16 * this.MULT 
 
   this.game = $("#game");

@@ -6,14 +6,15 @@ body {
 #game {
   position: relative;
   overflow: hidden;
-  height: 352px;
-  width: 352px;
+  height: 704px;
+  width: 704px;
   margin: 30px auto 0;
   opacity: 0;
   transition: opacity .5s; }
 
 .area {
   position: absolute;
+  overflow: hidden;
   transition: left .2s, bottom .2s; }
   .area img {
     width: 100%;
@@ -21,10 +22,10 @@ body {
   .area #player {
     position: absolute;
     z-index: 5;
-    width: 46px;
-    height: 58px;
+    width: 92px;
+    height: 116px;
     transition: left .2s, bottom .2s;
-    left: -14px;
+    left: -28px;
     bottom: 0; }
     .area #player #avatar {
       position: relative;
@@ -33,13 +34,13 @@ body {
       z-index: 1;
       background-image: url(../img/characters/adele.svg);
       background-position: 0;
-      background-size: 184px 232px; }
+      background-size: 368px 464px; }
   .area .shadow {
     position: absolute;
-    width: 30px;
-    height: 12px;
+    width: 60px;
+    height: 24px;
     z-index: 0;
-    left: 8px;
+    left: 16px;
     bottom: 4px; }
     .area .shadow img {
       width: 100%;
@@ -47,8 +48,8 @@ body {
   .area .npc {
     position: absolute;
     z-index: 3;
-    width: 46px;
-    height: 58px;
+    width: 92px;
+    height: 116px;
     transition: left .2s, bottom .2s; }
     .area .npc .avatar {
       position: relative;
@@ -56,62 +57,65 @@ body {
       height: 100%;
       z-index: 1;
       background-position: 0 0;
-      background-size: 184px 232px; }
+      background-size: 368px 464px; }
   .area .item {
     position: absolute;
     z-index: 6;
     display: none; }
 
-#messages,
-#options {
-  position: relative;
-  display: none;
-  width: 322px;
-  min-height: 24px;
-  padding: 0;
-  margin: 20px auto 0;
-  background: black;
-  border: 10px solid transparent;
-  border-image-source: url("../img/border.svg");
-  border-image-width: 16px;
-  border-image-repeat: repeat;
-  border-image-slice: 10; }
-  #messages .content,
-  #options .content {
-    width: 100%;
-    height: 100%;
-    background: white;
-    font-size: 20px;
-    font-family: VT323, monospace;
-    padding: 6px 28px 8px 8px;
-    box-sizing: border-box; }
-    #messages .content .current-selection,
-    #options .content .current-selection {
-      color: #b24946; }
-  #messages #next,
-  #messages #select,
-  #options #next,
-  #options #select {
-    position: absolute;
-    height: 18px;
-    width: 14px; }
-    #messages #next img,
-    #messages #select img,
-    #options #next img,
-    #options #select img {
-      width: 100%;
-      height: 100%; }
-  #messages #next,
-  #options #next {
-    bottom: 8px;
-    right: 8px; }
-  #messages #select,
-  #options #select {
-    top: 8px;
-    left: 8px; }
-
-#options .content {
-  padding-left: 30px; }
+.prompt {
+  position: absolute;
+  z-index: 7;
+  bottom: 0;
+  left: 0; }
+  .prompt .messages,
+  .prompt .options {
+    display: none;
+    position: relative;
+    min-height: 78px;
+    margin-top: 20px;
+    padding: 0;
+    border: 20px solid transparent;
+    border-image-source: url("../img/border.svg");
+    border-image-width: 32px;
+    border-image-repeat: repeat;
+    border-image-slice: 10; }
+    .prompt .messages .content,
+    .prompt .options .content {
+      min-height: 80px;
+      background: white;
+      font-size: 40px;
+      font-family: VT323, monospace;
+      padding: 16px 56px 16px 16px;
+      box-sizing: border-box; }
+      .prompt .messages .content .current-selection,
+      .prompt .options .content .current-selection {
+        color: #b24946; }
+    .prompt .messages .next-arrow,
+    .prompt .messages .select-arrow,
+    .prompt .options .next-arrow,
+    .prompt .options .select-arrow {
+      position: absolute;
+      height: 36px;
+      width: 28px; }
+      .prompt .messages .next-arrow img,
+      .prompt .messages .select-arrow img,
+      .prompt .options .next-arrow img,
+      .prompt .options .select-arrow img {
+        width: 100%;
+        height: 100%; }
+    .prompt .messages .next-arrow,
+    .prompt .options .next-arrow {
+      bottom: 20px;
+      right: 16px; }
+    .prompt .messages .select-arrow,
+    .prompt .options .select-arrow {
+      top: 16px;
+      left: 16px; }
+  .prompt .messages {
+    width: 662px; }
+  .prompt .options .content {
+    padding-left: 60px; }
 
 /***************
     Z-INDEX
@@ -123,120 +127,121 @@ body {
 4 : Mirror (see _apt-1.scss)
 5 : Player
 6 : Item
+7 : Text Prompt
 ***************/
 #studio {
-  left: 16px;
-  bottom: 32px;
-  width: 320px;
-  height: 288px; }
+  left: 32px;
+  bottom: 64px;
+  width: 640px;
+  height: 576px; }
   #studio .npc-liam {
-    left: 186px;
-    bottom: 62px; }
+    left: 372px;
+    bottom: 124px; }
     #studio .npc-liam #liam {
       background-image: url(../img/characters/liam.svg); }
   #studio .bed {
-    height: 96px;
-    width: 96px;
-    left: 224px;
-    bottom: 160px; }
+    height: 192px;
+    width: 192px;
+    left: 448px;
+    bottom: 320px; }
   #studio .counter {
-    height: 64px;
-    width: 64px;
-    left: 64px;
-    bottom: 128px; }
-  #studio .couch {
-    height: 96px;
+    height: 128px;
     width: 128px;
     left: 128px;
-    bottom: 32px; }
+    bottom: 256px; }
+  #studio .couch {
+    height: 192px;
+    width: 256px;
+    left: 256px;
+    bottom: 64px; }
   #studio .tv {
-    height: 64px;
-    width: 64px;
-    left: 160px;
+    height: 128px;
+    width: 128px;
+    left: 320px;
     bottom: 0px; }
   #studio .houseplant {
-    height: 64px;
-    width: 32px;
-    left: 288px;
+    height: 128px;
+    width: 64px;
+    left: 576px;
     bottom: 0px; }
 
 #apt-1 {
-  width: 896px;
-  height: 576px; }
+  width: 1792px;
+  height: 1152px; }
   #apt-1 .gym-doorframe {
-    height: 64px;
-    width: 96px;
-    left: 256px;
-    bottom: 128px; }
+    height: 128px;
+    width: 192px;
+    left: 512px;
+    bottom: 256px; }
   #apt-1 .gym-wall {
-    height: 64px;
-    width: 288px;
-    left: 256px;
-    bottom: 160px; }
+    height: 128px;
+    width: 576px;
+    left: 512px;
+    bottom: 320px; }
   #apt-1 .npc-gym-bro {
-    left: 474px;
-    bottom: 286px; }
+    left: 948px;
+    bottom: 572px; }
     #apt-1 .npc-gym-bro #gym-bro {
       background-image: url("../img/characters/gym-bro.svg");
-      background-size: 184px 232px;
+      background-size: 368px 464px;
       -webkit-animation: run 1s steps(4) infinite;
       animation: run 1s steps(4) infinite; }
 @-webkit-keyframes run {
   from {
-    background-position: 0 -58px; }
+    background-position: 0 -116px; }
   to {
-    background-position: -184px -58px; } }
+    background-position: -368px -116px; } }
 @keyframes run {
   from {
-    background-position: 0 -58px; }
+    background-position: 0 -116px; }
   to {
-    background-position: -184px -58px; } }
+    background-position: -368px -116px; } }
   #apt-1 .pool-doorframe {
-    height: 64px;
-    width: 96px;
-    left: 608px;
-    bottom: 128px; }
+    height: 128px;
+    width: 192px;
+    left: 1216px;
+    bottom: 256px; }
   #apt-1 .pool-wall {
-    height: 64px;
-    width: 288px;
-    left: 608px;
-    bottom: 160px; }
+    height: 128px;
+    width: 576px;
+    left: 1216px;
+    bottom: 320px; }
   #apt-1 .npc-doppelganger {
     display: none;
-    left: 256px;
-    bottom: 416px; }
+    left: 512px;
+    bottom: 832px; }
     #apt-1 .npc-doppelganger #doppelganger {
       background-image: url(../img/characters/adele.svg); }
   #apt-1 #mirror {
     display: block;
     z-index: 4;
-    height: 128px;
-    width: 288px;
-    left: 256px;
-    bottom: 416px; }
+    height: 256px;
+    width: 576px;
+    left: 512px;
+    bottom: 832px; }
 
 #apt-2 {
-  width: 1152px;
-  height: 192px; }
+  width: 2304px;
+  height: 384px; }
 
 #elevator {
-  left: 112px;
-  bottom: 112px;
-  width: 128px;
-  height: 128px; }
+  left: 224px;
+  bottom: 224px;
+  width: 256px;
+  height: 256px; }
 
 #lobby {
-  width: 320px;
-  height: 224px; }
+  width: 640px;
+  height: 448px; }
   #lobby .npc-holland {
-    left: 186px;
-    bottom: 126px; }
+    left: 372px;
+    bottom: 252px; }
     #lobby .npc-holland #holland {
       background-image: url(../img/characters/holland-counter.svg); }
   #lobby .counter {
-    height: 64px;
-    width: 32px;
-    left: 224px;
-    bottom: 96px; }
+    height: 128px;
+    width: 64px;
+    left: 448px;
+    bottom: 192px; }
 
 /*# sourceMappingURL=main.css.map */

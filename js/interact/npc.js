@@ -1,15 +1,15 @@
 function NPC(name) {
-  this.MULT = 2;
+  this.MULT = 4;
   this.name = name;
   this.count = 0;
 
-  this.messages = $("#messages");
-  this.nextArrow = $("#next");
-  this.messageContent = $("#messages .content");
+  this.messages = $(".messages");
+  this.nextArrow = $(".next-arrow");
+  this.messageContent = $(".messages .content");
 
-  this.options = $("#options");
-  this.selectArrow = $("#select");
-  this.optionsContent = $("#options .content");
+  this.options = $(".options");
+  this.selectArrow = $(".select-arrow");
+  this.optionsContent = $(".options .content");
 
   this.currentSelect = 0;
   this.selectOptions = [];

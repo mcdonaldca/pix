@@ -7,7 +7,7 @@ function Mirror() {
   this.y = 0;
 
   this.BLOCK = 16;
-  this.MULT = 2;
+  this.MULT = 4;
 }
 
 Mirror.prototype.begin = function(x, y, dir) {

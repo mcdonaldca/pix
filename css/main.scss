@@ -1,4 +1,4 @@
-$multiplier: 2; // (current multiplier is 3)
+$multiplier: 4; // (current multiplier is 3)
 
 body {
   background: black;
@@ -21,6 +21,7 @@ body {
 
 .area {
   position: absolute;
+  overflow: hidden;
   transition: left .2s, bottom .2s;
 
   img {
@@ -64,7 +65,7 @@ body {
     z-index: 0;
 
     left: 4px * $multiplier;
-    bottom: 2px * $multiplier;
+    bottom: 1px * $multiplier;
 
     img {
       width: 100%;
@@ -103,67 +104,77 @@ body {
   }
 }
 
-#messages,
-#options {
-  position: relative;
-  display: none;
-  width: 16px * 11 * $multiplier - 30px;
-  min-height: 27px * $multiplier - 30px;
-  padding: 0;
-  margin: (10px * $multiplier) auto 0;
-  background: black;
+.prompt {
+  position: absolute;
+  z-index: 7;
+  bottom: 0;
+  left: 0;
 
-  border: (5px * $multiplier) solid transparent;
-  border-image-source: url("../img/border.svg");
-  border-image-width: 8px * $multiplier;
-  border-image-repeat: repeat;
-  border-image-slice: 10;
+  .messages,
+  .options {
+    display: none;
+    position: relative;
+    min-height: 27px * $multiplier - 30px;
+    margin-top: (5px * $multiplier);
+    padding: 0;
 
-  .content {
-    width: 100%;
-    height: 100%;
+    border: (5px * $multiplier) solid transparent;
+    border-image-source: url("../img/border.svg");
+    border-image-width: 8px * $multiplier;
+    border-image-repeat: repeat;
+    border-image-slice: 10;
 
-    background: white;
-    font-size: 10px * $multiplier;
-    font-family: VT323, monospace;
+    .content {
+      min-height: 20px * $multiplier;
 
-    padding: (3px * $multiplier) 
-             (14px * $multiplier) 
-             (4px * $multiplier) 
-             (4px * $multiplier);
-    box-sizing: border-box;
+      background: white;
+      font-size: 10px * $multiplier;
+      font-family: VT323, monospace;
 
-    .current-selection {
-      color: #b24946;
+      padding: (4px * $multiplier) 
+               (14px * $multiplier) 
+               (4px * $multiplier) 
+               (4px * $multiplier);
+      box-sizing: border-box;
+
+      .current-selection {
+        color: #b24946;
+      }
+    }
+
+    .next-arrow,
+    .select-arrow {
+      position: absolute;
+
+      height: 9px * $multiplier;
+      width: 7px * $multiplier;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .next-arrow {
+      bottom: 5px * $multiplier;
+      right: 4px * $multiplier;
+    }
+
+    .select-arrow {
+      top: 4px * $multiplier;
+      left: 4px * $multiplier;
     }
   }
 
-  #next,
-  #select {
-    position: absolute;
+  .messages {
+    width: (16px * 11 - 3) * $multiplier - 30px;
+  }
 
-    height: 9px * $multiplier;
-    width: 7px * $multiplier;
-
-    img {
-      width: 100%;
-      height: 100%;
+  .options {
+    .content {
+      padding-left: 15px * $multiplier;
     }
   }
-
-  #next {
-    bottom: 4px * $multiplier;
-    right: 4px * $multiplier;
-  }
-
-  #select {
-    top: 4px * $multiplier;
-    left: 4px * $multiplier;
-  }
-}
-
-#options .content {
-  padding-left: 15px * $multiplier;
 }
 
 /***************
@@ -176,6 +187,7 @@ body {
 4 : Mirror (see _apt-1.scss)
 5 : Player
 6 : Item
+7 : Text Prompt
 ***************/
 
 @import "areas/studio";
