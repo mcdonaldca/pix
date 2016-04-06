@@ -140,7 +140,7 @@ Game.prototype.validZone = function(x, y) {
 }
 
 Game.prototype.showZone = function() {
-  var that = this
+  var that = this;
   window.setTimeout(function() {
     item = that.grid.map[that.x][that.y].itemToShow();
     for (i = 0; i < that.grid.items.length; i++) {
