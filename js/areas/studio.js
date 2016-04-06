@@ -14,9 +14,13 @@ studio.addShowZone(9, 1, "houseplant");
 
 studio.addInteraction(0, 7, new Fridge(), ["up"]);
 studio.addInteraction(1, 7, new Fridge(), ["up"]);
+studio.addInteraction(5, 0, new Message("Looks like Liam is watching \"The Office\""), ["dw"]);
+studio.addInteraction(6, 0, new Message("Looks like Liam is watching \"The Office\""), ["dw"]);
+studio.addInteraction(6, 7, new Message("It's a beautiful day outside."), ["up"]);
 studio.addInteraction(8, 6, new SleepZone());
 studio.addInteraction(9, 6, new SleepZone());
 studio.addInteraction(6, 2, new Liam(), ["rt", "up"]);
+studio.addInteraction(8, 4, new Remy(), ["lf", "up", "rt", "dw"]);
 studio.addInteraction(9, 0, new Message("Hm... you should probably water your plant more."), ["rt", "dw"]);
 
 studio.addExit(1, 0, ["dw"], "apt-2");

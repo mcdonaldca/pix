@@ -14,6 +14,15 @@
     }
   }
 
+  .npc-remy {
+    left: (16px * 8 - 3) * $multiplier;
+    bottom: (16px * 4 - 1) * $multiplier;
+
+    #remy {
+      background-image: url(../img/pets/test-pet.svg);
+    }
+  }
+
   .bed {
     height: 48px * $multiplier;
     width: 48px * $multiplier;

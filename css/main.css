@@ -139,6 +139,11 @@ body {
     bottom: 124px; }
     #studio .npc-liam #liam {
       background-image: url(../img/characters/liam.svg); }
+  #studio .npc-remy {
+    left: 500px;
+    bottom: 252px; }
+    #studio .npc-remy #remy {
+      background-image: url(../img/pets/test-pet.svg); }
   #studio .bed {
     height: 192px;
     width: 192px;
