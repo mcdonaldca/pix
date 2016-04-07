@@ -3,25 +3,23 @@
   ex. blocked directions, whether it's a show, interaction, or event zone, etc.
 **/
 function Space() {
-  this.data = {}; // Holds space information.
-
   // Variables initialized through setters.
-  this.data.blocked = undefined;     // The directions the space is blocked from.
-  this.data.show = undefined;        // The item if the space is a ShowZone.
-  this.data.interaction = undefined; // The Interactable object for the space.
-  this.data.interactDir = undefined; // The directions from which the space can interact.
-  this.data.event = undefined;       // The Event object for the space.
-  this.data.exit = undefined;        // Where the exit leads.
-  this.data.exitDir = undefined;     // The direction to face to exit.
-  this.data.door = undefined;        // The door (left or right) the player would exit through.
+  this.blocked = undefined;     // The directions the space is blocked from.
+  this.show = undefined;        // The item if the space is a ShowZone.
+  this.interaction = undefined; // The Interactable object for the space.
+  this.interactDir = undefined; // The directions from which the space can interact.
+  this.event = undefined;       // The Event object for the space.
+  this.exit = undefined;        // Where the exit leads.
+  this.exitDir = undefined;     // The direction to face to exit.
+  this.door = undefined;        // The door (left or right) the player would exit through.
 }
 
 /**
-  Setter for Space.data.blocked.
+  Setter for Space.blocked.
   @param dir The directions the space is blocked from.
 **/
 Space.prototype.setBlocked = function(dir) {
-  this.data.blocked = dir;
+  this.blocked = dir;
 }
 
 /**
@@ -29,18 +27,18 @@ Space.prototype.setBlocked = function(dir) {
   @param dir The direction the player is attempting to move from
 **/
 Space.prototype.isBlocked = function(dir) {
-  if (this.data.blocked != undefined) {
-    return $.inArray(dir, this.data.blocked) != -1;
+  if (this.blocked != undefined) {
+    return $.inArray(dir, this.blocked) != -1;
   }
   return false;
 }
 
 /**
-  Getter for Space.data.blocked.
+  Getter for Space.blocked.
   @return An array of blocked directions.
 **/
 Space.prototype.blockedFrom = function() {
-  return this.data.blocked != undefined ? this.data.blocked : [];
+  return this.blocked != undefined ? this.blocked : [];
 }
 
 
@@ -48,11 +46,11 @@ Space.prototype.blockedFrom = function() {
 
 
 /**
-  Setter for Space.data.show
+  Setter for Space.show
   @param item The item for the ShowZone.
 **/
 Space.prototype.setShowZone = function(item) {
-  this.data.show = item;
+  this.show = item;
 }
 
 /**
@@ -60,15 +58,15 @@ Space.prototype.setShowZone = function(item) {
   @return Boolean
 **/
 Space.prototype.isShowZone = function() {
-  return this.data.show != undefined;
+  return this.show != undefined;
 }
 
 /** 
-  Getter for Space.data.show.
+  Getter for Space.show.
   @return The classname for the object.
 **/
 Space.prototype.itemToShow = function() {
-  return this.isShowZone() ? this.data.show : "";
+  return this.isShowZone() ? this.show : "";
 }
 
 
@@ -76,19 +74,19 @@ Space.prototype.itemToShow = function() {
 
 
 /**
-  Setter for Space.data.interaction.
+  Setter for Space.interaction.
   @param interaction The Interactable object for the space.
 **/
 Space.prototype.setInteractionZone = function(interaction) {
-  this.data.interaction = interaction;
+  this.interaction = interaction;
 }
 
 /**
-  Setter for Space.data.interactDir.
+  Setter for Space.interactDir.
   @param dir The directions from which the space can interact.
 **/
 Space.prototype.setInteractionDirection = function(dir) {
-  this.data.interactDir = dir;
+  this.interactDir = dir;
 }
 
 /**
@@ -96,8 +94,8 @@ Space.prototype.setInteractionDirection = function(dir) {
   @return Boolean
 **/
 Space.prototype.isInteractZone = function() {
-  return this.data.interaction != undefined 
-    && this.data.interactDir == undefined;
+  return this.interaction != undefined 
+    && this.interactDir == undefined;
 }
 
 /**
@@ -105,18 +103,18 @@ Space.prototype.isInteractZone = function() {
   @param dir The direction the player is trying to interact from.
 **/
 Space.prototype.canInteract = function(dir) {
-  if (this.data.interactDir != undefined) {
-    return $.inArray(dir, this.data.interactDir) != -1;
+  if (this.interactDir != undefined) {
+    return $.inArray(dir, this.interactDir) != -1;
   }
   return false;
 }
 
 /**
-  Getter for Space.data.interaction.
+  Getter for Space.interaction.
   @return Interactable
 **/
-Space.prototype.interaction = function() {
-  return this.data.interaction;
+Space.prototype.getInteraction = function() {
+  return this.interaction;
 }
 
 
@@ -124,11 +122,11 @@ Space.prototype.interaction = function() {
 
 
 /**
-  Setter for Space.data.event.
+  Setter for Space.event.
   @param event The Event object for the space.
 **/
 Space.prototype.setEvent = function(event) {
-  this.data.event = event;
+  this.event = event;
 }
 
 /**
@@ -136,15 +134,15 @@ Space.prototype.setEvent = function(event) {
   @return Boolean
 **/
 Space.prototype.hasEvent = function() {
-  return this.data.event != undefined;
+  return this.event != undefined;
 }
 
 /** 
-  Getter for Space.data.event.
+  Getter for Space.event.
   @returns Event
 **/
-Space.prototype.event = function() {
-  return this.data.event;
+Space.prototype.getEvent = function() {
+  return this.event;
 }
 
 
@@ -152,21 +150,21 @@ Space.prototype.event = function() {
 
 
 /**
-  Setter for Space.data.exit.
+  Setter for Space.exit.
   @param dir      The direction to face to exit.
   @param location Where the exit leads.
 **/
 Space.prototype.setExit = function(dir, location) {
-  this.data.exit = location;
-  this.data.exitDir = dir;
+  this.exit = location;
+  this.exitDir = dir;
 }
 
 /**
-  Setter for Space.data.door.
+  Setter for Space.door.
   @param door The door (left or right) the player would exit through.
 **/
 Space.prototype.setExitDoor = function(door) {
-  this.data.door = door;
+  this.door = door;
 }
 
 /**
@@ -175,8 +173,8 @@ Space.prototype.setExitDoor = function(door) {
   @return Boolean
 **/
 Space.prototype.hasExitAdjacent = function(dir) {
-  return this.data.exit != undefined
-    && $.inArray(dir, this.data.exitDir) != -1;
+  return this.exit != undefined
+    && $.inArray(dir, this.exitDir) != -1;
 }
 
 /**
@@ -184,21 +182,21 @@ Space.prototype.hasExitAdjacent = function(dir) {
   @return Boolean
 **/
 Space.prototype.hasExitDoor = function() {
-  return this.data.door != undefined;
+  return this.door != undefined;
 }
 
 /**
-  Getter for Space.data.door.
+  Getter for Space.door.
   @return String
 **/
-Space.prototype.door = function() {
-  return this.hasExitDoor() ? this.data.door : "";
+Space.prototype.getDoor = function() {
+  return this.hasExitDoor() ? this.door : "";
 }
 
 /**
-  Getter for Space.data.exit.
+  Getter for Space.exit.
   @return String (area to exit to).
 **/
 Space.prototype.exitTo = function() {
-  return this.data.exit != undefined ? this.data.exit : "";
+  return this.exit != undefined ? this.exit : "";
 }

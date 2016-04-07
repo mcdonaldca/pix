@@ -173,7 +173,7 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
   if (this.area.space(this.x, this.y).hasExitAdjacent(this.face)) {
     // If there is a specific door we're exiting, save it.
     if (space.hasExitDoor()) {
-      window.sessionStorage.setItem("door", space.door())
+      window.sessionStorage.setItem("door", space.getDoor())
     }
     this.exit(this.area.space(this.x, this.y).exitTo());
     return;
@@ -196,7 +196,7 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
 
       // If we're entering an event space, trigger it!
       if (space.hasEvent() && this.event == undefined) {
-        this.event = space.event();
+        this.event = space.getEvent();
         this.event.begin(this.x, this.y, this.face);
 
       // If we're still in an event space, fire movement event.
@@ -273,13 +273,13 @@ Game.prototype.interact = function() {
 
       // If we're in an interact zone, focus on that.
       if (currentSpace.isInteractZone()) {
-        this.focus = currentSpace.interaction();
-        this.status = currentSpace.interaction().interact(this.face) || "free";
+        this.focus = currentSpace.getInteraction();
+        this.status = currentSpace.getInteraction().interact(this.face) || "free";
 
       // If we're facing an interactable space.
       } else if (faceSpace != undefined && faceSpace.canInteract(this.face)) {
-        this.focus = faceSpace.interaction();
-        this.status = faceSpace.interaction().interact(this.face) || "free";
+        this.focus = faceSpace.getInteraction();
+        this.status = faceSpace.getInteraction().interact(this.face) || "free";
       }
       break;
 
