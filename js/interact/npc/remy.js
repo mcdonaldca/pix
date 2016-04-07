@@ -2,7 +2,7 @@
   Remy is a test pet.
 **/
 function Remy() {
-  $.extend(this, new NPC("remy", "pets/test-pet", "shadow_sm"));
+  $.extend(this, new NPC("remy", "pets/white-cat"));
 }
 
 /**
