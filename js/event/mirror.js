@@ -73,9 +73,9 @@ Mirror.prototype.createAreaObjects = function() {
            .css("background-image", "url(img/characters/adele.svg)");
   var shadow = document.createElement("div");
   $(shadow).addClass("shadow");
-  var shadow_img = document.createElement("img");
-  $(shadow_img).attr("src", "img/characters/shadow_sm.svg");
-  $(shadow).append(shadow_img);
+  var shadowImg = document.createElement("img");
+  $(shadowImg).attr("src", "img/characters/shadow_sm.svg");
+  $(shadow).append(shadowImg);
   $(doppelganger).append(avatar)
                  .append(shadow);
   this.areaObjects.push(doppelganger);
@@ -89,9 +89,9 @@ Mirror.prototype.createAreaObjects = function() {
            .css("width", (9 * this.BLOCK * this.MULT).toString() + "px")
            .css("left", (8 * this.BLOCK * this.MULT).toString() + "px")
            .css("bottom", (13 * this.BLOCK * this.MULT).toString() + "px");
-  var mirror_img = document.createElement("img");
-  $(mirror_img).attr("src", "img/items/mirror.svg");
-  $(mirror).append(mirror_img);
+  var mirrorImg = document.createElement("img");
+  $(mirrorImg).attr("src", "img/items/mirror.svg");
+  $(mirror).append(mirrorImg);
   this.areaObjects.push(mirror);
 
   this.mirror = $(mirror);

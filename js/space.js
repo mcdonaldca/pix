@@ -83,7 +83,7 @@ Space.prototype.event = function() {
 
 Space.prototype.setExit = function(dir, location) {
   this.data.exit = location;
-  this.data.exit_dir = dir;
+  this.data.exitDir = dir;
 }
 
 Space.prototype.setExitDoor = function(door) {
@@ -92,7 +92,7 @@ Space.prototype.setExitDoor = function(door) {
 
 Space.prototype.hasExitAdjacent = function(dir) {
   return this.data.exit != undefined
-    && $.inArray(dir, this.data.exit_dir) != -1;
+    && $.inArray(dir, this.data.exitDir) != -1;
 }
 
 Space.prototype.hasExitDoor = function() {

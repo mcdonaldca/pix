@@ -5,7 +5,7 @@ function Game() {
   this.game = $("#game");
   this.player = $('#player');
   this.avatar = $('#avatar');
-  this.area_div = $('.area');
+  this.areaEl = $('.area');
   this.areas = {}
 }
 
@@ -32,24 +32,24 @@ Game.prototype.moveToArea = function(area) {
   var from = "";
   var door = "";
 
-  var new_area = this.areas[area];
+  var newArea = this.areas[area];
   if (this.area != undefined) {
     from = this.area.name;
     window.sessionStorage.setItem("from", this.area.name);
     console.log(this.area.name);
     door = window.sessionStorage.getItem("door");
-    new_area.build(this.area.areaObjects);
+    newArea.build(this.area.areaObjects);
   } else {
-    new_area.build();
+    newArea.build();
   }
-  this.area = new_area;
+  this.area = newArea;
   window.sessionStorage.setItem("area", area);
 
-  var position_data = this.area.getPositionData(from, door);
+  var positionData = this.area.getPositionData(from, door);
   window.sessionStorage.removeItem("door");
-  this.x = position_data.x;
-  this.y = position_data.y;
-  this.face = position_data.face;
+  this.x = positionData.x;
+  this.y = positionData.y;
+  this.face = positionData.face;
   
   this.faceDir(this.face);
   this.moveToSpace(this.x, this.y, this.face);
@@ -115,7 +115,7 @@ Game.prototype.moveDown = function() {
   this.moveToSpace(this.x, this.y - 1, "dw");
 }
 
-Game.prototype.moveToSpace = function(to_x, to_y, from_dir) {
+Game.prototype.moveToSpace = function(toX, toY, fromDir) {
   if (this.area.space(this.x, this.y).hasExitAdjacent(this.face)) {
     if (space.hasExitDoor()) {
       window.sessionStorage.setItem("door", space.door())
@@ -124,12 +124,12 @@ Game.prototype.moveToSpace = function(to_x, to_y, from_dir) {
     return;
   }
 
-  if (this.validZone(to_x, to_y)) {
-    space = this.area.grid[to_x][to_y];
+  if (this.validZone(toX, toY)) {
+    space = this.area.grid[toX][toY];
 
-    if (!space.isBlocked(from_dir)) {
-      this.x = to_x;
-      this.y = to_y;
+    if (!space.isBlocked(fromDir)) {
+      this.x = toX;
+      this.y = toY;
       console.log(this.x, this.y);
       window.sessionStorage.setItem("x", this.x);
       window.sessionStorage.setItem("y", this.y);
@@ -151,19 +151,19 @@ Game.prototype.moveToSpace = function(to_x, to_y, from_dir) {
       this.player.css("bottom", this.y * this.BLOCK - this.MULT);
       
       if (this.x <= 4) {
-        this.area_div.css("left", this.area.max_left * this.BLOCK);
+        this.areaEl.css("left", this.area.maxLeft * this.BLOCK);
       } else if (this.x >= this.area.width - 5) {
-        this.area_div.css("left", this.area.min_left * this.BLOCK);
+        this.areaEl.css("left", this.area.minLeft * this.BLOCK);
       } else {
-        this.area_div.css("left", -1 * (this.x - 5) * this.BLOCK);
+        this.areaEl.css("left", -1 * (this.x - 5) * this.BLOCK);
       }
 
       if (this.y <= 4) {
-        this.area_div.css("bottom", this.area.max_bottom * this.BLOCK);
+        this.areaEl.css("bottom", this.area.maxBottom * this.BLOCK);
       } else if (this.y >= this.area.height - 5) {
-        this.area_div.css("bottom", this.area.min_bottom * this.BLOCK);
+        this.areaEl.css("bottom", this.area.minBottom * this.BLOCK);
       } else {
-        this.area_div.css("bottom", -1 * (this.y - 5) * this.BLOCK);
+        this.areaEl.css("bottom", -1 * (this.y - 5) * this.BLOCK);
       }
 
       this.showZone();
@@ -189,29 +189,29 @@ Game.prototype.showZone = function() {
     }
   }, 350);
 
-  current_space = this.area.grid[this.x][this.y];
-  if (current_space.isShowZone()) {
-    $("." + current_space.itemToShow()).show();
+  currentSpace = this.area.grid[this.x][this.y];
+  if (currentSpace.isShowZone()) {
+    $("." + currentSpace.itemToShow()).show();
   }
 }
 
 Game.prototype.interact = function() {
   switch(game.status) {
     case "free":
-      current_space = this.area.space(this.x, this.y);
+      currentSpace = this.area.space(this.x, this.y);
 
-      face_x = this.face == "lf" ? this.x - 1 : this.x;
-      face_x = this.face == "rt" ? this.x + 1 : face_x;
-      face_y = this.face == "up" ? this.y + 1 : this.y;
-      face_y = this.face == "dw" ? this.y - 1 : face_y;
+      faceX = this.face == "lf" ? this.x - 1 : this.x;
+      faceX = this.face == "rt" ? this.x + 1 : faceX;
+      faceY = this.face == "up" ? this.y + 1 : this.y;
+      faceY = this.face == "dw" ? this.y - 1 : faceY;
 
-      face_space = this.area.space(face_x, face_y);
-      if (current_space.isInteractZone()) {
-        this.focus = current_space.interaction();
-        this.status = current_space.interaction().interact(this.face) || "free";
-      } else if (face_space != undefined && face_space.canInteract(this.face)) {
-        this.focus = face_space.interaction();
-        this.status = face_space.interaction().interact(this.face) || "free";
+      faceSpace = this.area.space(faceX, faceY);
+      if (currentSpace.isInteractZone()) {
+        this.focus = currentSpace.interaction();
+        this.status = currentSpace.interaction().interact(this.face) || "free";
+      } else if (faceSpace != undefined && faceSpace.canInteract(this.face)) {
+        this.focus = faceSpace.interaction();
+        this.status = faceSpace.interaction().interact(this.face) || "free";
       }
       break;
 

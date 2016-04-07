@@ -12,7 +12,7 @@ function Area(width, height, name, mask) {
   window.sessionStorage.setItem("room", name);
   this.items = [];
   this.areaObjects = [];
-  this.position_data = {};
+  this.positionData = {};
 
   this.grid = new Array(width);
   for (var i = 0; i < width; i++) {
@@ -36,34 +36,34 @@ function Area(width, height, name, mask) {
 
     var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
     
-    for (var block_x = 0; block_x < grid.width; block_x++) {
-      for (var block_y = 0; block_y < grid.height; block_y++) {
-        var x_left = block_x * grid.BLOCK;
-        var y_top = block_y * grid.BLOCK;
+    for (var blockX = 0; blockX < grid.width; blockX++) {
+      for (var blockY = 0; blockY < grid.height; blockY++) {
+        var xLeft = blockX * grid.BLOCK;
+        var yTop = blockY * grid.BLOCK;
 
-        var x_mid = x_left + 8;
-        var x_right = x_left + grid.BLOCK - 1;
-        var y_mid = y_top + 8;
-        var y_bottom = y_top + grid.BLOCK - 1;
+        var xMid = xLeft + 8;
+        var xRight = xLeft + grid.BLOCK - 1;
+        var yMid = yTop + 8;
+        var yBottom = yTop + grid.BLOCK - 1;
 
-        var lf_check = (y_mid*imageData.width + x_left) * 4;
-        var up_check = (y_top*imageData.width + x_mid) * 4;
-        var rt_check = (y_mid*imageData.width + x_right) * 4;
-        var dw_check = (y_bottom*imageData.width + x_mid) * 4;
+        var lfCheck = (yMid*imageData.width + xLeft) * 4;
+        var upCheck = (yTop*imageData.width + xMid) * 4;
+        var rtCheck = (yMid*imageData.width + xRight) * 4;
+        var dwCheck = (yBottom*imageData.width + xMid) * 4;
 
-        var lf_blocked = imageData.data[lf_check].toString(16) != "ff";
-        var up_blocked = imageData.data[up_check].toString(16) != "ff";
-        var rt_blocked = imageData.data[rt_check].toString(16) != "ff";
-        var dw_blocked = imageData.data[dw_check].toString(16) != "ff";
+        var lfBlocked = imageData.data[lfCheck].toString(16) != "ff";
+        var upBlocked = imageData.data[upCheck].toString(16) != "ff";
+        var rtBlocked = imageData.data[rtCheck].toString(16) != "ff";
+        var dwBlocked = imageData.data[dwCheck].toString(16) != "ff";
 
-        var blocked_directions = [];
-        if (lf_blocked) { blocked_directions.push("rt"); }
-        if (up_blocked) { blocked_directions.push("dw"); }
-        if (rt_blocked) { blocked_directions.push("lf"); }
-        if (dw_blocked) { blocked_directions.push("up"); }
+        var blockedDirections = [];
+        if (lfBlocked) { blockedDirections.push("rt"); }
+        if (upBlocked) { blockedDirections.push("dw"); }
+        if (rtBlocked) { blockedDirections.push("lf"); }
+        if (dwBlocked) { blockedDirections.push("up"); }
 
-        if (blocked_directions.length > 0) {
-          grid.space(block_x, grid.height - block_y - 1).setBlocked(blocked_directions);
+        if (blockedDirections.length > 0) {
+          grid.space(blockX, grid.height - blockY - 1).setBlocked(blockedDirections);
         }
       }
     }
@@ -80,13 +80,13 @@ Area.prototype.build = function(removeDivs) {
     $(removeDivs[i]).remove();
   }
 
-  var left_offset = 11 - this.width > 0 ? (11 - this.width) / 2 : 0;
-  var bottom_offset = 11 - this.height > 0 ? (11 - this.height) / 2 : 0;
+  var leftOffset = 11 - this.width > 0 ? (11 - this.width) / 2 : 0;
+  var bottomOffset = 11 - this.height > 0 ? (11 - this.height) / 2 : 0;
 
   this.area.css("width", (this.width * this.BLOCK * this.MULT).toString() + "px")
            .css("height", (this.height * this.BLOCK * this.MULT).toString() + "px")
-           .css("left", (left_offset * this.BLOCK * this.MULT).toString() + "px")
-           .css("bottom", (bottom_offset * this.BLOCK * this.MULT).toString() + "px");
+           .css("left", (leftOffset * this.BLOCK * this.MULT).toString() + "px")
+           .css("bottom", (bottomOffset * this.BLOCK * this.MULT).toString() + "px");
 
   for (var i = 0; i < this.areaObjects.length; i++) {
     this.area.append(this.areaObjects[i]);
@@ -94,33 +94,33 @@ Area.prototype.build = function(removeDivs) {
 }
 
 Area.prototype.setPlacementLimits = function() {
-  this.max_left = this.width < 11 ? (11 - this.width) / 2 : 0;
-  this.min_left = 
+  this.maxLeft = this.width < 11 ? (11 - this.width) / 2 : 0;
+  this.minLeft = 
     this.width < 11 ? (11 - this.width) / 2 : -1 * (this.width - 11);
 
-  this.max_bottom = this.height < 11 ? (11 - this.height) / 2 : 0;
-  this.min_bottom = 
+  this.maxBottom = this.height < 11 ? (11 - this.height) / 2 : 0;
+  this.minBottom = 
     this.height < 11 ? (11 - this.height) / 2 : -1 * (this.height - 11);
 }
 
-Area.prototype.addPositionData = function(area_from, door, x, y, face) {
-  var key = area_from;
+Area.prototype.addPositionData = function(areaFrom, door, x, y, face) {
+  var key = areaFrom;
   if (door != null && door != "") {
     key += "-" + door;
   }
-  this.position_data[key] = { x: x, y: y, face: face};
+  this.positionData[key] = { x: x, y: y, face: face};
 }
 
-Area.prototype.getPositionData = function(area_from, door) {
-  var key = area_from;
+Area.prototype.getPositionData = function(areaFrom, door) {
+  var key = areaFrom;
   if (door != null && door != "") {
     key += "-" + door;
   }
 
-  if (key in this.position_data) {
-    return this.position_data[key];
-  } else if (this.position_data.default != undefined) {
-    return this.position_data.default;
+  if (key in this.positionData) {
+    return this.positionData[key];
+  } else if (this.positionData.default != undefined) {
+    return this.positionData.default;
     console.log('defaulted');
   } else {
     return { x: 0, y: 0, face: "up"};
@@ -138,15 +138,15 @@ Area.prototype.validZone = function(x, y) {
     && y <= this.height - 1;
 }
 
-Area.prototype.addShowZone = function(height, width, item, start_coord, show_coords) {
+Area.prototype.addShowZone = function(height, width, item, startCoord, showCoords) {
   this.items.push("item-" + item);
 
   var div = document.createElement("div");
   $(div).addClass("item item-" + item)
         .css("height", (height * this.BLOCK * this.MULT).toString() + "px")
         .css("width", (width * this.BLOCK * this.MULT).toString() + "px")
-        .css("left", (start_coord[0] * this.BLOCK * this.MULT).toString() + "px")
-        .css("bottom", (start_coord[1] * this.BLOCK * this.MULT).toString() + "px")
+        .css("left", (startCoord[0] * this.BLOCK * this.MULT).toString() + "px")
+        .css("bottom", (startCoord[1] * this.BLOCK * this.MULT).toString() + "px")
 
   var img = document.createElement("img");
   var src = "img/items/" + this.name + "/" + item + ".svg";
@@ -155,8 +155,8 @@ Area.prototype.addShowZone = function(height, width, item, start_coord, show_coo
 
   this.areaObjects.push(div);
 
-  for (var i = 0; i < show_coords.length; i++) {
-    this.space(show_coords[i][0], show_coords[i][1]).setShowZone(item);
+  for (var i = 0; i < showCoords.length; i++) {
+    this.space(showCoords[i][0], showCoords[i][1]).setShowZone(item);
   }
 }
 
@@ -184,10 +184,10 @@ Area.prototype.addNPC = function(x, y, interaction, dir) {
   if (interaction.shadow != undefined) {
     var shadow = document.createElement("div");
     $(shadow).addClass("shadow");
-    var shadow_img = document.createElement("img");
-    $(shadow_img).attr("src", "img/characters/" + interaction.shadow + ".svg");
+    var shadowImg = document.createElement("img");
+    $(shadowImg).attr("src", "img/characters/" + interaction.shadow + ".svg");
 
-    $(shadow).append(shadow_img);
+    $(shadow).append(shadowImg);
     $(div).append(shadow);
   }
 
@@ -196,9 +196,9 @@ Area.prototype.addNPC = function(x, y, interaction, dir) {
   this.addInteraction(x, y, interaction, dir);
 }
 
-Area.prototype.addEventZone = function(start_coord, end_coord, event) {
-  for (var x = start_coord[0]; x < end_coord[0] + 1; x++) {
-    for (var y = start_coord[1]; y < end_coord[1] + 1; y++) {
+Area.prototype.addEventZone = function(startCoord, endCoord, event) {
+  for (var x = startCoord[0]; x < endCoord[0] + 1; x++) {
+    for (var y = startCoord[1]; y < endCoord[1] + 1; y++) {
       this.space(x, y).setEvent(event);
     }
   }
