@@ -5,6 +5,7 @@
 function Space() {
   // Variables initialized through setters.
   this.blocked = undefined;     // The directions the space is blocked from.
+  this.occupied = undefined;    // The NPC the space is occupied by.
   this.show = undefined;        // The item if the space is a ShowZone.
   this.interaction = undefined; // The Interactable object for the space.
   this.interactDir = undefined; // The directions from which the space can interact.
@@ -24,13 +25,15 @@ Space.prototype.setBlocked = function(dir) {
 
 /**
   Returns true if the space is blocked from a particular direction.
-  @param dir The direction the player is attempting to move from
+  @param dir The direction the player is attempting to move from.
+  @return Boolean
 **/
 Space.prototype.isBlocked = function(dir) {
+  var isBlockedDir = false;
   if (this.blocked != undefined) {
-    return $.inArray(dir, this.blocked) != -1;
+    isBlockedDir = $.inArray(dir, this.blocked) != -1;
   }
-  return false;
+  return isBlockedDir || this.isOccupied();
 }
 
 /**
@@ -39,6 +42,41 @@ Space.prototype.isBlocked = function(dir) {
 **/
 Space.prototype.blockedFrom = function() {
   return this.blocked != undefined ? this.blocked : [];
+}
+
+
+
+
+
+/**
+  Setter for Space.occupied.
+  @param npc The NPC occupying the space.
+**/
+Space.prototype.setOccupied = function(npc) {
+  this.occupied = npc;
+}
+
+/**
+  Setter for Space.occupied.
+**/
+Space.prototype.setUnoccupied = function() {
+  this.occupied = undefined;
+}
+
+/**
+  Returns true if the space is occupied by an NPC.
+  @return Boolean.
+**/
+Space.prototype.isOccupied = function() {
+  return this.occupied != undefined;
+}
+
+/**
+  Getter for Space.occupied.
+  @return NPC object (undefined if not occupied).
+**/
+Space.prototype.getOccupant = function() {
+  return this.occupied;
 }
 
 

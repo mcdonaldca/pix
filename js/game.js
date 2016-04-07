@@ -131,7 +131,7 @@ Game.prototype.faceDir = function(dir) {
 }
 
 /**
-  Moves player one space to the left (moveToSpace determines validity).
+  Moves player one space to the left.
 **/
 Game.prototype.moveLeft = function() {
   this.faceDir("lf");
@@ -139,7 +139,7 @@ Game.prototype.moveLeft = function() {
 }
 
 /**
-  Moves player one space up (moveToSpace determines validity).
+  Moves player one space up.
 **/
 Game.prototype.moveUp = function() {
   this.faceDir("up");
@@ -147,7 +147,7 @@ Game.prototype.moveUp = function() {
 }
 
 /**
-  Moves player one space to the right (moveToSpace determines validity).
+  Moves player one space to the right.
 **/
 Game.prototype.moveRight = function() {
   this.faceDir("rt");
@@ -155,7 +155,7 @@ Game.prototype.moveRight = function() {
 }
 
 /**
-  Moves player one space down (moveToSpace determines validity).
+  Moves player one space down.
 **/
 Game.prototype.moveDown = function() {
   this.faceDir("dw");

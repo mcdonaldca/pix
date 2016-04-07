@@ -20,6 +20,7 @@ function Area(width, height, name, mask) {
   this.setPlacementLimits();
 
   this.items = [];        // Collection of show zone items.
+  this.NPCs = [];         // Collection of NPCs in area.
   this.elements = [];     // HTML elements added to area.
   this.positionData = {}; // Player positioning based on entrances from other areas.
 
@@ -329,6 +330,10 @@ Area.prototype.addNPC = function(x, y, npc, dir) {
   npc.avatar = new Avatar($(div), $(sprite));
   npc.avatar.setLeft(x);
   npc.avatar.setBottom(y);
+
+  // Add to NPC collection.
+  this.NPCs.push(npc);
+  this.space(x, y).setOccupied(npc);
 
   // Add to element collection.
   this.elements.push(div);
