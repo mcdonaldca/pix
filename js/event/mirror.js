@@ -2,10 +2,6 @@ function Mirror() {
   this.BLOCK = 16;
   this.MULT = 4;
 
-  this.mirror = $("#mirror");
-  this.doppelganger = $(".npc-doppelganger");
-  this.avatar = $("#doppelganger");
-
   this.x = 0;
   this.y = 0;
 
@@ -69,7 +65,6 @@ Mirror.prototype.createAreaObjects = function() {
                  .css("bottom", ((13 * this.BLOCK - 1) * this.MULT).toString() + "px");
   var avatar = document.createElement("div");
   $(avatar).addClass("avatar")
-           .attr("id", "doppelganger")
            .css("background-image", "url(img/characters/adele.svg)");
   var shadow = document.createElement("div");
   $(shadow).addClass("shadow");
@@ -82,7 +77,6 @@ Mirror.prototype.createAreaObjects = function() {
 
   var mirror = document.createElement("div");
   $(mirror).addClass("item")
-           .attr("id", "mirror")
            .css("display", "block")
            .css("z-index", "4")
            .css("height", (4 * this.BLOCK * this.MULT).toString() + "px")

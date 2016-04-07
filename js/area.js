@@ -72,7 +72,6 @@ function Area(width, height, name, mask) {
 }
 
 Area.prototype.build = function(removeDivs) {
-  this.area.attr("id", this.name);
   $(".area-img").attr("src", "img/areas/" + this.name + ".svg");
 
   removeDivs = removeDivs || [];
@@ -176,7 +175,7 @@ Area.prototype.addNPC = function(x, y, interaction, dir) {
         .css("left", ((x * this.BLOCK - 3) * this.MULT).toString() + "px")
         .css("bottom", ((y * this.BLOCK - 1) * this.MULT).toString() + "px");
   var avatar = document.createElement("div");
-  $(avatar).addClass("avatar").attr("id", interaction.name)
+  $(avatar).addClass("avatar")
            .css("background-image", "url(img/" + interaction.image + ".svg)");
   interaction.avatar = $(avatar);
   $(div).append(avatar);
