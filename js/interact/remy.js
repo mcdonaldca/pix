@@ -13,13 +13,13 @@ Remy.prototype.interact = function(dir) {
   switch(this.count) {
     case 0:
       if (dir == "lf") {
-        this.avatar.css("background-position", "0 " + (-29 * this.MULT).toString() + "px");
+        this.avatar.faceRight();
       } else if (dir == "up") {
-        this.avatar.css("background-position", "0 0");
+        this.avatar.faceDown();
       } else if (dir == "rt") {
-        this.avatar.css("background-position", "0 " + (-87 * this.MULT).toString() + "px");
+        this.avatar.faceLeft();
       } else if (dir == "dw") {
-        this.avatar.css("background-position", "0 " + (-58 * this.MULT).toString() + "px");
+        this.avatar.faceUp();
       } 
 
       this.messages.show();

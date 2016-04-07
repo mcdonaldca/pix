@@ -13,7 +13,7 @@ Liam.prototype.interact = function(dir) {
   switch(this.count) {
     case 0:
       if (dir == "rt") {
-        this.avatar.css("background-position", "0 " + (-87 * this.MULT).toString() + "px");
+        this.avatar.faceLeft();
       }
 
       this.messages.show();
@@ -28,7 +28,7 @@ Liam.prototype.interact = function(dir) {
       this.displayMessage("");
       this.messages.hide();
 
-      this.avatar.css("background-position", "0 0");
+      this.avatar.faceDown();
       this.count = -1;
       status = "free";
       break;

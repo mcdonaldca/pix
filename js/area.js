@@ -173,7 +173,7 @@ Area.prototype.addNPC = function(x, y, interaction, dir) {
   var avatar = document.createElement("div");
   $(avatar).addClass("avatar")
            .css("background-image", "url(img/" + interaction.image + ".svg)");
-  interaction.avatar = $(avatar);
+  interaction.avatar = new Avatar($(avatar));
   $(div).append(avatar);
 
   if (interaction.shadow != undefined) {

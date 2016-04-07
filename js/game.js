@@ -1,8 +1,8 @@
 function Game() {
   this.game = $("#game");
-  this.player = $('#player');
-  this.avatar = $('#avatar');
-  this.areaEl = $('.area');
+  this.player = $("#player");
+  this.avatar = new Avatar($("#avatar"));
+  this.areaEl = $(".area");
   this.areas = {}
 }
 
@@ -64,22 +64,21 @@ Game.prototype.moveToArea = function(area) {
 Game.prototype.faceDir = function(dir) {
   this.face = dir;
   window.sessionStorage.setItem("face", this.face);
-  this.avatar.removeClass();
   switch(dir) {
     case "lf":
-      this.avatar.css("background-position", "0 " + (-87 * MULT).toString() + "px");
+      this.avatar.faceLeft();
       break;
 
     case "up":
-      this.avatar.css("background-position", "0 " + (-58 * MULT).toString() + "px");
+      this.avatar.faceUp();
       break;
 
     case "rt":
-      this.avatar.css("background-position", "0 " + (-29 * MULT).toString() + "px");
+      this.avatar.faceRight();
       break;
 
     case "dw":
-      this.avatar.css("background-position", "0 0");
+      this.avatar.faceDown();
       break;
 
     default:

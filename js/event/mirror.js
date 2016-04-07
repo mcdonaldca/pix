@@ -30,19 +30,19 @@ Mirror.prototype.begin = function(x, y, dir) {
 Mirror.prototype.fireFace = function(dir) {
   switch(dir) {
     case "lf":
-      this.avatar.css("background-position", "0 " + (-87 * MULT).toString() + "px");
+      this.avatar.faceLeft();
       break;
 
     case "up":
-      this.avatar.css("background-position", "0 0");
+      this.avatar.faceDown();
       break;
 
     case "rt":
-      this.avatar.css("background-position", "0 " + (-29 * MULT).toString() + "px");
+      this.avatar.faceRight();
       break;
 
     case "dw":
-      this.avatar.css("background-position", "0 " + (-58 * MULT).toString() + "px");
+      this.avatar.faceUp();
       break;
 
     default:
@@ -134,5 +134,5 @@ Mirror.prototype.createAreaElements = function() {
   // Save necessary HTML elements.
   this.mirror = $(mirror);
   this.doppelganger = $(doppelganger);
-  this.avatar = $(avatar);
+  this.avatar = new Avatar($(avatar));
 }
