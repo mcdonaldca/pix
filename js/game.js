@@ -34,7 +34,7 @@ Game.prototype.moveToArea = function(area) {
     from = this.area.name;
     window.sessionStorage.setItem("from", this.area.name);
     door = window.sessionStorage.getItem("door");
-    newArea.build(this.area.areaObjects);
+    newArea.build(this.area.areaElements);
   } else {
     newArea.build();
   }
