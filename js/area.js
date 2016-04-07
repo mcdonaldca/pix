@@ -157,6 +157,29 @@ Area.prototype.setPlacementLimits = function() {
 }
 
 /**
+  Called when the player moves and the area position may need to be adjusted.
+  @param playerX The player's new x coordinate.
+  @param playerY The player's new y coordinate.
+**/
+Area.prototype.updateAreaPosition = function(playerX, playerY) {
+  if (playerX <= 4) {
+    this.areaEl.css("left", this.maxLeft * BLOCK * MULT);
+  } else if (playerX >= this.width - 5) {
+    this.areaEl.css("left", this.minLeft * BLOCK * MULT);
+  } else {
+    this.areaEl.css("left", -1 * (playerX - 5) * BLOCK * MULT);
+  }
+
+  if (playerY <= 4) {
+    this.areaEl.css("bottom", this.maxBottom * BLOCK * MULT);
+  } else if (playerY >= this.height - 5) {
+    this.areaEl.css("bottom", this.minBottom * BLOCK * MULT);
+  } else {
+    this.areaEl.css("bottom", -1 * (playerY - 5) * BLOCK * MULT);
+  }
+}
+
+/**
   Adds information about player positioning when entering an area.
   @param areaFrom The area the player is coming from.
   @param door     The door the player is coming from (optional, can be null).

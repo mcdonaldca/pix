@@ -5,7 +5,6 @@ function Game() {
   this.gameEl = $("#game"); // Game element.
   this.player = $("#player"); // Player element.
   this.avatar = new Avatar($("#avatar")); // Avatar element.
-  this.areaEl = $(".area"); // Area element.
 
   this.areas = {}         // Map of area names to their Area objects.
   this.focus = undefined; // The current focus.
@@ -215,22 +214,7 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
       this.player.css("left", (this.x * BLOCK - 3) * MULT);
       this.player.css("bottom", (this.y * BLOCK - 1) * MULT);
       
-      // This will be moved to Area soon!
-      if (this.x <= 4) {
-        this.areaEl.css("left", this.area.maxLeft * BLOCK * MULT);
-      } else if (this.x >= this.area.width - 5) {
-        this.areaEl.css("left", this.area.minLeft * BLOCK * MULT);
-      } else {
-        this.areaEl.css("left", -1 * (this.x - 5) * BLOCK * MULT);
-      }
-
-      if (this.y <= 4) {
-        this.areaEl.css("bottom", this.area.maxBottom * BLOCK * MULT);
-      } else if (this.y >= this.area.height - 5) {
-        this.areaEl.css("bottom", this.area.minBottom * BLOCK * MULT);
-      } else {
-        this.areaEl.css("bottom", -1 * (this.y - 5) * BLOCK * MULT);
-      }
+      this.area.updateAreaPosition(this.x, this.y);
 
       this.showZone();
     }
