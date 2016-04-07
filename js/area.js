@@ -268,11 +268,7 @@ Area.prototype.addShowZone = function(width, height, item, startCoord, showCoord
         .css("height", (height * BLOCK * MULT).toString() + "px")
         .css("left", (startCoord[0] * BLOCK * MULT).toString() + "px")
         .css("bottom", (startCoord[1] * BLOCK * MULT).toString() + "px")
-
-  var img = document.createElement("img");
-  var src = "img/items/" + this.name + "/" + item + ".svg";
-  $(img).attr("src", src);
-  $(div).append(img);
+        .css("background-image", "url(img/items/" + this.name + "/" + item + ".svg)");
 
   // Add to item collection.
   this.items.push(div);
@@ -312,9 +308,7 @@ Area.prototype.addNPC = function(x, y, npc, dir) {
   /* Sample HTML
      <div class="npc npc-liam">
        <div class="avatar"></div>
-       <div class="shadow">
-         <img src="img/characters/shadow_lg.svg">
-       </div>
+       <div class="shadow"></div>
      </div>
   */
   var div = document.createElement("div");
@@ -327,11 +321,8 @@ Area.prototype.addNPC = function(x, y, npc, dir) {
   // Some NPCs don't have shadows.
   if (npc.shadow != undefined) {
     var shadow = document.createElement("div");
-    $(shadow).addClass("shadow");
-    var shadowImg = document.createElement("img");
-    $(shadowImg).attr("src", "img/characters/" + npc.shadow + ".svg");
-
-    $(shadow).append(shadowImg);
+    $(shadow).addClass("shadow")
+             .css("background-image", "url(img/characters/" + npc.shadow + ".svg)");
     $(div).append(shadow);
   }
 

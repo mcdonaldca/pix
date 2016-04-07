@@ -38,16 +38,16 @@ body {
       background-image: url(../img/characters/adele.svg);
       background-position: 0 0;
       background-size: 368px 464px; }
+    .area #avatar .shadow {
+      background-image: url(../img/characters/shadow_sm.svg); }
   .area .shadow {
     position: absolute;
     width: 60px;
     height: 24px;
     z-index: 0;
     left: 16px;
-    bottom: 4px; }
-    .area .shadow img {
-      width: 100%;
-      height: 100%; }
+    bottom: 4px;
+    background-size: 100%; }
   .area .npc {
     position: absolute;
     z-index: 3;
@@ -64,7 +64,8 @@ body {
   .area .item {
     position: absolute;
     z-index: 6;
-    display: none; }
+    display: none;
+    background-size: 100%; }
 
 .prompt {
   position: absolute;

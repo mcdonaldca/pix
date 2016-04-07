@@ -104,10 +104,8 @@ Mirror.prototype.createElements = function() {
   $(sprite).addClass("sprite")
            .css("background-image", "url(img/characters/adele.svg)");
   var shadow = document.createElement("div");
-  $(shadow).addClass("shadow");
-  var shadowImg = document.createElement("img");
-  $(shadowImg).attr("src", "img/characters/shadow_sm.svg");
-  $(shadow).append(shadowImg);
+  $(shadow).addClass("shadow")
+           .css("background-image", "url(img/characters/shadow_sm.svg)");
   $(doppelganger).append(sprite)
                  .append(shadow);
   this.elements.push(doppelganger);
@@ -125,10 +123,8 @@ Mirror.prototype.createElements = function() {
            .css("height", (4 * BLOCK * MULT).toString() + "px")
            .css("width", (9 * BLOCK * MULT).toString() + "px")
            .css("left", (8 * BLOCK * MULT).toString() + "px")
-           .css("bottom", (13 * BLOCK * MULT).toString() + "px");
-  var mirrorImg = document.createElement("img");
-  $(mirrorImg).attr("src", "img/items/mirror.svg");
-  $(mirror).append(mirrorImg);
+           .css("bottom", (13 * BLOCK * MULT).toString() + "px")
+           .css("background-image", "url(img/items/mirror.svg)");
   this.elements.push(mirror);
 
   // Save necessary HTML elements.
