@@ -56,8 +56,8 @@ Mirror.prototype.fireFace = function(dir) {
 
 /**
   Event fired when player moves.
-  @param x   The x coordinate of the player.
-  @param y   The y coordinate of the player.
+  @param x The x coordinate of the player.
+  @param y The y coordinate of the player.
 **/
 Mirror.prototype.fireMove = function(x, y) {
   this.x = x;
