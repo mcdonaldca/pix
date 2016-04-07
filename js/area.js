@@ -151,7 +151,7 @@ Area.prototype.addShowZone = function(height, width, item, startCoord, showCoord
   this.areaElements.push(div);
 
   for (var i = 0; i < showCoords.length; i++) {
-    this.space(showCoords[i][0], showCoords[i][1]).setShowZone(item);
+    this.space(showCoords[i][0], showCoords[i][1]).setShowZone("item-" + item);
   }
 }
 

@@ -4,6 +4,7 @@ function Game() {
   this.avatar = new Avatar($("#avatar"));
   this.areaEl = $(".area");
   this.areas = {}
+  this.keyboardController();
 }
 
 Game.prototype.start = function(startX, startY, startFace, area) {

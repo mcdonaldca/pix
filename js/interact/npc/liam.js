@@ -44,3 +44,8 @@ Liam.prototype.interact = function(dir) {
   this.count += 1;
   return status;
 }
+
+Liam.prototype.displayMessage = function(message) {
+  // Prefix the name of the NPC
+  this.messageContent.html(this.name.toUpperCase() + ": " + message);
+}

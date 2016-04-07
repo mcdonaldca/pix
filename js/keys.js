@@ -1,4 +1,4 @@
-(function KeyboardController(game) {
+Game.prototype.keyboardController = function() {
   var moveKeys = [37, 38, 39 , 40];
   var keyActions = {
     37: keyPress(37),  // left
@@ -76,64 +76,65 @@
   window.onblur= function() {
     timer = {};
   };
-})(game);
 
-function keyPress(key) {
-  return function() {
-    switch(key) {
-      case 37: // left
-        if (game.status == "free") game.moveLeft();
-        break;
+  var game = this;
+  function keyPress(key) {
+    return function() {
+      switch(key) {
+        case 37: // left
+          if (game.status == "free") game.moveLeft();
+          break;
 
-      case 38: // up
-        if (game.status == "free") game.moveUp();
-        if (game.status == "convo") game.focus.arrowUp();
-        break;
+        case 38: // up
+          if (game.status == "free") game.moveUp();
+          if (game.status == "convo") game.focus.arrowUp();
+          break;
 
-      case 39: // right
-        if (game.status == "free") game.moveRight();
-        break;
+        case 39: // right
+          if (game.status == "free") game.moveRight();
+          break;
 
-      case 40: // down
-        if (game.status == "free") game.moveDown();
-        if (game.status == "convo") game.focus.arrowDown();
-        break;
-
-
-
-
-      case 13: // enter
-      case 32: // space
-        game.interact();
-        break;
+        case 40: // down
+          if (game.status == "free") game.moveDown();
+          if (game.status == "convo") game.focus.arrowDown();
+          break;
 
 
 
 
-      case 87: // w
-        if (game.status == "free") game.faceDir("up");
-        break;
-
-      case 65: // a
-        if (game.status == "free") game.faceDir("lf");
-        break;
-
-      case 83: // s
-        if (game.status == "free") game.faceDir("dw");
-        break;
-
-      case 68: // d
-        if (game.status == "free") game.faceDir("rt");
-        break;
+        case 13: // enter
+        case 32: // space
+          game.interact();
+          break;
 
 
 
 
-      case 82: // r (reset)
-        window.sessionStorage.clear()
-        break;
+        case 87: // w
+          if (game.status == "free") game.faceDir("up");
+          break;
 
-      default: return; // exit this handler for other keys
-    }
-  };
-}
+        case 65: // a
+          if (game.status == "free") game.faceDir("lf");
+          break;
+
+        case 83: // s
+          if (game.status == "free") game.faceDir("dw");
+          break;
+
+        case 68: // d
+          if (game.status == "free") game.faceDir("rt");
+          break;
+
+
+
+
+        case 82: // r (reset)
+          window.sessionStorage.clear()
+          break;
+
+        default: return; // exit this handler for other keys
+      }
+    };
+  }
+};

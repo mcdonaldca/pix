@@ -3,6 +3,7 @@
 **/
 function Interactable() {
   this.count = 0; // State management for conversation flow.
+  this.name = ""; // Name of the interactable (prefixed on messages).
 
   this.messages = $(".messages"); // Messages container (show/hide).
   this.nextArrow = $(".next-arrow"); // Blinking arrow (show/hide).
@@ -22,6 +23,10 @@ function Interactable() {
   @param message The message to display.
 **/
 Interactable.prototype.displayMessage = function(message) {
+  // If it's an NPC and has a name, prefix it.
+  if (this.name != "") {
+    message = this.name.toUpperCase() + ": " + message;
+  }
   this.messageContent.html(message);
 }
 
