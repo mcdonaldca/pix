@@ -1,9 +1,13 @@
 /**
   The Message object is used for one-off messages with not further complicated interactions.
+  @param content Array of strings to display
 **/
-function Message(message) {
+function Message(content) {
   $.extend(this, new Interactable());
-  this.message = message;
+  if (typeof content == "string") {
+    content = [content];
+  }
+  this.content = content || [];
 }
 
 /**
@@ -16,11 +20,11 @@ Message.prototype.interact = function(dir) {
 
   switch(this.count) {
     case 0:
-      this.displayMessage(this.message);
+      this.displayMessage(this.content[this.count]);
       this.messages.show();
       break;
 
-    case 1:
+    case this.content.length:
       this.displayMessage("");
       this.messages.hide();
 
@@ -29,6 +33,7 @@ Message.prototype.interact = function(dir) {
       break;
 
     default:
+      this.displayMessage(this.content[this.count]);
       break;
   }
 
@@ -37,9 +42,9 @@ Message.prototype.interact = function(dir) {
 }
 
 /**
-  Setter for Message.message.
-  @param message The new message string.
+  Setter for Message.content.
+  @param content The new message string.
 **/
-Message.prototype.setMessage = function(message) {
-  this.message = message;
+Message.prototype.setMessage = function(content) {
+  this.content = content;
 }

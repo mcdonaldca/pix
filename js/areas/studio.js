@@ -11,8 +11,16 @@ studio.addShowZone(1, 2, "houseplant", [9, 0], [[9, 1]]);
 
 studio.addInteraction(0, 7, new Fridge(), ["up"]);
 studio.addInteraction(1, 7, new Fridge(), ["up"]);
-studio.addInteraction(5, 0, new Message("Looks like Liam is watching \"The Office\""), ["dw"]);
-studio.addInteraction(6, 0, new Message("Looks like Liam is watching \"The Office\""), ["dw"]);
+studio.addInteraction(5, 0, 
+  new Message([
+    "Liam is watching \"The Office\"", 
+    "It'd probabably be rude to change the channel now."]),
+  ["dw"]);
+studio.addInteraction(6, 0, 
+  new Message([
+    "Liam is watching \"The Office\"", 
+    "It'd probabably be rude to change the channel now."]), 
+  ["dw"]);
 studio.addInteraction(6, 7, new Message("It's a beautiful day outside."), ["up"]);
 studio.addInteraction(8, 6, new SleepZone());
 studio.addInteraction(9, 6, new SleepZone());
