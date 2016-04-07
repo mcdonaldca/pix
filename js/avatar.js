@@ -71,3 +71,37 @@ Avatar.prototype.faceRight = function() {
 Avatar.prototype.faceDown = function() {
   this.spriteEl.css("background-position", "0 0");
 }
+
+/**
+  Called to begining sprite's walking animation.
+  @param dir The direction to walk in.
+**/
+Avatar.prototype.walk = function(dir) {
+  switch(dir) {
+    case "lf":
+      this.spriteEl.addClass("walk-left");
+      break;
+
+    case "up":
+      this.spriteEl.addClass("walk-up");
+      break;
+      
+    case "rt":
+      this.spriteEl.addClass("walk-right");
+      break;
+      
+    case "dw":
+      this.spriteEl.addClass("walk-down");
+      break;
+
+    default:
+      break;
+  }
+}
+
+/**
+  Called to stop walking animation.
+**/
+Avatar.prototype.stopWalking = function() {
+  this.spriteEl.removeClass();
+}

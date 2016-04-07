@@ -1,44 +1,61 @@
 Game.prototype.keyboardController = function() {
-  var moveKeys = [37, 38, 39 , 40];
-  var keyActions = {
-    37: keyPress(37),  // left
-    38: keyPress(38),  // up
-    39: keyPress(39),  // right
-    40: keyPress(40),  // down
-    13: keyPress(13),  // enter
-    32: keyPress(32),  // space
-    87: keyPress(87),  // w
-    65: keyPress(65),  // a
-    83: keyPress(83),  // s
-    68: keyPress(68),  // d
-    82: keyPress(82)   // r
-  }
+  // Keys that move the player (dud values).
+  var moveKeys = { 37:1, 38:1, 39:1, 40:1 };
+  // Keys with actions (dud values).
+  var keyActions = { 37:1, 38:1, 39:1, 40:1, 13:1, 32:1, 87:1, 65:1, 83:1, 68:1, 82:1 }
+  // Tracks movement key presses.
   var timer = {};
-  var repeat = 150;
+  // Prevents player from holding down a button and getting a ton of actions.
+  var locked = {};
+  var repeat = 200;
 
+  var game = this;
   document.onkeydown = function(e) {
     var key = e.which;
-    if ($.inArray(key, moveKeys) == -1 || game.status == "convo") { 
-      if (key in keyActions) {
-        keyActions[key]();
-      }
-      return true; 
-    }
 
-    if (timer.key == undefined || timer.key != key) {
-      if (game.face == "lf" && key == 37 ||
-          game.face == "up" && key == 38 ||
-          game.face == "rt" && key == 39 ||
-          game.face == "dw" && key == 40) {
-        keyActions[key]();
+    if (key in keyActions) {
+      // If the key isn't a movement (or the game is in conversation mode).
+      if (!(key in moveKeys) || game.status == "convo") { 
+        // If it's a key we have an action for AND isn't locked.
+        if (!(key in locked)) {
+          keyPress(key)();
+          locked[key] = 1;
+        }
+        return true; 
       }
 
-      
-      if (timer.key != key) {
-        clearInterval(timer.interval);
+      // If no key is pressed, or this isn't our pressed key.
+      if (timer.key == undefined || timer.key != key) {
+        timer.key = key;
+        game.avatar.stopWalking();
+
+        // Find the direction we're traveling (to start walking animation)
+        var dir = "";
+        if (key == 37) dir = "lf";
+        if (key == 38) dir = "up";
+        if (key == 39) dir = "rt";
+        if (key == 40) dir = "dw";
+
+        // If we're already facing the direction we're traveling.
+        if (game.face == dir) {
+          // Start walking animation.
+          game.avatar.walk(game.face)
+          // Immediately begin walking.
+          keyPress(key)();
+        } else {
+          // Start the animation around when the walking begins.
+          if (timer.timeout != undefined) {
+            clearTimeout(timer.timeout);
+          }
+          timer.timeout = setTimeout(game.avatar.walk(dir), repeat);
+        }
+
+        // Start the walking interval.
+        if (timer.interval != undefined) {
+          clearInterval(timer.interval);
+        }
+        timer.interval = setInterval(keyPress(key), repeat);
       }
-      timer.key = key;
-      timer.interval = setInterval(keyActions[key], repeat);
     }
 
     e.preventDefault();
@@ -46,8 +63,19 @@ Game.prototype.keyboardController = function() {
 
   document.onkeyup= function(e) {
     var key = e.which;
+
+    // A (non-movement or conversational) pressed key has been released.
+    if (key in locked) {
+      delete locked[key];
+      return true;
+    }
+
+    // If the released key is being tracked.
     if (timer.key == key) {
-      if ($.inArray(key, moveKeys) != -1) {
+      // If it's a movement key, trigger a face in the correct direction.
+      // Doesn't affect player if already moving -- if a short key press,
+      // it will change the direction they face.
+      if (key in moveKeys) {
         switch(key) {
           case 38: // up
             keyPress(87)();
@@ -65,9 +93,16 @@ Game.prototype.keyboardController = function() {
             keyPress(68)();
             break;
         }
+        // Stop avatar's walking animation.
+        game.avatar.stopWalking();
       }
+      // If there was an interval set, clear it.
       if (timer.interval != undefined) { 
         clearInterval(timer.interval); 
+      }
+      // If there was a timeout set, clear it.
+      if (timer.timeout != undefined) {
+        clearTimeout(timer.timeout);
       }
       timer = {};
     }
@@ -77,7 +112,6 @@ Game.prototype.keyboardController = function() {
     timer = {};
   };
 
-  var game = this;
   function keyPress(key) {
     return function() {
       switch(key) {
