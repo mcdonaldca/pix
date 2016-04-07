@@ -1,6 +1,11 @@
+/**
+  The Elevator object is used in the apartment building.
+  Manages select options and exit routes.
+  @param currentSelect Option, the starting floor.
+**/
 function Elevator(currentSelect) {
   $.extend(this, new Interactable())
-  
+
   currentSelect = currentSelect || 0;
   this.originalSelect = currentSelect;
   this.currentSelect = currentSelect;
@@ -12,29 +17,39 @@ function Elevator(currentSelect) {
   ];
 }
 
+/**
+  Called when the player interacts with the Elevator (presses space).
+  @param dir The direction the user is facing (not used here).
+  @return The current game status.
+**/
 Elevator.prototype.interact = function(dir) {
   var status = "convo"
 
   switch(this.count) {
     case 0:
+      // Reset the current selection to our original selection upon beginning.
       this.currentSelect = this.originalSelect;
-      this.messages.show();
-      this.nextArrow.hide();
+      // Display the message.
       this.displayMessage("Which floor?");
-
-      this.options.show();
+      this.messages.show();
+      // Since we're displaying a select arrow, hide the "next" arrow.
+      this.nextArrow.hide();
+      // Display the floor options and mark the original selection.
       this.displayOptions(this.floorOptions, true);
+      this.options.show();
       break;
 
     case 1:
+      // Clear display.
       this.displayMessage("");
-      this.displayOptions([""]);
       this.messages.hide();
-      this.nextArrow.show();
+      this.displayOptions([""]);
       this.options.hide();
+      // Re-show next arrow for next time an interactable uses the display.
+      this.nextArrow.show(); 
 
-      this.count = -1;
-      status = "exit";
+      this.count = -1; // Will increment to 0 (to reset) at end of function.
+      status = "exit"; // Tells the game we're exiting to a different location.
       break;
 
     default:
@@ -45,6 +60,10 @@ Elevator.prototype.interact = function(dir) {
   return status;
 }
 
+/**
+  Getter for the exiting location.
+  @return The name of the next area.
+**/
 Elevator.prototype.exitTo = function() {
   var exit = "";
   switch(this.currentSelect) {
