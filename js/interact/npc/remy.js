@@ -1,11 +1,15 @@
+/** 
+  Remy is a test pet.
+**/
 function Remy() {
-  $.extend(this, new NPC("remy"));
-  this.shadow = "shadow_sm";
-  this.image = "pets/test-pet";
-
-  this.talkedTo = false;
+  $.extend(this, new NPC("remy", "pets/test-pet", "shadow_sm"));
 }
 
+/**
+  Called when the player interacts with Remy.
+  @param dir The direction the user is facing.
+  @return The current game status.
+**/
 Remy.prototype.interact = function(dir) {
   this.talkedTo = true;
   var status = "convo"

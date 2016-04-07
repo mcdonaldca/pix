@@ -1,11 +1,15 @@
+/**
+  Liam is a character in the game.
+**/
 function Liam() {
-  $.extend(this, new NPC("liam"));
-  this.shadow = "shadow_lg";
-  this.image = "characters/liam";
-
-  this.talkedTo = false;
+  $.extend(this, new NPC("liam", "characters/liam", "shadow_lg"));
 }
 
+/**
+  Called when the player interacts with Liam.
+  @param dir The direction the user is facing.
+  @return The current game status.
+**/
 Liam.prototype.interact = function(dir) {
   this.talkedTo = true;
   var status = "convo"
@@ -16,8 +20,8 @@ Liam.prototype.interact = function(dir) {
         this.avatar.faceLeft();
       }
 
-      this.messages.show();
       this.displayMessage("Good morning, sleepyhead!");
+      this.messages.show();
       break;
 
     case 1:
