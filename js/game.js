@@ -1,7 +1,4 @@
 function Game() {
-  this.MULT = 4; // (current size multiplier of 2)
-  this.BLOCK = 16 * this.MULT 
-
   this.game = $("#game");
   this.player = $('#player');
   this.avatar = $('#avatar');
@@ -36,7 +33,6 @@ Game.prototype.moveToArea = function(area) {
   if (this.area != undefined) {
     from = this.area.name;
     window.sessionStorage.setItem("from", this.area.name);
-    console.log(this.area.name);
     door = window.sessionStorage.getItem("door");
     newArea.build(this.area.areaObjects);
   } else {
@@ -71,15 +67,15 @@ Game.prototype.faceDir = function(dir) {
   this.avatar.removeClass();
   switch(dir) {
     case "lf":
-      this.avatar.css("background-position", "0 " + (-87 * this.MULT).toString() + "px");
+      this.avatar.css("background-position", "0 " + (-87 * MULT).toString() + "px");
       break;
 
     case "up":
-      this.avatar.css("background-position", "0 " + (-58 * this.MULT).toString() + "px");
+      this.avatar.css("background-position", "0 " + (-58 * MULT).toString() + "px");
       break;
 
     case "rt":
-      this.avatar.css("background-position", "0 " + (-29 * this.MULT).toString() + "px");
+      this.avatar.css("background-position", "0 " + (-29 * MULT).toString() + "px");
       break;
 
     case "dw":
@@ -147,23 +143,23 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
       window.sessionStorage.setItem("x", this.x);
       window.sessionStorage.setItem("y", this.y);
 
-      this.player.css("left", this.x * this.BLOCK - (3 * this.MULT));
-      this.player.css("bottom", this.y * this.BLOCK - this.MULT);
+      this.player.css("left", (this.x * BLOCK - 3) * MULT);
+      this.player.css("bottom", (this.y * BLOCK - 1) * MULT);
       
       if (this.x <= 4) {
-        this.areaEl.css("left", this.area.maxLeft * this.BLOCK);
+        this.areaEl.css("left", this.area.maxLeft * BLOCK * MULT);
       } else if (this.x >= this.area.width - 5) {
-        this.areaEl.css("left", this.area.minLeft * this.BLOCK);
+        this.areaEl.css("left", this.area.minLeft * BLOCK * MULT);
       } else {
-        this.areaEl.css("left", -1 * (this.x - 5) * this.BLOCK);
+        this.areaEl.css("left", -1 * (this.x - 5) * BLOCK * MULT);
       }
 
       if (this.y <= 4) {
-        this.areaEl.css("bottom", this.area.maxBottom * this.BLOCK);
+        this.areaEl.css("bottom", this.area.maxBottom * BLOCK * MULT);
       } else if (this.y >= this.area.height - 5) {
-        this.areaEl.css("bottom", this.area.minBottom * this.BLOCK);
+        this.areaEl.css("bottom", this.area.minBottom * BLOCK * MULT);
       } else {
-        this.areaEl.css("bottom", -1 * (this.y - 5) * this.BLOCK);
+        this.areaEl.css("bottom", -1 * (this.y - 5) * BLOCK * MULT);
       }
 
       this.showZone();

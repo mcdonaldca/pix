@@ -1,7 +1,4 @@
 function Mirror() {
-  this.BLOCK = 16;
-  this.MULT = 4;
-
   this.x = 0;
   this.y = 0;
 
@@ -18,7 +15,7 @@ Mirror.prototype.begin = function(x, y, dir) {
 Mirror.prototype.fireFace = function(dir) {
   switch(dir) {
     case "lf":
-      this.avatar.css("background-position", "0 " + (-87 * this.MULT).toString() + "px");
+      this.avatar.css("background-position", "0 " + (-87 * MULT).toString() + "px");
       break;
 
     case "up":
@@ -26,11 +23,11 @@ Mirror.prototype.fireFace = function(dir) {
       break;
 
     case "rt":
-      this.avatar.css("background-position", "0 " + (-29 * this.MULT).toString() + "px");
+      this.avatar.css("background-position", "0 " + (-29 * MULT).toString() + "px");
       break;
 
     case "dw":
-      this.avatar.css("background-position", "0 " + (-58 * this.MULT).toString() + "px");
+      this.avatar.css("background-position", "0 " + (-58 * MULT).toString() + "px");
       break;
 
     default:
@@ -45,8 +42,8 @@ Mirror.prototype.fireMove = function(x, y) {
   else if (y == 11) { this.y = 14; }
   else { this.y = 13 ;}
 
-  this.doppelganger.css("left", (this.x * this.BLOCK - 3) * this.MULT);
-  this.doppelganger.css("bottom", (this.y * this.BLOCK - 1) * this.MULT);
+  this.doppelganger.css("left", (this.x * BLOCK - 3) * MULT);
+  this.doppelganger.css("bottom", (this.y * BLOCK - 1) * MULT);
 }
 
 Mirror.prototype.end = function() {
@@ -61,8 +58,8 @@ Mirror.prototype.createAreaObjects = function() {
   var doppelganger = document.createElement("div");
   $(doppelganger).addClass("npc npc-doppelganger")
                  .css("display", "none")
-                 .css("left", ((8 * this.BLOCK - 3) * this.MULT).toString() + "px")
-                 .css("bottom", ((13 * this.BLOCK - 1) * this.MULT).toString() + "px");
+                 .css("left", ((8 * BLOCK - 3) * MULT).toString() + "px")
+                 .css("bottom", ((13 * BLOCK - 1) * MULT).toString() + "px");
   var avatar = document.createElement("div");
   $(avatar).addClass("avatar")
            .css("background-image", "url(img/characters/adele.svg)");
@@ -79,10 +76,10 @@ Mirror.prototype.createAreaObjects = function() {
   $(mirror).addClass("item")
            .css("display", "block")
            .css("z-index", "4")
-           .css("height", (4 * this.BLOCK * this.MULT).toString() + "px")
-           .css("width", (9 * this.BLOCK * this.MULT).toString() + "px")
-           .css("left", (8 * this.BLOCK * this.MULT).toString() + "px")
-           .css("bottom", (13 * this.BLOCK * this.MULT).toString() + "px");
+           .css("height", (4 * BLOCK * MULT).toString() + "px")
+           .css("width", (9 * BLOCK * MULT).toString() + "px")
+           .css("left", (8 * BLOCK * MULT).toString() + "px")
+           .css("bottom", (13 * BLOCK * MULT).toString() + "px");
   var mirrorImg = document.createElement("img");
   $(mirrorImg).attr("src", "img/items/mirror.svg");
   $(mirror).append(mirrorImg);

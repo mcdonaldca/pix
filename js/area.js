@@ -1,7 +1,4 @@
 function Area(width, height, name, mask) {
-  this.MULT = 4;
-  this.BLOCK = 16;
-
   this.width = width;
   this.height = height;
   this.name = name;
@@ -38,13 +35,13 @@ function Area(width, height, name, mask) {
     
     for (var blockX = 0; blockX < grid.width; blockX++) {
       for (var blockY = 0; blockY < grid.height; blockY++) {
-        var xLeft = blockX * grid.BLOCK;
-        var yTop = blockY * grid.BLOCK;
+        var xLeft = blockX * BLOCK;
+        var yTop = blockY * BLOCK;
 
         var xMid = xLeft + 8;
-        var xRight = xLeft + grid.BLOCK - 1;
+        var xRight = xLeft + BLOCK - 1;
         var yMid = yTop + 8;
-        var yBottom = yTop + grid.BLOCK - 1;
+        var yBottom = yTop + BLOCK - 1;
 
         var lfCheck = (yMid*imageData.width + xLeft) * 4;
         var upCheck = (yTop*imageData.width + xMid) * 4;
@@ -82,10 +79,10 @@ Area.prototype.build = function(removeDivs) {
   var leftOffset = 11 - this.width > 0 ? (11 - this.width) / 2 : 0;
   var bottomOffset = 11 - this.height > 0 ? (11 - this.height) / 2 : 0;
 
-  this.area.css("width", (this.width * this.BLOCK * this.MULT).toString() + "px")
-           .css("height", (this.height * this.BLOCK * this.MULT).toString() + "px")
-           .css("left", (leftOffset * this.BLOCK * this.MULT).toString() + "px")
-           .css("bottom", (bottomOffset * this.BLOCK * this.MULT).toString() + "px");
+  this.area.css("width", (this.width * BLOCK * MULT).toString() + "px")
+           .css("height", (this.height * BLOCK * MULT).toString() + "px")
+           .css("left", (leftOffset * BLOCK * MULT).toString() + "px")
+           .css("bottom", (bottomOffset * BLOCK * MULT).toString() + "px");
 
   for (var i = 0; i < this.areaObjects.length; i++) {
     this.area.append(this.areaObjects[i]);
@@ -120,7 +117,6 @@ Area.prototype.getPositionData = function(areaFrom, door) {
     return this.positionData[key];
   } else if (this.positionData.default != undefined) {
     return this.positionData.default;
-    console.log('defaulted');
   } else {
     return { x: 0, y: 0, face: "up"};
   }
@@ -142,10 +138,10 @@ Area.prototype.addShowZone = function(height, width, item, startCoord, showCoord
 
   var div = document.createElement("div");
   $(div).addClass("item item-" + item)
-        .css("height", (height * this.BLOCK * this.MULT).toString() + "px")
-        .css("width", (width * this.BLOCK * this.MULT).toString() + "px")
-        .css("left", (startCoord[0] * this.BLOCK * this.MULT).toString() + "px")
-        .css("bottom", (startCoord[1] * this.BLOCK * this.MULT).toString() + "px")
+        .css("height", (height * BLOCK * MULT).toString() + "px")
+        .css("width", (width * BLOCK * MULT).toString() + "px")
+        .css("left", (startCoord[0] * BLOCK * MULT).toString() + "px")
+        .css("bottom", (startCoord[1] * BLOCK * MULT).toString() + "px")
 
   var img = document.createElement("img");
   var src = "img/items/" + this.name + "/" + item + ".svg";
@@ -172,8 +168,8 @@ Area.prototype.addNPC = function(x, y, interaction, dir) {
   
   var div = document.createElement("div");
   $(div).addClass("npc npc-" + interaction.name)
-        .css("left", ((x * this.BLOCK - 3) * this.MULT).toString() + "px")
-        .css("bottom", ((y * this.BLOCK - 1) * this.MULT).toString() + "px");
+        .css("left", ((x * BLOCK - 3) * MULT).toString() + "px")
+        .css("bottom", ((y * BLOCK - 1) * MULT).toString() + "px");
   var avatar = document.createElement("div");
   $(avatar).addClass("avatar")
            .css("background-image", "url(img/" + interaction.image + ".svg)");
