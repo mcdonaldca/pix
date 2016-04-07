@@ -163,24 +163,24 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
   }
 }
 
-Area.prototype.addNPC = function(x, y, interaction, dir) {
+Area.prototype.addNPC = function(x, y, npc, dir) {
   dir = dir || [];
   
   var div = document.createElement("div");
-  $(div).addClass("npc npc-" + interaction.name)
+  $(div).addClass("npc npc-" + npc.name)
         .css("left", ((x * BLOCK - 3) * MULT).toString() + "px")
         .css("bottom", ((y * BLOCK - 1) * MULT).toString() + "px");
   var avatar = document.createElement("div");
   $(avatar).addClass("avatar")
-           .css("background-image", "url(img/" + interaction.image + ".svg)");
-  interaction.avatar = new Avatar($(avatar));
+           .css("background-image", "url(img/" + npc.image + ".svg)");
+  npc.avatar = new Avatar($(avatar));
   $(div).append(avatar);
 
-  if (interaction.shadow != undefined) {
+  if (npc.shadow != undefined) {
     var shadow = document.createElement("div");
     $(shadow).addClass("shadow");
     var shadowImg = document.createElement("img");
-    $(shadowImg).attr("src", "img/characters/" + interaction.shadow + ".svg");
+    $(shadowImg).attr("src", "img/characters/" + npc.shadow + ".svg");
 
     $(shadow).append(shadowImg);
     $(div).append(shadow);
@@ -188,7 +188,7 @@ Area.prototype.addNPC = function(x, y, interaction, dir) {
 
   this.areaElements.push(div);
 
-  this.addInteraction(x, y, interaction, dir);
+  this.addInteraction(x, y, npc, dir);
 }
 
 Area.prototype.addEventZone = function(startCoord, endCoord, event) {
