@@ -8,7 +8,7 @@ function Area(width, height, name, mask) {
   this.setPlacementLimits();
   window.sessionStorage.setItem("room", name);
   this.items = [];
-  this.areaObjects = [];
+  this.areaElements = [];
   this.positionData = {};
 
   this.grid = new Array(width);
@@ -84,8 +84,8 @@ Area.prototype.build = function(removeDivs) {
            .css("left", (leftOffset * BLOCK * MULT).toString() + "px")
            .css("bottom", (bottomOffset * BLOCK * MULT).toString() + "px");
 
-  for (var i = 0; i < this.areaObjects.length; i++) {
-    this.area.append(this.areaObjects[i]);
+  for (var i = 0; i < this.areaElements.length; i++) {
+    this.area.append(this.areaElements[i]);
   }
 }
 
@@ -148,7 +148,7 @@ Area.prototype.addShowZone = function(height, width, item, startCoord, showCoord
   $(img).attr("src", src);
   $(div).append(img);
 
-  this.areaObjects.push(div);
+  this.areaElements.push(div);
 
   for (var i = 0; i < showCoords.length; i++) {
     this.space(showCoords[i][0], showCoords[i][1]).setShowZone(item);
@@ -186,7 +186,7 @@ Area.prototype.addNPC = function(x, y, interaction, dir) {
     $(div).append(shadow);
   }
 
-  this.areaObjects.push(div);
+  this.areaElements.push(div);
 
   this.addInteraction(x, y, interaction, dir);
 }
@@ -198,9 +198,9 @@ Area.prototype.addEventZone = function(startCoord, endCoord, event) {
     }
   }
 
-  eventAreaObjects = event.getAreaObjects();
-  for (var i = 0; i < eventAreaObjects.length; i++) {
-    this.areaObjects.push(eventAreaObjects[i]);
+  eventAreaElements = event.getAreaElements();
+  for (var i = 0; i < eventAreaElements.length; i++) {
+    this.areaElements.push(eventAreaElements[i]);
   }
 }
 
