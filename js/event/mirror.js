@@ -1,3 +1,7 @@
+/**
+  The Mirror object is for a mirror event zone. 
+  Manages the copy of the user's avatar.
+**/
 function Mirror() {
   this.x = 0; // Current x coordinate of doppelganger. 
   this.y = 0; // Current y coordinate of doppelganger.
