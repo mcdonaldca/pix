@@ -172,7 +172,7 @@ Area.prototype.addNPC = function(x, y, npc, dir) {
         .css("bottom", ((y * BLOCK - 1) * MULT).toString() + "px");
   var avatar = document.createElement("div");
   $(avatar).addClass("avatar")
-           .css("background-image", "url(img/" + npc.image + ".svg)");
+           .css("background-image", "url(img/" + npc.img + ".svg)");
   npc.avatar = new Avatar($(avatar));
   $(div).append(avatar);
 
