@@ -245,14 +245,14 @@ Game.prototype.showZone = function() {
     item = that.area.space(that.x, that.y).itemToShow();
     for (i = 0; i < that.area.items.length; i++) {
       if (item != that.area.items[i]) {
-        $("." + that.area.items[i]).hide();
+        $(that.area.items[i]).hide();
       }
     }
   }, 350);
 
   currentSpace = this.area.space(this.x, this.y);
   if (currentSpace.isShowZone()) {
-    $("." + currentSpace.itemToShow()).show();
+    $(currentSpace.itemToShow()).show();
   }
 }
 

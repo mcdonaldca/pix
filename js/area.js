@@ -257,9 +257,6 @@ Area.prototype.validZone = function(x, y) {
   @param showCoords Coordinates at which to show the item.
 **/
 Area.prototype.addShowZone = function(width, height, item, startCoord, showCoords) {
-  // Add to item collection.
-  this.items.push("item-" + item);
-
   /* Sample HTML
      <div class="item item-bed">
        <img src="img/items/studio/bed.svg">
@@ -277,12 +274,15 @@ Area.prototype.addShowZone = function(width, height, item, startCoord, showCoord
   $(img).attr("src", src);
   $(div).append(img);
 
+  // Add to item collection.
+  this.items.push(div);
+
   // Add to element collection.
   this.elements.push(div);
 
   // Set necessary spaces as show zones.
   for (var i = 0; i < showCoords.length; i++) {
-    this.space(showCoords[i][0], showCoords[i][1]).setShowZone("item-" + item);
+    this.space(showCoords[i][0], showCoords[i][1]).setShowZone(div);
   }
 }
 
