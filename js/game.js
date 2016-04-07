@@ -21,7 +21,48 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   this.face = startFace;
 
   this.faceDir(this.face);
-  this.moveTo(this.x, this.y, this.face);
+  this.moveToSpace(this.x, this.y, this.face);
+}
+
+Game.prototype.addArea = function (key, area) {
+  this.areas[key] = area;
+}
+
+Game.prototype.moveToArea = function(area) {
+  var from = "";
+  var door = "";
+
+  var new_area = this.areas[area];
+  if (this.area != undefined) {
+    from = this.area.name;
+    window.sessionStorage.setItem("from", this.area.name);
+    console.log(this.area.name);
+    door = window.sessionStorage.getItem("door");
+    new_area.build(this.area.areaObjects);
+  } else {
+    new_area.build();
+  }
+  this.area = new_area;
+  window.sessionStorage.setItem("area", area);
+
+  var position_data = this.area.getPositionData(from, door);
+  window.sessionStorage.removeItem("door");
+  this.x = position_data.x;
+  this.y = position_data.y;
+  this.face = position_data.face;
+  
+  this.faceDir(this.face);
+  this.moveToSpace(this.x, this.y, this.face);
+
+  this.status = "loading";
+  this.game.removeClass("visible");
+  var that = this;
+  window.setTimeout(function() {
+    that.game.addClass("visible");
+  }, 300);
+  window.setTimeout(function() {
+    that.status = "free";
+  }, 800);
 }
 
 Game.prototype.faceDir = function(dir) {
@@ -56,25 +97,25 @@ Game.prototype.faceDir = function(dir) {
 
 Game.prototype.moveLeft = function() {
   this.faceDir("lf");
-  this.moveTo(this.x - 1, this.y, "lf");
+  this.moveToSpace(this.x - 1, this.y, "lf");
 }
 
 Game.prototype.moveUp = function() {
   this.faceDir("up");
-  this.moveTo(this.x, this.y + 1, "up");
+  this.moveToSpace(this.x, this.y + 1, "up");
 }
 
 Game.prototype.moveRight = function() {
   this.faceDir("rt");
-  this.moveTo(this.x + 1, this.y, "rt");
+  this.moveToSpace(this.x + 1, this.y, "rt");
 }
 
 Game.prototype.moveDown = function() {
   this.faceDir("dw");
-  this.moveTo(this.x, this.y - 1, "dw");
+  this.moveToSpace(this.x, this.y - 1, "dw");
 }
 
-Game.prototype.moveTo = function(to_x, to_y, from_dir) {
+Game.prototype.moveToSpace = function(to_x, to_y, from_dir) {
   if (this.area.space(this.x, this.y).hasExitAdjacent(this.face)) {
     if (space.hasExitDoor()) {
       window.sessionStorage.setItem("door", space.door())
@@ -128,47 +169,6 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       this.showZone();
     }
   } 
-}
-
-Game.prototype.addArea = function (key, area) {
-  this.areas[key] = area;
-}
-
-Game.prototype.moveToArea = function(area) {
-  var from = "";
-  var door = "";
-
-  var new_area = this.areas[area];
-  if (this.area != undefined) {
-    from = this.area.name;
-    window.sessionStorage.setItem("from", this.area.name);
-    console.log(this.area.name);
-    door = window.sessionStorage.getItem("door");
-    new_area.build(this.area.areaObjects);
-  } else {
-    new_area.build();
-  }
-  this.area = new_area;
-  window.sessionStorage.setItem("area", area);
-
-  var position_data = this.area.getPositionData(from, door);
-  window.sessionStorage.removeItem("door");
-  this.x = position_data.x;
-  this.y = position_data.y;
-  this.face = position_data.face;
-  
-  this.faceDir(this.face);
-  this.moveTo(this.x, this.y, this.face);
-
-  this.status = "loading";
-  this.game.removeClass("visible");
-  var that = this;
-  window.setTimeout(function() {
-    that.game.addClass("visible");
-  }, 300);
-  window.setTimeout(function() {
-    that.status = "free";
-  }, 800);
 }
 
 Game.prototype.validZone = function(x, y) {
