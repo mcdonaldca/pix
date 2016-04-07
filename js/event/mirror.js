@@ -6,13 +6,13 @@ function Mirror() {
   this.x = 0; // Current x coordinate of doppelganger. 
   this.y = 0; // Current y coordinate of doppelganger.
 
-  // Following variables are set in Mirror.createAreaElements
+  // Following variables are set in Mirror.createElements
   this.mirror = undefined;       // The mirror HTML element.
   this.doppelganger = undefined; // The doppelganger HTML element.
   this.avatar = undefined;       // The doppelganger's avatar HTML element.
 
-  this.areaElements = []; // HTML elements for the functional Mirror.
-  this.createAreaElements();
+  this.elements = []; // HTML elements for the functional Mirror.
+  this.createElements();
 }
 
 /**
@@ -79,17 +79,17 @@ Mirror.prototype.end = function() {
 }
 
 /**
-  Getter for Mirror.areaElements.
+  Getter for Mirror.elements.
   @return Array A list of elements.
 **/
-Mirror.prototype.getAreaElements = function() {
-  return this.areaElements;
+Mirror.prototype.getElements = function() {
+  return this.elements;
 }
 
 /** 
-  Generates the necessary HTML elements & adds them to Mirror.areaElements.
+  Generates the necessary HTML elements & adds them to Mirror.elements.
 **/
-Mirror.prototype.createAreaElements = function() {
+Mirror.prototype.createElements = function() {
   /* Ouput HTML:
       <div class="npc npc-doppelganger">
         <div class="avatar" id="doppelganger"></div>
@@ -114,7 +114,7 @@ Mirror.prototype.createAreaElements = function() {
   $(shadow).append(shadowImg);
   $(doppelganger).append(avatar)
                  .append(shadow);
-  this.areaElements.push(doppelganger);
+  this.elements.push(doppelganger);
 
   /* Output HTML:
       <div id="mirror" class="item">
@@ -133,7 +133,7 @@ Mirror.prototype.createAreaElements = function() {
   var mirrorImg = document.createElement("img");
   $(mirrorImg).attr("src", "img/items/mirror.svg");
   $(mirror).append(mirrorImg);
-  this.areaElements.push(mirror);
+  this.elements.push(mirror);
 
   // Save necessary HTML elements.
   this.mirror = $(mirror);
