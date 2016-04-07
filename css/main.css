@@ -10,7 +10,10 @@ body {
   width: 704px;
   margin: 30px auto 0;
   opacity: 0;
-  transition: opacity .5s; }
+  transition: opacity 0s; }
+  #game.visible {
+    opacity: 1;
+    transition: opacity .5s; }
 
 .area {
   position: absolute;
@@ -124,94 +127,10 @@ body {
 1 : Avatar
 2 :
 3 : NPC
-4 : Mirror (see _apt-1.scss)
+4 : Mirror (see js/event/mirror.js)
 5 : Player
 6 : Item
 7 : Text Prompt
 ***************/
-#studio {
-  left: 32px;
-  bottom: 64px;
-  width: 640px;
-  height: 576px; }
-
-#apt-1 {
-  width: 1792px;
-  height: 1152px; }
-  #apt-1 .gym-doorframe {
-    height: 128px;
-    width: 192px;
-    left: 512px;
-    bottom: 256px; }
-  #apt-1 .gym-wall {
-    height: 128px;
-    width: 576px;
-    left: 512px;
-    bottom: 320px; }
-  #apt-1 .npc-gym-bro {
-    left: 948px;
-    bottom: 572px; }
-    #apt-1 .npc-gym-bro #gym-bro {
-      background-image: url("../img/characters/gym-bro.svg");
-      background-size: 368px 464px;
-      -webkit-animation: run 1s steps(4) infinite;
-      animation: run 1s steps(4) infinite; }
-@-webkit-keyframes run {
-  from {
-    background-position: 0 -116px; }
-  to {
-    background-position: -368px -116px; } }
-@keyframes run {
-  from {
-    background-position: 0 -116px; }
-  to {
-    background-position: -368px -116px; } }
-  #apt-1 .pool-doorframe {
-    height: 128px;
-    width: 192px;
-    left: 1216px;
-    bottom: 256px; }
-  #apt-1 .pool-wall {
-    height: 128px;
-    width: 576px;
-    left: 1216px;
-    bottom: 320px; }
-  #apt-1 .npc-doppelganger {
-    display: none;
-    left: 512px;
-    bottom: 832px; }
-    #apt-1 .npc-doppelganger #doppelganger {
-      background-image: url(../img/characters/adele.svg); }
-  #apt-1 #mirror {
-    display: block;
-    z-index: 4;
-    height: 256px;
-    width: 576px;
-    left: 512px;
-    bottom: 832px; }
-
-#apt-2 {
-  width: 2304px;
-  height: 384px; }
-
-#elevator {
-  left: 224px;
-  bottom: 224px;
-  width: 256px;
-  height: 256px; }
-
-#lobby {
-  width: 640px;
-  height: 448px; }
-  #lobby .npc-holland {
-    left: 372px;
-    bottom: 252px; }
-    #lobby .npc-holland #holland {
-      background-image: url(../img/characters/holland-counter.svg); }
-  #lobby .counter {
-    height: 128px;
-    width: 64px;
-    left: 448px;
-    bottom: 192px; }
 
 /*# sourceMappingURL=main.css.map */

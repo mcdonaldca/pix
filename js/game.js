@@ -1,36 +1,32 @@
-function Game(startX, startY, startFace, grid) {
+function Game() {
   this.MULT = 4; // (current size multiplier of 2)
   this.BLOCK = 16 * this.MULT 
 
   this.game = $("#game");
   this.player = $('#player');
   this.avatar = $('#avatar');
-  this.area = $('.area');
+  this.area_div = $('.area');
+  this.areas = {}
+}
 
+Game.prototype.start = function(startX, startY, startFace, grid) {
+  this.moveToArea(grid);
   this.messager = new Message("");
 
-  this.grid = grid;
+  this.focus = undefined;
+  this.event = undefined;
 
   this.x = startX;
   this.y = startY;
   this.face = startFace;
+
   this.faceDir(this.face);
-
   this.moveTo(this.x, this.y, this.face);
-
-  this.status = "loading";
-  this.focus = undefined;
-  this.event = undefined;
-
-  var that = this;
-  window.setTimeout(function() {
-    that.game.css("opacity", 1);
-    that.status = "free";
-  }, 250);
 }
 
 Game.prototype.faceDir = function(dir) {
   this.face = dir;
+  window.sessionStorage.setItem("face", this.face);
   this.avatar.removeClass();
   switch(dir) {
     case "lf":
@@ -94,6 +90,8 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       this.x = to_x;
       this.y = to_y;
       console.log(this.x, this.y);
+      window.sessionStorage.setItem("x", this.x);
+      window.sessionStorage.setItem("y", this.y);
 
       if (space.hasEvent() && this.event == undefined) {
         this.event = space.event();
@@ -112,24 +110,65 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       this.player.css("bottom", this.y * this.BLOCK - this.MULT);
       
       if (this.x <= 4) {
-        this.area.css("left", this.grid.max_left * this.BLOCK);
+        this.area_div.css("left", this.grid.max_left * this.BLOCK);
       } else if (this.x >= this.grid.width - 5) {
-        this.area.css("left", this.grid.min_left * this.BLOCK);
+        this.area_div.css("left", this.grid.min_left * this.BLOCK);
       } else {
-        this.area.css("left", -1 * (this.x - 5) * this.BLOCK);
+        this.area_div.css("left", -1 * (this.x - 5) * this.BLOCK);
       }
 
       if (this.y <= 4) {
-        this.area.css("bottom", this.grid.max_bottom * this.BLOCK);
+        this.area_div.css("bottom", this.grid.max_bottom * this.BLOCK);
       } else if (this.y >= this.grid.height - 5) {
-        this.area.css("bottom", this.grid.min_bottom * this.BLOCK);
+        this.area_div.css("bottom", this.grid.min_bottom * this.BLOCK);
       } else {
-        this.area.css("bottom", -1 * (this.y - 5) * this.BLOCK);
+        this.area_div.css("bottom", -1 * (this.y - 5) * this.BLOCK);
       }
 
       this.showZone();
     }
   } 
+}
+
+Game.prototype.addArea = function (key, area) {
+  this.areas[key] = area;
+}
+
+Game.prototype.moveToArea = function(area) {
+  var from = "";
+  var door = "";
+
+  var new_grid = this.areas[area];
+  if (this.grid != undefined) {
+    from = this.grid.name;
+    window.sessionStorage.setItem("from", this.grid.name);
+    console.log(this.grid.name);
+    door = window.sessionStorage.getItem("door");
+    new_grid.build(this.grid.areaObjects);
+  } else {
+    new_grid.build();
+  }
+  this.grid = new_grid;
+  window.sessionStorage.setItem("area", area);
+
+  var position_data = this.grid.getPositionData(from, door);
+  window.sessionStorage.removeItem("door");
+  this.x = position_data.x;
+  this.y = position_data.y;
+  this.face = position_data.face;
+  
+  this.faceDir(this.face);
+  this.moveTo(this.x, this.y, this.face);
+
+  this.status = "loading";
+  this.game.removeClass("visible");
+  var that = this;
+  window.setTimeout(function() {
+    that.game.addClass("visible");
+  }, 300);
+  window.setTimeout(function() {
+    that.status = "free";
+  }, 800);
 }
 
 Game.prototype.validZone = function(x, y) {
@@ -211,7 +250,6 @@ Game.prototype.exit = function(exitTo) {
     this.focus = this.messager;
     this.status = this.messager.interact(this.face) || "free";
   } else {
-    window.sessionStorage.setItem("from", this.grid.name);
-    window.location = exitTo + ".html";
+    this.moveToArea(exitTo);
   }
 }

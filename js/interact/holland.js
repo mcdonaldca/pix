@@ -1,6 +1,6 @@
 function Holland() {
   $.extend(this, new NPC("holland"));
-  this.avatar = $("#holland");
+  this.image = "characters/holland-counter";
 
   this.talkedTo = false;
 }

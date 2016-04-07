@@ -1,15 +1,13 @@
-var elevator = new Grid(4, 4, "elevator");
+var elevatorApt2 = new Grid(4, 4, "elevator");
 
-elevator.addInteraction(0, 2, new Elevator(1), ["up"]);
+elevatorApt2.addInteraction(0, 2, new Elevator(1), ["up"]);
 
-elevator.addExit(1, 0, ["dw"], "apt-2", "left");
-elevator.addExit(2, 0, ["dw"], "apt-2", "right");
+elevatorApt2.addExit(1, 0, ["dw"], "apt-2", "left");
+elevatorApt2.addExit(2, 0, ["dw"], "apt-2", "right");
 
-var game = undefined;
-if (window.sessionStorage.getItem("from") == "elevator") {
-  game = new Game(0, 1, "up", elevator);
-} else if (window.sessionStorage.getItem("door") == "left") {
-  game = new Game(1, 0, "up", elevator);
-} else {
-  game = new Game(2, 0, "up", elevator);
-}
+elevatorApt2.addPositionData("elevator", null, 0, 1, "up");
+elevatorApt2.addPositionData("apt-2", "left", 1, 0, "up");
+elevatorApt2.addPositionData("apt-2", "right", 2, 0, "up");
+elevatorApt2.addPositionData("default", null, 2, 0, "up");
+
+game.addArea("elevator-apt-2", elevatorApt2);

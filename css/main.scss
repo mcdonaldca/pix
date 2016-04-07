@@ -16,7 +16,12 @@ body {
   margin: 30px auto 0;
 
   opacity: 0;
+  transition: opacity 0s;
+
+  &.visible {
+    opacity: 1;
   transition: opacity .5s;
+  }
 }
 
 .area {
@@ -184,14 +189,8 @@ body {
 1 : Avatar
 2 :
 3 : NPC
-4 : Mirror (see _apt-1.scss)
+4 : Mirror (see js/event/mirror.js)
 5 : Player
 6 : Item
 7 : Text Prompt
 ***************/
-
-@import "areas/studio";
-@import "areas/apt-1";
-@import "areas/apt-2";
-@import "areas/elevator";
-@import "areas/lobby";

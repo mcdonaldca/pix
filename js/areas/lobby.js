@@ -1,20 +1,16 @@
 var lobby = new Grid(10, 7, "lobby", true);
 
+var holland = new Holland();
+lobby.addNPC(6, 4, holland, ["lf", "up"]);
+lobby.addInteraction(5, 4, holland, ["rt"]);
+
+lobby.addShowZone(2, 1, "counter", [7, 3], [[7, 4]]);
+
 lobby.addExit(2, 4, ["up"], "elevator-lobby", "left");
 lobby.addExit(3, 4, ["up"], "elevator-lobby", "right");
 
-lobby.addShowZone(7, 4, "counter");
+lobby.addPositionData("elevator", "left", 2, 4, "dw");
+lobby.addPositionData("elevator", "right", 3, 4, "dw");
+lobby.addPositionData("default", null, 5, 0, "up");
 
-var holland = new Holland();
-lobby.addInteraction(6, 4, holland, ["lf", "up"]);
-lobby.addInteraction(5, 4, holland, ["rt"]);
-
-if (window.sessionStorage.getItem("from") == "elevator") {
-  if (window.sessionStorage.getItem("door") == "left") {
-    game = new Game(2, 4, "dw", lobby);
-  } else {
-    game = new Game(3, 4, "dw", lobby);
-  }
-} else { // Outside or other
-  game = new Game(5, 0, "up", lobby);
-}
+game.addArea("lobby", lobby);

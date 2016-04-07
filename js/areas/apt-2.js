@@ -14,13 +14,9 @@ apt2.addExit(21, 3, ["up"], "studio");
 apt2.addExit(27, 3, ["up"], "anne-diane");
 apt2.addExit(33, 3, ["up"], "simon-taylor");
 
-var game = undefined;
-if (window.sessionStorage.getItem("from") == "elevator") {
-  if (window.sessionStorage.getItem("door") == "left") {
-    game = new Game(2, 3, "dw", apt2);
-  } else {
-    game = new Game(3, 3, "dw", apt2);
-  }
-} else { // Studio or other
-  game = new Game(21, 3, "dw", apt2);
-}
+apt2.addPositionData("studio", null, 21, 3, "dw");
+apt2.addPositionData("elevator", "left", 2, 3, "dw");
+apt2.addPositionData("elevator", "right", 3, 3, "dw");
+apt2.addPositionData("default", null, 21, 3, "dw");
+
+game.addArea("apt-2", apt2);

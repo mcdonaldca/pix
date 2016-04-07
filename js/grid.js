@@ -11,6 +11,8 @@ function Grid(width, height, name, mask) {
   this.setPlacementLimits();
   window.sessionStorage.setItem("room", name);
   this.items = [];
+  this.areaObjects = [];
+  this.position_data = {};
 
   this.map = new Array(width);
   for (var i = 0; i < width; i++) {
@@ -69,6 +71,28 @@ function Grid(width, height, name, mask) {
   if (mask) { image.src = "img/areas/" + this.name + "_mask.png"; }
 }
 
+Grid.prototype.build = function(removeDivs) {
+  this.area.attr("id", this.name);
+  $(".area-img").attr("src", "img/areas/" + this.name + ".svg");
+
+  removeDivs = removeDivs || [];
+  for (var i = 0; i < removeDivs.length; i++) {
+    $(removeDivs[i]).remove();
+  }
+
+  var left_offset = 11 - this.width > 0 ? (11 - this.width) / 2 : 0;
+  var bottom_offset = 11 - this.height > 0 ? (11 - this.height) / 2 : 0;
+
+  this.area.css("width", (this.width * this.BLOCK * this.MULT).toString() + "px")
+           .css("height", (this.height * this.BLOCK * this.MULT).toString() + "px")
+           .css("left", (left_offset * this.BLOCK * this.MULT).toString() + "px")
+           .css("bottom", (bottom_offset * this.BLOCK * this.MULT).toString() + "px");
+
+  for (var i = 0; i < this.areaObjects.length; i++) {
+    this.area.append(this.areaObjects[i]);
+  }
+}
+
 Grid.prototype.setPlacementLimits = function() {
   this.max_left = this.width < 11 ? (11 - this.width) / 2 : 0;
   this.min_left = 
@@ -77,6 +101,30 @@ Grid.prototype.setPlacementLimits = function() {
   this.max_bottom = this.height < 11 ? (11 - this.height) / 2 : 0;
   this.min_bottom = 
     this.height < 11 ? (11 - this.height) / 2 : -1 * (this.height - 11);
+}
+
+Grid.prototype.addPositionData = function(area_from, door, x, y, face) {
+  var key = area_from;
+  if (door != null && door != "") {
+    key += "-" + door;
+  }
+  this.position_data[key] = { x: x, y: y, face: face};
+}
+
+Grid.prototype.getPositionData = function(area_from, door) {
+  var key = area_from;
+  if (door != null && door != "") {
+    key += "-" + door;
+  }
+
+  if (key in this.position_data) {
+    return this.position_data[key];
+  } else if (this.position_data.default != undefined) {
+    return this.position_data.default;
+    console.log('defaulted');
+  } else {
+    return { x: 0, y: 0, face: "up"};
+  }
 }
 
 Grid.prototype.space = function(x, y) {
@@ -104,7 +152,8 @@ Grid.prototype.addShowZone = function(height, width, item, start_coord, show_coo
   var src = "img/items/" + this.name + "/" + item + ".svg";
   $(img).attr("src", src);
   $(div).append(img);
-  this.area.append(div);
+
+  this.areaObjects.push(div);
 
   for (var i = 0; i < show_coords.length; i++) {
     this.space(show_coords[i][0], show_coords[i][1]).setShowZone(item);
@@ -130,22 +179,34 @@ Grid.prototype.addNPC = function(x, y, interaction, dir) {
   $(avatar).addClass("avatar").attr("id", interaction.name)
            .css("background-image", "url(img/" + interaction.image + ".svg)");
   interaction.avatar = $(avatar);
-
-  var shadow = document.createElement("div");
-  $(shadow).addClass("shadow");
-  var shadow_img = document.createElement("img");
-  $(shadow_img).attr("src", "img/characters/" + interaction.shadow + ".svg");
-
-  $(shadow).append(shadow_img);
   $(div).append(avatar);
-  $(div).append(shadow);
-  this.area.append(div);
+
+  if (interaction.shadow != undefined) {
+    var shadow = document.createElement("div");
+    $(shadow).addClass("shadow");
+    var shadow_img = document.createElement("img");
+    $(shadow_img).attr("src", "img/characters/" + interaction.shadow + ".svg");
+
+    $(shadow).append(shadow_img);
+    $(div).append(shadow);
+  }
+
+  this.areaObjects.push(div);
 
   this.addInteraction(x, y, interaction, dir);
 }
 
-Grid.prototype.addEventZone = function(x, y, event) {
-  this.space(x, y).setEvent(event);
+Grid.prototype.addEventZone = function(start_coord, end_coord, event) {
+  for (var x = start_coord[0]; x < end_coord[0] + 1; x++) {
+    for (var y = start_coord[1]; y < end_coord[1] + 1; y++) {
+      this.space(x, y).setEvent(event);
+    }
+  }
+
+  eventAreaObjects = event.getAreaObjects();
+  for (var i = 0; i < eventAreaObjects.length; i++) {
+    this.areaObjects.push(eventAreaObjects[i]);
+  }
 }
 
 Grid.prototype.addExit = function(x, y, dir, location, door) {

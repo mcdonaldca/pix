@@ -8,14 +8,11 @@
 
 <body>
   <div id="game">
-    <!-- custom id -->
-    <div class="area" id="studio">
-      <!-- custom src -->
-      <img class="area-img" src="img/areas/studio.svg">
+    <div class="area">
+      <img class="area-img">
       <div id="player">
         <div id="avatar"></div>
         <div class="shadow">
-          <!-- custom src -->
           <img src="img/characters/shadow_sm.svg">
         </div>
       </div>
@@ -41,18 +38,45 @@
 
   <script src="js/third-party/jquery-1.12.0.min.js"></script>
 
+  <!-- Building blocks for game. -->
   <script src="js/game.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/space.js"></script>
+  <script> var game = new Game(); </script>
+  <script src="js/keys.js"></script>
 
+  <!-- Interactable objects/characters -->
   <script src="js/interact/npc.js"></script>
   <script src="js/interact/message.js"></script>
+  <script src="js/interact/elevator.js"></script>
   <script src="js/interact/fridge.js"></script>
   <script src="js/interact/sleep_zone.js"></script>
   <script src="js/interact/liam.js"></script>
   <script src="js/interact/remy.js"></script>
+  <script src="js/interact/holland.js"></script>
 
+  <!-- Event objects. -->
+  <script src="js/event/mirror.js"></script>
+
+  <!-- Different game areas. -->
   <script src="js/areas/studio.js"></script>
-  <script src="js/keys.js"></script>
+  <script src="js/areas/lobby.js"></script>
+  <script src="js/areas/apt-1.js"></script>
+  <script src="js/areas/apt-2.js"></script>
+  <script src="js/areas/elevator-lobby.js"></script>
+  <script src="js/areas/elevator-apt-1.js"></script>
+  <script src="js/areas/elevator-apt-2.js"></script>
+
+  <!-- Let the game begin! -->
+  <script>
+    
+    var x = parseInt(window.sessionStorage.getItem("x")),
+        y = parseInt(window.sessionStorage.getItem("y")),
+        face = window.sessionStorage.getItem("face"),
+        area = window.sessionStorage.getItem("area");
+    game.start(x, y, face, area);
+    
+    //game.start(1, 0, "up", "studio");
+  </script>
 </body>
 </html>
