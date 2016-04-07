@@ -27,7 +27,7 @@ NPC.prototype.displayOptions = function(options, mark) {
   this.selectOptions = options;
   var optionsHtml = "";
   for (var i = 0; i < options.length; i ++) {
-    if (mark && i == this.currentSelect) {
+    if (mark && i == this.originalSelect) {
       optionsHtml += "<div class='current-selection'>";
     } else {
       optionsHtml += "<div>";
