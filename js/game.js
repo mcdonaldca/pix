@@ -9,8 +9,8 @@ function Game() {
   this.areas = {}
 }
 
-Game.prototype.start = function(startX, startY, startFace, grid) {
-  this.moveToArea(grid);
+Game.prototype.start = function(startX, startY, startFace, area) {
+  this.moveToArea(area);
   this.messager = new Message("");
 
   this.focus = undefined;
@@ -75,16 +75,16 @@ Game.prototype.moveDown = function() {
 }
 
 Game.prototype.moveTo = function(to_x, to_y, from_dir) {
-  if (this.grid.space(this.x, this.y).hasExitAdjacent(this.face)) {
+  if (this.area.space(this.x, this.y).hasExitAdjacent(this.face)) {
     if (space.hasExitDoor()) {
       window.sessionStorage.setItem("door", space.door())
     }
-    this.exit(this.grid.space(this.x, this.y).exitTo());
+    this.exit(this.area.space(this.x, this.y).exitTo());
     return;
   }
 
   if (this.validZone(to_x, to_y)) {
-    space = this.grid.map[to_x][to_y];
+    space = this.area.grid[to_x][to_y];
 
     if (!space.isBlocked(from_dir)) {
       this.x = to_x;
@@ -110,17 +110,17 @@ Game.prototype.moveTo = function(to_x, to_y, from_dir) {
       this.player.css("bottom", this.y * this.BLOCK - this.MULT);
       
       if (this.x <= 4) {
-        this.area_div.css("left", this.grid.max_left * this.BLOCK);
-      } else if (this.x >= this.grid.width - 5) {
-        this.area_div.css("left", this.grid.min_left * this.BLOCK);
+        this.area_div.css("left", this.area.max_left * this.BLOCK);
+      } else if (this.x >= this.area.width - 5) {
+        this.area_div.css("left", this.area.min_left * this.BLOCK);
       } else {
         this.area_div.css("left", -1 * (this.x - 5) * this.BLOCK);
       }
 
       if (this.y <= 4) {
-        this.area_div.css("bottom", this.grid.max_bottom * this.BLOCK);
-      } else if (this.y >= this.grid.height - 5) {
-        this.area_div.css("bottom", this.grid.min_bottom * this.BLOCK);
+        this.area_div.css("bottom", this.area.max_bottom * this.BLOCK);
+      } else if (this.y >= this.area.height - 5) {
+        this.area_div.css("bottom", this.area.min_bottom * this.BLOCK);
       } else {
         this.area_div.css("bottom", -1 * (this.y - 5) * this.BLOCK);
       }
@@ -138,20 +138,20 @@ Game.prototype.moveToArea = function(area) {
   var from = "";
   var door = "";
 
-  var new_grid = this.areas[area];
-  if (this.grid != undefined) {
-    from = this.grid.name;
-    window.sessionStorage.setItem("from", this.grid.name);
-    console.log(this.grid.name);
+  var new_area = this.areas[area];
+  if (this.area != undefined) {
+    from = this.area.name;
+    window.sessionStorage.setItem("from", this.area.name);
+    console.log(this.area.name);
     door = window.sessionStorage.getItem("door");
-    new_grid.build(this.grid.areaObjects);
+    new_area.build(this.area.areaObjects);
   } else {
-    new_grid.build();
+    new_area.build();
   }
-  this.grid = new_grid;
+  this.area = new_area;
   window.sessionStorage.setItem("area", area);
 
-  var position_data = this.grid.getPositionData(from, door);
+  var position_data = this.area.getPositionData(from, door);
   window.sessionStorage.removeItem("door");
   this.x = position_data.x;
   this.y = position_data.y;
@@ -173,23 +173,23 @@ Game.prototype.moveToArea = function(area) {
 
 Game.prototype.validZone = function(x, y) {
   return x >= 0 
-    && x <= this.grid.width - 1 
+    && x <= this.area.width - 1 
     && y >= 0 
-    && y <= this.grid.height - 3;
+    && y <= this.area.height - 3;
 }
 
 Game.prototype.showZone = function() {
   var that = this;
   window.setTimeout(function() {
-    item = that.grid.map[that.x][that.y].itemToShow();
-    for (i = 0; i < that.grid.items.length; i++) {
-      if (item != that.grid.items[i]) {
-        $("." + that.grid.items[i]).hide();
+    item = that.area.grid[that.x][that.y].itemToShow();
+    for (i = 0; i < that.area.items.length; i++) {
+      if (item != that.area.items[i]) {
+        $("." + that.area.items[i]).hide();
       }
     }
   }, 350);
 
-  current_space = this.grid.map[this.x][this.y];
+  current_space = this.area.grid[this.x][this.y];
   if (current_space.isShowZone()) {
     $("." + current_space.itemToShow()).show();
   }
@@ -198,14 +198,14 @@ Game.prototype.showZone = function() {
 Game.prototype.interact = function() {
   switch(game.status) {
     case "free":
-      current_space = this.grid.space(this.x, this.y);
+      current_space = this.area.space(this.x, this.y);
 
       face_x = this.face == "lf" ? this.x - 1 : this.x;
       face_x = this.face == "rt" ? this.x + 1 : face_x;
       face_y = this.face == "up" ? this.y + 1 : this.y;
       face_y = this.face == "dw" ? this.y - 1 : face_y;
 
-      face_space = this.grid.space(face_x, face_y);
+      face_space = this.area.space(face_x, face_y);
       if (current_space.isInteractZone()) {
         this.focus = current_space.interaction();
         this.status = current_space.interaction().interact(this.face) || "free";

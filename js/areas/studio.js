@@ -1,4 +1,4 @@
-var studio = new Grid(10, 9, "studio", true);
+var studio = new Area(10, 9, "studio", true);
 
 studio.addNPC(6, 2, new Liam(), ["rt", "up"]);
 studio.addNPC(8, 4, new Remy(), ["lf", "up", "rt", "dw"]);

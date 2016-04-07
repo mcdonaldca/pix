@@ -1,4 +1,4 @@
-function Grid(width, height, name, mask) {
+function Area(width, height, name, mask) {
   this.MULT = 4;
   this.BLOCK = 16;
 
@@ -14,11 +14,11 @@ function Grid(width, height, name, mask) {
   this.areaObjects = [];
   this.position_data = {};
 
-  this.map = new Array(width);
+  this.grid = new Array(width);
   for (var i = 0; i < width; i++) {
-    this.map[i] = new Array(height);
+    this.grid[i] = new Array(height);
     for (var n = 0; n < height; n++) {
-      this.map[i][n] = new Space();
+      this.grid[i][n] = new Space();
     }
   }
 
@@ -71,7 +71,7 @@ function Grid(width, height, name, mask) {
   if (mask) { image.src = "img/areas/" + this.name + "_mask.png"; }
 }
 
-Grid.prototype.build = function(removeDivs) {
+Area.prototype.build = function(removeDivs) {
   this.area.attr("id", this.name);
   $(".area-img").attr("src", "img/areas/" + this.name + ".svg");
 
@@ -93,7 +93,7 @@ Grid.prototype.build = function(removeDivs) {
   }
 }
 
-Grid.prototype.setPlacementLimits = function() {
+Area.prototype.setPlacementLimits = function() {
   this.max_left = this.width < 11 ? (11 - this.width) / 2 : 0;
   this.min_left = 
     this.width < 11 ? (11 - this.width) / 2 : -1 * (this.width - 11);
@@ -103,7 +103,7 @@ Grid.prototype.setPlacementLimits = function() {
     this.height < 11 ? (11 - this.height) / 2 : -1 * (this.height - 11);
 }
 
-Grid.prototype.addPositionData = function(area_from, door, x, y, face) {
+Area.prototype.addPositionData = function(area_from, door, x, y, face) {
   var key = area_from;
   if (door != null && door != "") {
     key += "-" + door;
@@ -111,7 +111,7 @@ Grid.prototype.addPositionData = function(area_from, door, x, y, face) {
   this.position_data[key] = { x: x, y: y, face: face};
 }
 
-Grid.prototype.getPositionData = function(area_from, door) {
+Area.prototype.getPositionData = function(area_from, door) {
   var key = area_from;
   if (door != null && door != "") {
     key += "-" + door;
@@ -127,18 +127,18 @@ Grid.prototype.getPositionData = function(area_from, door) {
   }
 }
 
-Grid.prototype.space = function(x, y) {
-  return this.validZone(x,y) ? this.map[x][y] : undefined;
+Area.prototype.space = function(x, y) {
+  return this.validZone(x,y) ? this.grid[x][y] : undefined;
 }
 
-Grid.prototype.validZone = function(x, y) {
+Area.prototype.validZone = function(x, y) {
   return x >= 0 
     && x <= this.width -1 
     && y >= 0 
     && y <= this.height - 1;
 }
 
-Grid.prototype.addShowZone = function(height, width, item, start_coord, show_coords) {
+Area.prototype.addShowZone = function(height, width, item, start_coord, show_coords) {
   this.items.push("item-" + item);
 
   var div = document.createElement("div");
@@ -160,7 +160,7 @@ Grid.prototype.addShowZone = function(height, width, item, start_coord, show_coo
   }
 }
 
-Grid.prototype.addInteraction = function(x, y, interaction, dir) {
+Area.prototype.addInteraction = function(x, y, interaction, dir) {
   dir = dir || [];
   this.space(x, y).setInteractionZone(interaction)
   if (dir.length > 0) {
@@ -168,7 +168,7 @@ Grid.prototype.addInteraction = function(x, y, interaction, dir) {
   }
 }
 
-Grid.prototype.addNPC = function(x, y, interaction, dir) {
+Area.prototype.addNPC = function(x, y, interaction, dir) {
   dir = dir || [];
   
   var div = document.createElement("div");
@@ -196,7 +196,7 @@ Grid.prototype.addNPC = function(x, y, interaction, dir) {
   this.addInteraction(x, y, interaction, dir);
 }
 
-Grid.prototype.addEventZone = function(start_coord, end_coord, event) {
+Area.prototype.addEventZone = function(start_coord, end_coord, event) {
   for (var x = start_coord[0]; x < end_coord[0] + 1; x++) {
     for (var y = start_coord[1]; y < end_coord[1] + 1; y++) {
       this.space(x, y).setEvent(event);
@@ -209,7 +209,7 @@ Grid.prototype.addEventZone = function(start_coord, end_coord, event) {
   }
 }
 
-Grid.prototype.addExit = function(x, y, dir, location, door) {
+Area.prototype.addExit = function(x, y, dir, location, door) {
   door = door || ""
   this.space(x, y).setExit(dir, location);
   if (door != "") {

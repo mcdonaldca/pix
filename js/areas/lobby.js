@@ -1,4 +1,4 @@
-var lobby = new Grid(10, 7, "lobby", true);
+var lobby = new Area(10, 7, "lobby", true);
 
 var holland = new Holland();
 lobby.addNPC(6, 4, holland, ["lf", "up"]);

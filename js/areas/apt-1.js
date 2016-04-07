@@ -1,4 +1,4 @@
-var apt1 = new Grid(28, 18, "apt-1", true);
+var apt1 = new Area(28, 18, "apt-1", true);
 
 apt1.addEventZone([8, 10], [16, 12], new Mirror());
 

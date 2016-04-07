@@ -1,4 +1,4 @@
-var elevatorApt1 = new Grid(4, 4, "elevator");
+var elevatorApt1 = new Area(4, 4, "elevator");
 
 elevatorApt1.addInteraction(0, 2, new Elevator(2), ["up"]);
 
