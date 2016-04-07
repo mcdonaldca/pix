@@ -1,5 +1,5 @@
 function Message(message) {
-  $.extend(this, new NPC(""));
+  $.extend(this, new Interactable());
   this.message = message;
 }
 

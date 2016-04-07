@@ -1,6 +1,7 @@
 function Elevator(currentSelect) {
+  $.extend(this, new Interactable())
+  
   currentSelect = currentSelect || 0;
-  $.extend(this, new NPC(""))
   this.originalSelect = currentSelect;
   this.currentSelect = currentSelect;
   this.floorOptions = [

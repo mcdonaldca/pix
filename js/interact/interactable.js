@@ -1,6 +1,4 @@
-function NPC(name) {
-  this.MULT = 4;
-  this.name = name;
+function Interactable() {
   this.count = 0;
 
   this.messages = $(".messages");
@@ -15,14 +13,11 @@ function NPC(name) {
   this.selectOptions = [];
 }
 
-NPC.prototype.displayMessage = function(message) {
-  if (this.name != "") {
-    message = this.name.toUpperCase() + ": " + message;
-  }
+Interactable.prototype.displayMessage = function(message) {
   this.messageContent.html(message);
 }
 
-NPC.prototype.displayOptions = function(options, mark) {
+Interactable.prototype.displayOptions = function(options, mark) {
   mark = mark || false;
   this.selectOptions = options;
   var optionsHtml = "";
@@ -38,20 +33,20 @@ NPC.prototype.displayOptions = function(options, mark) {
   this.optionsContent.html(optionsHtml);
 }
 
-NPC.prototype.arrowUp = function() {
+Interactable.prototype.arrowUp = function() {
   if (this.currentSelect > 0) {
     this.currentSelect -= 1;
     this.setSelectArrow();
   }
 }
 
-NPC.prototype.arrowDown = function() {
+Interactable.prototype.arrowDown = function() {
   if (this.currentSelect < this.selectOptions.length - 1) {
     this.currentSelect += 1;
     this.setSelectArrow();
   }
 }
 
-NPC.prototype.setSelectArrow = function() {
-  this.selectArrow.css("top", (4 + 10 * this.currentSelect) * this.MULT);
+Interactable.prototype.setSelectArrow = function() {
+  this.selectArrow.css("top", (4 + 10 * this.currentSelect) * MULT);
 }

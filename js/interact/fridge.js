@@ -1,5 +1,5 @@
 function Fridge() {
-  $.extend(this, new NPC(""));
+  $.extend(this, new Interactable());
 }
 
 Fridge.prototype.interact = function(dir) {

@@ -1,5 +1,5 @@
 function SleepZone() {
-  $.extend(this, new NPC(""));
+  $.extend(this, new Interactable());
 }
 
 SleepZone.prototype.interact = function(dir) {
