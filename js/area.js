@@ -318,14 +318,11 @@ Area.prototype.addNPC = function(x, y, npc, dir) {
      </div>
   */
   var div = document.createElement("div");
-  $(div).addClass("npc npc-" + npc.name)
-        .css("left", ((x * BLOCK - 3) * MULT).toString() + "px")
-        .css("bottom", ((y * BLOCK - 1) * MULT).toString() + "px");
-  var avatar = document.createElement("div");
-  $(avatar).addClass("avatar")
+  $(div).addClass("npc npc-" + npc.name);
+  var sprite = document.createElement("div");
+  $(sprite).addClass("sprite")
            .css("background-image", "url(img/" + npc.img + ".svg)");
-  npc.avatar = new Avatar($(avatar));
-  $(div).append(avatar);
+  $(div).append(sprite);
 
   // Some NPCs don't have shadows.
   if (npc.shadow != undefined) {
@@ -337,6 +334,10 @@ Area.prototype.addNPC = function(x, y, npc, dir) {
     $(shadow).append(shadowImg);
     $(div).append(shadow);
   }
+
+  npc.avatar = new Avatar($(div), $(sprite));
+  npc.avatar.setLeft(x);
+  npc.avatar.setBottom(y);
 
   // Add to element collection.
   this.elements.push(div);

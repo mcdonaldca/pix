@@ -8,8 +8,7 @@ function Mirror() {
 
   // Following variables are set in Mirror.createElements
   this.mirror = undefined;       // The mirror HTML element.
-  this.doppelganger = undefined; // The doppelganger HTML element.
-  this.avatar = undefined;       // The doppelganger's avatar HTML element.
+  this.avatar = undefined;       // The doppelganger Avatar.
 
   this.elements = []; // HTML elements for the functional Mirror.
   this.createElements();
@@ -24,7 +23,7 @@ function Mirror() {
 Mirror.prototype.begin = function(x, y, dir) {
   this.fireFace(dir);
   this.fireMove(x, y);
-  this.doppelganger.show();
+  this.avatar.show();
 }
 
 /**
@@ -67,15 +66,15 @@ Mirror.prototype.fireMove = function(x, y) {
   else if (y == 11) { this.y = 14; }
   else { this.y = 13 ;}
 
-  this.doppelganger.css("left", (this.x * BLOCK - 3) * MULT);
-  this.doppelganger.css("bottom", (this.y * BLOCK - 1) * MULT);
+  this.avatar.setLeft(this.x);
+  this.avatar.setBottom(this.y);
 }
 
 /**
   Called when the mirror event should end (when event zone exited).
 **/
 Mirror.prototype.end = function() {
-  this.doppelganger.hide();
+  this.avatar.hide();
 }
 
 /**
@@ -100,19 +99,16 @@ Mirror.prototype.createElements = function() {
   */
 
   var doppelganger = document.createElement("div");
-  $(doppelganger).addClass("npc npc-doppelganger")
-                 .css("display", "none")
-                 .css("left", ((8 * BLOCK - 3) * MULT).toString() + "px")
-                 .css("bottom", ((13 * BLOCK - 1) * MULT).toString() + "px");
-  var avatar = document.createElement("div");
-  $(avatar).addClass("avatar")
+  $(doppelganger).addClass("npc npc-doppelganger");
+  var sprite = document.createElement("div");
+  $(sprite).addClass("sprite")
            .css("background-image", "url(img/characters/adele.svg)");
   var shadow = document.createElement("div");
   $(shadow).addClass("shadow");
   var shadowImg = document.createElement("img");
   $(shadowImg).attr("src", "img/characters/shadow_sm.svg");
   $(shadow).append(shadowImg);
-  $(doppelganger).append(avatar)
+  $(doppelganger).append(sprite)
                  .append(shadow);
   this.elements.push(doppelganger);
 
@@ -137,6 +133,8 @@ Mirror.prototype.createElements = function() {
 
   // Save necessary HTML elements.
   this.mirror = $(mirror);
-  this.doppelganger = $(doppelganger);
-  this.avatar = new Avatar($(avatar));
+  this.avatar = new Avatar($(doppelganger), $(sprite));
+  this.avatar.hide();
+  this.avatar.setLeft(8);
+  this.avatar.setBottom(13);
 }
