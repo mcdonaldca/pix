@@ -2,24 +2,21 @@
 <!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
-<path fill="#00AF9D" d="M20,20h23v1H20V20z"/>
-<path fill="#004D44" d="M16,21h1v1h-1V21z"/>
-<path fill="#00AF9D" d="M17,21h3v1h-3V21z"/>
-<path fill="#00C5B4" d="M20,21h23v1h2v3h-2v-1H20v1h-3v-3h3V21z"/>
-<path fill="#00AF9D" d="M43,21h2v1h-2V21z"/>
-<path fill="#004D44" d="M45,21h2v1h-2V21z"/>
-<path fill="#004D44" d="M15,22h1v1h-1V22z"/>
-<path fill="#00AF9D" d="M16,22h1v3h-1v1h-1v-3h1V22z"/>
-<path fill="#00AF9D" d="M45,22h2v3h-2V22z"/>
-<path fill="#004D44" d="M47,22h1v5h-1V22z"/>
-<path fill="#004D44" d="M14,23h1v5h-1V23z"/>
-<path fill="#EEEEEE" d="M20,24h23v1h2v2h-1v2H19v-2h-1v-2h2V24z"/>
-<path fill="#CDCDCD" d="M16,25h2v2h1v2h25v-2h1v-2h2v7h-1v2H17v-2h-1v-2h-1v-4h1V25z"/>
-<path fill="#303030" d="M47,27h1v8h-1V27z"/>
-<path fill="#303030" d="M14,28h1v7h-1V28z"/>
-<path fill="#AEAEAE" d="M15,30h1v2h1v2h29v-2h1v3h-1v1H16v-1h-1V30z"/>
-<path fill="#303030" d="M15,35h1v1h-1V35z"/>
-<path fill="#303030" d="M46,35h1v1h-1V35z"/>
-<path fill="#303030" d="M16,36h30v1H16V36z"/>
+	 width="48px" height="16px" viewBox="0 0 48 16" enable-background="new 0 0 48 16" xml:space="preserve">
+<path fill="#00AF9D" d="M20,4h23v1H20V4z"/>
+<path fill="#004D44" d="M16,5h1v1h-1V5z"/>
+<path fill="#00AF9D" d="M17,5h3v1h-3V5z"/>
+<path fill="#00C5B4" d="M20,5h23v1h2v3h-2V8H20v1h-3V6h3V5z"/>
+<path fill="#00AF9D" d="M43,5h2v1h-2V5z"/>
+<path fill="#004D44" d="M45,5h2v1h-2V5z"/>
+<path fill="#004D44" d="M15,6h1v1h-1V6z"/>
+<path fill="#00AF9D" d="M16,6h1v3h-1v1h-1V7h1V6z"/>
+<path fill="#00AF9D" d="M45,6h2v3h-2V6z"/>
+<path fill="#004D44" d="M47,6h1v5h-1V6z"/>
+<path fill="#004D44" d="M14,7h1v5h-1V7z"/>
+<path fill="#EEEEEE" d="M20,8h23v1h2v2h-1v2H19v-2h-1V9h2V8z"/>
+<path fill="#CDCDCD" d="M16,9h2v2h1v2h25v-2h1V9h2v7H16v-2h-1v-4h1V9z"/>
+<path fill="#303030" d="M47,11h1v5h-1V11z"/>
+<path fill="#303030" d="M14,12h1v4h-1V12z"/>
+<path fill="#AEAEAE" d="M15,14h1v2h-1V14z"/>
 </svg>

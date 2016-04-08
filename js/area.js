@@ -19,7 +19,6 @@ function Area(width, height, name, mask) {
   this.minBottom = undefined; // Smallest bottom position (in blocks) area should go.
   this.setPlacementLimits();
 
-  this.items = [];        // Collection of show zone items.
   this.NPCs = [];         // Collection of NPCs in area.
   this.elements = [];     // HTML elements added to area.
   this.positionData = {}; // Player positioning based on entrances from other areas.
@@ -250,37 +249,29 @@ Area.prototype.validZone = function(x, y) {
 }
 
 /**
-  Adds new show zones to an area.
-  @param width      Width of the item to show.
-  @param height     Height of the item to show.
+  Adds new items to an area.
+  @param width      Width of the item.
   @param item       The name of the item.
   @param startCoord Starting coordinate to place item at.
-  @param showCoords Coordinates at which to show the item.
+  @param extra      Any extra z-index padding (allows for fine-tuning).
 **/
-Area.prototype.addShowZone = function(width, height, item, startCoord, showCoords) {
+Area.prototype.addItem = function(width, item, startCoord, extra) {
+  // Extra z-index padding.
+  extra = extra || 0;
   /* Sample HTML
-     <div class="item item-bed">
-       <img src="img/items/studio/bed.svg">
-     </div>
+     <div class="item item-bed"></div>
   */
   var div = document.createElement("div");
   $(div).addClass("item item-" + item)
         .css("width", (width * BLOCK * MULT).toString() + "px")
-        .css("height", (height * BLOCK * MULT).toString() + "px")
+        .css("height", (BLOCK * MULT).toString() + "px")
         .css("left", (startCoord[0] * BLOCK * MULT).toString() + "px")
         .css("bottom", (startCoord[1] * BLOCK * MULT).toString() + "px")
+        .css("z-index", (this.height - startCoord[1]) * 10 + 5 + extra)
         .css("background-image", "url(img/items/" + this.name + "/" + item + ".svg)");
-
-  // Add to item collection.
-  this.items.push(div);
 
   // Add to element collection.
   this.elements.push(div);
-
-  // Set necessary spaces as show zones.
-  for (var i = 0; i < showCoords.length; i++) {
-    this.space(showCoords[i][0], showCoords[i][1]).setShowZone(div);
-  }
 }
 
 /**
@@ -329,7 +320,7 @@ Area.prototype.addNPC = function(x, y, npc, dir) {
 
   npc.avatar = new Avatar($(div), $(sprite));
   npc.avatar.setLeft(x);
-  npc.avatar.setBottom(y);
+  npc.avatar.setBottom(y, this.height);
 
   // Add to NPC collection.
   this.NPCs.push(npc);

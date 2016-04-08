@@ -24,7 +24,6 @@ body {
     height: 100%; }
   .area #avatar {
     position: absolute;
-    z-index: 5;
     width: 92px;
     height: 116px;
     transition: left 0.15s linear, bottom 0.15s linear;
@@ -98,7 +97,6 @@ body {
     background-size: 100%; }
   .area .npc {
     position: absolute;
-    z-index: 3;
     width: 92px;
     height: 116px;
     transition: left 0.15s linear, bottom 0.15s linear; }
@@ -111,13 +109,11 @@ body {
       background-size: 368px 464px; }
   .area .item {
     position: absolute;
-    z-index: 6;
-    display: none;
     background-size: 100%; }
 
 .prompt {
   position: absolute;
-  z-index: 7;
+  z-index: 1000;
   bottom: 0;
   left: 0; }
   .prompt .messages,
@@ -173,13 +169,11 @@ body {
     Z-INDEX
 ----------------
 0 : Shadow
-1 : Avatar
-2 :
-3 : NPC
-4 : Mirror (see js/event/mirror.js)
-5 : Player
-6 : Item
-7 : Text Prompt
+1 : Sprite
+3 : Mirror (see js/event/mirror.js)
+10x : Avatar, NPC (z-index changes based on y coord).
+10x + 5 : Item
+1000 : Text Prompt
 ***************/
 
 /*# sourceMappingURL=main.css.map */

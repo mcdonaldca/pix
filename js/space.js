@@ -1,12 +1,11 @@
 /**
   The Space object holds all information about a particular space in the game.
-  ex. blocked directions, whether it's a show, interaction, or event zone, etc.
+  ex. blocked directions, whether it's an interaction, or event zone, etc.
 **/
 function Space() {
   // Variables initialized through setters.
   this.blocked = undefined;     // The directions the space is blocked from.
   this.occupied = undefined;    // The NPC the space is occupied by.
-  this.show = undefined;        // The item if the space is a ShowZone.
   this.interaction = undefined; // The Interactable object for the space.
   this.interactDir = undefined; // The directions from which the space can interact.
   this.event = undefined;       // The Event object for the space.
@@ -77,34 +76,6 @@ Space.prototype.isOccupied = function() {
 **/
 Space.prototype.getOccupant = function() {
   return this.occupied;
-}
-
-
-
-
-
-/**
-  Setter for Space.show
-  @param item The item for the ShowZone.
-**/
-Space.prototype.setShowZone = function(item) {
-  this.show = item;
-}
-
-/**
-  Returns true if the space is a ShowZone.
-  @return Boolean
-**/
-Space.prototype.isShowZone = function() {
-  return this.show != undefined;
-}
-
-/** 
-  Getter for Space.show.
-  @return The classname for the object.
-**/
-Space.prototype.itemToShow = function() {
-  return this.isShowZone() ? this.show : "";
 }
 
 

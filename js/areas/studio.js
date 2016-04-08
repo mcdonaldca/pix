@@ -3,11 +3,11 @@ var studio = new Area(10, 9, "studio", true);
 studio.addNPC(6, 2, new Liam(), ["rt", "up"]);
 studio.addNPC(8, 4, new Vio(), ["lf", "up", "rt", "dw"]);
 
-studio.addShowZone(3, 3, "bed",        [7, 5], [[8, 6], [9, 6]]);
-studio.addShowZone(2, 2, "counter",    [2, 4], [[2, 5], [3, 5]]);
-studio.addShowZone(4, 3, "couch",      [4, 1], [[4, 3], [5, 3], [6, 3], [7, 3]]);
-studio.addShowZone(2, 2, "tv",         [5, 0], [[5, 1], [6, 1]]);
-studio.addShowZone(1, 2, "houseplant", [9, 0], [[9, 1]]);
+studio.addItem(3, "bed",        [7, 6]);
+studio.addItem(2, "counter",    [2, 5]);
+studio.addItem(4, "couch",      [4, 3]);
+studio.addItem(2, "tv",         [5, 1]);
+studio.addItem(1, "houseplant", [9, 1]);
 
 studio.addInteraction(0, 7, new Fridge(), ["up"]);
 studio.addInteraction(1, 7, new Fridge(), ["up"]);

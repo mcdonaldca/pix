@@ -117,14 +117,14 @@ Mirror.prototype.createElements = function() {
   */
 
   var mirror = document.createElement("div");
-  $(mirror).addClass("item")
+  $(mirror).addClass("item item-mirror")
            .css("display", "block")
-           .css("z-index", "4")
+           .css("z-index", "3")
            .css("height", (4 * BLOCK * MULT).toString() + "px")
-           .css("width", (9 * BLOCK * MULT).toString() + "px")
-           .css("left", (8 * BLOCK * MULT).toString() + "px")
+           .css("width", (11 * BLOCK * MULT).toString() + "px")
+           .css("left", (7 * BLOCK * MULT).toString() + "px")
            .css("bottom", (13 * BLOCK * MULT).toString() + "px")
-           .css("background-image", "url(img/items/mirror.svg)");
+           .css("background-image", "url(img/items/apt-1/mirror.svg)");
   this.elements.push(mirror);
 
   // Save necessary HTML elements.

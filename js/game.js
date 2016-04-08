@@ -163,7 +163,7 @@ Game.prototype.moveDown = function() {
 }
 
 /**
-  Moves player to a new space if it's valid. Activates show zones, event zones, etc.
+  Moves player to a new space if it's valid. Activates event zones, etc.
   @param toX     The proposed x coordinate.
   @param toY     The proposed y coordinate.
   @param fromDir Direction traveling from.
@@ -211,11 +211,9 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
 
       // Set the player's new position.
       this.avatar.setLeft(this.x);
-      this.avatar.setBottom(this.y);
+      this.avatar.setBottom(this.y, this.area.height);
       
       this.area.updateAreaPosition(this.x, this.y);
-
-      this.showZone();
     }
   } 
 }
@@ -230,29 +228,6 @@ Game.prototype.validZone = function(x, y) {
       && x <= this.area.width - 1
       && y >= 0
       && y <= this.area.height - 3;
-}
-
-/**
-  Handles all things related to show zones.
-**/
-Game.prototype.showZone = function() {
-  // Hide all items except the current item (if it exists).
-  // To be honest I can't 100% remember my logic here.
-  // Should likely be refactored. Layers are hard.
-  var that = this;
-  window.setTimeout(function() {
-    item = that.area.space(that.x, that.y).itemToShow();
-    for (i = 0; i < that.area.items.length; i++) {
-      if (item != that.area.items[i]) {
-        $(that.area.items[i]).hide();
-      }
-    }
-  }, 350);
-
-  currentSpace = this.area.space(this.x, this.y);
-  if (currentSpace.isShowZone()) {
-    $(currentSpace.itemToShow()).show();
-  }
 }
 
 /**

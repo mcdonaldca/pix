@@ -37,11 +37,17 @@ Avatar.prototype.setLeft = function(x) {
 }
 
 /**
-  Sets the left value for the avatar.
-  @param y The bottom offset in blocks.
+  Sets the left value and z-index for the avatar.
+  @param y          The bottom offset in blocks.
+  @param areaHeight The height of the current area. (Optional, used to set z-index.)
 **/
-Avatar.prototype.setBottom = function(y) {
+Avatar.prototype.setBottom = function(y, areaHeight) {
   this.avatarEl.css("bottom", ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + "px");
+
+  areaHeight = areaHeight || "";
+  if (areaHeight != "") {
+    this.avatarEl.css("z-index", (areaHeight - y) * 10);
+  }
 }
 
 /**
