@@ -112,3 +112,11 @@ Avatar.prototype.stopWalking = function() {
   this.spriteEl.removeClass();
   this.spriteEl.addClass("sprite");
 }
+
+/**
+  Easter egg to become a cat.
+**/
+Avatar.prototype.becomeCat = function() {
+  console.log("cat")
+  this.spriteEl.css("background-image", "url(img/pets/white-cat.svg)");
+}
