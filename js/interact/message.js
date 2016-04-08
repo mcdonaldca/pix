@@ -4,10 +4,7 @@
 **/
 function Message(content) {
   $.extend(this, new Interactable());
-  if (typeof content == "string") {
-    content = [content];
-  }
-  this.content = content || [];
+  this.setMessage(content);
 }
 
 /**
@@ -46,5 +43,8 @@ Message.prototype.interact = function(dir) {
   @param content The new message string.
 **/
 Message.prototype.setMessage = function(content) {
-  this.content = content;
+  if (typeof content == "string") {
+    content = [content];
+  }
+  this.content = content || [];
 }
