@@ -12,6 +12,8 @@ function Avatar(avatar, sprite) {
   this.SPRITE_HEIGHT = 29;
   this.X_OFFSET = 3;
   this.Y_OFFSET = 1;
+
+  this.isCat = false; // Is the sprite a cat.
 }
 
 /**
@@ -114,9 +116,12 @@ Avatar.prototype.stopWalking = function() {
 }
 
 /**
-  Easter egg to become a cat.
+  Easter egg to become a cat (or reverse).
 **/
 Avatar.prototype.becomeCat = function() {
-  console.log("cat")
-  this.spriteEl.css("background-image", "url(img/pets/white-cat.svg)");
+  this.spriteEl.css(
+    "background-image", 
+    this.isCat ? "url(img/characters/adele.svg)" : "url(img/pets/black-cat.svg)"
+    );
+  this.isCat = !this.isCat;
 }
