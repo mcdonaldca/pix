@@ -60,66 +60,6 @@ body {
       background-image: url(../img/characters/adele.svg);
       background-position: 0 0;
       background-size: ($w * 4) ($h * 4);
-
-      &.walk-left {
-        animation: walk-left-start ($anim-speed * 9 / 4) steps(3), 
-                   walk-left ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-      }
-
-      &.walk-up {
-        animation: walk-up-start ($anim-speed * 9 / 4) steps(3), 
-                   walk-up ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-      }
-
-      &.walk-right {
-        animation: walk-right-start ($anim-speed * 9 / 4) steps(3), 
-                   walk-right ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-      }
-
-      &.walk-down {
-        animation: walk-down-start ($anim-speed * 9 / 4) steps(3), 
-                   walk-down ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-      }
-  
-      @keyframes walk-left-start {
-         from { background-position: (-23px * $multiplier) (-87px * $multiplier); }
-           to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
-      }
-  
-      @keyframes walk-left {
-         from { background-position: 0px (-87px * $multiplier); }
-           to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
-      }
-  
-      @keyframes walk-up-start {
-         from { background-position: (-23px * $multiplier) (-58px * $multiplier); }
-           to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
-      }
-  
-      @keyframes walk-up {
-         from { background-position: 0px (-58px * $multiplier); }
-           to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
-      }
-  
-      @keyframes walk-right-start {
-         from { background-position: (-23px * $multiplier) (-29px * $multiplier); }
-           to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
-      }
-  
-      @keyframes walk-right {
-         from { background-position: 0px (-29px * $multiplier); }
-           to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
-      }
-  
-      @keyframes walk-down-start {
-         from { background-position: (-23px * $multiplier) 0px; }
-           to { background-position: (-92px * $multiplier) 0px; }
-      }
-  
-      @keyframes walk-down {
-         from { background-position: 0px 0px; }
-           to { background-position: (-92px * $multiplier) 0px; }
-      }
     }
 
     .shadow {
@@ -138,6 +78,66 @@ body {
     bottom: 1px * $multiplier;
 
     background-size: 100%;
+  }
+
+  .walk-left {
+    animation: walk-left-start ($anim-speed * 9 / 4) steps(3), 
+               walk-left ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+  }
+
+  .walk-up {
+    animation: walk-up-start ($anim-speed * 9 / 4) steps(3), 
+               walk-up ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+  }
+
+  .walk-right {
+    animation: walk-right-start ($anim-speed * 9 / 4) steps(3), 
+               walk-right ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+  }
+
+  .walk-down {
+    animation: walk-down-start ($anim-speed * 9 / 4) steps(3), 
+               walk-down ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+  }
+
+  @keyframes walk-left-start {
+     from { background-position: (-23px * $multiplier) (-87px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
+  }
+
+  @keyframes walk-left {
+     from { background-position: 0px (-87px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
+  }
+
+  @keyframes walk-up-start {
+     from { background-position: (-23px * $multiplier) (-58px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
+  }
+
+  @keyframes walk-up {
+     from { background-position: 0px (-58px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
+  }
+
+  @keyframes walk-right-start {
+     from { background-position: (-23px * $multiplier) (-29px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
+  }
+
+  @keyframes walk-right {
+     from { background-position: 0px (-29px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
+  }
+
+  @keyframes walk-down-start {
+     from { background-position: (-23px * $multiplier) 0px; }
+       to { background-position: (-92px * $multiplier) 0px; }
+  }
+
+  @keyframes walk-down {
+     from { background-position: 0px 0px; }
+       to { background-position: (-92px * $multiplier) 0px; }
   }
 
   .npc {

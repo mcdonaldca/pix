@@ -110,4 +110,5 @@ Avatar.prototype.walk = function(dir) {
 **/
 Avatar.prototype.stopWalking = function() {
   this.spriteEl.removeClass();
+  this.spriteEl.addClass("sprite");
 }

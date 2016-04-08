@@ -71,6 +71,40 @@ Mirror.prototype.fireMove = function(x, y) {
 }
 
 /**
+  Event fired when player starts walking animation.
+  @param dir The walking direction.
+**/
+Mirror.prototype.fireWalkStart = function(dir) {
+  switch(dir) {
+    case "lf":
+      this.avatar.walk("lf");
+      break;
+
+    case "up":
+      this.avatar.walk("dw");
+      break;
+
+    case "rt":
+      this.avatar.walk("rt");
+      break;
+
+    case "dw":
+      this.avatar.walk("up");
+      break;
+
+    default:
+      break;
+  }
+}
+
+/**
+  Event fired when player stops walking animation.
+**/
+Mirror.prototype.fireWalkStop = function() {
+  this.avatar.stopWalking();
+}
+
+/**
   Called when the mirror event should end (when event zone exited).
 **/
 Mirror.prototype.end = function() {

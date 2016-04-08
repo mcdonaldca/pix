@@ -71,14 +71,16 @@
 
   <!-- Let the game begin! -->
   <script>
-    
     var x = parseInt(window.sessionStorage.getItem("x")),
         y = parseInt(window.sessionStorage.getItem("y")),
         face = window.sessionStorage.getItem("face"),
         area = window.sessionStorage.getItem("area");
     game.start(x, y, face, area);
-    
-    //game.start(1, 0, "up", "studio");
+    /* Production:
+      $(document).ready(function() {
+        game.start(7, 4, "dw", "studio");
+      });    
+    */
   </script>
 </body>
 </html>

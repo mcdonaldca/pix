@@ -37,14 +37,24 @@ body {
       background-image: url(../img/characters/adele.svg);
       background-position: 0 0;
       background-size: 368px 464px; }
-      .area #avatar #sprite.walk-left {
-        animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite; }
-      .area #avatar #sprite.walk-up {
-        animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
-      .area #avatar #sprite.walk-right {
-        animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
-      .area #avatar #sprite.walk-down {
-        animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
+    .area #avatar .shadow {
+      background-image: url(../img/characters/shadow_sm.svg); }
+  .area .shadow {
+    position: absolute;
+    width: 60px;
+    height: 24px;
+    z-index: 0;
+    left: 16px;
+    bottom: 4px;
+    background-size: 100%; }
+  .area .walk-left {
+    animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite; }
+  .area .walk-up {
+    animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
+  .area .walk-right {
+    animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
+  .area .walk-down {
+    animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-left-start {
   from {
     background-position: -92px -348px; }
@@ -85,16 +95,6 @@ body {
     background-position: 0px 0px; }
   to {
     background-position: -368px 0px; } }
-    .area #avatar .shadow {
-      background-image: url(../img/characters/shadow_sm.svg); }
-  .area .shadow {
-    position: absolute;
-    width: 60px;
-    height: 24px;
-    z-index: 0;
-    left: 16px;
-    bottom: 4px;
-    background-size: 100%; }
   .area .npc {
     position: absolute;
     width: 92px;

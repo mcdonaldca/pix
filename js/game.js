@@ -162,6 +162,27 @@ Game.prototype.moveDown = function() {
   this.moveToSpace(this.x, this.y - 1, "dw");
 }
 
+/** 
+  Starts the walking animation for the avatar.
+  @param dir The direction for walking animation.
+**/
+Game.prototype.startWalking = function(dir) {
+  this.avatar.walk(dir);
+  if (this.event != undefined) {
+    this.event.fireWalkStart(dir);
+  }
+}
+
+/**
+  Stops the avatars walking animation.
+**/
+Game.prototype.stopWalking = function() {
+  this.avatar.stopWalking();
+  if (this.event != undefined) {
+    this.event.fireWalkStop();
+  }
+}
+
 /**
   Moves player to a new space if it's valid. Activates event zones, etc.
   @param toX     The proposed x coordinate.

@@ -28,7 +28,7 @@ Game.prototype.keyboardController = function() {
       // If no key is pressed, or this isn't our pressed key.
       if (timer.key == undefined || timer.key != key) {
         timer.key = key;
-        game.avatar.stopWalking();
+        game.stopWalking();
 
         // Find the direction we're traveling (to start walking animation)
         var dir = "";
@@ -40,7 +40,7 @@ Game.prototype.keyboardController = function() {
         // If we're already facing the direction we're traveling.
         if (game.face == dir) {
           // Start walking animation.
-          game.avatar.walk(game.face)
+          game.startWalking(game.face)
           // Immediately begin walking.
           keyPress(key)();
         } else {
@@ -48,7 +48,7 @@ Game.prototype.keyboardController = function() {
           if (timer.timeout != undefined) {
             clearTimeout(timer.timeout);
           }
-          timer.timeout = setTimeout(game.avatar.walk(dir), repeat);
+          timer.timeout = setTimeout(game.startWalking(dir), repeat);
         }
 
         // Start the walking interval.
@@ -95,7 +95,7 @@ Game.prototype.keyboardController = function() {
             break;
         }
         // Stop avatar's walking animation.
-        game.avatar.stopWalking();
+        game.stopWalking();
       }
       // If there was an interval set, clear it.
       if (timer.interval != undefined) { 
