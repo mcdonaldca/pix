@@ -7,8 +7,8 @@ Game.prototype.keyboardController = function() {
   var timer = {};
   // Prevents player from holding down a button and getting a ton of actions.
   var locked = {};
-  // Production: var repeat = 250;
-  var repeat = 150;
+  // Production: var ANIM_LENGTH = 250;
+  var ANIM_LENGTH = 150;
 
   var game = this;
   document.onkeydown = function(e) {
@@ -48,14 +48,14 @@ Game.prototype.keyboardController = function() {
           if (timer.timeout != undefined) {
             clearTimeout(timer.timeout);
           }
-          timer.timeout = setTimeout(game.startWalking(dir), repeat);
+          timer.timeout = setTimeout(game.startWalking(dir), ANIM_LENGTH);
         }
 
         // Start the walking interval.
         if (timer.interval != undefined) {
           clearInterval(timer.interval);
         }
-        timer.interval = setInterval(keyPress(key), repeat);
+        timer.interval = setInterval(keyPress(key), ANIM_LENGTH);
       }
     }
 

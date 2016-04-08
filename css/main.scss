@@ -185,6 +185,7 @@ body {
   .item {
     position: absolute;
     background-size: 100%;
+    transition: left $anim-speed linear, bottom $anim-speed linear;
   }
 }
 

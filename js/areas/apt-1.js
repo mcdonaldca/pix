@@ -1,6 +1,7 @@
 var apt1 = new Area(28, 18, "apt-1", true);
 
 apt1.addEventZone([8, 10], [16, 12], new Mirror());
+apt1.addEventZone([21, 8], [25, 14], new Pool());
 
 apt1.addItem(3, "doorframe", [8, 5], 20);
 apt1.addItem(9, "wall",      [8, 6]);

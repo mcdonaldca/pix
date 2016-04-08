@@ -125,7 +125,8 @@ body {
     background-position: -368px 0px; } }
   .area .item {
     position: absolute;
-    background-size: 100%; }
+    background-size: 100%;
+    transition: left 0.15s linear, bottom 0.15s linear; }
 
 .prompt {
   position: absolute;
