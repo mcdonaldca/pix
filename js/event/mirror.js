@@ -163,7 +163,7 @@ Mirror.prototype.createElements = function() {
 
   // Save necessary HTML elements.
   this.mirror = $(mirror);
-  this.avatar = new Avatar($(doppelganger), $(sprite));
+  this.avatar = new Avatar($(doppelganger), null, $(sprite));
   this.avatar.hide();
   this.avatar.setLeft(8);
   this.avatar.setBottom(13);

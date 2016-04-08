@@ -36,11 +36,11 @@ body {
     height: 100%;
   }
 
+  $h: 29px * $multiplier;
+  $w: 23px * $multiplier;
+
   #avatar {
     position: absolute;
-
-    $h: 29px * $multiplier;
-    $w: 23px * $multiplier;
 
     width: $w;
     height: $h;
@@ -50,21 +50,52 @@ body {
     left: -7px * $multiplier;
     bottom: 0;
 
-    #sprite {
-      position: relative;
-      width: 100%;
-      height: 100%;
-
-      z-index: 1;
-
+    .sprite {
       background-image: url(../img/characters/adele.svg);
-      background-position: 0 0;
-      background-size: ($w * 4) ($h * 4);
     }
 
     .shadow {
       background-image: url(../img/characters/shadow_sm.svg);
     }
+  }
+
+  .npc {
+    position: absolute;
+
+    width: $w;
+    height: $h;
+    
+    transition: left $anim-speed linear, bottom $anim-speed linear;
+  }
+
+  .reaction {
+    position: absolute;
+    top: -8px * $multiplier;
+
+    height: 19px * $multiplier;
+    width: $w;
+
+    background-image: url(../img/characters/reaction.svg);
+    background-size: ($w * 9) (19px * $multiplier * 2);
+    background-position: 0 0;
+  }
+
+  .react-surprise {
+    animation: react-surprise 1s steps(8);
+  }
+
+  .react-love {
+    animation: react-love 1s steps(8);
+  }
+
+  @keyframes react-surprise {
+     from { background-position: (-23px * $multiplier) 0; }
+       to { background-position: (-23px * 9 * $multiplier) 0; }
+  }
+
+  @keyframes react-love {
+     from { background-position: (-23px * $multiplier) (-19px * $multiplier); }
+       to { background-position: (-23px * 9 * $multiplier) (-19px * $multiplier); }
   }
 
   .shadow {
@@ -78,6 +109,17 @@ body {
     bottom: 1px * $multiplier;
 
     background-size: 100%;
+  }
+
+  .sprite {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+
+    background-position: 0 0;
+    background-size: ($w * 4) ($h * 4);
   }
 
   .walk-left {
@@ -140,32 +182,8 @@ body {
        to { background-position: (-92px * $multiplier) 0px; }
   }
 
-  .npc {
-    position: absolute;
-
-    $h: 29px * $multiplier;
-    $w: 23px * $multiplier;
-
-    width: $w;
-    height: $h;
-    
-    transition: left $anim-speed linear, bottom $anim-speed linear;
-
-    .sprite {
-      position: relative;
-      width: 100%;
-      height: 100%;
-
-      z-index: 1;
-
-      background-position: 0 0;
-      background-size: ($w * 4) ($h * 4);
-    }
-  }
-
   .item {
     position: absolute;
-
     background-size: 100%;
   }
 }
@@ -250,6 +268,7 @@ body {
 1 : Sprite
 3 : Mirror (see js/event/mirror.js)
 10x : Avatar, NPC (z-index changes based on y coord).
+10x + 1 : Avatar/NPC reaction bubble.
 10x + 5 : Item
 1000 : Text Prompt
 ***************/

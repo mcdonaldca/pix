@@ -1,11 +1,13 @@
 /**
   The Avatar object handles display changes for any sprite.
-  @param avatar The avatar element (should contain sprite element).
-  @param sprite The sprite element (should have a sprite backgroud image).
+  @param avatar   The avatar element (should contain sprite element).
+  @param reaction The element used to display reactions.
+  @param sprite   The sprite element (should have a sprite backgroud image).
 **/
-function Avatar(avatar, sprite) {
-  this.avatarEl = avatar; // The avatar element (contains sprite).
-  this.spriteEl = sprite; // The sprite element.
+function Avatar(avatar, reaction, sprite) {
+  this.avatarEl = avatar;     // The avatar element (contains sprite).
+  this.reactionEl = reaction; // The reaction element.
+  this.spriteEl = sprite;     // The sprite element.
 
   // Sprite constant values.
   this.SPRITE_WIDTH = 23;
@@ -30,6 +32,22 @@ Avatar.prototype.hide = function() {
   this.avatarEl.hide();
 }
 
+Avatar.prototype.reactSurprise = function() {
+  this.reactionEl.addClass("react-surprise");
+  var avatar = this;
+  setTimeout(function() {
+    avatar.reactionEl.removeClass("react-surprise");
+  }, 1000);
+}
+
+Avatar.prototype.reactLove = function() {
+  this.reactionEl.addClass("react-love");
+  var avatar = this;
+  setTimeout(function() {
+    avatar.reactionEl.removeClass("react-love");
+  }, 1000);
+}
+
 /**
   Sets the left value for the avatar.
   @param x The left offset in blocks.
@@ -49,6 +67,9 @@ Avatar.prototype.setBottom = function(y, areaHeight) {
   areaHeight = areaHeight || "";
   if (areaHeight != "") {
     this.avatarEl.css("z-index", (areaHeight - y) * 10);
+    if (this.reactionEl != null) {
+      this.reactionEl.css("z-index", (areaHeight - y) * 10 + 1);
+    }
   }
 }
 

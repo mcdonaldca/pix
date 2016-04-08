@@ -297,37 +297,14 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
   @param dir Directions from which interaction are valid (optional).
 **/
 Area.prototype.addNPC = function(x, y, npc, dir) {
-  /* Sample HTML
-     <div class="npc npc-liam">
-       <div class="avatar"></div>
-       <div class="shadow"></div>
-     </div>
-  */
-  var div = document.createElement("div");
-  $(div).addClass("npc npc-" + npc.name);
-  var sprite = document.createElement("div");
-  $(sprite).addClass("sprite")
-           .css("background-image", "url(img/" + npc.img + ".svg)");
-  $(div).append(sprite);
-
-  // Some NPCs don't have shadows.
-  if (npc.shadow != undefined) {
-    var shadow = document.createElement("div");
-    $(shadow).addClass("shadow")
-             .css("background-image", "url(img/characters/" + npc.shadow + ".svg)");
-    $(div).append(shadow);
-  }
-
-  npc.avatar = new Avatar($(div), $(sprite));
-  npc.avatar.setLeft(x);
-  npc.avatar.setBottom(y, this.height);
+  npc.place(x, y, this.height);
 
   // Add to NPC collection.
   this.NPCs.push(npc);
   this.space(x, y).setOccupied(npc);
 
   // Add to element collection.
-  this.elements.push(div);
+  this.elements.push(npc.getEl());
 
   // Call addInteraction with parameters.
   this.addInteraction(x, y, npc, dir);

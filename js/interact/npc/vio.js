@@ -26,13 +26,7 @@ Vio.prototype.interact = function(dir) {
         this.avatar.faceUp();
       } 
 
-      this.messages.show();
-      this.displayMessage("Meow!");
-      break;
-
-    case 1:
-      this.displayMessage("");
-      this.messages.hide();
+      this.avatar.reactLove();
 
       this.count = -1;
       status = "free";

@@ -2,8 +2,8 @@
   The master Game object. Manages all other objects and moving between areas.
 **/
 function Game() {
-  this.gameEl = $("#game");                             // Game element.
-  this.avatar = new Avatar($("#avatar"), $("#sprite")); // Avatar element.
+  this.gameEl = $("#game"); // Game element.
+  this.avatar = new Avatar($("#avatar"), $("#reaction"), $("#sprite")); // Avatar element.
 
   this.areas = {}         // Map of area names to their Area objects.
   this.focus = undefined; // The current focus.
