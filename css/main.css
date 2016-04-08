@@ -18,7 +18,7 @@ body {
 .area {
   position: absolute;
   overflow: hidden;
-  transition: left 0.2s linear, bottom 0.2s linear; }
+  transition: left 0.15s linear, bottom 0.15s linear; }
   .area img {
     width: 100%;
     height: 100%; }
@@ -27,7 +27,7 @@ body {
     z-index: 5;
     width: 92px;
     height: 116px;
-    transition: left 0.2s linear, bottom 0.2s linear;
+    transition: left 0.15s linear, bottom 0.15s linear;
     left: -28px;
     bottom: 0; }
     .area #avatar #sprite {
@@ -39,13 +39,13 @@ body {
       background-position: 0 0;
       background-size: 368px 464px; }
       .area #avatar #sprite.walk-left {
-        animation: walk-left-start 0.45s steps(3), walk-left 0.6s 0.45s steps(4) infinite; }
+        animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite; }
       .area #avatar #sprite.walk-up {
-        animation: walk-up-start 0.45s steps(3), walk-up 0.6s 0.45s steps(4) infinite; }
+        animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
       .area #avatar #sprite.walk-right {
-        animation: walk-right-start 0.45s steps(3), walk-right 0.6s 0.45s steps(4) infinite; }
+        animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
       .area #avatar #sprite.walk-down {
-        animation: walk-down-start 0.45s steps(3), walk-down 0.6s 0.45s steps(4) infinite; }
+        animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-left-start {
   from {
     background-position: -92px -348px; }
@@ -101,7 +101,7 @@ body {
     z-index: 3;
     width: 92px;
     height: 116px;
-    transition: left 0.2s linear, bottom 0.2s linear; }
+    transition: left 0.15s linear, bottom 0.15s linear; }
     .area .npc .sprite {
       position: relative;
       width: 100%;

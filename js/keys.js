@@ -7,7 +7,8 @@ Game.prototype.keyboardController = function() {
   var timer = {};
   // Prevents player from holding down a button and getting a ton of actions.
   var locked = {};
-  var repeat = 200;
+  // Production: var repeat = 250;
+  var repeat = 150;
 
   var game = this;
   document.onkeydown = function(e) {
