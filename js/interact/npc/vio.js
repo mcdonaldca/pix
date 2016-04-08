@@ -1,16 +1,16 @@
 /** 
-  Remy is a test pet.
+  Vio is a test pet.
 **/
-function Remy() {
-  $.extend(this, new NPC("remy", "pets/white-cat"));
+function Vio() {
+  $.extend(this, new NPC("vio", "pets/white-cat", "shadow_xs"));
 }
 
 /**
-  Called when the player interacts with Remy.
+  Called when the player interacts with Vio.
   @param dir The direction the user is facing.
   @return The current game status.
 **/
-Remy.prototype.interact = function(dir) {
+Vio.prototype.interact = function(dir) {
   this.talkedTo = true;
   var status = "convo"
 
@@ -27,7 +27,7 @@ Remy.prototype.interact = function(dir) {
       } 
 
       this.messages.show();
-      this.displayMessage("Bark!");
+      this.displayMessage("Meow!");
       break;
 
     case 1:
