@@ -5,9 +5,10 @@ function Game() {
   this.gameEl = $("#game"); // Game element.
   this.avatar = new Avatar($("#avatar"), $("#reaction"), $("#sprite")); // Avatar element.
 
-  this.areas = {}         // Map of area names to their Area objects.
-  this.focus = undefined; // The current focus.
-  this.event = undefined; // The current event.
+  this.areas = {};         // Map of area names to their Area objects.
+  this.screens = {};       // Map of screens to their varous objects.
+  this.focus = undefined;  // The current focus.
+  this.event = undefined;  // The current event.
 
   //The following are initialized in Game.start
   this.messager = undefined; // The Game's messaging system.
@@ -28,6 +29,7 @@ function Game() {
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
   this.moveToArea(area);
+  this.displayScreen("newspaper");
   this.messager = new Message(""); 
 
   this.x = startX; 
@@ -45,6 +47,15 @@ Game.prototype.start = function(startX, startY, startFace, area) {
 **/
 Game.prototype.addArea = function (key, area) {
   this.areas[key] = area;
+}
+
+/**
+  Adds an screen to the Game.screens map.
+  @param key The key for the screen.
+  @param area Screen's object.
+**/
+Game.prototype.addScreen = function (key, screen) {
+  this.screens[key] = screen;
 }
 
 /**
@@ -73,25 +84,27 @@ Game.prototype.moveToArea = function(area) {
   // Remove door data until it's set again by a specific exit door.
   window.sessionStorage.removeItem("door");
 
-  // Find position data to enter area.
-  var positionData = this.area.getPositionData(from, door);
-  this.x = positionData.x;
-  this.y = positionData.y;
-  this.face = positionData.face;
+  if (from != "") {
+    // Find position data to enter area.
+    var positionData = this.area.getPositionData(from, door);
+    this.x = positionData.x;
+    this.y = positionData.y;
+    this.face = positionData.face;
   
-  this.faceDir(this.face);
-  this.moveToSpace(this.x, this.y, this.face);
+    this.faceDir(this.face);
+    this.moveToSpace(this.x, this.y, this.face);
+  }
 
   // Fade in/out animation between areas.
   this.gameEl.removeClass("visible");
-  var that = this;
+  var game = this;
   window.setTimeout(function() {
-    that.gameEl.addClass("visible");
+    game.gameEl.addClass("visible");
   }, 300);
   // Lock game mode until new area is totally loaded.
   this.status = "loading";
   window.setTimeout(function() {
-    that.status = "free";
+    game.status = game.focus == undefined ? "free" : "screen";
   }, 800);
 }
 
@@ -255,7 +268,7 @@ Game.prototype.validZone = function(x, y) {
   Handles a player trying to interact with something
 **/
 Game.prototype.interact = function() {
-  switch(game.status) {
+  switch(this.status) {
     // If the game is in free mode, try and interact with something.
     case "free":
       currentSpace = this.area.space(this.x, this.y);
@@ -270,17 +283,22 @@ Game.prototype.interact = function() {
       // If we're in an interact zone, focus on that.
       if (currentSpace.isInteractZone()) {
         this.focus = currentSpace.getInteraction();
-        this.status = currentSpace.getInteraction().interact(this.face) || "free";
+        this.status = this.focus.interact(this.face) || "free";
 
       // If we're facing an interactable space.
       } else if (faceSpace != undefined && faceSpace.canInteract(this.face)) {
         this.focus = faceSpace.getInteraction();
-        this.status = faceSpace.getInteraction().interact(this.face) || "free";
+        this.status = this.focus.interact(this.face) || "free";
+      }
+
+      if (this.status == "free") {
+        this.focus = undefined;
       }
       break;
 
     // If game is in conversation mode, advance the conversation.
     case "convo":
+    case "screen":
       this.status = this.focus.interact(this.face) || "free";
 
       if (this.status == "free") {
@@ -324,5 +342,18 @@ Game.prototype.exit = function(exitTo) {
     this.status = this.messager.interact(this.face) || "free";
   } else {
     this.moveToArea(exitTo);
+  }
+}
+
+/**
+  Called to display an option screen (newspaper, inventory, etc.)
+  @param screen The name of the screen to call.
+**/
+Game.prototype.displayScreen = function(screen) {
+  var screen = this.screens[screen];
+  if (screen != undefined) {
+    screen.display();
+    this.focus = screen;
+    this.status = "screen";
   }
 }

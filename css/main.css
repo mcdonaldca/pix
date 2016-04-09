@@ -128,9 +128,16 @@ body {
     background-size: 100%;
     transition: left 0.15s linear, bottom 0.15s linear; }
 
+#screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-size: 100%; }
+
 .prompt {
   position: absolute;
-  z-index: 1000;
+  z-index: 20000;
   bottom: 0;
   left: 0; }
   .prompt .messages,
@@ -188,10 +195,11 @@ body {
 0 : Shadow
 1 : Sprite
 3 : Mirror (see js/event/mirror.js)
-10x : Avatar, NPC (z-index changes based on y coord).
-10x + 1 : Avatar/NPC reaction bubble.
+10x : Avatar, NPC (z-index changes based on y coord)
+10x + 1 : Avatar/NPC reaction bubble
 10x + 5 : Item
-1000 : Text Prompt
+10000 : Screens
+20000 : Prompt
 ***************/
 
 /*# sourceMappingURL=main.css.map */
