@@ -11,16 +11,12 @@ studio.addItem(1, "houseplant", [9, 1]);
 
 studio.addInteraction(0, 7, new Fridge(), ["up"]);
 studio.addInteraction(1, 7, new Fridge(), ["up"]);
-studio.addInteraction(5, 0, 
-  new Message([
+var tvMessage = new Message([
     "Liam is watching \"The Office\"", 
-    "It'd probabably be rude to change the channel now."]),
-  ["dw"]);
-studio.addInteraction(6, 0, 
-  new Message([
-    "Liam is watching \"The Office\"", 
-    "It'd probabably be rude to change the channel now."]), 
-  ["dw"]);
+    "It'd probabably be rude to change the channel now."
+    ]);
+studio.addInteraction(5, 0, tvMessage, ["dw"]);
+studio.addInteraction(6, 0, tvMessage, ["dw"]);
 studio.addInteraction(6, 7, new Message("It's a beautiful day outside."), ["up"]);
 studio.addInteraction(8, 6, new SleepZone());
 studio.addInteraction(9, 6, new SleepZone());
