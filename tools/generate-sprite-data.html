@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sprite Data Generator</title>
+</head>
+<body>
+  <pre style="padding:0;margin:0;" id="content"></pre>
+  <script src="../js/third-party/jquery-1.12.0.min.js"></script>
+  <script>
+    // Build a string to display to the page.
+    var spriteDataStr = "var spriteData = {\n";
+
+    // Create a canvas to use.
+    var canvas = document.createElement("canvas");
+    canvas.width = 23 * 4;
+    canvas.height = 29 * 4;
+    var context = canvas.getContext("2d");
+
+    /**
+      Loads an individual player file and adds it's imageData to our display string.
+      @param file The filename to load.
+    **/
+    function loadFile(file) {
+      // Log the file being loaded.
+      console.log("loading file:", file + ".png");
+
+      // Create a promise that will resolve when the image is loaded.
+      var imagePromise = new Promise(function(resolve, reject) {
+        var image = new Image();
+        image.onload = function() {
+          context.drawImage(image, 0, 0);
+          var imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+          context.clearRect(0, 0, canvas.width, canvas.height);
+
+          resolve("  \"" + file + "\": [" + imageData);
+        }
+        image.src = "../img/player/" + file + ".png";
+
+      // Upon resolution, add imageData to our string.
+      }).then(function(value) {
+        spriteDataStr += value + "],\n";
+      });      
+    }
+
+    // Hair style files.
+    var hairFiles = ["bald", "hair-1", "hair-2", "hair-3"];
+    for (var f = 0; f < hairFiles.length; f++) {
+      loadFile(hairFiles[f]);
+    }
+
+    // Outfit files.
+    var outfitFiles = ["dress", "vest"];
+    for (var f = 0; f < outfitFiles.length; f++) {
+      loadFile(outfitFiles[f]);
+    }
+
+    // Not the best set up, but wait a second (for images to all load) and display data.
+    // Should probably be a promise, but yolo.
+    setTimeout(function() {
+      $("#content").html(spriteDataStr + "}\n");
+    }, 1000);
+  </script>
+</body>
+</html>

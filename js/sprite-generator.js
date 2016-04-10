@@ -1,62 +1,75 @@
-function SpriteGenerator(canvas) {
-  this.canvas = canvas;
-  this.context = this.canvas.getContext("2d");
-  this.context.scale(2 * MULT, 2 * MULT);
-  this.outfit = "dress";
-  this.hair = "hair-3";
+/** 
+  Builds a custom sprite using canvas.
+  Uses image data from sprite.data.js.
+  @param canvas The canvas to draw to.
+  @param scale  (Optional) Any extra scaling.
+**/
+function SpriteGenerator(canvas, scale) {
+  scale = scale || 1;
+  this.canvas = canvas; // The canvas to draw the sprite to.
+  this.context = this.canvas.getContext("2d"); // Context of the canvas.
+
+  // Scale the canvas by the necessary amount.
+  this.context.scale(scale * MULT, scale * MULT);
+
+  this.outfit = "dress"; // Default outfit for the sprite.
+  this.hair = "hair-3";  // Default hair for the sprite.
 
   this.generateSprite();
 }
 
+/**
+  Setter for SpriteGenerator.outfit.
+  @param outfit The new sprite outfit.
+**/
 SpriteGenerator.prototype.setClothes = function(outfit) {
   this.outfit = outfit;
 }
 
+/**
+  Setter for SpriteGenerator.hair.
+  @param hair The new sprite hair style.
+**/
 SpriteGenerator.prototype.setHairLength = function(hair) {
   this.hair = hair;
 }
 
+/**
+  Called to generate the sprite from relevant data.
+**/
 SpriteGenerator.prototype.generateSprite = function() {
-  var outfitImage = new Image();
-  var manipCanvas = document.createElement("canvas");
-  manipCanvas.width = 23 * 4;
-  manipCanvas.height = 29 * 4;
-  var manipContext = manipCanvas.getContext("2d");
+  // Get image data from sprite-data.js.
+  var outfitImageData = spriteData[this.outfit] || spriteData["dress"];
+  var hairImageData = spriteData[this.hair] || spriteData["hair-3"];
 
-  var sg = this;
-  outfitImage.onload = function() {
-    manipContext.imageSmoothingEnabled = false;
-    manipContext.drawImage(outfitImage, 0, 0);
-    var outfitImageData = manipContext.getImageData(0, 0, 23 * 4, 29 * 4);
-    manipContext.clearRect(0, 0, 23 * 4, 29 * 4);
+  // Create our new image data object.
+  var imageData = this.context.createImageData(23 * 4, 29 * 4);
 
-    var hairImage = new Image();
+  for (var i = 0; i < hairImageData.length; i += 4) {
+    var hairA = hairImageData[i + 3];
 
-    hairImage.onload = function() {
-      manipContext.imageSmoothingEnabled = false;
-      manipContext.drawImage(hairImage, 0, 0);
-      var hairImageData = manipContext.getImageData(0, 0, 23 * 4, 29 * 4);
-      manipContext.clearRect(0, 0, 23 * 4, 29 * 4);
-
-      for (var i = 0; i < hairImageData.data.length; i += 4) {
-        var hairA = hairImageData.data[i + 3];
-
-        if (hairA == 0) {
-          hairImageData.data[i] = outfitImageData.data[i];
-          hairImageData.data[i + 1] = outfitImageData.data[i + 1];
-          hairImageData.data[i + 2] = outfitImageData.data[i + 2];
-          hairImageData.data[i + 3] = outfitImageData.data[i + 3];
-        }
-      }
-
-      manipContext.putImageData(hairImageData, 0, 0);
-      sg.context.clearRect(0, 0, sg.canvas.width, sg.canvas.height);
-      sg.context.imageSmoothingEnabled = false;
-      sg.context.drawImage(manipCanvas, 0, 0);
+    // If the hair pixel is transparent, use the outfit pixel.
+    if (hairA == 0) {
+      imageData.data[i] = outfitImageData[i];
+      imageData.data[i + 1] = outfitImageData[i + 1];
+      imageData.data[i + 2] = outfitImageData[i + 2];
+      imageData.data[i + 3] = outfitImageData[i + 3];
+    // If the hair pixel is present, use the hair pixel.
+    } else {
+      imageData.data[i] = hairImageData[i];
+      imageData.data[i + 1] = hairImageData[i + 1];
+      imageData.data[i + 2] = hairImageData[i + 2];
+      imageData.data[i + 3] = hairA;
     }
-
-    hairImage.src = "img/player/" + sg.hair + ".png";
   }
 
-  outfitImage.src = "img/player/" + this.outfit + ".png";
+  // Create a canvas to draw our new imageData to.
+  var manipCanvas = document.createElement("canvas");
+  var manipContext = manipCanvas.getContext("2d");
+  manipContext.putImageData(imageData, 0, 0);
+
+  // Clear the display context and draw generated sprite.
+  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  this.context.imageSmoothingEnabled = false;
+  this.context.drawImage(manipCanvas, 0, 0);
 }

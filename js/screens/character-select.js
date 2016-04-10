@@ -29,7 +29,7 @@ function CharacterSelect() {
   $(canvasContainer).append(canvas);
   this.elements.push(canvasContainer);
 
-  this.spriteGenerator = new SpriteGenerator(canvas);
+  this.spriteGenerator = new SpriteGenerator(canvas, 2);
 
   this.category = 0;
   this.currentSelection = 0;
