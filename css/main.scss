@@ -195,6 +195,12 @@ body {
   height: 100%;
   z-index: 10000;
   background-size: 100%;
+
+  .selector {
+    position: absolute;
+    background-size: 100%;
+    z-index: 10001;
+  }
 }
 
 .prompt {
@@ -267,6 +273,34 @@ body {
     .content {
       padding-left: 15px * $multiplier;
     }
+  }
+}
+
+.character-select-display {
+  position: absolute;
+  top: 5px * $multiplier;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 23px * 2 * $multiplier;
+  height: 29px * 2 * $multiplier;
+
+  background: url(../img/screens/character-background.svg);
+  background-size: 100%;
+  z-index: 10001;
+  overflow: hidden;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: rotate-character 2s steps(4) infinite;
+  }
+
+  @keyframes rotate-character {
+     from { top: 0; }
+       to { top: -29px * 2 * 4 * $multiplier; }
   }
 }
 

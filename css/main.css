@@ -134,6 +134,10 @@ body {
   height: 100%;
   z-index: 10000;
   background-size: 100%; }
+  #screen .selector {
+    position: absolute;
+    background-size: 100%;
+    z-index: 10001; }
 
 .prompt {
   position: absolute;
@@ -189,6 +193,27 @@ body {
   .prompt .options .content {
     padding-left: 60px; }
 
+.character-select-display {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 184px;
+  height: 232px;
+  background: url(../img/screens/character-background.svg);
+  background-size: 100%;
+  z-index: 10001;
+  overflow: hidden; }
+  .character-select-display canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: rotate-character 2s steps(4) infinite; }
+@keyframes rotate-character {
+  from {
+    top: 0; }
+  to {
+    top: -928px; } }
 /***************
     Z-INDEX
 ----------------

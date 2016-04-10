@@ -1,36 +1,20 @@
 /** 
   Newspaper at beginning of game where player selects city.
-  Most functionality will likely be abstracted into a Screen object.
 **/
 function Newspaper() {
-  this.background = "img/screens/newspaper.svg"; // Background for the screen.
-  this.screenEl = $("#screen"); // Access to the screen element (change bg).
-  this.interactable = new Interactable(); // To interface with the prompt.
-  this.status = "selection"; // Whether we're in selection mode or interacting w/ prompt.
-  this.exit = undefined; // The location to exit to after selection.
+  $.extend(this, new Screen("img/screens/newspaper.svg"));
 
-  // Some of this might be factored out to apply to all screen selectors.
   var selectorEl = document.createElement("div");
-  $(selectorEl).css("background-image", "url(img/screens/newspaper-selector.svg)")
-               .css("background-size", "100%")
-               .css("position", "absolute")
+  $(selectorEl).addClass("selector")
+               .css("background-image", "url(img/screens/newspaper-selector.svg)")
                .css("width", (52 * MULT).toString() + "px")
                .css("height", (31 * MULT).toString() + "px")
                .css("left", (71 * MULT).toString() + "px")
-               .css("bottom", (84 * MULT).toString() + "px")
-               .css("z-index", 10001);
+               .css("bottom", (84 * MULT).toString() + "px");
   this.selectorEl = $(selectorEl);
+  this.elements.push(this.selectorEl);
 
   this.citySelected = "San Francisco"; // The currently selected city.
-  this.count = 0; // Keeps track of our point in the conversation.
-}
-
-/**
-  Called to display the screen and it's selector.
-**/
-Newspaper.prototype.display = function() {
-  this.screenEl.css("background-image", "url(" + this.background + ")")
-               .append(this.selectorEl);
 }
 
 /**
@@ -167,13 +151,6 @@ Newspaper.prototype.interact = function(dir) {
   this.interactable.currentSelect = 0;
   this.count += 1;
   return gameStatus;
-}
-
-/**
-  Getter for Newspaper.exit.
-**/
-Newspaper.prototype.exitTo = function() {
-  return this.exit;
 }
 
 // Add newspaper object to game's screen selection.
