@@ -16,10 +16,6 @@ SpriteGenerator.prototype.setHairLength = function(hair) {
   this.hair = hair;
 }
 
-SpriteGenerate.prototype.setHairColor = function(color) {
-
-}
-
 SpriteGenerator.prototype.generateSprite = function() {
   var outfitImage = new Image();
   var manipCanvas = document.createElement("canvas");

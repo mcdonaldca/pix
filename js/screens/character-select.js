@@ -186,7 +186,7 @@ CharacterSelect.prototype.interact = function(dir) {
     this.spriteGenerator.setClothes(this.values[1][this.currentSelection]);
     this.spriteGenerator.generateSprite();
   } else if (this.category == 2) {
-    this.spriteGenerator.setHair(this.values[2][this.currentSelection]);
+    this.spriteGenerator.setHairLength(this.values[2][this.currentSelection]);
     this.spriteGenerator.generateSprite();
   }
   return "screen";
