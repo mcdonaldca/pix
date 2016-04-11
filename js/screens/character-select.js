@@ -2,13 +2,13 @@
   CharacterSelect at beginning of game where player builds their character.
 **/
 function CharacterSelect() {
-  $.extend(this, new Screen("img/screens/character-select.svg"));
+  $.extend(this, new Screen("img/screens/character-select/background.svg"));
 
   this.selectorData = {
-    square: { img: "url(img/screens/character-selector-square.svg)", width: 17, height: 17 },
-    sprite: { img: "url(img/screens/character-selector-sprite.svg)", width: 23, height: 21 },
-    random: { img: "url(img/screens/character-selector-random.svg)", width: 75, height: 20 },
-    done:   { img: "url(img/screens/character-selector-done.svg)", width: 46, height: 20 }
+    square: { img: "url(img/screens/character-select/selector-square.svg)", width: 17, height: 17 },
+    sprite: { img: "url(img/screens/character-select/selector-sprite.svg)", width: 23, height: 21 },
+    random: { img: "url(img/screens/character-select/selector-random.svg)", width: 75, height: 20 },
+    done:   { img: "url(img/screens/character-select/selector-done.svg)", width: 46, height: 20 }
   };
 
   var selectorEl = document.createElement("div");
@@ -203,6 +203,7 @@ CharacterSelect.prototype.interact = function(dir) {
       this.screenEl.css("background-image", "none");
     }
 
+    this.status = "selection";
     return this.interactable.currentSelect == 0 ? "free" : "screen";
   }
 
@@ -232,6 +233,7 @@ CharacterSelect.prototype.interact = function(dir) {
     case 3:
       this.spriteGenerator.setHairColor(value);
       this.spriteGenerator.generateSprite();
+      break;
 
     // Random/done row.
     case 4:
@@ -259,6 +261,10 @@ CharacterSelect.prototype.interact = function(dir) {
         this.status = "prompt";
         this.count += 1;
       }
+      break;
+
+    default:
+      break;
   }
   // Stay on screen.
   return "screen";

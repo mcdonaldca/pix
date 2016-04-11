@@ -2,11 +2,11 @@
   Newspaper at beginning of game where player selects city.
 **/
 function Newspaper() {
-  $.extend(this, new Screen("img/screens/newspaper.svg"));
+  $.extend(this, new Screen("img/screens/newspaper/background.svg"));
 
   var selectorEl = document.createElement("div");
   $(selectorEl).addClass("selector")
-               .css("background-image", "url(img/screens/newspaper-selector.svg)")
+               .css("background-image", "url(img/screens/newspaper/selector-city.svg)")
                .css("width", (52 * MULT).toString() + "px")
                .css("height", (31 * MULT).toString() + "px")
                .css("left", (71 * MULT).toString() + "px")
