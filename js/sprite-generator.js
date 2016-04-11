@@ -24,7 +24,7 @@ function SpriteGenerator(canvas, scale) {
   Setter for SpriteGenerator.outfit.
   @param outfit The new sprite outfit.
 **/
-SpriteGenerator.prototype.setClothes = function(outfit) {
+SpriteGenerator.prototype.setOutfit = function(outfit) {
   this.outfit = outfit;
 }
 

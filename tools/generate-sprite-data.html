@@ -76,9 +76,9 @@
       Loads an individual player file and adds it's imageData to our display string.
       @param file The filename to load.
     **/
-    function loadFile(file) {
+    function loadFile(folder, file) {
       // Log the file being loaded.
-      console.log("loading file:", file + ".png");
+      console.log("loading file:", folder + "/" + file + ".png");
 
       // Create a promise that will resolve when the image is loaded.
       var imagePromise = new Promise(function(resolve, reject) {
@@ -88,9 +88,9 @@
           var imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
           context.clearRect(0, 0, canvas.width, canvas.height);
 
-          resolve("  \"" + file + "\": [" + imageData);
+          resolve("    \"" + file + "\": [" + imageData);
         }
-        image.src = "../img/player/" + file + ".png";
+        image.src = "../img/player/" + folder + "/" + file + ".png";
 
       // Upon resolution, add imageData to our string.
       }).then(function(value) {
@@ -101,13 +101,13 @@
     // Hair style files.
     var hairFiles = ["bald", "hair-1", "hair-2", "hair-3"];
     for (var f = 0; f < hairFiles.length; f++) {
-      loadFile(hairFiles[f]);
+      loadFile("hair", hairFiles[f]);
     }
 
     // Outfit files.
     var outfitFiles = ["dress", "vest"];
     for (var f = 0; f < outfitFiles.length; f++) {
-      loadFile(outfitFiles[f]);
+      loadFile("outfits", outfitFiles[f]);
     }
 
     // Not the best set up, but wait a second (for images to all load) and display data.

@@ -219,7 +219,7 @@ CharacterSelect.prototype.interact = function(dir) {
 
     // Outfit row.
     case 1:
-      this.spriteGenerator.setClothes(value);
+      this.spriteGenerator.setOutfit(value);
       this.spriteGenerator.generateSprite();
       break;
 
@@ -245,7 +245,7 @@ CharacterSelect.prototype.interact = function(dir) {
         var hairColorVal = Math.floor(Math.random() * this.values[3].length);
         
         this.spriteGenerator.setSkinTone(this.values[0][skinToneVal]);
-        this.spriteGenerator.setClothes(this.values[1][outfitVal]);
+        this.spriteGenerator.setOutfit(this.values[1][outfitVal]);
         this.spriteGenerator.setHairLength(this.values[2][hairVal]);
         this.spriteGenerator.setHairColor(this.values[3][hairColorVal]);
         this.spriteGenerator.generateSprite();
