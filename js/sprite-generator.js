@@ -57,10 +57,10 @@ SpriteGenerator.prototype.setSkinTone = function(tone) {
 **/
 SpriteGenerator.prototype.generateSprite = function() {
   // Get image data from sprite-data.js.
-  var outfitImageData = spriteData.imageData[this.outfit] || spriteData.imageData["dress"];
-  var hairImageData = spriteData.imageData[this.hair] || spriteData.imageData["hair-3"];
-  var hairColorData = spriteData.hairColors[this.hairColor] || spriteData.hairColors.chocolate;
-  var skinToneData = spriteData.skinTones[this.skinTone] || spriteData.skinTones.pale;
+  var outfitImageData = SPRITE_DATA.imageData[this.outfit] || SPRITE_DATA.imageData["dress"];
+  var hairImageData = SPRITE_DATA.imageData[this.hair] || SPRITE_DATA.imageData["hair-3"];
+  var hairColorData = SPRITE_DATA.hairColors[this.hairColor] || SPRITE_DATA.hairColors.chocolate;
+  var skinToneData = SPRITE_DATA.skinTones[this.skinTone] || SPRITE_DATA.skinTones.pale;
 
   // Create our new image data object.
   var imageData = this.context.createImageData(23 * 4, 29 * 4);
@@ -159,9 +159,9 @@ SpriteGenerator.prototype.generateSprite = function() {
   @returns The pixel type or "black" if none.
 **/
 SpriteGenerator.prototype.getHairColorType = function(r, g, b) {
-  var light = spriteData.hairColors.chocolate.light;
-  var med = spriteData.hairColors.chocolate.med;
-  var dark = spriteData.hairColors.chocolate.dark;
+  var light = SPRITE_DATA.hairColors.chocolate.light;
+  var med = SPRITE_DATA.hairColors.chocolate.med;
+  var dark = SPRITE_DATA.hairColors.chocolate.dark;
 
   if (r == med.r && g == med.g && b == med.b) {
     return "med";
@@ -182,11 +182,11 @@ SpriteGenerator.prototype.getHairColorType = function(r, g, b) {
   @returns The pixel type or null if none.
 **/
 SpriteGenerator.prototype.getSkinToneType = function(r, g, b) {
-  var shine = spriteData.skinTones.pale.shine;
-  var light = spriteData.skinTones.pale.light;
-  var ear = spriteData.skinTones.pale.ear;
-  var med = spriteData.skinTones.pale.med;
-  var dark = spriteData.skinTones.pale.dark;
+  var shine = SPRITE_DATA.skinTones.pale.shine;
+  var light = SPRITE_DATA.skinTones.pale.light;
+  var ear = SPRITE_DATA.skinTones.pale.ear;
+  var med = SPRITE_DATA.skinTones.pale.med;
+  var dark = SPRITE_DATA.skinTones.pale.dark;
 
   if (r == light.r && g == light.g && b == light.b) {
     return "light";

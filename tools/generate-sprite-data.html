@@ -62,7 +62,7 @@
       }
     }
     // Build a string to display to the page.
-    var spriteDataStr = "var spriteData = " 
+    var spriteDataStr = "var SPRITE_DATA = " 
       + JSON.stringify(spriteData, null, 2) 
       + "\n\nvar imageData = {\n";
 
@@ -116,7 +116,7 @@
       $("#content").html(
         spriteDataStr 
         + "}\n"
-        + "spriteData.imageData = imageData;");
+        + "SPRITE_DATA.imageData = imageData;");
     }, 1000);
   </script>
 </body>
