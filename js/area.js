@@ -149,7 +149,7 @@ Area.prototype.setPlacementLimits = function() {
 
   if (this.height < GAME_HEIGHT) {
     this.maxBottom = (GAME_HEIGHT - this.height) / 2;
-    this.minBottom = this.maxLeft;
+    this.minBottom = this.maxBottom;
   } else {
     this.maxBottom = 0;
     this.minBottom = -1 * (this.height - GAME_HEIGHT);
