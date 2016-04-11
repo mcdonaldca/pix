@@ -7,8 +7,64 @@
   <pre style="padding:0;margin:0;" id="content"></pre>
   <script src="../js/third-party/jquery-1.12.0.min.js"></script>
   <script>
+
+    // Hard-coded hair and skin colors.
+    var spriteData = {
+      hairColors: {
+        blonde: {
+          light: { r: 248, g: 232, b: 176 },
+          med:   { r: 225, g: 192, b: 112 },
+          dark:  { r: 160, g: 127, b: 87  }
+        },
+        brown: {
+          light: { r: 207, g: 160,  b: 112 },
+          med:   { r: 160, g: 120,  b: 80  },
+          dark:  { r: 96,  g: 72,   b: 64  }
+        },
+        chocolate: {
+          light: { r: 144, g: 112, b: 80 },
+          med:   { r: 96,  g: 80,  b: 56 },
+          dark:  { r: 56,  g: 48,  b: 48 }
+        },
+        black: {
+          light: { r: 112, g: 118, b: 136 },
+          med:   { r: 81,  g: 80,  b: 96  },
+          dark:  { r: 55,  g: 56,  b: 64  }
+        },
+        ginger: {
+          light: { r: 233,  g: 117, b: 67 },
+          med:   { r: 210,  g: 83,  b: 47 },
+          dark:  { r: 153,  g: 41,  b: 20 }
+        }
+      },
+      skinTones: {
+        pale: {
+          shine: { r: 232, g: 232, b: 248 },
+          light: { r: 248, g: 208, b: 184 },
+          ear:   { r: 232, g: 176, b: 128 },
+          med:   { r: 216, g: 152, b: 112 },
+          dark:  { r: 120, g: 64,  b: 64  }
+        },
+        tan: {
+          shine: { r: 245, g: 175, b: 147 },
+          light: { r: 216, g: 152, b: 112 },
+          ear:   { r: 216, g: 152, b: 112 },
+          med:   { r: 177, g: 125, b: 92  },
+          dark:  { r: 89,  g: 58,  b: 47  }
+        },
+        ebony: {
+          shine: { r: 157, g: 112, b: 94 },
+          light: { r: 129, g: 92,  b: 77 },
+          ear:   { r: 129, g: 92,  b: 77 },
+          med:   { r: 83,  g: 60,  b: 50 },
+          dark:  { r: 33,  g: 24,  b: 20  }
+        }
+      }
+    }
     // Build a string to display to the page.
-    var spriteDataStr = "var spriteData = {\n";
+    var spriteDataStr = "var spriteData = " 
+      + JSON.stringify(spriteData, null, 2) 
+      + "\n\nvar imageData = {\n";
 
     // Create a canvas to use.
     var canvas = document.createElement("canvas");
@@ -57,7 +113,10 @@
     // Not the best set up, but wait a second (for images to all load) and display data.
     // Should probably be a promise, but yolo.
     setTimeout(function() {
-      $("#content").html(spriteDataStr + "}\n");
+      $("#content").html(
+        spriteDataStr 
+        + "}\n"
+        + "spriteData.imageData = imageData;");
     }, 1000);
   </script>
 </body>

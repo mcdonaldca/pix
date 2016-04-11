@@ -34,10 +34,10 @@ function CharacterSelect() {
   this.category = 0;
   this.currentSelection = 0;
   this.values = [
-    ["light", "medium", "dark"],
+    ["pale", "tan", "ebony"],
     ["dress", "vest"],
     ["bald", "hair-1", "hair-2", "hair-3"],
-    ["blonde", "brown", "chocolate", "black", "red"],
+    ["blonde", "brown", "chocolate", "black", "ginger"],
     ["random", "done"]
   ];
 
@@ -103,6 +103,8 @@ CharacterSelect.prototype.arrowUp = function() {
     }
   
     this.selectorEl.css("bottom", (this.bottomValues[this.category] * MULT).toString() + "px");
+  } else if (this.status == "prompt") {
+    this.interactable.arrowUp();
   }
 }
 
@@ -174,6 +176,8 @@ CharacterSelect.prototype.arrowDown = function() {
 
       this.selectorEl.css("bottom", (this.bottomValues[this.category] * MULT).toString() + "px");
     }
+  } else if (this.status == "prompt") {
+    this.interactable.arrowDown();
   }
 }
 
@@ -182,13 +186,81 @@ CharacterSelect.prototype.arrowDown = function() {
   @param dir Direction user is facing. Not used.
 **/
 CharacterSelect.prototype.interact = function(dir) {
-  if (this.category == 1) {
-    this.spriteGenerator.setClothes(this.values[1][this.currentSelection]);
-    this.spriteGenerator.generateSprite();
-  } else if (this.category == 2) {
-    this.spriteGenerator.setHairLength(this.values[2][this.currentSelection]);
-    this.spriteGenerator.generateSprite();
+  // Done has been selected!
+  if (this.count == 1) {
+    this.interactable.messages.hide();
+    this.interactable.nextArrow.show();
+    this.interactable.displayMessage("");
+    this.interactable.options.hide();
+    this.interactable.displayOptions([""]);
+    this.count = 0;
+
+    // Said yes to the dress.
+    if (this.interactable.currentSelect == 0) {
+      for (var i = 0; i < this.elements.length; i++) {
+        $(this.elements[i]).remove();
+      }
+      this.screenEl.css("background-image", "none");
+    }
+
+    return this.interactable.currentSelect == 0 ? "free" : "screen";
   }
+
+  // Current selected value!
+  var value = this.values[this.category][this.currentSelection];
+
+  switch(this.category) {
+    // Skin tone row.
+    case 0:
+      this.spriteGenerator.setSkinTone(value);
+      this.spriteGenerator.generateSprite();
+      break;
+
+    // Outfit row.
+    case 1:
+      this.spriteGenerator.setClothes(value);
+      this.spriteGenerator.generateSprite();
+      break;
+
+    // Hair length row.
+    case 2:
+      this.spriteGenerator.setHairLength(value);
+      this.spriteGenerator.generateSprite();
+      break;
+
+    // Hair color row.
+    case 3:
+      this.spriteGenerator.setHairColor(value);
+      this.spriteGenerator.generateSprite();
+
+    // Random/done row.
+    case 4:
+      // Selected random.
+      if (this.currentSelection == 0) {
+        var skinToneVal = Math.floor(Math.random() * this.values[0].length);
+        var outfitVal = Math.floor(Math.random() * this.values[1].length);
+        var hairVal = Math.floor(Math.random() * this.values[2].length);
+        var hairColorVal = Math.floor(Math.random() * this.values[3].length);
+        
+        this.spriteGenerator.setSkinTone(this.values[0][skinToneVal]);
+        this.spriteGenerator.setClothes(this.values[1][outfitVal]);
+        this.spriteGenerator.setHairLength(this.values[2][hairVal]);
+        this.spriteGenerator.setHairColor(this.values[3][hairColorVal]);
+        this.spriteGenerator.generateSprite();
+
+      // Selected done.
+      } else {
+        this.interactable.displayMessage("Is this your character?");
+        this.interactable.nextArrow.hide();
+        this.interactable.messages.show();
+        this.interactable.displayOptions(["That's me!", "Not quite."]);
+        this.interactable.options.show();
+
+        this.status = "prompt";
+        this.count += 1;
+      }
+  }
+  // Stay on screen.
   return "screen";
 }
 
