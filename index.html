@@ -88,7 +88,9 @@
         y = parseInt(window.sessionStorage.getItem("y")),
         face = window.sessionStorage.getItem("face"),
         area = window.sessionStorage.getItem("area");
-    game.start(x, y, face, area);
+
+    area == undefined ? game.start(7, 4, "dw", "studio") : game.start(x, y, face, area);
+    
     /* Production:
       $(document).ready(function() {
         game.start(7, 4, "dw", "studio");
