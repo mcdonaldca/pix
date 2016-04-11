@@ -200,7 +200,7 @@ body {
   transform: translateX(-50%);
   width: 184px;
   height: 232px;
-  background: url(../img/screens/character-background.svg);
+  background: url(../img/screens/character-select/sprite-background.svg);
   background-size: 100%;
   z-index: 10001;
   overflow: hidden; }
