@@ -7,10 +7,11 @@ function Vio() {
 
 /**
   Called when the player interacts with Vio.
-  @param dir The direction the user is facing.
+  @param prompt (Not used here) The interface to the on-screen prompter.
+  @param dir    The direction the user is facing.
   @return The current game status.
 **/
-Vio.prototype.interact = function(dir) {
+Vio.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
 
   if (dir == "lf") {

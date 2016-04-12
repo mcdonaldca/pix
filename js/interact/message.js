@@ -3,34 +3,33 @@
   @param content Array of strings to display
 **/
 function Message(content) {
-  $.extend(this, new Interactable());
+  this.count = 0;
   this.setMessage(content);
 }
 
 /**
   Called when the player interacts with something that has a message.
-  @param dir The direction the user is facing (not used here).
+  @param prompt The interface to the on-screen prompter.
+  @param dir    (Not used here) The direction the user is facing.
   @return The current game status.
 **/
-Message.prototype.interact = function(dir) {
+Message.prototype.interact = function(prompt, dir) {
   var status = "convo"
 
   switch(this.count) {
     case 0:
-      this.displayMessage(this.content[this.count]);
-      this.messages.show();
+      prompt.displayMessage(this.content[this.count]);
       break;
 
     case this.content.length:
-      this.displayMessage("");
-      this.messages.hide();
+      prompt.removeMessage();
 
       this.count = -1;
       status = "free";
       break;
 
     default:
-      this.displayMessage(this.content[this.count]);
+      prompt.updateMessage(this.content[this.count]);
       break;
   }
 

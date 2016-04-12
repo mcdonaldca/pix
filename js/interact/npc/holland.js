@@ -7,10 +7,11 @@ function Holland() {
 
 /**
   Called when the player interacts with Holland.
-  @param dir The direction the user is facing.
+  @param prompt The interface to the on-screen prompter.
+  @param dir    (Not used here) The direction the user is facing.
   @return The current game status.
 **/
-Holland.prototype.interact = function(dir) {
+Holland.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
   var status = "convo"
 
@@ -23,14 +24,12 @@ Holland.prototype.interact = function(dir) {
         this.avatar.faceRight();
       }
 
-      this.displayMessage("Seems like you're running late today, Adele!");
-      this.messages.show();
+      prompt.displayMessage("Seems like you're running late today, Adele!");
       break;
 
     case 1:
-      this.displayMessage("");
-      this.messages.hide();
-
+      prompt.removeMessage();
+      
       this.avatar.faceDown();
       this.count = -1;
       status = "free";

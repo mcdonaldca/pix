@@ -2,7 +2,7 @@
   An NPC is an Interactable with a name and directional sprite.
 **/
 function NPC(name, sprite, shadow) {
-  $.extend(this, new Interactable());
+  this.count = 0;
   name = name || "NoName";
   this.name = name; // Name of NPC.
   sprite = sprite || "characters/test-char.svg";

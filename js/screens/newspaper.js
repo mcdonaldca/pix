@@ -41,7 +41,7 @@ Newspaper.prototype.arrowUp = function() {
 
   // If interacting with the prompt
   } else if (this.status == "prompt") {
-    this.interactable.arrowUp();
+    this.prompt.arrowUp();
   }
 }
 
@@ -67,7 +67,7 @@ Newspaper.prototype.arrowDown = function() {
 
   // If interacting with the prompt
   } else if (this.status == "prompt") {
-    this.interactable.arrowDown();
+    this.prompt.arrowDown();
   }
 }
 
@@ -77,30 +77,28 @@ Newspaper.prototype.arrowDown = function() {
 **/
 Newspaper.prototype.interact = function(dir) {
   var gameStatus = "screen";
-  var currentSelect = this.interactable.currentSelect;
+  console.log(this.prompt)
+  var currentSelect = this.prompt.selected();
 
   switch(this.count) {
     // A city has been selected
     case 0:
       this.status = "prompt";
-      this.interactable.nextArrow.hide();
-      this.interactable.displayMessage("Move to " + this.citySelected + " ?");
-      this.interactable.messages.show();
-      this.interactable.displayOptions(["Yes!", "Keep looking."]);
-      this.interactable.options.show();
+      this.prompt.displayOptions(
+        "Move to " + this.citySelected + " ?", // Options message.
+        ["Yes!", "Keep looking."]              // Options.
+        );
       break;
 
     // Indicated if interested in city.
     case 1:
       if (currentSelect == 0) {
-        this.interactable.displayMessage("Are you sure?");
-        this.interactable.displayOptions(["Definitely.", "Maybe not..."]);
+        this.prompt.updateOptions(
+          "Are you sure?",
+          ["Definitely.", "Maybe not..."]
+        );
       } else if (currentSelect == 1) {
-        this.interactable.messages.hide();
-        this.interactable.nextArrow.show();
-        this.interactable.displayMessage("");
-        this.interactable.options.hide();
-        this.interactable.displayOptions([""]);
+        this.prompt.removeOptions();
         this.status = "selection";
         this.count = -1;
       }
@@ -108,21 +106,18 @@ Newspaper.prototype.interact = function(dir) {
 
     // Officially accept/reject city.
     case 2:
-      this.interactable.options.hide();
-      this.interactable.displayOptions([""]);
-      this.interactable.nextArrow.show();
+      this.prompt.removeOptions();
 
       // No Seattle version currently.
       if (currentSelect == 0 && this.citySelected == "Seattle") {
-        this.interactable.displayMessage("(Whoops, Seattle version coming eventually.)");
+        this.prompt.displayMessage("(Whoops, Seattle version coming eventually.)");
       // No New York City version currently.
       } else if (currentSelect == 0 && this.citySelected == "New York City") {
-        this.interactable.displayMessage("(Whoops, New York City version coming eventually.)");
+        this.prompt.displayMessage("(Whoops, New York City version coming eventually.)");
 
       // All other scenerios.
       } else {
-        this.interactable.messages.hide();
-        this.interactable.displayMessage("");
+        this.prompt.removeMessage();
         this.count = -1;
         this.status = "selection";
 
@@ -139,8 +134,7 @@ Newspaper.prototype.interact = function(dir) {
 
     // Invalid city pop-ups.
     case 3:
-      this.interactable.messages.hide();
-      this.interactable.displayMessage("");
+      this.prompt.removeMessage();
       this.count = -1;
       this.status = "selection";
 
@@ -148,7 +142,6 @@ Newspaper.prototype.interact = function(dir) {
       break;
   }
 
-  this.interactable.currentSelect = 0;
   this.count += 1;
   return gameStatus;
 }

@@ -46,6 +46,7 @@
   <!-- Building blocks for game. -->
   <script src="js/constants.js"></script>
   <script src="js/avatar.js"></script>
+  <script src="js/prompt.js"></script>
   <script src="js/game.js"></script>
   <script src="js/area.js"></script>
   <script src="js/space.js"></script>
@@ -53,7 +54,6 @@
   <script> var game = new Game(); </script>
 
   <!-- Interactable objects. -->
-  <script src="js/interact/interactable.js"></script>
   <script src="js/interact/message.js"></script>
   <script src="js/interact/elevator.js"></script>
   <script src="js/interact/fridge.js"></script>
@@ -90,9 +90,11 @@
         area = window.sessionStorage.getItem("area");
 
     area == undefined ? game.start(7, 4, "dw", "studio") : game.start(x, y, face, area);
-    
+
     /* Production:
       $(document).ready(function() {
+        var prompt = new Prompt();
+        var game = new Game();
         game.start(7, 4, "dw", "studio");
       });    
     */

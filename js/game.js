@@ -4,6 +4,7 @@
 function Game() {
   this.gameEl = $("#game"); // Game element.
   this.avatar = new Avatar($("#avatar"), $("#reaction"), $("#sprite")); // Avatar element.
+  this.prompt = new Prompt(); // Interface with on-screen prompt.
 
   this.areas = {};         // Map of area names to their Area objects.
   this.screens = {};       // Map of screens to their varous objects.
@@ -29,8 +30,8 @@ function Game() {
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
   this.moveToArea(area);
-  this.displayScreen("character-select");
-  this.messager = new Message(""); 
+  // this.displayScreen("character-select");
+  this.messager = new Message("");
 
   this.x = startX; 
   this.y = startY;
@@ -100,12 +101,12 @@ Game.prototype.moveToArea = function(area) {
   var game = this;
   window.setTimeout(function() {
     game.gameEl.addClass("visible");
-  }, 300);
+  }, 250);
   // Lock game mode until new area is totally loaded.
   this.status = "loading";
   window.setTimeout(function() {
     game.status = game.focus == undefined ? "free" : "screen";
-  }, 800);
+  }, 500);
 }
 
 /**
@@ -283,12 +284,12 @@ Game.prototype.interact = function() {
       // If we're in an interact zone, focus on that.
       if (currentSpace.isInteractZone()) {
         this.focus = currentSpace.getInteraction();
-        this.status = this.focus.interact(this.face) || "free";
+        this.status = this.focus.interact(this.prompt, this.face) || "free";
 
       // If we're facing an interactable space.
       } else if (faceSpace != undefined && faceSpace.canInteract(this.face)) {
         this.focus = faceSpace.getInteraction();
-        this.status = this.focus.interact(this.face) || "free";
+        this.status = this.focus.interact(this.prompt, this.face) || "free";
       }
 
       if (this.status == "free") {
@@ -299,13 +300,14 @@ Game.prototype.interact = function() {
     // If game is in conversation mode, advance the conversation.
     case "convo":
     case "screen":
-      this.status = this.focus.interact(this.face) || "free";
+      this.status = this.focus.interact(this.prompt, this.face) || "free";
 
       if (this.status == "free") {
         this.focus = undefined;
       } else if (this.status == "exit") {
-        this.exit(this.focus.exitTo());
+        var exit = this.focus.exitTo();
         this.focus = undefined;
+        this.exit(exit);
       }
       break;
 
@@ -335,11 +337,12 @@ Game.prototype.exit = function(exitTo) {
       || exitTo == "anne-diane" 
       || exitTo == "simon-taylor") { 
       this.messager.setMessage("You don't know the people that live here that well...");
+    } else if (exitTo == "elevator-roof") { 
+      this.messager.setMessage("You need a key to the roof.");
     }
-    if (exitTo == "elevator-roof") { this.messager.setMessage("You need a key to the roof."); }
 
     this.focus = this.messager;
-    this.status = this.messager.interact(this.face) || "free";
+    this.status = this.messager.interact(this.prompt) || "free";
   } else {
     this.moveToArea(exitTo);
   }
@@ -352,7 +355,7 @@ Game.prototype.exit = function(exitTo) {
 Game.prototype.displayScreen = function(screen) {
   var screen = this.screens[screen];
   if (screen != undefined) {
-    screen.display();
+    screen.display(this.prompt);
     this.focus = screen;
     this.status = "screen";
   }

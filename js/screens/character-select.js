@@ -104,7 +104,7 @@ CharacterSelect.prototype.arrowUp = function() {
   
     this.selectorEl.css("bottom", (this.bottomValues[this.category] * MULT).toString() + "px");
   } else if (this.status == "prompt") {
-    this.interactable.arrowUp();
+    this.prompt.arrowUp();
   }
 }
 
@@ -177,7 +177,7 @@ CharacterSelect.prototype.arrowDown = function() {
       this.selectorEl.css("bottom", (this.bottomValues[this.category] * MULT).toString() + "px");
     }
   } else if (this.status == "prompt") {
-    this.interactable.arrowDown();
+    this.prompt.arrowDown();
   }
 }
 
@@ -188,15 +188,12 @@ CharacterSelect.prototype.arrowDown = function() {
 CharacterSelect.prototype.interact = function(dir) {
   // Done has been selected!
   if (this.count == 1) {
-    this.interactable.messages.hide();
-    this.interactable.nextArrow.show();
-    this.interactable.displayMessage("");
-    this.interactable.options.hide();
-    this.interactable.displayOptions([""]);
+    var selected = this.prompt.selected()
+    this.prompt.removeOptions();
     this.count = 0;
 
     // Said yes to the dress.
-    if (this.interactable.currentSelect == 0) {
+    if (selected == 0) {
       for (var i = 0; i < this.elements.length; i++) {
         $(this.elements[i]).remove();
       }
@@ -204,7 +201,7 @@ CharacterSelect.prototype.interact = function(dir) {
     }
 
     this.status = "selection";
-    return this.interactable.currentSelect == 0 ? "free" : "screen";
+    return selected == 0 ? "free" : "screen";
   }
 
   // Current selected value!
@@ -252,11 +249,10 @@ CharacterSelect.prototype.interact = function(dir) {
 
       // Selected done.
       } else {
-        this.interactable.displayMessage("Is this your character?");
-        this.interactable.nextArrow.hide();
-        this.interactable.messages.show();
-        this.interactable.displayOptions(["That's me!", "Not quite."]);
-        this.interactable.options.show();
+        this.prompt.displayOptions(
+          "Is this your character?",
+          ["That's me!", "Not quite."]
+          );
 
         this.status = "prompt";
         this.count += 1;

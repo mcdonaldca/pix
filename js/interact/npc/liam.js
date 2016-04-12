@@ -7,10 +7,11 @@ function Liam() {
 
 /**
   Called when the player interacts with Liam.
-  @param dir The direction the user is facing.
+  @param prompt The interface to the on-screen prompter.
+  @param dir    (Not used here) The direction the user is facing.
   @return The current game status.
 **/
-Liam.prototype.interact = function(dir) {
+Liam.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
   var status = "convo"
 
@@ -20,17 +21,15 @@ Liam.prototype.interact = function(dir) {
         this.avatar.faceLeft();
       }
 
-      this.displayMessage("Good morning, sleepyhead!");
-      this.messages.show();
+      prompt.displayMessage("Good morning, sleepyhead!");
       break;
 
     case 1:
-      this.displayMessage("You better hurry to work, you're running kind of late, eh?");
+      prompt.displayMessage("You better hurry to work, you're running kind of late, eh?");
       break;
 
     case 2:
-      this.displayMessage("");
-      this.messages.hide();
+      prompt.removeMessage();
 
       this.avatar.faceDown();
       this.count = -1;
@@ -43,9 +42,4 @@ Liam.prototype.interact = function(dir) {
 
   this.count += 1;
   return status;
-}
-
-Liam.prototype.displayMessage = function(message) {
-  // Prefix the name of the NPC
-  this.messageContent.html(this.name.toUpperCase() + ": " + message);
 }

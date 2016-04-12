@@ -4,7 +4,7 @@
 function Screen(background) {
   this.background = background; // Background for the screen.
   this.screenEl = $("#screen"); // Access to the screen element (change bg).
-  this.interactable = new Interactable(); // To interface with the prompt.
+  this.prompt = undefined;
   this.status = "selection"; // Whether we're in selection mode or interacting w/ prompt.
   this.exit = undefined; // The location to exit to after selection.
   this.elements = []; // The elements used on the screen.
@@ -14,7 +14,8 @@ function Screen(background) {
 /**
   Called to display the screen and it's selectors.
 **/
-Screen.prototype.display = function() {
+Screen.prototype.display = function(prompt) {
+  this.prompt = prompt;
   this.screenEl.css("background-image", "url(" + this.background + ")");
   for (var i = 0; i < this.elements.length; i++) {
     this.screenEl.append(this.elements[i]);
