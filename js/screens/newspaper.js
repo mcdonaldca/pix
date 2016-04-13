@@ -77,7 +77,6 @@ Newspaper.prototype.arrowDown = function() {
 **/
 Newspaper.prototype.interact = function(dir) {
   var gameStatus = "screen";
-  console.log(this.prompt)
   var currentSelect = this.prompt.selected();
 
   switch(this.count) {
