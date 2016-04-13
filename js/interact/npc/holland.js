@@ -2,7 +2,7 @@
   Holland is the doorman for the apartment building.
 **/
 function Holland() {
-  $.extend(this, new NPC("holland", "characters/holland-counter"));
+  $.extend(this, new NPC("holland", "characters/holland", "shadow_lg"));
 }
 
 /**
