@@ -325,8 +325,7 @@ Game.prototype.exit = function(exitTo) {
   var cantGo = [
     "colquitt-natalie", 
     "margaret-kayla", 
-    "anne-diane", 
-    "simon-taylor", 
+    "anne-diane",  
     "elevator-roof"
   ];
 
@@ -334,8 +333,7 @@ Game.prototype.exit = function(exitTo) {
   if ($.inArray(exitTo, cantGo) != -1) {
     if (exitTo == "colquitt-natalie" 
       || exitTo == "margaret-kayla" 
-      || exitTo == "anne-diane" 
-      || exitTo == "simon-taylor") { 
+      || exitTo == "anne-diane") { 
       this.messager.setMessage("You don't know the people that live here that well...");
     } else if (exitTo == "elevator-roof") { 
       this.messager.setMessage("You need a key to the roof.");

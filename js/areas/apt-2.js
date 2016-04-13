@@ -12,9 +12,10 @@ apt2.addExit( 9, 3, ["up"], "colquitt-natalie");
 apt2.addExit(15, 3, ["up"], "margaret-kayla");
 apt2.addExit(21, 3, ["up"], "studio");
 apt2.addExit(27, 3, ["up"], "anne-diane");
-apt2.addExit(33, 3, ["up"], "simon-taylor");
+apt2.addExit(33, 3, ["up"], "rundown-apt");
 
 apt2.addPositionData("studio", null, 21, 3, "dw");
+apt2.addPositionData("rundown-apt", null, 33, 3, "dw");
 apt2.addPositionData("elevator", "left", 2, 3, "dw");
 apt2.addPositionData("elevator", "right", 3, 3, "dw");
 apt2.addPositionData("default", null, 21, 3, "dw");
