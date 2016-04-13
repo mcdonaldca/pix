@@ -124,7 +124,7 @@ Newspaper.prototype.interact = function(dir) {
         // Accepted city!
         if (currentSelect == 0) {
           gameStatus = "exit";
-          this.exit = "studio";
+          this.exit = "rundown-apt";
           // Clean up after screen;
           this.selectorEl.remove();
           this.screenEl.css("background-image", "none");

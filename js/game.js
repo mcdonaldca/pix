@@ -30,7 +30,7 @@ function Game() {
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
   this.moveToArea(area);
-  // this.displayScreen("character-select");
+  this.displayScreen("newspaper");
   this.messager = new Message("");
 
   this.x = startX; 
