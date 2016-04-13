@@ -76,7 +76,7 @@ body {
     width: $w;
 
     background-image: url(../img/characters/reaction.svg);
-    background-size: ($w * 9) (19px * $multiplier * 2);
+    background-size: ($w * 12) (19px * $multiplier * 3);
     background-position: 0 0;
   }
 
@@ -88,6 +88,10 @@ body {
     animation: react-love 1s steps(8);
   }
 
+  .react-wat {
+    animation: react-wat 2s steps(11);
+  }
+
   @keyframes react-surprise {
      from { background-position: (-23px * $multiplier) 0; }
        to { background-position: (-23px * 9 * $multiplier) 0; }
@@ -96,6 +100,11 @@ body {
   @keyframes react-love {
      from { background-position: (-23px * $multiplier) (-19px * $multiplier); }
        to { background-position: (-23px * 9 * $multiplier) (-19px * $multiplier); }
+  }
+
+  @keyframes react-wat {
+     from { background-position: (-23px * $multiplier) (-38px * $multiplier); }
+       to { background-position: (-23px * 12 * $multiplier) (-38px * $multiplier); }
   }
 
   .shadow {

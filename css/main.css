@@ -44,12 +44,14 @@ body {
     height: 76px;
     width: 92px;
     background-image: url(../img/characters/reaction.svg);
-    background-size: 828px 152px;
+    background-size: 1104px 228px;
     background-position: 0 0; }
   .area .react-surprise {
     animation: react-surprise 1s steps(8); }
   .area .react-love {
     animation: react-love 1s steps(8); }
+  .area .react-wat {
+    animation: react-wat 2s steps(11); }
 @keyframes react-surprise {
   from {
     background-position: -92px 0; }
@@ -60,6 +62,11 @@ body {
     background-position: -92px -76px; }
   to {
     background-position: -828px -76px; } }
+@keyframes react-wat {
+  from {
+    background-position: -92px -152px; }
+  to {
+    background-position: -1104px -152px; } }
   .area .shadow {
     position: absolute;
     width: 60px;
