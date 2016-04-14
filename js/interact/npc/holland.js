@@ -24,7 +24,7 @@ Holland.prototype.interact = function(prompt, dir) {
         this.avatar.faceRight();
       }
 
-      prompt.displayMessage("Seems like you're running late today, Adele!");
+      prompt.displayMessage("Seems like you're running late today, Adele!", this.name);
       break;
 
     case 1:

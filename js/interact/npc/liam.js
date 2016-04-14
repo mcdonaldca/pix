@@ -21,11 +21,12 @@ Liam.prototype.interact = function(prompt, dir) {
         this.avatar.faceLeft();
       }
 
-      prompt.displayMessage("Good morning, sleepyhead!");
+      console.log(this.name)
+      prompt.displayMessage("Good morning, sleepyhead!", this.name);
       break;
 
     case 1:
-      prompt.displayMessage("You better hurry to work, you're running kind of late, eh?");
+      prompt.updateMessage("You better hurry to work, you're running kind of late, eh?", this.name);
       break;
 
     case 2:

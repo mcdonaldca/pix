@@ -28,7 +28,7 @@ Prompt.prototype.displayMessage = function(message, name) {
   this.nextArrow.show();
   // If it's something with a name, prefix it.
   if (name != "") {
-    message = this.name.toUpperCase() + ": " + message;
+    message = name.toUpperCase() + ": " + message;
   }
   this.messageContent.html(message);
   this.messages.show();
@@ -39,12 +39,12 @@ Prompt.prototype.displayMessage = function(message, name) {
   @param message The message to display.
   @param name    (Optional) The name to prefix.
 **/
-Prompt.prototype.updateMessage = function(message) {
+Prompt.prototype.updateMessage = function(message, name) {
   name = name || "";
 
   // If it's something with a name, prefix it.
   if (name != "") {
-    message = this.name.toUpperCase() + ": " + message;
+    message = name.toUpperCase() + ": " + message;
   }
   this.messageContent.html(message);
 }

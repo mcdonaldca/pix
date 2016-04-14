@@ -33,3 +33,7 @@ SleepZone.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
+
+// All interactables need these functions.
+SleepZone.prototype.arrowUp = function(prompt) {}
+SleepZone.prototype.arrowDown = function(prompt) {}

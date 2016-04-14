@@ -33,3 +33,7 @@ Fridge.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
+
+// All interactables need these functions.
+Fridge.prototype.arrowUp = function(prompt) {}
+Fridge.prototype.arrowDown = function(prompt) {}

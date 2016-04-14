@@ -47,3 +47,7 @@ Message.prototype.setMessage = function(content) {
   }
   this.content = content || [];
 }
+
+// All interactables need these functions.
+Message.prototype.arrowUp = function(prompt) {}
+Message.prototype.arrowDown = function(prompt) {}
