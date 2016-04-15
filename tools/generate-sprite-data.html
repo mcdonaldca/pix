@@ -12,9 +12,945 @@
     var spriteData = {
       hairColors: {
         blonde: {
-          light: { r: 248, g: 232, b: 176 },
-          med:   { r: 225, g: 192, b: 112 },
-          dark:  { r: 160, g: 127, b: 87  }
+          light:  { r: 248, g: 232, b: 176 },
+          med:    { r: 225, g: 192, b: 112 },
+          dark:   { r: 160, g: 127, b: 87  },
+          red:    { r: 120, g: 64,  b: 80  },
+          purple: { r: 72 , g: 56,  b: 88  },
+          exceptions: {
+            "13": { 
+              "9":  "dark", 
+              "13": "dark",
+              "32": "dark",
+              "36": "dark",
+              "55": "dark",
+              "59": "dark",
+              "78": "dark",
+              "82": "dark"
+            },
+            "42": {
+              "15": "dark",
+              "38": "dark",
+              "61": "dark",
+              "84": "dark"
+            },
+            "100": {
+              "7" : "dark",
+              "30": "dark",
+              "53": "dark",
+              "76": "dark"
+            },
+            "hair-1": {
+              "5": {
+                "17": "red",
+                "40": "red",
+                "63": "red",
+                "86": "red"
+              },
+              "6": {
+                "4":  "red",
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "7": {
+                "4":  "red",
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "12": {
+                "4":  "purple",
+                "18": "purple",
+                "27": "purple",
+                "41": "purple",
+                "50": "purple",
+                "64": "purple",
+                "73": "purple",
+                "87": "purple"
+              },
+              "13": {
+                "4":  "purple",
+                "18": "purple",
+                "27": "purple",
+                "41": "purple",
+                "50": "purple",
+                "64": "purple",
+                "73": "purple",
+                "87": "purple"
+              },
+              "14": {
+                "5": "purple",
+                "17": "purple",
+                "28": "purple",
+                "40": "purple",
+                "51": "purple",
+                "63": "purple",
+                "74": "purple",
+                "86": "purple"
+              },
+              "33": {
+                "15": "red",
+                "38": "red",
+                "61": "red",
+                "84": "red"
+              },
+              "34": {
+                "15": "red",
+                "39": "red",
+                "62": "red",
+                "85": "red"
+              },
+              "35": {
+                "4":  "red",
+                "17": "red",
+                "27": "red",
+                "40": "red",
+                "50": "red",
+                "63": "red",
+                "73": "red",
+                "86": "red"
+              },
+              "36": {
+                "4":  "red",
+                "17": "red",
+                "27": "red",
+                "40": "red",
+                "50": "red",
+                "63": "red",
+                "73": "red",
+                "86": "red"
+              },
+              "43": {
+                "5":  "purple",
+                "28": "purple",
+                "51": "purple",
+                "74": "purple"
+              },
+              "44": {
+                "6": "purple",
+                "29": "purple",
+                "52": "purple",
+                "75": "purple"
+              },
+              "45": {
+                "7": "purple",
+                "8": "purple",
+                "30": "purple",
+                "31": "purple",
+                "53": "purple",
+                "54": "purple",
+                "76": "purple",
+                "77": "purple"
+              },
+              "46": {
+                "9": "purple",
+                "32": "purple",
+                "55": "purple",
+                "78": "purple"
+              },
+              "63": {
+                "5":  "red",
+                "28": "red",
+                "51": "red",
+                "74": "red"
+              },
+              "64": {
+                "4":  "red",
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "65": {
+                "4":  "red",
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "74": {
+                "6":  "purple",
+                "16": "purple",
+                "29": "purple",
+                "39": "purple",
+                "52": "purple",
+                "62": "purple",
+                "75": "purple",
+                "85": "purple"
+              },
+              "75": {
+                "7":  "purple",
+                "8":  "purple",
+                "14": "purple",
+                "15": "purple",
+                "30": "purple",
+                "31": "purple",
+                "37": "purple",
+                "38": "purple",
+                "53": "purple",
+                "54": "purple",
+                "60": "purple",
+                "61": "purple",
+                "76": "purple",
+                "77": "purple",
+                "83": "purple",
+                "84": "purple"
+              },
+              "76": {
+                "9":  "purple",
+                "10": "purple",
+                "11": "purple",
+                "12": "purple",
+                "13": "purple",
+                "32": "purple",
+                "33": "purple",
+                "34": "purple",
+                "35": "purple",
+                "36": "purple",
+                "55": "purple",
+                "56": "purple",
+                "57": "purple",
+                "58": "purple",
+                "59": "purple",
+                "78": "purple",
+                "79": "purple",
+                "80": "purple",
+                "81": "purple",
+                "82": "purple"
+              },
+              "91": {
+                "7":  "red",
+                "30": "red",
+                "53": "red",
+                "76": "red"
+              },
+              "92": {
+                "6":  "red",
+                "29": "red",
+                "52": "red",
+                "75": "red"
+              },
+              "93": {
+                "5":  "red",
+                "18": "red",
+                "28": "red",
+                "41": "red",
+                "51": "red",
+                "64": "red",
+                "74": "red",
+                "87": "red"
+              },
+              "94": {
+                "5":  "red",
+                "18": "red",
+                "28": "red",
+                "41": "red",
+                "51": "red",
+                "64": "red",
+                "74": "red",
+                "87": "red"
+              },
+              "101": {
+                "17": "purple",
+                "40": "purple",
+                "63": "purple",
+                "86": "purple"
+              },
+              "102": {
+                "16": "purple",
+                "39": "purple",
+                "62": "purple",
+                "85": "purple"
+              },
+              "103": {
+                "14": "purple",
+                "15": "purple",
+                "37": "purple",
+                "38": "purple",
+                "60": "purple",
+                "61": "purple",
+                "83": "purple",
+                "84": "purple"
+              },
+              "104": {
+                "13": "purple",
+                "36": "purple",
+                "59": "purple",
+                "82": "purple"
+              }
+            },
+            "hair-2": {
+              "5": {
+                "5":  "red",
+                "17": "red",
+                "28": "red",
+                "40": "red",
+                "51": "red",
+                "63": "red",
+                "74": "red",
+                "86": "red"
+              },
+              "6": {
+                "5":  "red",
+                "17": "red",
+                "28": "red",
+                "40": "red",
+                "51": "red",
+                "63": "red",
+                "74": "red",
+                "86": "red"
+              },
+              "7": {
+                "4":  "red",
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              }, 
+              "13": {
+                "3":  "purple",
+                "19": "purple",
+                "26": "purple",
+                "42": "purple",
+                "49": "purple",
+                "65": "purple",
+                "72": "purple",
+                "88": "purple"
+              }, 
+              "14": {
+                "4":  "purple",
+                "18": "purple",
+                "27": "purple",
+                "41": "purple",
+                "50": "purple",
+                "64": "purple",
+                "73": "purple",
+                "87": "purple"
+              }, 
+              "16": {
+                "6":  "purple",
+                "16": "purple",
+                "29": "purple",
+                "39": "purple",
+                "52": "purple",
+                "62": "purple",
+                "75": "purple",
+                "85": "purple"
+              },
+              "33": {
+                "6":  "red",
+                "15": "red",
+                "16": "red",
+                "29": "red",
+                "38": "red",
+                "39": "red",
+                "52": "red",
+                "61": "red",
+                "62": "red",
+                "75": "red",
+                "84": "red",
+                "85": "red"
+              },
+              "34": {
+                "5": "red",
+                "17": "red",
+                "28": "red",
+                "40": "red",
+                "51": "red",
+                "63": "red",
+                "74": "red",
+                "86": "red"
+              },
+              "35": {
+                "5":  "red",
+                "18": "red",
+                "28": "red",
+                "41": "red",
+                "51": "red",
+                "64": "red",
+                "74": "red",
+                "87": "red"
+              },
+              "36": {
+                "4":  "red",
+                "27": "red",
+                "50": "red",
+                "73": "red"
+              },
+              "44": {
+                "6":  "purple",
+                "29": "purple",
+                "52": "purple",
+                "75": "purple"
+              },
+              "45": {
+                "7":  "purple",
+                "8":  "purple",
+                "30": "purple",
+                "31": "purple",
+                "53": "purple",
+                "54": "purple",
+                "76": "purple",
+                "77": "purple"
+              },
+              "46": {
+                "9":  "purple",
+                "10": "purple",
+                "32": "purple",
+                "33": "purple",
+                "55": "purple",
+                "56": "purple",
+                "78": "purple",
+                "79": "purple"
+              },
+              "63": {
+                "5":  "red",
+                "17": "red",
+                "28": "red",
+                "40": "red",
+                "51": "red",
+                "63": "red",
+                "74": "red",
+                "86": "red"
+              },
+              "64": {
+                "5":  "red",
+                "17": "red",
+                "28": "red",
+                "40": "red",
+                "51": "red",
+                "63": "red",
+                "74": "red",
+                "86": "red"
+              },
+              "65": {
+                "4":  "red",
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "71": {
+                "3":  "purple",
+                "19": "purple",
+                "26": "purple",
+                "42": "purple",
+                "49": "purple",
+                "65": "purple",
+                "72": "purple",
+                "88": "purple"
+              },
+              "72": {
+                "4":  "purple",
+                "18": "purple",
+                "27": "purple",
+                "41": "purple",
+                "50": "purple",
+                "64": "purple",
+                "73": "purple",
+                "87": "purple"
+              },
+              "74": {
+                "6":  "purple",
+                "16": "purple",
+                "29": "purple",
+                "39": "purple",
+                "52": "purple",
+                "62": "purple",
+                "75": "purple",
+                "85": "purple"
+              },
+              "75": {
+                "8":  "purple",
+                "14": "purple",
+                "31": "purple",
+                "37": "purple",
+                "54": "purple",
+                "60": "purple",
+                "77": "purple",
+                "83": "purple"
+              },
+              "91": {
+                "6":  "red",
+                "7":  "red",
+                "16": "red",
+                "29": "red",
+                "30": "red",
+                "39": "red",
+                "52": "red",
+                "53": "red",
+                "62": "red",
+                "75": "red",
+                "76": "red",
+                "85": "red"
+              },
+              "92": {
+                "5": "red",
+                "17": "red",
+                "28": "red",
+                "40": "red",
+                "51": "red",
+                "63": "red",
+                "74": "red",
+                "86": "red"
+              },
+              "93": {
+                "4":  "red",
+                "17": "red",
+                "27": "red",
+                "40": "red",
+                "50": "red",
+                "63": "red",
+                "73": "red",
+                "86": "red"
+              },
+              "94": {
+                "18": "red",
+                "41": "red",
+                "64": "red",
+                "87": "red"
+              },
+              "102": {
+                "16": "purple",
+                "39": "purple",
+                "62": "purple",
+                "85": "purple"
+              },
+              "103": {
+                "14": "purple",
+                "15": "purple",
+                "37": "purple",
+                "38": "purple",
+                "60": "purple",
+                "61": "purple",
+                "83": "purple",
+                "84": "purple"
+              },
+              "104": {
+                "12": "purple",
+                "13": "purple",
+                "35": "purple",
+                "36": "purple",
+                "58": "purple",
+                "59": "purple",
+                "81": "purple",
+                "82": "purple"
+              }
+            },
+            "hair-3": {
+              "7": { 
+                "4":  "red", 
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "8": { 
+                "4":  "red", 
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "9": {
+                "3":  "red", 
+                "19": "red",
+                "26": "red",
+                "42": "red",
+                "49": "red",
+                "65": "red",
+                "72": "red",
+                "88": "red" 
+              },
+              "11": { 
+                "3":  "red", 
+                "19": "red",
+                "26": "red",
+                "42": "red",
+                "49": "red",
+                "65": "red",
+                "72": "red",
+                "88": "red" 
+              },
+              "12": { 
+                "3":  "red", 
+                "19": "red",
+                "26": "red",
+                "42": "red",
+                "49": "red",
+                "65": "red",
+                "72": "red",
+                "88": "red"  
+              },
+              "16": { 
+                "3":  "purple", 
+                "19": "purple",
+                "26": "purple",
+                "42": "purple",
+                "49": "purple",
+                "65": "purple",
+                "72": "purple",
+                "88": "purple"  
+              },
+              "17": { 
+                "3":  "purple", 
+                "19": "purple",
+                "26": "purple",
+                "42": "purple",
+                "49": "purple",
+                "65": "purple",
+                "72": "purple",
+                "88": "purple"  
+              },
+              "33": { 
+                "15":  "red",
+                "38":  "red",
+                "61":  "red",
+                "84":  "red" 
+              },
+              "34": { 
+                "16":  "red",
+                "39":  "red",
+                "62":  "red",
+                "85":  "red" 
+              },
+              "35": { 
+                "4":   "red",
+                "17":  "red",
+                "27":  "red",
+                "40":  "red",
+                "50":  "red",
+                "63":  "red",
+                "73":  "red",
+                "86":  "red" 
+              },
+              "36": { 
+                "4":   "red",
+                "17":  "red",
+                "27":  "red",
+                "40":  "red",
+                "50":  "red",
+                "63":  "red",
+                "73":  "red",
+                "86":  "red" 
+              },
+              "37": { 
+                "3":   "red",
+                "18":  "red",
+                "26":  "red",
+                "41":  "red",
+                "49":  "red",
+                "64":  "red",
+                "72":  "red",
+                "87":  "red" 
+              },
+              "38": { 
+                "3":   "red",
+                "18":  "red",
+                "26":  "red",
+                "41":  "red",
+                "49":  "red",
+                "64":  "red",
+                "72":  "red",
+                "87":  "red" 
+              },
+              "39": { 
+                "3":   "red",
+                "18":  "red",
+                "26":  "red",
+                "41":  "red",
+                "49":  "red",
+                "64":  "red",
+                "72":  "red",
+                "87":  "red" 
+              },
+              "40": { 
+                "18":  "red",
+                "41":  "red",
+                "64":  "red",
+                "87":  "red" 
+              },
+              "45": { 
+                "4":   "purple",
+                "27":  "purple",
+                "50":  "purple",
+                "73":  "purple"
+              },
+              "46": { 
+                "5":   "purple",
+                "28":  "purple",
+                "51":  "purple",
+                "74":  "purple"
+              },
+              "47": { 
+                "6":   "purple",
+                "29":  "purple",
+                "52":  "purple",
+                "75":  "purple"
+              },
+              "48": { 
+                "6":   "purple",
+                "29":  "purple",
+                "52":  "purple",
+                "75":  "purple"
+              },
+              "65": { 
+                "4":  "red", 
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "66": { 
+                "4":  "red", 
+                "18": "red",
+                "27": "red",
+                "41": "red",
+                "50": "red",
+                "64": "red",
+                "73": "red",
+                "87": "red"
+              },
+              "67": {
+                "3":  "red", 
+                "19": "red",
+                "26": "red",
+                "42": "red",
+                "49": "red",
+                "65": "red",
+                "72": "red",
+                "88": "red" 
+              },
+              "68": {
+                "3":  "red", 
+                "19": "red",
+                "26": "red",
+                "42": "red",
+                "49": "red",
+                "65": "red",
+                "72": "red",
+                "88": "red" 
+              },
+              "69": { 
+                "3":  "red", 
+                "19": "red",
+                "26": "red",
+                "42": "red",
+                "49": "red",
+                "65": "red",
+                "72": "red",
+                "88": "red" 
+              },
+              "70": { 
+                "3":  "red", 
+                "19": "red",
+                "26": "red",
+                "42": "red",
+                "49": "red",
+                "65": "red",
+                "72": "red",
+                "88": "red"  
+              },
+              "74": { 
+                "3":  "purple", 
+                "19": "purple",
+                "26": "purple",
+                "42": "purple",
+                "49": "purple",
+                "65": "purple",
+                "72": "purple",
+                "88": "purple"  
+              },
+              "75": { 
+                "3":  "purple",
+                "5":  "purple",
+                "17": "purple",
+                "19": "purple",
+                "26": "purple",
+                "28": "purple",
+                "40": "purple",
+                "42": "purple",
+                "49": "purple",
+                "51": "purple",
+                "63": "purple",
+                "65": "purple",
+                "72": "purple",
+                "74": "purple",
+                "86": "purple",
+                "88": "purple"  
+              },
+              "76": { 
+                "4":  "purple",
+                "18": "purple",
+                "41": "purple",
+                "50": "purple",
+                "64": "purple",
+                "73": "purple"
+              },
+              "77": { 
+                "7":  "purple",
+                "8": "purple",
+                "14": "purple",
+                "15": "purple",
+                "30": "purple",
+                "31": "purple",
+                "37": "purple",
+                "38": "purple",
+                "53": "purple",
+                "54": "purple",
+                "60": "purple",
+                "61": "purple",
+                "76": "purple",
+                "77": "purple",
+                "83": "purple",
+                "84": "purple"
+              },
+              "78": { 
+                "9":  "purple",
+                "10": "purple",
+                "11": "purple",
+                "12": "purple",
+                "13": "purple",
+                "32": "purple",
+                "33": "purple",
+                "34": "purple",
+                "35": "purple",
+                "36": "purple",
+                "55": "purple",
+                "56": "purple",
+                "57": "purple",
+                "58": "purple",
+                "59": "purple",
+                "78": "purple",
+                "79": "purple",
+                "80": "purple",
+                "81": "purple",
+                "82": "purple"
+              },
+              "91": { 
+                "7":   "red",
+                "30":  "red",
+                "53":  "red",
+                "76":  "red",
+              },
+              "92": { 
+                "6":   "red",
+                "29":  "red",
+                "52":  "red",
+                "75":  "red",
+              },
+              "93": { 
+                "5":   "red",
+                "18":  "red",
+                "28":  "red",
+                "41":  "red",
+                "51":  "red",
+                "64":  "red",
+                "74":  "red",
+                "87":  "red" 
+              },
+              "94": { 
+                "5":   "red",
+                "18":  "red",
+                "28":  "red",
+                "41":  "red",
+                "51":  "red",
+                "64":  "red",
+                "74":  "red",
+                "87":  "red" 
+              },
+              "95": { 
+                "4":   "red",
+                "19":  "red",
+                "27":  "red",
+                "42":  "red",
+                "50":  "red",
+                "65":  "red",
+                "73":  "red",
+                "88":  "red" 
+              },
+              "96": { 
+                "4":   "red",
+                "19":  "red",
+                "27":  "red",
+                "42":  "red",
+                "50":  "red",
+                "65":  "red",
+                "73":  "red",
+                "88":  "red" 
+              },
+              "97": { 
+                "4":   "red",
+                "19":  "red",
+                "27":  "red",
+                "42":  "red",
+                "50":  "red",
+                "65":  "red",
+                "73":  "red",
+                "88":  "red" 
+              },
+              "98": { 
+                "4":   "red",
+                "27":  "red",
+                "50":  "red",
+                "73":  "red"
+              },
+              "103": { 
+                "18":  "purple",
+                "41":  "purple",
+                "64":  "purple",
+                "87":  "purple"
+              },
+              "104": { 
+                "17":  "purple",
+                "40":  "purple",
+                "63":  "purple",
+                "86":  "purple"
+              },
+              "105": { 
+                "16":  "purple",
+                "39":  "purple",
+                "62":  "purple",
+                "85":  "purple"
+              },
+              "106": { 
+                "16":  "purple",
+                "39":  "purple",
+                "62":  "purple",
+                "85":  "purple"
+              }
+            }
+          }
         },
         brown: {
           light: { r: 207, g: 160,  b: 112 },
@@ -34,7 +970,31 @@
         ginger: {
           light: { r: 233,  g: 117, b: 67 },
           med:   { r: 210,  g: 83,  b: 47 },
-          dark:  { r: 153,  g: 41,  b: 20 }
+          dark:  { r: 153,  g: 41,  b: 20 },
+          exceptions: {
+            "13": { 
+              "9": "dark", 
+              "13": "dark",
+              "32": "dark",
+              "36": "dark",
+              "55": "dark",
+              "59": "dark",
+              "78": "dark",
+              "82": "dark"
+            },
+            "42": {
+              "15": "dark",
+              "38": "dark",
+              "61": "dark",
+              "84": "dark"
+            },
+            "100": {
+              "7" : "dark",
+              "30": "dark",
+              "53": "dark",
+              "76": "dark"
+            }
+          }
         }
       },
       skinTones: {

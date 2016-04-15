@@ -15,7 +15,10 @@ function SpriteGenerator(canvas, scale) {
   this.outfit = "dress";        // Default outfit.
   this.hair = "hair-3";         // Default hair style.
   this.hairColor = "chocolate"; // Default hair color.
-  this.skinTome = "pale";       // Default skin tone.
+  this.skinTone = "pale";       // Default skin tone.
+
+  this.SPRITE_SHEET_WIDTH = 23 * 4;
+  this.SPRITE_SHEET_HEIGHT = 29 * 4;
 
   this.generateSprite();
 }
@@ -63,80 +66,106 @@ SpriteGenerator.prototype.generateSprite = function() {
   var skinToneData = SPRITE_DATA.skinTones[this.skinTone] || SPRITE_DATA.skinTones.pale;
 
   // Create our new image data object.
-  var imageData = this.context.createImageData(23 * 4, 29 * 4);
+  var imageData = this.context.createImageData(this.SPRITE_SHEET_WIDTH, this.SPRITE_SHEET_HEIGHT);
 
   for (var i = 0; i < hairImageData.length; i += 4) {
     var hairA = hairImageData[i + 3];
     var outfitA = outfitImageData[i + 3];
 
-    // If the hair pixel is transparent & the outfit pixel isn't.
-    // Basically don't want to do work if it's an unused pixel.
-    if (hairA == 0 && outfitA != 0) {
-      var outfitR = outfitImageData[i];
-      var outfitG = outfitImageData[i + 1];
-      var outfitB = outfitImageData[i + 2];
-      var type = this.getSkinToneType(outfitR, outfitG, outfitB);
+    var y = Math.floor((i / 4) / this.SPRITE_SHEET_WIDTH);
+    var x = (i / 4) - (y * this.SPRITE_SHEET_WIDTH);
 
-      // If the skin matches the default (so draw unaltered data)
-      // or the pixel isn't a skin pixel and should be unaltered.
-      if (this.skinTone == "pale" || type == null) {
-        imageData.data[i] = outfitR;
-        imageData.data[i + 1] = outfitG;
-        imageData.data[i + 2] = outfitB;
-
-      // Draw the correct skin type.
-      } else {
-        imageData.data[i] = skinToneData[type].r;
-        imageData.data[i + 1] = skinToneData[type].g;
-        imageData.data[i + 2] = skinToneData[type].b;
-      }
-
-      // Set pixel to an opaque alpha value.
+    // If this is a special exception pixel.
+    if (hairColorData.exceptions != undefined
+     && y in hairColorData.exceptions
+     && x in hairColorData.exceptions[y]) {
+      var type = hairColorData.exceptions[y][x];
+      imageData.data[i] = hairColorData[type].r;
+      imageData.data[i + 1] = hairColorData[type].g;
+      imageData.data[i + 2] = hairColorData[type].b;
       imageData.data[i + 3] = 255;
 
-    // If the hair pixel is present, use the hair pixel.
-    } else if (hairA != 0) {
-      var hairR = hairImageData[i];
-      var hairG = hairImageData[i + 1];
-      var hairB = hairImageData[i + 2];
-
-      // If the sprite matches all the defaults.
-      if (this.hairColor == "chocolate" && this.skinTone == "pale") {
-        imageData.data[i] = hairR;
-        imageData.data[i + 1] = hairG;
-        imageData.data[i + 2] = hairB;
-
-      // Custom skin + hair updates needed.
-      } else {
-        var type = this.getHairColorType(hairR, hairG, hairB);
-        // If the pixel is not a hair specific pixel.
-        if (type == "black") {
-          type = this.getSkinToneType(hairR, hairG, hairB);
-
-          // Just a #010101 pixel.
-          if (type == null) {
-            imageData.data[i] = 1;
-            imageData.data[i + 1] = 1;
-            imageData.data[i + 2] = 1;
-          // Customize skin pixel.
-          } else {
-            imageData.data[i] = skinToneData[type].r;
-            imageData.data[i + 1] = skinToneData[type].g;
-            imageData.data[i + 2] = skinToneData[type].b;
-          }
-        // Customize hair pixel.
-        } else {
-          imageData.data[i] = hairColorData[type].r;
-          imageData.data[i + 1] = hairColorData[type].g;
-          imageData.data[i + 2] = hairColorData[type].b;
-        }
-      }
-
-      imageData.data[i + 3] = hairA;
-
-    // Empty pixel.
     } else {
-      imageData.data[i + 3] = 0;
+      // If the hair pixel is transparent & the outfit pixel isn't.
+      // Basically don't want to do work if it's an unused pixel.
+      if (hairA == 0 && outfitA != 0) {
+        var outfitR = outfitImageData[i];
+        var outfitG = outfitImageData[i + 1];
+        var outfitB = outfitImageData[i + 2];
+        var type = this.getSkinToneType(outfitR, outfitG, outfitB);
+
+        // If the skin matches the default (so draw unaltered data)
+        // or the pixel isn't a skin pixel and should be unaltered.
+        if (this.skinTone == "pale" || type == null) {
+          imageData.data[i] = outfitR;
+          imageData.data[i + 1] = outfitG;
+          imageData.data[i + 2] = outfitB;
+
+        // Draw the correct skin type.
+        } else {
+          imageData.data[i] = skinToneData[type].r;
+          imageData.data[i + 1] = skinToneData[type].g;
+          imageData.data[i + 2] = skinToneData[type].b;
+        }
+
+        // Set pixel to an opaque alpha value.
+        imageData.data[i + 3] = 255;
+
+      // If the hair pixel is present, use the hair pixel.
+      } else if (hairA != 0) {
+        var hairR = hairImageData[i];
+        var hairG = hairImageData[i + 1];
+        var hairB = hairImageData[i + 2];
+
+        // If the sprite matches all the defaults.
+        if (this.hairColor == "chocolate" && this.skinTone == "pale") {
+          imageData.data[i] = hairR;
+          imageData.data[i + 1] = hairG;
+          imageData.data[i + 2] = hairB;
+
+        // Custom skin + hair updates needed.
+        } else {
+          // If this hairstyle has an exception at this pixel.
+          if (hairColorData.exceptions != undefined
+           && hairColorData.exceptions[this.hair] != undefined
+           && y in hairColorData.exceptions[this.hair]
+           && x in hairColorData.exceptions[this.hair][y]) {
+            var color = hairColorData.exceptions[this.hair][y][x];
+            imageData.data[i] = hairColorData[color].r;
+            imageData.data[i + 1] = hairColorData[color].g;
+            imageData.data[i + 2] = hairColorData[color].b;
+          } else {
+            var type = this.getHairColorType(hairR, hairG, hairB);
+            // If the pixel is not a hair specific pixel.
+            if (type == "black") {
+              type = this.getSkinToneType(hairR, hairG, hairB);
+
+              // Just a #010101 pixel.
+              if (type == null) {
+                imageData.data[i] = 1;
+                imageData.data[i + 1] = 1;
+                imageData.data[i + 2] = 1;
+              // Customize skin pixel.
+              } else {
+                imageData.data[i] = skinToneData[type].r;
+                imageData.data[i + 1] = skinToneData[type].g;
+                imageData.data[i + 2] = skinToneData[type].b;
+              }
+            // Customize hair pixel.
+            } else {
+              imageData.data[i] = hairColorData[type].r;
+              imageData.data[i + 1] = hairColorData[type].g;
+              imageData.data[i + 2] = hairColorData[type].b;
+            }
+          }
+        }
+
+        imageData.data[i + 3] = hairA;
+
+      // Empty pixel.
+      } else {
+        imageData.data[i + 3] = 0;
+      }
     }
   }
 
