@@ -30,7 +30,7 @@ function Game() {
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
   this.moveToArea(area);
-  this.displayScreen("newspaper");
+  this.displayScreen("character-select");
   this.messager = new Message("");
 
   this.x = startX; 
@@ -351,10 +351,14 @@ Game.prototype.exit = function(exitTo) {
   @param screen The name of the screen to call.
 **/
 Game.prototype.displayScreen = function(screen) {
-  var screen = this.screens[screen];
-  if (screen != undefined) {
-    screen.display(this.prompt);
-    this.focus = screen;
+  var screenObj = this.screens[screen];
+  if (screenObj != undefined) {
+    // Character select screen needs access to the player's avatar.
+    if (screen == "character-select") {
+      screenObj.setAvatar(this.avatar);
+    }
+    screenObj.display(this.prompt);
+    this.focus = screenObj;
     this.status = "screen";
   }
 }

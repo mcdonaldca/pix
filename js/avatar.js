@@ -9,6 +9,8 @@ function Avatar(avatar, reaction, sprite) {
   this.reactionEl = reaction; // The reaction element.
   this.spriteEl = sprite;     // The sprite element.
 
+  this.spriteImageURL = "img/characters/adele.svg";
+
   // Sprite constant values.
   this.SPRITE_WIDTH = 23;
   this.SPRITE_HEIGHT = 29;
@@ -142,7 +144,16 @@ Avatar.prototype.stopWalking = function() {
 Avatar.prototype.becomeCat = function() {
   this.spriteEl.css(
     "background-image", 
-    this.isCat ? "url(img/characters/adele.svg)" : "url(img/pets/black-cat.svg)"
+    this.isCat ? "url(" + this.spriteImageURL + ")" : "url(img/pets/black-cat.svg)"
     );
   this.isCat = !this.isCat;
+}
+
+/**
+  Sets the background image for the avatar's sprite.
+  @param url The url (or dataURL) for the avatar.
+**/
+Avatar.prototype.setBackgroundImage = function(url) {
+  this.spriteEl.css("background-image", "url(" + url + ")");
+  this.spriteImageURL = url;
 }

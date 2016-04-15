@@ -12,7 +12,7 @@ function SpriteGenerator(canvas, scale) {
   // Scale the canvas by the necessary amount.
   this.context.scale(scale * MULT, scale * MULT);
 
-  this.outfit = "dress";        // Default outfit.
+  this.outfit = "outfit-1";     // Default outfit.
   this.hair = "hair-3";         // Default hair style.
   this.hairColor = "chocolate"; // Default hair color.
   this.skinTone = "pale";       // Default skin tone.
@@ -230,4 +230,11 @@ SpriteGenerator.prototype.getSkinToneType = function(r, g, b) {
   } else {
     return null;
   }
+}
+
+/**
+  Returns the dataURL of the generated sprite.
+**/
+SpriteGenerator.prototype.getDataURL = function() {
+  return this.canvas.toDataURL();
 }
