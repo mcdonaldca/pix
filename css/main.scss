@@ -81,18 +81,26 @@ body {
   }
 
   .react-surprise {
-    animation: react-surprise 1s steps(8);
+    -webkit-animation: react-surprise 1s steps(8);
+            animation: react-surprise 1s steps(8);
   }
 
   .react-love {
-    animation: react-love 1s steps(8);
+    -webkit-animation: react-love 1s steps(8);
+            animation: react-love 1s steps(8);
   }
 
   .react-wat {
-    animation: react-wat 2s steps(11);
+    -webkit-animation: react-wat 2s steps(11);
+            animation: react-wat 2s steps(11);
   }
 
   @keyframes react-surprise {
+     from { background-position: (-23px * $multiplier) 0; }
+       to { background-position: (-23px * 9 * $multiplier) 0; }
+  }
+
+  @-webkit-keyframes react-surprise {
      from { background-position: (-23px * $multiplier) 0; }
        to { background-position: (-23px * 9 * $multiplier) 0; }
   }
@@ -102,7 +110,17 @@ body {
        to { background-position: (-23px * 9 * $multiplier) (-19px * $multiplier); }
   }
 
+  @-webkit-keyframes react-love {
+     from { background-position: (-23px * $multiplier) (-19px * $multiplier); }
+       to { background-position: (-23px * 9 * $multiplier) (-19px * $multiplier); }
+  }
+
   @keyframes react-wat {
+     from { background-position: (-23px * $multiplier) (-38px * $multiplier); }
+       to { background-position: (-23px * 12 * $multiplier) (-38px * $multiplier); }
+  }
+
+  @-webkit-keyframes react-wat {
      from { background-position: (-23px * $multiplier) (-38px * $multiplier); }
        to { background-position: (-23px * 12 * $multiplier) (-38px * $multiplier); }
   }
@@ -132,26 +150,39 @@ body {
   }
 
   .walk-left {
-    animation: walk-left-start ($anim-speed * 9 / 4) steps(3), 
-               walk-left ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+    -webkit-animation: walk-left-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-left ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+            animation: walk-left-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-left ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
   }
 
   .walk-up {
-    animation: walk-up-start ($anim-speed * 9 / 4) steps(3), 
-               walk-up ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+    -webkit-animation: walk-up-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-up ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+            animation: walk-up-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-up ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
   }
 
   .walk-right {
-    animation: walk-right-start ($anim-speed * 9 / 4) steps(3), 
-               walk-right ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+    -webkit-animation: walk-right-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-right ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+            animation: walk-right-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-right ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
   }
 
   .walk-down {
-    animation: walk-down-start ($anim-speed * 9 / 4) steps(3), 
-               walk-down ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+    -webkit-animation: walk-down-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-down ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+            animation: walk-down-start ($anim-speed * 9 / 4) steps(3), 
+                       walk-down ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
   }
 
   @keyframes walk-left-start {
+     from { background-position: (-23px * $multiplier) (-87px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
+  }
+
+  @-webkit-keyframes walk-left-start {
      from { background-position: (-23px * $multiplier) (-87px * $multiplier); }
        to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
   }
@@ -161,7 +192,17 @@ body {
        to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
   }
 
+  @-webkit-keyframes walk-left {
+     from { background-position: 0px (-87px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
+  }
+
   @keyframes walk-up-start {
+     from { background-position: (-23px * $multiplier) (-58px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
+  }
+
+  @-webkit-keyframes walk-up-start {
      from { background-position: (-23px * $multiplier) (-58px * $multiplier); }
        to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
   }
@@ -171,7 +212,17 @@ body {
        to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
   }
 
+  @-webkit-keyframes walk-up {
+     from { background-position: 0px (-58px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
+  }
+
   @keyframes walk-right-start {
+     from { background-position: (-23px * $multiplier) (-29px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
+  }
+
+  @-webkit-keyframes walk-right-start {
      from { background-position: (-23px * $multiplier) (-29px * $multiplier); }
        to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
   }
@@ -181,12 +232,27 @@ body {
        to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
   }
 
+  @-webkit-keyframes walk-right {
+     from { background-position: 0px (-29px * $multiplier); }
+       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
+  }
+
   @keyframes walk-down-start {
      from { background-position: (-23px * $multiplier) 0px; }
        to { background-position: (-92px * $multiplier) 0px; }
   }
 
+  @-webkit-keyframes walk-down-start {
+     from { background-position: (-23px * $multiplier) 0px; }
+       to { background-position: (-92px * $multiplier) 0px; }
+  }
+
   @keyframes walk-down {
+     from { background-position: 0px 0px; }
+       to { background-position: (-92px * $multiplier) 0px; }
+  }
+
+  @-webkit-keyframes walk-down {
      from { background-position: 0px 0px; }
        to { background-position: (-92px * $multiplier) 0px; }
   }
@@ -289,7 +355,8 @@ body {
   position: absolute;
   top: 5px * $multiplier;
   left: 50%;
-  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 
   width: 23px * 2 * $multiplier;
   height: 29px * 2 * $multiplier;
@@ -304,10 +371,16 @@ body {
     top: 0;
     left: 0;
 
-    animation: rotate-character 2s steps(4) infinite;
+    -webkit-animation: rotate-character 2s steps(4) infinite;
+            animation: rotate-character 2s steps(4) infinite;
   }
 
   @keyframes rotate-character {
+     from { top: 0; }
+       to { top: -29px * 2 * 4 * $multiplier; }
+  }
+
+  @-webkit-keyframes rotate-character {
      from { top: 0; }
        to { top: -29px * 2 * 4 * $multiplier; }
   }

@@ -176,6 +176,9 @@ SpriteGenerator.prototype.generateSprite = function() {
 
   // Clear the display context and draw generated sprite.
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  this.context.mozImageSmoothingEnabled = false;
+  this.context.webkitImageSmoothingEnabled = false;
+  this.context.msImageSmoothingEnabled = false;
   this.context.imageSmoothingEnabled = false;
   this.context.drawImage(manipCanvas, 0, 0);
 }

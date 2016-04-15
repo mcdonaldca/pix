@@ -47,12 +47,20 @@ body {
     background-size: 1104px 228px;
     background-position: 0 0; }
   .area .react-surprise {
+    -webkit-animation: react-surprise 1s steps(8);
     animation: react-surprise 1s steps(8); }
   .area .react-love {
+    -webkit-animation: react-love 1s steps(8);
     animation: react-love 1s steps(8); }
   .area .react-wat {
+    -webkit-animation: react-wat 2s steps(11);
     animation: react-wat 2s steps(11); }
 @keyframes react-surprise {
+  from {
+    background-position: -92px 0; }
+  to {
+    background-position: -828px 0; } }
+@-webkit-keyframes react-surprise {
   from {
     background-position: -92px 0; }
   to {
@@ -62,7 +70,17 @@ body {
     background-position: -92px -76px; }
   to {
     background-position: -828px -76px; } }
+@-webkit-keyframes react-love {
+  from {
+    background-position: -92px -76px; }
+  to {
+    background-position: -828px -76px; } }
 @keyframes react-wat {
+  from {
+    background-position: -92px -152px; }
+  to {
+    background-position: -1104px -152px; } }
+@-webkit-keyframes react-wat {
   from {
     background-position: -92px -152px; }
   to {
@@ -83,14 +101,23 @@ body {
     background-position: 0 0;
     background-size: 368px 464px; }
   .area .walk-left {
+    -webkit-animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite;
     animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite; }
   .area .walk-up {
+    -webkit-animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite;
     animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
   .area .walk-right {
+    -webkit-animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite;
     animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
   .area .walk-down {
+    -webkit-animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite;
     animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-left-start {
+  from {
+    background-position: -92px -348px; }
+  to {
+    background-position: -368px -348px; } }
+@-webkit-keyframes walk-left-start {
   from {
     background-position: -92px -348px; }
   to {
@@ -100,7 +127,17 @@ body {
     background-position: 0px -348px; }
   to {
     background-position: -368px -348px; } }
+@-webkit-keyframes walk-left {
+  from {
+    background-position: 0px -348px; }
+  to {
+    background-position: -368px -348px; } }
 @keyframes walk-up-start {
+  from {
+    background-position: -92px -232px; }
+  to {
+    background-position: -368px -232px; } }
+@-webkit-keyframes walk-up-start {
   from {
     background-position: -92px -232px; }
   to {
@@ -110,7 +147,17 @@ body {
     background-position: 0px -232px; }
   to {
     background-position: -368px -232px; } }
+@-webkit-keyframes walk-up {
+  from {
+    background-position: 0px -232px; }
+  to {
+    background-position: -368px -232px; } }
 @keyframes walk-right-start {
+  from {
+    background-position: -92px -116px; }
+  to {
+    background-position: -368px -116px; } }
+@-webkit-keyframes walk-right-start {
   from {
     background-position: -92px -116px; }
   to {
@@ -120,12 +167,27 @@ body {
     background-position: 0px -116px; }
   to {
     background-position: -368px -116px; } }
+@-webkit-keyframes walk-right {
+  from {
+    background-position: 0px -116px; }
+  to {
+    background-position: -368px -116px; } }
 @keyframes walk-down-start {
   from {
     background-position: -92px 0px; }
   to {
     background-position: -368px 0px; } }
+@-webkit-keyframes walk-down-start {
+  from {
+    background-position: -92px 0px; }
+  to {
+    background-position: -368px 0px; } }
 @keyframes walk-down {
+  from {
+    background-position: 0px 0px; }
+  to {
+    background-position: -368px 0px; } }
+@-webkit-keyframes walk-down {
   from {
     background-position: 0px 0px; }
   to {
@@ -204,6 +266,7 @@ body {
   position: absolute;
   top: 20px;
   left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   width: 184px;
   height: 232px;
@@ -215,8 +278,14 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    -webkit-animation: rotate-character 2s steps(4) infinite;
     animation: rotate-character 2s steps(4) infinite; }
 @keyframes rotate-character {
+  from {
+    top: 0; }
+  to {
+    top: -928px; } }
+@-webkit-keyframes rotate-character {
   from {
     top: 0; }
   to {
