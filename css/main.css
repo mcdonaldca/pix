@@ -49,12 +49,6 @@ body {
   .area .react-surprise {
     -webkit-animation: react-surprise 1s steps(8);
     animation: react-surprise 1s steps(8); }
-  .area .react-love {
-    -webkit-animation: react-love 1s steps(8);
-    animation: react-love 1s steps(8); }
-  .area .react-wat {
-    -webkit-animation: react-wat 2s steps(11);
-    animation: react-wat 2s steps(11); }
 @keyframes react-surprise {
   from {
     background-position: -92px 0; }
@@ -65,6 +59,9 @@ body {
     background-position: -92px 0; }
   to {
     background-position: -828px 0; } }
+  .area .react-love {
+    -webkit-animation: react-love 1s steps(8);
+    animation: react-love 1s steps(8); }
 @keyframes react-love {
   from {
     background-position: -92px -76px; }
@@ -75,6 +72,9 @@ body {
     background-position: -92px -76px; }
   to {
     background-position: -828px -76px; } }
+  .area .react-wat {
+    -webkit-animation: react-wat 2s steps(11);
+    animation: react-wat 2s steps(11); }
 @keyframes react-wat {
   from {
     background-position: -92px -152px; }
@@ -103,15 +103,6 @@ body {
   .area .walk-left {
     -webkit-animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite;
     animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite; }
-  .area .walk-up {
-    -webkit-animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite;
-    animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
-  .area .walk-right {
-    -webkit-animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite;
-    animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
-  .area .walk-down {
-    -webkit-animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite;
-    animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-left-start {
   from {
     background-position: -92px -348px; }
@@ -132,6 +123,9 @@ body {
     background-position: 0px -348px; }
   to {
     background-position: -368px -348px; } }
+  .area .walk-up {
+    -webkit-animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite;
+    animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-up-start {
   from {
     background-position: -92px -232px; }
@@ -152,6 +146,9 @@ body {
     background-position: 0px -232px; }
   to {
     background-position: -368px -232px; } }
+  .area .walk-right {
+    -webkit-animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite;
+    animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-right-start {
   from {
     background-position: -92px -116px; }
@@ -172,26 +169,29 @@ body {
     background-position: 0px -116px; }
   to {
     background-position: -368px -116px; } }
+  .area .walk-down {
+    -webkit-animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite;
+    animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-down-start {
   from {
-    background-position: -92px 0px; }
+    background-position: -92px 0; }
   to {
-    background-position: -368px 0px; } }
+    background-position: -368px 0; } }
 @-webkit-keyframes walk-down-start {
   from {
-    background-position: -92px 0px; }
+    background-position: -92px 0; }
   to {
-    background-position: -368px 0px; } }
+    background-position: -368px 0; } }
 @keyframes walk-down {
   from {
-    background-position: 0px 0px; }
+    background-position: 0px 0; }
   to {
-    background-position: -368px 0px; } }
+    background-position: -368px 0; } }
 @-webkit-keyframes walk-down {
   from {
-    background-position: 0px 0px; }
+    background-position: 0px 0; }
   to {
-    background-position: -368px 0px; } }
+    background-position: -368px 0; } }
   .area .item {
     position: absolute;
     background-size: 100%;

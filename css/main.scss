@@ -1,6 +1,7 @@
 $multiplier: 4;
 // Production: $anim-speed: .25s; 
 $anim-speed: .15s;
+$transition: left $anim-speed linear, bottom $anim-speed linear;
 
 body {
   background: black;
@@ -29,7 +30,7 @@ body {
 .area {
   position: absolute;
   overflow: hidden;
-  transition: left $anim-speed linear, bottom $anim-speed linear;
+  transition: $transition;
 
   img {
     width: 100%;
@@ -45,7 +46,7 @@ body {
     width: $w;
     height: $h;
     
-    transition: left $anim-speed linear, bottom $anim-speed linear;
+    transition: $transition;
 
     left: -7px * $multiplier;
     bottom: 0;
@@ -65,7 +66,7 @@ body {
     width: $w;
     height: $h;
     
-    transition: left $anim-speed linear, bottom $anim-speed linear;
+    transition: $transition;
   }
 
   .reaction {
@@ -80,50 +81,26 @@ body {
     background-position: 0 0;
   }
 
-  .react-surprise {
-    -webkit-animation: react-surprise 1s steps(8);
-            animation: react-surprise 1s steps(8);
+  @mixin reaction($name, $duration, $steps, $end) {
+    .#{$name} {
+      -webkit-animation: #{$name} $duration steps($steps);
+              animation: #{$name} $duration steps($steps);
+    }
+
+    @keyframes #{$name} {
+      from { background-position: (-23px * $multiplier) ($end * $multiplier); }
+        to { background-position: (-23px * ($steps + 1) * $multiplier) ($end * $multiplier); }
+    }
+
+    @-webkit-keyframes #{$name} {
+      from { background-position: (-23px * $multiplier) ($end * $multiplier); }
+        to { background-position: (-23px * ($steps + 1) * $multiplier) ($end * $multiplier); }
+    }
   }
 
-  .react-love {
-    -webkit-animation: react-love 1s steps(8);
-            animation: react-love 1s steps(8);
-  }
-
-  .react-wat {
-    -webkit-animation: react-wat 2s steps(11);
-            animation: react-wat 2s steps(11);
-  }
-
-  @keyframes react-surprise {
-     from { background-position: (-23px * $multiplier) 0; }
-       to { background-position: (-23px * 9 * $multiplier) 0; }
-  }
-
-  @-webkit-keyframes react-surprise {
-     from { background-position: (-23px * $multiplier) 0; }
-       to { background-position: (-23px * 9 * $multiplier) 0; }
-  }
-
-  @keyframes react-love {
-     from { background-position: (-23px * $multiplier) (-19px * $multiplier); }
-       to { background-position: (-23px * 9 * $multiplier) (-19px * $multiplier); }
-  }
-
-  @-webkit-keyframes react-love {
-     from { background-position: (-23px * $multiplier) (-19px * $multiplier); }
-       to { background-position: (-23px * 9 * $multiplier) (-19px * $multiplier); }
-  }
-
-  @keyframes react-wat {
-     from { background-position: (-23px * $multiplier) (-38px * $multiplier); }
-       to { background-position: (-23px * 12 * $multiplier) (-38px * $multiplier); }
-  }
-
-  @-webkit-keyframes react-wat {
-     from { background-position: (-23px * $multiplier) (-38px * $multiplier); }
-       to { background-position: (-23px * 12 * $multiplier) (-38px * $multiplier); }
-  }
+  @include reaction("react-surprise", 1s, 8, 0);
+  @include reaction("react-love", 1s, 8, -19px);
+  @include reaction("react-wat", 2s, 11, -38px);
 
   .shadow {
     position: absolute;
@@ -149,118 +126,44 @@ body {
     background-size: ($w * 4) ($h * 4);
   }
 
-  .walk-left {
-    -webkit-animation: walk-left-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-left ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-            animation: walk-left-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-left ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+  @mixin walk($direction, $row) {
+    .walk-#{$direction} {
+      -webkit-animation: walk-#{$direction}-start ($anim-speed * 9 / 4) steps(3), 
+                         walk-#{$direction} ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+              animation: walk-#{$direction}-start ($anim-speed * 9 / 4) steps(3), 
+                         walk-#{$direction} ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
+    }
+
+    @keyframes walk-#{$direction}-start {
+     from { background-position: (-23px * $multiplier) ($row * $multiplier); }
+       to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+    }
+
+    @-webkit-keyframes walk-#{$direction}-start {
+       from { background-position: (-23px * $multiplier) ($row * $multiplier); }
+         to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+    }
+
+    @keyframes walk-#{$direction} {
+       from { background-position: 0px ($row * $multiplier); }
+         to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+    }
+
+    @-webkit-keyframes walk-#{$direction} {
+       from { background-position: 0px ($row * $multiplier); }
+         to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+    }
   }
 
-  .walk-up {
-    -webkit-animation: walk-up-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-up ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-            animation: walk-up-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-up ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-  }
-
-  .walk-right {
-    -webkit-animation: walk-right-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-right ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-            animation: walk-right-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-right ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-  }
-
-  .walk-down {
-    -webkit-animation: walk-down-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-down ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-            animation: walk-down-start ($anim-speed * 9 / 4) steps(3), 
-                       walk-down ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-  }
-
-  @keyframes walk-left-start {
-     from { background-position: (-23px * $multiplier) (-87px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
-  }
-
-  @-webkit-keyframes walk-left-start {
-     from { background-position: (-23px * $multiplier) (-87px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
-  }
-
-  @keyframes walk-left {
-     from { background-position: 0px (-87px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
-  }
-
-  @-webkit-keyframes walk-left {
-     from { background-position: 0px (-87px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-87px * $multiplier); }
-  }
-
-  @keyframes walk-up-start {
-     from { background-position: (-23px * $multiplier) (-58px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
-  }
-
-  @-webkit-keyframes walk-up-start {
-     from { background-position: (-23px * $multiplier) (-58px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
-  }
-
-  @keyframes walk-up {
-     from { background-position: 0px (-58px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
-  }
-
-  @-webkit-keyframes walk-up {
-     from { background-position: 0px (-58px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-58px * $multiplier); }
-  }
-
-  @keyframes walk-right-start {
-     from { background-position: (-23px * $multiplier) (-29px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
-  }
-
-  @-webkit-keyframes walk-right-start {
-     from { background-position: (-23px * $multiplier) (-29px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
-  }
-
-  @keyframes walk-right {
-     from { background-position: 0px (-29px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
-  }
-
-  @-webkit-keyframes walk-right {
-     from { background-position: 0px (-29px * $multiplier); }
-       to { background-position: (-92px * $multiplier) (-29px * $multiplier); }
-  }
-
-  @keyframes walk-down-start {
-     from { background-position: (-23px * $multiplier) 0px; }
-       to { background-position: (-92px * $multiplier) 0px; }
-  }
-
-  @-webkit-keyframes walk-down-start {
-     from { background-position: (-23px * $multiplier) 0px; }
-       to { background-position: (-92px * $multiplier) 0px; }
-  }
-
-  @keyframes walk-down {
-     from { background-position: 0px 0px; }
-       to { background-position: (-92px * $multiplier) 0px; }
-  }
-
-  @-webkit-keyframes walk-down {
-     from { background-position: 0px 0px; }
-       to { background-position: (-92px * $multiplier) 0px; }
-  }
+  @include walk("left", -87px);
+  @include walk("up", -58px);
+  @include walk("right", -29px);
+  @include walk("down", 0);
 
   .item {
     position: absolute;
     background-size: 100%;
-    transition: left $anim-speed linear, bottom $anim-speed linear;
+    transition: $transition;
   }
 }
 
