@@ -6,6 +6,9 @@ function Game() {
   this.avatar = new Avatar($("#avatar"), $("#reaction"), $("#sprite")); // Avatar element.
   this.prompt = new Prompt(); // Interface with on-screen prompt.
 
+  this.time = new Time(); // Tracks time in game.
+
+  this.area = undefined;   // The current area.
   this.areas = {};         // Map of area names to their Area objects.
   this.screens = {};       // Map of screens to their varous objects.
   this.focus = undefined;  // The current focus.
@@ -30,7 +33,7 @@ function Game() {
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
   this.moveToArea(area);
-  this.displayScreen("character-select");
+  // this.displayScreen("character-select");
   this.messager = new Message("");
 
   this.x = startX; 

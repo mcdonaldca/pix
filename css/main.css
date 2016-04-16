@@ -1,14 +1,88 @@
 body {
-  background: black;
+  background: #252525;
   margin: 0;
   padding: 0; }
+
+#status {
+  position: relative;
+  width: 564px;
+  height: 75px;
+  margin: 20px auto 0;
+  background-image: url(../img/status/status.svg);
+  background-size: 564px 75px; }
+  #status .season {
+    position: absolute;
+    top: 6px;
+    right: 129px;
+    width: 45px;
+    height: 27px;
+    background-image: url(../img/status/seasons.svg);
+    background-size: 45px 99px; }
+  #status .weekday {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 66px;
+    height: 27px;
+    background-image: url(../img/status/weekdays.svg);
+    background-size: 66px 171px; }
+  #status .number {
+    position: absolute;
+    width: 24px;
+    height: 27px;
+    background-image: url(../img/status/numbers.svg);
+    background-size: 24px 243px; }
+    #status .number.dark {
+      background-image: url(../img/status/numbers-dark.svg); }
+  #status .day-tenth {
+    top: 6px;
+    right: 99px; }
+  #status .day-single {
+    top: 6px;
+    right: 78px;
+    background-position: 0 -216px; }
+  #status .hour-tenth {
+    top: 33px;
+    right: 150px; }
+  #status .hour-single {
+    top: 33px;
+    right: 129px;
+    background-position: 0 -144px; }
+  #status .minute-tenth {
+    top: 33px;
+    right: 99px;
+    background-position: 0 -72px; }
+  #status .minute-single {
+    top: 33px;
+    right: 78px; }
+  #status .time-of-day {
+    position: absolute;
+    top: 33px;
+    right: 24px;
+    width: 48px;
+    height: 27px;
+    background-image: url(../img/status/time-of-day.svg);
+    background-size: 48px 51px; }
+
+.background {
+  position: absolute;
+  z-index: -10;
+  top: 77px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-image: url(../img/status/background.svg);
+  background-size: 564px 564px;
+  height: 564px;
+  width: 564px; }
 
 #game {
   position: relative;
   overflow: hidden;
-  height: 704px;
-  width: 704px;
-  margin: 30px auto 0;
+  background: black;
+  height: 528px;
+  width: 528px;
+  margin: 0 auto;
   opacity: 0;
   transition: opacity 0s; }
   #game.visible {
@@ -24,10 +98,10 @@ body {
     height: 100%; }
   .area #avatar {
     position: absolute;
-    width: 92px;
-    height: 116px;
+    width: 69px;
+    height: 87px;
     transition: left 0.15s linear, bottom 0.15s linear;
-    left: -28px;
+    left: -21px;
     bottom: 0; }
     .area #avatar .sprite {
       background-image: url(../img/characters/adele.svg); }
@@ -35,63 +109,63 @@ body {
       background-image: url(../img/characters/shadow_sm.svg); }
   .area .npc {
     position: absolute;
-    width: 92px;
-    height: 116px;
+    width: 69px;
+    height: 87px;
     transition: left 0.15s linear, bottom 0.15s linear; }
   .area .reaction {
     position: absolute;
-    top: -32px;
-    height: 76px;
-    width: 92px;
+    top: -24px;
+    height: 57px;
+    width: 69px;
     background-image: url(../img/characters/reaction.svg);
-    background-size: 1104px 228px;
+    background-size: 828px 171px;
     background-position: 0 0; }
   .area .react-surprise {
     -webkit-animation: react-surprise 1s steps(8);
     animation: react-surprise 1s steps(8); }
 @keyframes react-surprise {
   from {
-    background-position: -92px 0; }
+    background-position: -69px 0; }
   to {
-    background-position: -828px 0; } }
+    background-position: -621px 0; } }
 @-webkit-keyframes react-surprise {
   from {
-    background-position: -92px 0; }
+    background-position: -69px 0; }
   to {
-    background-position: -828px 0; } }
+    background-position: -621px 0; } }
   .area .react-love {
     -webkit-animation: react-love 1s steps(8);
     animation: react-love 1s steps(8); }
 @keyframes react-love {
   from {
-    background-position: -92px -76px; }
+    background-position: -69px -57px; }
   to {
-    background-position: -828px -76px; } }
+    background-position: -621px -57px; } }
 @-webkit-keyframes react-love {
   from {
-    background-position: -92px -76px; }
+    background-position: -69px -57px; }
   to {
-    background-position: -828px -76px; } }
+    background-position: -621px -57px; } }
   .area .react-wat {
     -webkit-animation: react-wat 2s steps(11);
     animation: react-wat 2s steps(11); }
 @keyframes react-wat {
   from {
-    background-position: -92px -152px; }
+    background-position: -69px -114px; }
   to {
-    background-position: -1104px -152px; } }
+    background-position: -828px -114px; } }
 @-webkit-keyframes react-wat {
   from {
-    background-position: -92px -152px; }
+    background-position: -69px -114px; }
   to {
-    background-position: -1104px -152px; } }
+    background-position: -828px -114px; } }
   .area .shadow {
     position: absolute;
-    width: 60px;
-    height: 24px;
+    width: 45px;
+    height: 18px;
     z-index: 0;
-    left: 16px;
-    bottom: 4px;
+    left: 12px;
+    bottom: 3px;
     background-size: 100%; }
   .area .sprite {
     position: relative;
@@ -99,99 +173,99 @@ body {
     height: 100%;
     z-index: 1;
     background-position: 0 0;
-    background-size: 368px 464px; }
+    background-size: 276px 348px; }
   .area .walk-left {
     -webkit-animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite;
     animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-left-start {
   from {
-    background-position: -92px -348px; }
+    background-position: -69px -261px; }
   to {
-    background-position: -368px -348px; } }
+    background-position: -276px -261px; } }
 @-webkit-keyframes walk-left-start {
   from {
-    background-position: -92px -348px; }
+    background-position: -69px -261px; }
   to {
-    background-position: -368px -348px; } }
+    background-position: -276px -261px; } }
 @keyframes walk-left {
   from {
-    background-position: 0px -348px; }
+    background-position: 0px -261px; }
   to {
-    background-position: -368px -348px; } }
+    background-position: -276px -261px; } }
 @-webkit-keyframes walk-left {
   from {
-    background-position: 0px -348px; }
+    background-position: 0px -261px; }
   to {
-    background-position: -368px -348px; } }
+    background-position: -276px -261px; } }
   .area .walk-up {
     -webkit-animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite;
     animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-up-start {
   from {
-    background-position: -92px -232px; }
+    background-position: -69px -174px; }
   to {
-    background-position: -368px -232px; } }
+    background-position: -276px -174px; } }
 @-webkit-keyframes walk-up-start {
   from {
-    background-position: -92px -232px; }
+    background-position: -69px -174px; }
   to {
-    background-position: -368px -232px; } }
+    background-position: -276px -174px; } }
 @keyframes walk-up {
   from {
-    background-position: 0px -232px; }
+    background-position: 0px -174px; }
   to {
-    background-position: -368px -232px; } }
+    background-position: -276px -174px; } }
 @-webkit-keyframes walk-up {
   from {
-    background-position: 0px -232px; }
+    background-position: 0px -174px; }
   to {
-    background-position: -368px -232px; } }
+    background-position: -276px -174px; } }
   .area .walk-right {
     -webkit-animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite;
     animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-right-start {
   from {
-    background-position: -92px -116px; }
+    background-position: -69px -87px; }
   to {
-    background-position: -368px -116px; } }
+    background-position: -276px -87px; } }
 @-webkit-keyframes walk-right-start {
   from {
-    background-position: -92px -116px; }
+    background-position: -69px -87px; }
   to {
-    background-position: -368px -116px; } }
+    background-position: -276px -87px; } }
 @keyframes walk-right {
   from {
-    background-position: 0px -116px; }
+    background-position: 0px -87px; }
   to {
-    background-position: -368px -116px; } }
+    background-position: -276px -87px; } }
 @-webkit-keyframes walk-right {
   from {
-    background-position: 0px -116px; }
+    background-position: 0px -87px; }
   to {
-    background-position: -368px -116px; } }
+    background-position: -276px -87px; } }
   .area .walk-down {
     -webkit-animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite;
     animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
 @keyframes walk-down-start {
   from {
-    background-position: -92px 0; }
+    background-position: -69px 0; }
   to {
-    background-position: -368px 0; } }
+    background-position: -276px 0; } }
 @-webkit-keyframes walk-down-start {
   from {
-    background-position: -92px 0; }
+    background-position: -69px 0; }
   to {
-    background-position: -368px 0; } }
+    background-position: -276px 0; } }
 @keyframes walk-down {
   from {
     background-position: 0px 0; }
   to {
-    background-position: -368px 0; } }
+    background-position: -276px 0; } }
 @-webkit-keyframes walk-down {
   from {
     background-position: 0px 0; }
   to {
-    background-position: -368px 0; } }
+    background-position: -276px 0; } }
   .area .item {
     position: absolute;
     background-size: 100%;
@@ -217,21 +291,21 @@ body {
   .prompt .options {
     display: none;
     position: relative;
-    min-height: 78px;
-    margin-top: 20px;
+    min-height: 51px;
+    margin-top: 15px;
     padding: 0;
-    border: 20px solid transparent;
+    border: 15px solid transparent;
     border-image-source: url("../img/border.svg");
-    border-image-width: 32px;
+    border-image-width: 24px;
     border-image-repeat: repeat;
     border-image-slice: 10; }
     .prompt .messages .content,
     .prompt .options .content {
-      min-height: 80px;
+      min-height: 60px;
       background: white;
-      font-size: 40px;
+      font-size: 30px;
       font-family: VT323, monospace;
-      padding: 16px 56px 16px 16px;
+      padding: 12px 42px 12px 12px;
       box-sizing: border-box; }
       .prompt .messages .content .current-selection,
       .prompt .options .content .current-selection {
@@ -241,8 +315,8 @@ body {
     .prompt .options .next-arrow,
     .prompt .options .select-arrow {
       position: absolute;
-      height: 36px;
-      width: 28px; }
+      height: 27px;
+      width: 21px; }
       .prompt .messages .next-arrow img,
       .prompt .messages .select-arrow img,
       .prompt .options .next-arrow img,
@@ -251,25 +325,25 @@ body {
         height: 100%; }
     .prompt .messages .next-arrow,
     .prompt .options .next-arrow {
-      bottom: 20px;
-      right: 16px; }
+      bottom: 15px;
+      right: 12px; }
     .prompt .messages .select-arrow,
     .prompt .options .select-arrow {
-      top: 16px;
-      left: 16px; }
+      top: 12px;
+      left: 12px; }
   .prompt .messages {
-    width: 662px; }
+    width: 489px; }
   .prompt .options .content {
-    padding-left: 60px; }
+    padding-left: 45px; }
 
 .character-select-display {
   position: absolute;
-  top: 20px;
+  top: 15px;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  width: 184px;
-  height: 232px;
+  width: 138px;
+  height: 174px;
   background: url(../img/screens/character-select/sprite-background.svg);
   background-size: 100%;
   z-index: 10001;
@@ -284,18 +358,19 @@ body {
   from {
     top: 0; }
   to {
-    top: -928px; } }
+    top: -696px; } }
 @-webkit-keyframes rotate-character {
   from {
     top: 0; }
   to {
-    top: -928px; } }
+    top: -696px; } }
 /***************
     Z-INDEX
 ----------------
-0 : Shadow
-1 : Sprite
-3 : Mirror (see js/event/mirror.js)
+-1  : Background
+0   : Shadow
+1   : Sprite
+3   : Mirror (see js/event/mirror.js)
 10x : Avatar, NPC (z-index changes based on y coord)
 10x + 1 : Avatar/NPC reaction bubble
 10x + 5 : Item

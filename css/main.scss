@@ -1,22 +1,153 @@
-$multiplier: 4;
+$multiplier: 3;
 // Production: $anim-speed: .25s; 
 $anim-speed: .15s;
 $transition: left $anim-speed linear, bottom $anim-speed linear;
 
 body {
-  background: black;
+  background: #252525;
   margin: 0;
   padding: 0;
+}
+
+#status {
+  position: relative;
+
+  $h: 25px * $multiplier;
+  $w: (16px * 11 + 12) * $multiplier;
+
+  width: $w;
+  height: $h;
+  margin: 20px auto 0;
+
+  background-image: url(../img/status/status.svg);
+  background-size: $w $h;
+
+  .season {
+    position: absolute;
+    top: 2px * $multiplier;
+    right: 43px * $multiplier;
+
+    $w: 15px * $multiplier;
+    $h: 33px * $multiplier;
+
+    width: $w;
+    height: 9px * $multiplier;
+
+    background-image: url(../img/status/seasons.svg);
+    background-size: $w $h;
+  }
+
+  .weekday {
+    position: absolute;
+    top: 2px * $multiplier;
+    right: 2px * $multiplier;
+
+    $w: 22px * $multiplier;
+    $h: 57px * $multiplier;
+
+    width: $w;
+    height: 9px * $multiplier;
+
+    background-image: url(../img/status/weekdays.svg);
+    background-size: $w $h;
+  }
+
+  .number {
+    position: absolute;
+
+    $w: 8px * $multiplier;
+    $h: 81px * $multiplier;
+
+    width: $w;
+    height: 9px * $multiplier;
+
+    background-image: url(../img/status/numbers.svg);
+    background-size: $w $h;
+
+    &.dark {
+      background-image: url(../img/status/numbers-dark.svg);
+    }
+  }
+
+  .day-tenth {
+    top: 2px * $multiplier;
+    right: 33px * $multiplier;
+  }
+
+  .day-single {
+    top: 2px * $multiplier;
+    right: 26px * $multiplier;
+
+    background-position: 0 (-72px * $multiplier);
+  }
+
+  .hour-tenth {
+    top: 11px * $multiplier;
+    right: 50px * $multiplier;
+  }
+
+  .hour-single {
+    top: 11px * $multiplier;
+    right: 43px * $multiplier;
+
+    background-position: 0 (-48px * $multiplier);
+  }
+
+  .minute-tenth {
+    top: 11px * $multiplier;
+    right: 33px * $multiplier;
+
+    background-position: 0 (-24px * $multiplier);
+  }
+
+  .minute-single {
+    top: 11px * $multiplier;
+    right: 26px * $multiplier;
+  }
+
+  .time-of-day {
+    position: absolute;
+    top: 11px * $multiplier;
+    right: 8px * $multiplier;
+
+    $w: 16px * $multiplier;
+    $h: 17px * $multiplier;
+
+    width: $w;
+    height: 9px * $multiplier;
+
+    background-image: url(../img/status/time-of-day.svg);
+    background-size: $w $h;
+  }
+}
+
+.background {
+  position: absolute;
+  z-index: -10;
+  top: 19px * $multiplier + 20px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+
+  $h: (16px * 11 + 12) * $multiplier;
+  $w: (16px * 11 + 12) * $multiplier;
+  
+  background-image: url(../img/status/background.svg);
+  background-size: $w $h;
+
+  height: $h;
+  width: $w;
 }
 
 #game {
   position: relative;
   overflow: hidden;
+  background: black;
 
   height: 16px * 11 * $multiplier;
   width: 16px * 11 * $multiplier;
 
-  margin: 30px auto 0;
+  margin: 0 auto;
 
   opacity: 0;
   transition: opacity 0s;
@@ -292,9 +423,10 @@ body {
 /***************
     Z-INDEX
 ----------------
-0 : Shadow
-1 : Sprite
-3 : Mirror (see js/event/mirror.js)
+-1  : Background
+0   : Shadow
+1   : Sprite
+3   : Mirror (see js/event/mirror.js)
 10x : Avatar, NPC (z-index changes based on y coord)
 10x + 1 : Avatar/NPC reaction bubble
 10x + 5 : Item

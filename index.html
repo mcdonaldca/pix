@@ -6,6 +6,18 @@
 </head>
 
 <body>
+  <div id="status">
+    <div class="season"></div>
+    <div class="number dark day-tenth"></div>
+    <div class="number dark day-single"></div>
+    <div class="weekday"></div>
+    <div class="number hour-tenth"></div>
+    <div class="number hour-single"></div>
+    <div class="number minute-tenth"></div>
+    <div class="number minute-single"></div>
+    <div class="time-of-day"></div>
+  </div>
+  <div class="background"></div>
   <div id="game">
     <div class="area">
       <img class="area-img">
@@ -39,14 +51,15 @@
   <script src="js/third-party/jquery-1.12.0.min.js"></script>
 
   <!-- Sprite generation -->
-  <script src="js/sprite-data.js"></script>
-  <script src="js/sprite-generator.js"></script>
+  <script src="js/sprite/sprite-data.js"></script>
+  <script src="js/sprite/sprite-generator.js"></script>
 
 
   <!-- Building blocks for game. -->
   <script src="js/constants.js"></script>
   <script src="js/avatar.js"></script>
   <script src="js/prompt.js"></script>
+  <script src="js/time.js"></script>
   <script src="js/game.js"></script>
   <script src="js/area.js"></script>
   <script src="js/space.js"></script>
