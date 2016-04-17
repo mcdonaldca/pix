@@ -36,6 +36,7 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   this.displayScreen("keyboard");
   // For skipping playthrough (for testing).
   /*
+  this.time.begin();
   this.moveToArea(area);
   this.faceDir(this.face);
   this.moveToSpace(this.x, this.y, this.face);
@@ -52,10 +53,7 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   window.setTimeout(function() {
     game.status = "screen";
   }, 500);
-
-  this.x = startX; 
-  this.y = startY;
-  this.face = startFace;
+  
   this.messager = new Message("");
 }
 

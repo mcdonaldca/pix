@@ -36,6 +36,7 @@ Game.prototype.characterSelectCallback = function(game) {
     spriteGenerator.alterSprite("mom");
     var momDataURL = spriteGenerator.getDataURL();
 
+    game.time.begin();
     game.getNPC("mom").avatar.setBackgroundImage(momDataURL);
     game.screenEndFade();
   };

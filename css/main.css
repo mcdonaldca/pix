@@ -9,7 +9,8 @@ body {
   height: 75px;
   margin: 20px auto 0;
   background-image: url(../img/status/status.svg);
-  background-size: 564px 75px; }
+  background-size: 564px 75px;
+  opacity: 0; }
   #status .season {
     position: absolute;
     top: 6px;
@@ -17,7 +18,8 @@ body {
     width: 45px;
     height: 27px;
     background-image: url(../img/status/seasons.svg);
-    background-size: 45px 99px; }
+    background-size: 45px 99px;
+    background-position: 0 -72px; }
   #status .weekday {
     position: absolute;
     top: 6px;
@@ -36,22 +38,21 @@ body {
       background-image: url(../img/status/numbers-dark.svg); }
   #status .day-tenth {
     top: 6px;
-    right: 99px; }
+    right: 99px;
+    background-position: 0 -72px; }
   #status .day-single {
     top: 6px;
-    right: 78px;
-    background-position: 0 -216px; }
+    right: 78px; }
   #status .hour-tenth {
     top: 33px;
     right: 150px; }
   #status .hour-single {
     top: 33px;
     right: 129px;
-    background-position: 0 -144px; }
+    background-position: 0 -96px; }
   #status .minute-tenth {
     top: 33px;
-    right: 99px;
-    background-position: 0 -72px; }
+    right: 99px; }
   #status .minute-single {
     top: 33px;
     right: 78px; }
@@ -62,7 +63,8 @@ body {
     width: 48px;
     height: 27px;
     background-image: url(../img/status/time-of-day.svg);
-    background-size: 48px 51px; }
+    background-size: 48px 51px;
+    background-position: 0 -24px; }
 
 .background {
   position: absolute;

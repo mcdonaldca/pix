@@ -5,19 +5,32 @@ function Time() {
   this.active = false;       // If time is currently passing.
   this.interval = undefined; // The time interval.
   this.time = 0;             // The current time elapsed (in milliseconds).
+  this.statusEl = $("#status");
 
-  this.hour = 6; // Current hour.
+  this.hour = 4; // Current hour.
   this.hourTenthEl = $("#status .hour-tenth"); // Tenths place of the hour.
   this.hourSingleEl = $("#status .hour-single"); // Ones place of the hour.
-  this.minute = 30; // Current minute.
+  this.minute = 0; // Current minute.
   this.minuteTenthEl = $("#status .minute-tenth"); // Tenths place of the minute.
-  this.timeOfDay = "AM"; // Current time of day.
+  this.timeOfDay = "PM"; // Current time of day.
   this.timeOfDayEl = $("#status .time-of-day"); // AM/PM element.
 
+  this.day = 30;
+  this.dayTenthEl = $("#status .day-tenth"); // Tenths place of the hour.
+  this.daySingleEl = $("#status .day-single"); // Ones place of the hour.
+  this.seasons = ["SP", "SU", "AU", "WI"];
+  this.seasonEl = $("#status .season");
+  this.season = 3;
+
   // Set the time to begin with and start the timer.
-  this.setTime(this.hour, this.minute, this.timeOfDay);
+  this.setTime(
+    this.season,
+    this.day,
+    this.hour, 
+    this.minute, 
+    this.timeOfDay
+    );
   this.startTime();
-  this.begin();
 }
 
 /**
@@ -25,6 +38,7 @@ function Time() {
 **/
 Time.prototype.begin = function() {
   this.interval = setInterval(this.tick(this), 100);
+  this.statusEl.css("opacity", 1);
 }
 
 /**
@@ -103,8 +117,16 @@ Time.prototype.inc = function() {
 **/
 Time.prototype.setNumber = function(numberEl, value) {
   var offset = value * 8 * MULT;
-
   numberEl.css("background-position", "0 -" + offset.toString() + "px");
+}
+
+/**
+  Sets the displayed season.
+  @param season The season to display.
+**/
+Time.prototype.setSeason = function(season) {
+  var offset = season * 8 * MULT;
+  this.seasonEl.css("background-position", "0 -" + offset.toString() + "px");
 }
 
 /**
@@ -113,11 +135,16 @@ Time.prototype.setNumber = function(numberEl, value) {
   @param minute    The new minute.
   @param timeOfDay The new time of day.
 **/
-Time.prototype.setTime = function(hour, minute, timeOfDay) {
+Time.prototype.setTime = function(season, day, hour, minute, timeOfDay) {
+  this.season = season;
+  this.day = day;
   this.hour = hour;
   this.minute = minute;
   this.timeOfDay = timeOfDay;
 
+  this.setSeason(this.season);
+  this.setNumber(this.dayTenthEl, Math.floor(this.day / 10));
+  this.setNumber(this.daySingleEl, this.day % 10);
   this.setNumber(this.hourTenthEl, Math.floor(this.hour / 10));
   this.setNumber(this.hourSingleEl, this.hour % 10);
   this.setNumber(this.minuteTenthEl, Math.floor(this.minute / 10));

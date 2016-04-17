@@ -21,6 +21,7 @@ body {
 
   background-image: url(../img/status/status.svg);
   background-size: $w $h;
+  opacity: 0;
 
   .season {
     position: absolute;
@@ -35,6 +36,7 @@ body {
 
     background-image: url(../img/status/seasons.svg);
     background-size: $w $h;
+    background-position: 0 (-24px * $multiplier);
   }
 
   .weekday {
@@ -72,13 +74,12 @@ body {
   .day-tenth {
     top: 2px * $multiplier;
     right: 33px * $multiplier;
+    background-position: 0 (-24px * $multiplier);
   }
 
   .day-single {
     top: 2px * $multiplier;
     right: 26px * $multiplier;
-
-    background-position: 0 (-72px * $multiplier);
   }
 
   .hour-tenth {
@@ -89,15 +90,12 @@ body {
   .hour-single {
     top: 11px * $multiplier;
     right: 43px * $multiplier;
-
-    background-position: 0 (-48px * $multiplier);
+    background-position: 0 (-32px * $multiplier);
   }
 
   .minute-tenth {
     top: 11px * $multiplier;
     right: 33px * $multiplier;
-
-    background-position: 0 (-24px * $multiplier);
   }
 
   .minute-single {
@@ -118,6 +116,7 @@ body {
 
     background-image: url(../img/status/time-of-day.svg);
     background-size: $w $h;
+    background-position: 0 (-8px * $multiplier);
   }
 }
 
