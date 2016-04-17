@@ -4,9 +4,6 @@
 function CharacterSelect() {
   $.extend(this, new Screen("img/screens/character-select/background.svg"));
 
-  // Should be set when screen is displayed.
-  this.avatar = undefined;
-
   this.selectorData = {
     square: { img: "url(img/screens/character-select/selector-square.svg)", width: 17, height: 17 },
     sprite: { img: "url(img/screens/character-select/selector-sprite.svg)", width: 23, height: 21 },
@@ -158,7 +155,6 @@ CharacterSelect.prototype.arrowDown = function() {
                        .css("width", this.selectorData.done.width * MULT)
                        .css("height", this.selectorData.done.height * MULT);
       }
-      this.selectorEl.css("bottom", (this.bottomValues[this.category] * MULT).toString() + "px");
     } else if (this.currentSelection < this.values[this.category + 1].length) {
       this.category += 1;
 
@@ -176,9 +172,9 @@ CharacterSelect.prototype.arrowDown = function() {
                        .css("width", this.selectorData.square.width * MULT)
                        .css("height", this.selectorData.square.height * MULT);
       }
-
-      this.selectorEl.css("bottom", (this.bottomValues[this.category] * MULT).toString() + "px");
     }
+    this.selectorEl.css("bottom", (this.bottomValues[this.category] * MULT).toString() + "px");
+    
   } else if (this.status == "prompt") {
     this.prompt.arrowDown();
   }
@@ -200,11 +196,13 @@ CharacterSelect.prototype.interact = function(dir) {
       for (var i = 0; i < this.elements.length; i++) {
         $(this.elements[i]).remove();
       }
-      if (this.avatar != undefined) {
-        var dataURL = this.spriteGenerator.getDataURL();
-        this.avatar.setBackgroundImage(dataURL);    
-      }  
-      this.screenEl.css("background-image", "none");
+
+      this.endScreen();
+      this.callback(
+        this.spriteGenerator.getDataURL(),
+        this.spriteGenerator.hairColor,
+        this.spriteGenerator.skinTone
+        );
     }
 
     this.status = "selection";
@@ -273,14 +271,7 @@ CharacterSelect.prototype.interact = function(dir) {
   return "screen";
 }
 
-/**
-  Setter for CharacterSelect.avatar.
-  @param avatar The player's avatar object.
-**/
-CharacterSelect.prototype.setAvatar = function(avatar) {
-  this.avatar = avatar;
-}
-
 // Add CharacterSelect object to game's screen selection.
 var characterSelect = new CharacterSelect();
+characterSelect.setCallback(game.characterSelectCallback(game));
 game.addScreen("character-select", characterSelect);

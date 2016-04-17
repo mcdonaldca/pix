@@ -6,7 +6,12 @@
 **/
 function SpriteGenerator(canvas, scale) {
   scale = scale || 1;
+  this.SPRITE_SHEET_WIDTH = 23 * 4;
+  this.SPRITE_SHEET_HEIGHT = 29 * 4;
+
   this.canvas = canvas; // The canvas to draw the sprite to.
+  canvas.width = this.SPRITE_SHEET_WIDTH * MULT * scale;
+  canvas.height = this.SPRITE_SHEET_HEIGHT * MULT * scale;
   this.context = this.canvas.getContext("2d"); // Context of the canvas.
 
   // Scale the canvas by the necessary amount.
@@ -16,9 +21,6 @@ function SpriteGenerator(canvas, scale) {
   this.hair = "hair-3";         // Default hair style.
   this.hairColor = "chocolate"; // Default hair color.
   this.skinTone = "pale";       // Default skin tone.
-
-  this.SPRITE_SHEET_WIDTH = 23 * 4;
-  this.SPRITE_SHEET_HEIGHT = 29 * 4;
 
   this.generateSprite();
 }
@@ -239,4 +241,68 @@ SpriteGenerator.prototype.getSkinToneType = function(r, g, b) {
 **/
 SpriteGenerator.prototype.getDataURL = function() {
   return this.canvas.toDataURL();
+}
+
+/**
+  Alters a specific sprite to match a new skin tone and hair color.
+**/
+SpriteGenerator.prototype.alterSprite = function(spriteKey) {
+  var spriteImageData = SPRITE_DATA.imageData[spriteKey];
+  if (spriteImageData != undefined) {
+    var hairColorData = SPRITE_DATA.hairColors[this.hairColor] || SPRITE_DATA.hairColors.chocolate;
+    var skinToneData = SPRITE_DATA.skinTones[this.skinTone] || SPRITE_DATA.skinTones.pale;
+
+    // Create our new image data object.
+    var imageData = this.context.createImageData(this.SPRITE_SHEET_WIDTH, this.SPRITE_SHEET_HEIGHT);
+
+    for (var i = 0; i < spriteImageData.length; i += 4) {
+      var y = Math.floor((i / 4) / this.SPRITE_SHEET_WIDTH);
+      var x = (i / 4) - (y * this.SPRITE_SHEET_WIDTH);
+
+      var spriteR = spriteImageData[i];
+      var spriteG = spriteImageData[i + 1];
+      var spriteB = spriteImageData[i + 2];
+      var spriteA = spriteImageData[i + 3];
+
+      var skinType = this.getSkinToneType(spriteR, spriteG, spriteB);
+      var hairType = this.getHairColorType(spriteR, spriteG, spriteB);
+      // If this is a special exception pixel.
+      if (hairColorData.exceptions != undefined
+       && y in hairColorData.exceptions
+       && x in hairColorData.exceptions[y]) {
+        var type = hairColorData.exceptions[y][x];
+        imageData.data[i] = hairColorData[type].r;
+        imageData.data[i + 1] = hairColorData[type].g;
+        imageData.data[i + 2] = hairColorData[type].b;
+        imageData.data[i + 3] = 255;
+      } else if (skinType != null) {
+        imageData.data[i] = skinToneData[skinType].r;
+        imageData.data[i + 1] = skinToneData[skinType].g;
+        imageData.data[i + 2] = skinToneData[skinType].b;
+        imageData.data[i + 3] = 255;
+      } else if (hairType != "black") {
+        imageData.data[i] = hairColorData[hairType].r;
+        imageData.data[i + 1] = hairColorData[hairType].g;
+        imageData.data[i + 2] = hairColorData[hairType].b;
+        imageData.data[i + 3] = 255;
+      } else {
+        imageData.data[i] = spriteR;
+        imageData.data[i + 1] = spriteG;
+        imageData.data[i + 2] = spriteB;
+        imageData.data[i + 3] = spriteA;
+      }
+    }
+
+    // Create a canvas to draw our new imageData to.
+    var manipCanvas = document.createElement("canvas");
+    var manipContext = manipCanvas.getContext("2d");
+    manipContext.putImageData(imageData, 0, 0);
+
+    // Clear the display context and draw generated sprite.
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.mozImageSmoothingEnabled = false;
+    this.context.msImageSmoothingEnabled = false;
+    this.context.imageSmoothingEnabled = false;
+    this.context.drawImage(manipCanvas, 0, 0);
+  }
 }

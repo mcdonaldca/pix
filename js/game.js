@@ -33,7 +33,7 @@ function Game() {
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
   this.moveToArea(area);
-  // this.displayScreen("character-select");
+  this.displayScreen("keyboard");
   this.messager = new Message("");
 
   this.x = startX; 
@@ -356,10 +356,6 @@ Game.prototype.exit = function(exitTo) {
 Game.prototype.displayScreen = function(screen) {
   var screenObj = this.screens[screen];
   if (screenObj != undefined) {
-    // Character select screen needs access to the player's avatar.
-    if (screen == "character-select") {
-      screenObj.setAvatar(this.avatar);
-    }
     screenObj.display(this.prompt);
     this.focus = screenObj;
     this.status = "screen";

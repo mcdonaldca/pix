@@ -14,7 +14,7 @@ function Newspaper() {
   this.selectorEl = $(selectorEl);
   this.elements.push(this.selectorEl);
 
-  this.citySelected = "San Francisco"; // The currently selected city.
+  this.city = "San Francisco"; // The currently selected city.
 }
 
 /**
@@ -24,9 +24,9 @@ Newspaper.prototype.arrowLeft = function() {
   // If we're in selection mode and the current city is Seattle.
   // Can only go specific directions from specific cities because
   // of the newspaper layout.
-  if (this.status == "selection" && this.citySelected == "Seattle") {
+  if (this.status == "selection" && this.city == "Seattle") {
     this.selectorEl.css("left", (71 * MULT).toString() + "px");
-    this.citySelected = "San Francisco";
+    this.city = "San Francisco";
   }
 }
 
@@ -35,9 +35,9 @@ Newspaper.prototype.arrowLeft = function() {
 **/
 Newspaper.prototype.arrowUp = function() {
   // If in selection mode (and at correct city).
-  if (this.status == "selection" && this.citySelected == "New York City") {
+  if (this.status == "selection" && this.city == "New York City") {
     this.selectorEl.css("bottom", (84 * MULT).toString() + "px");
-    this.citySelected = "San Francisco";
+    this.city = "San Francisco";
 
   // If interacting with the prompt
   } else if (this.status == "prompt") {
@@ -50,9 +50,9 @@ Newspaper.prototype.arrowUp = function() {
 **/
 Newspaper.prototype.arrowRight = function() {
   // If in selection mode (and at correct city).
-  if (this.status == "selection" && this.citySelected == "San Francisco") {
+  if (this.status == "selection" && this.city == "San Francisco") {
     this.selectorEl.css("left", (121 * MULT).toString() + "px");
-    this.citySelected = "Seattle";
+    this.city = "Seattle";
   }
 }
 
@@ -61,9 +61,9 @@ Newspaper.prototype.arrowRight = function() {
 **/
 Newspaper.prototype.arrowDown = function() {
   // If in selection mode (and at correct city).
-  if (this.status == "selection" && this.citySelected == "San Francisco") {
+  if (this.status == "selection" && this.city == "San Francisco") {
     this.selectorEl.css("bottom", (55 * MULT).toString() + "px");
-    this.citySelected = "New York City";
+    this.city = "New York City";
 
   // If interacting with the prompt
   } else if (this.status == "prompt") {
@@ -84,7 +84,7 @@ Newspaper.prototype.interact = function(dir) {
     case 0:
       this.status = "prompt";
       this.prompt.displayOptions(
-        "Move to " + this.citySelected + " ?", // Options message.
+        "Move to " + this.city + " ?", // Options message.
         ["Yes!", "Keep looking."]              // Options.
         );
       break;
@@ -108,10 +108,10 @@ Newspaper.prototype.interact = function(dir) {
       this.prompt.removeOptions();
 
       // No Seattle version currently.
-      if (currentSelect == 0 && this.citySelected == "Seattle") {
+      if (currentSelect == 0 && this.city == "Seattle") {
         this.prompt.displayMessage("(Whoops, Seattle version coming eventually.)");
       // No New York City version currently.
-      } else if (currentSelect == 0 && this.citySelected == "New York City") {
+      } else if (currentSelect == 0 && this.city == "New York City") {
         this.prompt.displayMessage("(Whoops, New York City version coming eventually.)");
 
       // All other scenerios.
@@ -123,10 +123,9 @@ Newspaper.prototype.interact = function(dir) {
         // Accepted city!
         if (currentSelect == 0) {
           gameStatus = "exit";
-          this.exit = "rundown-apt";
-          // Clean up after screen;
-          this.selectorEl.remove();
-          this.screenEl.css("background-image", "none");
+          this.exit = "hewitt-home";
+          this.endScreen();
+          this.callback(this.city);
         }
       }
       break;
@@ -147,4 +146,5 @@ Newspaper.prototype.interact = function(dir) {
 
 // Add newspaper object to game's screen selection.
 var newspaper = new Newspaper();
+newspaper.setCallback(game.newspaperCallback(game));
 game.addScreen("newspaper", newspaper);

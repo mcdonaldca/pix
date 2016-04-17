@@ -364,6 +364,17 @@ body {
     top: 0; }
   to {
     top: -696px; } }
+.text-entry {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: white;
+  font-size: 81px;
+  font-family: VT323, monospace;
+  z-index: 10001; }
+
 /***************
     Z-INDEX
 ----------------

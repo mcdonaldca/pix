@@ -420,6 +420,19 @@ body {
   }
 }
 
+.text-entry {
+  position: absolute;
+  top: 40px * $multiplier;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+
+  color: white;
+  font-size: 27px * $multiplier;
+  font-family: VT323, monospace;
+  z-index: 10001;
+}
+
 /***************
     Z-INDEX
 ----------------

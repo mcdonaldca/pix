@@ -4,11 +4,15 @@
 function Screen(background) {
   this.background = background; // Background for the screen.
   this.screenEl = $("#screen"); // Access to the screen element (change bg).
-  this.prompt = undefined;
   this.status = "selection"; // Whether we're in selection mode or interacting w/ prompt.
   this.exit = undefined; // The location to exit to after selection.
   this.elements = []; // The elements used on the screen.
   this.count = 0; // Keeps track of our point in the conversation.
+
+  // Prompt is passed to the screen upon display.
+  this.prompt = undefined;
+  // Callback is set upon screen initialization.
+  this.callback = undefined;
 }
 
 /**
@@ -27,4 +31,21 @@ Screen.prototype.display = function(prompt) {
 **/
 Screen.prototype.exitTo = function() {
   return this.exit;
+}
+
+/**
+  Setter for Screen.callback.
+**/
+Screen.prototype.setCallback = function(callback) {
+  this.callback = callback;
+}
+
+/**
+  Cleans up after the screen is finished.
+**/
+Screen.prototype.endScreen = function() {
+  this.screenEl.css("background-image", "none");
+  for (var i = 0; i < this.elements.length; i++) {
+    this.elements[i].remove();
+  }
 }
