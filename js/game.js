@@ -11,7 +11,7 @@ function Game() {
   this.area = undefined;   // The current area.
   this.areas = {};         // Map of area names to their Area objects.
   this.screens = {};       // Map of screens to their varous objects.
-  this.npcs = {};          // Map of NPC names to their objects.
+  this.NPCs = {};          // Map of NPC names to their objects.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
 
@@ -76,12 +76,12 @@ Game.prototype.addScreen = function (key, screen) {
 }
 
 /**
-  Adds an NPC to the Game.npcs map.
+  Adds an NPC to the Game.NPCs map.
   @param key The key for the npc.
   @param npc NPC object.
 **/
 Game.prototype.addNPC = function (key, npc) {
-  this.npcs[key] = npc;
+  this.NPCs[key] = npc;
 }
 
 /**
@@ -90,7 +90,7 @@ Game.prototype.addNPC = function (key, npc) {
   @return The NPC object.
 **/
 Game.prototype.getNPC = function (key) {
-  return this.npcs[key];
+  return this.NPCs[key];
 }
 
 /**
