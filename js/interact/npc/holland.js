@@ -42,3 +42,7 @@ Holland.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
+
+// Add Holland object to game's NPC collection.
+var holland = new Holland();
+game.addNPC(holland.name, holland);

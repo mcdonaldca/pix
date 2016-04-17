@@ -11,6 +11,7 @@ function Game() {
   this.area = undefined;   // The current area.
   this.areas = {};         // Map of area names to their Area objects.
   this.screens = {};       // Map of screens to their varous objects.
+  this.npcs = {};          // Map of NPC names to their objects.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
 
@@ -32,16 +33,30 @@ function Game() {
   @param area      The area to start in.
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
-  this.moveToArea(area);
   this.displayScreen("keyboard");
-  this.messager = new Message("");
+  // For skipping playthrough (for testing).
+  /*
+  this.moveToArea(area);
+  this.faceDir(this.face);
+  this.moveToSpace(this.x, this.y, this.face);
+  */
+
+  // Fade in/out animation between areas.
+  this.gameEl.removeClass("visible");
+  var game = this;
+  window.setTimeout(function() {
+    game.gameEl.addClass("visible");
+  }, 250);
+  // Lock game mode until new area is totally loaded.
+  this.status = "loading";
+  window.setTimeout(function() {
+    game.status = "screen";
+  }, 500);
 
   this.x = startX; 
   this.y = startY;
   this.face = startFace;
-
-  this.faceDir(this.face);
-  this.moveToSpace(this.x, this.y, this.face);
+  this.messager = new Message("");
 }
 
 /**
@@ -56,10 +71,28 @@ Game.prototype.addArea = function (key, area) {
 /**
   Adds an screen to the Game.screens map.
   @param key The key for the screen.
-  @param area Screen's object.
+  @param screen Screen's object.
 **/
 Game.prototype.addScreen = function (key, screen) {
   this.screens[key] = screen;
+}
+
+/**
+  Adds an NPC to the Game.npcs map.
+  @param key The key for the npc.
+  @param npc NPC object.
+**/
+Game.prototype.addNPC = function (key, npc) {
+  this.npcs[key] = npc;
+}
+
+/**
+  Getter for an NPC in the game.
+  @param key The key for the npc.
+  @return The NPC object.
+**/
+Game.prototype.getNPC = function (key) {
+  return this.npcs[key];
 }
 
 /**
@@ -88,16 +121,12 @@ Game.prototype.moveToArea = function(area) {
   // Remove door data until it's set again by a specific exit door.
   window.sessionStorage.removeItem("door");
 
-  if (from != "") {
-    // Find position data to enter area.
-    var positionData = this.area.getPositionData(from, door);
-    this.x = positionData.x;
-    this.y = positionData.y;
-    this.face = positionData.face;
-  
-    this.faceDir(this.face);
-    this.moveToSpace(this.x, this.y, this.face);
-  }
+  var positionData = this.area.getPositionData(from, door);
+  this.x = positionData.x;
+  this.y = positionData.y;
+  this.face = positionData.face;
+  this.faceDir(this.face);
+  this.moveToSpace(this.x, this.y, this.face);
 
   // Fade in/out animation between areas.
   this.gameEl.removeClass("visible");
@@ -108,7 +137,7 @@ Game.prototype.moveToArea = function(area) {
   // Lock game mode until new area is totally loaded.
   this.status = "loading";
   window.setTimeout(function() {
-    game.status = game.focus == undefined ? "free" : "screen";
+    game.status = "free";
   }, 500);
 }
 

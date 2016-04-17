@@ -1,7 +1,6 @@
 var lobby = new Area(10, 7, "lobby", true);
 
-var holland = new Holland();
-lobby.addNPC(6, 4, holland, ["lf", "up"]);
+lobby.addNPC(6, 4, game.getNPC("holland"), ["lf", "up"]);
 lobby.addInteraction(5, 4, holland, ["rt"]);
 
 lobby.addItem(2, "counter", [6, 4]);

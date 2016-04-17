@@ -122,8 +122,6 @@ Newspaper.prototype.interact = function(dir) {
 
         // Accepted city!
         if (currentSelect == 0) {
-          gameStatus = "exit";
-          this.exit = "hewitt-home";
           this.endScreen();
           this.callback(this.city);
         }

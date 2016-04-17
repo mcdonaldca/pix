@@ -27,3 +27,7 @@ Vio.prototype.interact = function(prompt, dir) {
   this.avatar.reactLove();
   return "free";
 }
+
+// Add Vio object to game's NPC collection.
+var vio = new Vio();
+game.addNPC(vio.name, vio);

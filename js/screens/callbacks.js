@@ -12,6 +12,7 @@
 Game.prototype.newspaperCallback = function(game) {
   return function(city) {
     game.city = city;
+    game.screenEndFade();
   }
 }
 
@@ -35,7 +36,8 @@ Game.prototype.characterSelectCallback = function(game) {
     spriteGenerator.alterSprite("mom");
     var momDataURL = spriteGenerator.getDataURL();
 
-    $(".npc-mom .sprite").css("background-image", "url(" + momDataURL + ")");
+    game.getNPC("mom").avatar.setBackgroundImage(momDataURL);
+    game.screenEndFade();
   };
 }
 
@@ -47,5 +49,22 @@ Game.prototype.keyboardCallback = function(game) {
   return function(name) {
     game.name = name;
     game.displayScreen("character-select");
+    game.screenEndFade();
   }
+}
+
+/**
+  Called at the end of the screen's lifecycle, applies fade effect.
+**/
+Game.prototype.screenEndFade = function() {
+  this.gameEl.removeClass("visible");
+  var game = this;
+  window.setTimeout(function() {
+    game.gameEl.addClass("visible");
+  }, 250);
+  // Lock game mode until new area is totally loaded.
+  this.status = "loading";
+  window.setTimeout(function() {
+    game.status = "screen";
+  }, 500);
 }

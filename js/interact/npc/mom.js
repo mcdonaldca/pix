@@ -12,3 +12,7 @@ Mom.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
   return "free";
 }
+
+// Add Mom object to game's NPC collection.
+var mom = new Mom();
+game.addNPC(mom.name, mom);

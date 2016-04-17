@@ -44,3 +44,7 @@ Liam.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
+
+// Add Liam object to game's NPC collection.
+var liam = new Liam();
+game.addNPC(liam.name, liam);
