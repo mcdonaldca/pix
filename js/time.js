@@ -30,7 +30,6 @@ function Time() {
     this.minute, 
     this.timeOfDay
     );
-  this.startTime();
 }
 
 /**

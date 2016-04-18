@@ -18,6 +18,10 @@ function Avatar(avatar, reaction, sprite) {
   this.Y_OFFSET = 1;
 
   this.isCat = false; // Is the sprite a cat.
+
+  this.x = 0;
+  this.y = 0;
+  this.face = 0;
 }
 
 /**
@@ -34,6 +38,9 @@ Avatar.prototype.hide = function() {
   this.avatarEl.hide();
 }
 
+/**
+  Initializes surprise reaction for avatar.
+**/
 Avatar.prototype.reactSurprise = function() {
   this.reactionEl.addClass("react-surprise");
   var avatar = this;
@@ -42,6 +49,9 @@ Avatar.prototype.reactSurprise = function() {
   }, 1000);
 }
 
+/**
+  Initializes love reaction for avatar.
+**/
 Avatar.prototype.reactLove = function() {
   this.reactionEl.addClass("react-love");
   var avatar = this;
@@ -51,10 +61,22 @@ Avatar.prototype.reactLove = function() {
 }
 
 /**
+  Initializes wat reaction for avatar.
+**/
+Avatar.prototype.reactWat = function() {
+  this.reactionEl.addClass("react-wat");
+  var avatar = this;
+  setTimeout(function() {
+    avatar.reactionEl.removeClass("react-wat");
+  }, 2000);
+}
+
+/**
   Sets the left value for the avatar.
   @param x The left offset in blocks.
 **/
 Avatar.prototype.setLeft = function(x) {
+  this.x = x;
   this.avatarEl.css("left", ((x * BLOCK - this.X_OFFSET) * MULT).toString() + "px");
 }
 
@@ -64,6 +86,7 @@ Avatar.prototype.setLeft = function(x) {
   @param areaHeight The height of the current area. (Optional, used to set z-index.)
 **/
 Avatar.prototype.setBottom = function(y, areaHeight) {
+  this.y = y;
   this.avatarEl.css("bottom", ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + "px");
 
   areaHeight = areaHeight || "";
@@ -79,6 +102,7 @@ Avatar.prototype.setBottom = function(y, areaHeight) {
   Adjusts sprite to face left.
 **/
 Avatar.prototype.faceLeft = function() {
+  this.face = "lf";
   this.spriteEl.css("background-position", "0 " + (-3 * this.SPRITE_HEIGHT * MULT).toString() + "px");
 }
 
@@ -86,6 +110,7 @@ Avatar.prototype.faceLeft = function() {
   Adjusts sprite to face up.
 **/
 Avatar.prototype.faceUp = function() {
+  this.face = "up";
   this.spriteEl.css("background-position", "0 " + (-2 * this.SPRITE_HEIGHT * MULT).toString() + "px");
 }
 
@@ -93,6 +118,7 @@ Avatar.prototype.faceUp = function() {
   Adjusts sprite to face right.
 **/
 Avatar.prototype.faceRight = function() {
+  this.face = "rt";
   this.spriteEl.css("background-position", "0 " + (-1 * this.SPRITE_HEIGHT * MULT).toString() + "px");
 }
 
@@ -100,6 +126,7 @@ Avatar.prototype.faceRight = function() {
   Adjusts sprite to face down.
 **/
 Avatar.prototype.faceDown = function() {
+  this.face = "dw";
   this.spriteEl.css("background-position", "0 0");
 }
 

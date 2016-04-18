@@ -122,6 +122,7 @@ Newspaper.prototype.interact = function(dir) {
 
         // Accepted city!
         if (currentSelect == 0) {
+          gameStatus = "walkthrough";
           this.endScreen();
           this.callback(this.city);
         }

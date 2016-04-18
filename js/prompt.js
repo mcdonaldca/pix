@@ -62,17 +62,19 @@ Prompt.prototype.removeMessage = function() {
   Generates and displays the HTML for any conversation options.
   @param message The message (related to option selection).
   @param options The list of options to display.
+  @param name    (Optional) The name to prefix on message.
   @param start   (Optional) Default selection to start with.
   @param mark    (Optional) Boolean, whether or not mark the original option in red.
-  @param name    (Optional) The name to prefix on message.
 **/
-Prompt.prototype.displayOptions = function(message, options, start, mark, name) {
+Prompt.prototype.displayOptions = function(message, options, name, start, mark) {
   this.selectOptions = options;
 
   // Display the message.
-  name = name || "";
-  this.displayMessage(message, name);
-  this.nextArrow.hide();
+  if (message != "") {
+    name = name || "";
+    this.displayMessage(message, name);
+    this.nextArrow.hide();
+  }
 
   // Builds the list's HTML.
   start = start || 0;

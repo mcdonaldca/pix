@@ -30,6 +30,7 @@ Elevator.prototype.interact = function(prompt, dir) {
       prompt.displayOptions(
         "Which floor?",
         this.floorOptions,
+        "",
         this.floor,
         true
         );

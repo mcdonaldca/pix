@@ -197,7 +197,6 @@ CharacterSelect.prototype.interact = function(dir) {
         $(this.elements[i]).remove();
       }
 
-      this.exit = "hewitt-home";
       this.endScreen();
       this.callback(
         this.spriteGenerator.getDataURL(),
@@ -207,7 +206,7 @@ CharacterSelect.prototype.interact = function(dir) {
     }
 
     this.status = "selection";
-    return selected == 0 ? "exit" : "screen";
+    return selected == 0 ? "walkthrough" : "screen";
   }
 
   // Current selected value!

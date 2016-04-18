@@ -11,6 +11,7 @@ function Game() {
   this.area = undefined;   // The current area.
   this.areas = {};         // Map of area names to their Area objects.
   this.screens = {};       // Map of screens to their varous objects.
+  this.walkthroughs = {};  // Map of walkthroughs to their varous objects.
   this.NPCs = {};          // Map of NPC names to their objects.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
@@ -53,7 +54,7 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   window.setTimeout(function() {
     game.status = "screen";
   }, 500);
-  
+
   this.messager = new Message("");
 }
 
@@ -73,6 +74,15 @@ Game.prototype.addArea = function (key, area) {
 **/
 Game.prototype.addScreen = function (key, screen) {
   this.screens[key] = screen;
+}
+
+/**
+  Adds a walkthrough to the Game.walkthroughs map.
+  @param key         The key for the screen.
+  @param walkthrough Walkthrough's object.
+**/
+Game.prototype.addWalkthrough = function (key, walkthrough) {
+  this.walkthroughs[key] = walkthrough;
 }
 
 /**
@@ -330,6 +340,7 @@ Game.prototype.interact = function() {
     // If game is in conversation mode, advance the conversation.
     case "convo":
     case "screen":
+    case "walkthrough":
       this.status = this.focus.interact(this.prompt, this.face) || "free";
 
       if (this.status == "free") {
@@ -386,5 +397,18 @@ Game.prototype.displayScreen = function(screen) {
     screenObj.display(this.prompt);
     this.focus = screenObj;
     this.status = "screen";
+  }
+}
+
+/**
+  Called to start a walkthrough.
+  @param walkthrough The name of the walkthrough to start.
+**/
+Game.prototype.startWalkthrough = function(walkthrough) {
+  var walkthroughObj = this.walkthroughs[walkthrough];
+  if (walkthroughObj != undefined) {
+    walkthroughObj.start(this);
+    this.focus = walkthroughObj;
+    this.status = "walkthrough";
   }
 }

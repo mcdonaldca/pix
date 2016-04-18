@@ -123,7 +123,9 @@ Game.prototype.keyboardController = function() {
 
         case 38: // up
           if (game.status == "free") game.moveUp();
-          if (game.status == "convo" || game.status == "screen") game.focus.arrowUp(game.prompt);
+          if (game.status == "convo" 
+           || game.status == "screen"
+           || game.status == "walkthrough") game.focus.arrowUp(game.prompt);
           break;
 
         case 39: // right
@@ -133,7 +135,9 @@ Game.prototype.keyboardController = function() {
 
         case 40: // down
           if (game.status == "free") game.moveDown();
-          if (game.status == "convo" || game.status == "screen") game.focus.arrowDown(game.prompt);
+          if (game.status == "convo" 
+           || game.status == "screen"
+           || game.status == "walkthrough") game.focus.arrowDown(game.prompt);
           break;
 
 

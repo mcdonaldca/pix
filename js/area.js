@@ -19,6 +19,7 @@ function Area(width, height, name, mask) {
   this.minBottom = undefined; // Smallest bottom position (in blocks) area should go.
   this.setPlacementLimits();
 
+  this.items = {};        // Item collection.
   this.NPCs = [];         // Collection of NPCs in area.
   this.elements = [];     // HTML elements added to area.
   this.positionData = {}; // Player positioning based on entrances from other areas.
@@ -272,6 +273,8 @@ Area.prototype.addItem = function(width, item, startCoord, extra) {
 
   // Add to element collection.
   this.elements.push(div);
+  // Add to item collection.
+  this.items[item] = $(div);
 }
 
 /**
@@ -345,4 +348,13 @@ Area.prototype.addExit = function(x, y, dir, location, door) {
   if (door != "") {
     this.space(x, y).setExitDoor(door);
   }
+}
+
+/**
+  Gets an item that belongs to the area.
+  @param key The key for the item map.
+  @return The HTML element for the item.
+**/
+Area.prototype.getItem = function(key) {
+  return this.items[key];
 }
