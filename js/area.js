@@ -105,7 +105,7 @@ function Area(width, height, name, mask) {
   Called when we've entered an area and the HTML should be built out.
   @param removeEls The elements set by the previous area that should be removed.
 **/
-Area.prototype.build = function(removeEls) {
+Area.prototype.build = function(removeEls, removeNPCs) {
   // Save that we've entered a new room.
   window.sessionStorage.setItem("room", name);
   // Set the background image to the area's svg.
@@ -117,6 +117,12 @@ Area.prototype.build = function(removeEls) {
     $(removeEls[i]).remove();
   }
 
+  // Remove previous area's NPCs.
+  removeNPCs = removeNPCs || {};
+  for (var i = 0; i < removeNPCs.length; i++) {
+    $(removeNPCs[i].obj.getEl()).remove();
+  }
+
   // Set the height and width of the area element.
   this.areaEl.css("width", (this.width * BLOCK * MULT).toString() + "px")
              .css("height", (this.height * BLOCK * MULT).toString() + "px");
@@ -124,6 +130,15 @@ Area.prototype.build = function(removeEls) {
   // Add all the elements created upon intialization of the area.
   for (var i = 0; i < this.elements.length; i++) {
     this.areaEl.append(this.elements[i]);
+  }
+
+  // Add and place all NPCs.
+  for (var i = 0; i < this.NPCs.length; i++) {
+    var npc = this.NPCs[i];
+    npc.obj.place(npc.x, npc.y, this.height, npc.dir);
+    this.space(npc.x, npc.y).setOccupied(npc.obj);
+    npc.obj.avatar.show();
+    this.areaEl.append(npc.obj.getEl());
   }
 }
 
@@ -294,23 +309,17 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
 
 /**
   Creates the NPC element, then calles Space.addInteraction.
-  @param x   The x coordinate to add interaction at.
-  @param y   The y coordinate to add interaction at.
-  @param npc NPC object.
-  @param dir Directions from which interaction are valid (optional).
+  @param x           The x coordinate to add interaction at.
+  @param y           The y coordinate to add interaction at.
+  @param dir         The direction for the NPC to start facing.
+  @param npc         NPC object.
+  @param interactDir (Optional) Directions from which interaction are valid.
 **/
-Area.prototype.addNPC = function(x, y, npc, dir) {
-  npc.place(x, y, this.height);
-
+Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
   // Add to NPC collection.
-  this.NPCs.push(npc);
-  this.space(x, y).setOccupied(npc);
-
-  // Add to element collection.
-  this.elements.push(npc.getEl());
-
+  this.NPCs.push({ obj: npc, x: x, y: y, dir: dir });
   // Call addInteraction with parameters.
-  this.addInteraction(x, y, npc, dir);
+  this.addInteraction(x, y, npc, interactDir);
 }
 
 /**

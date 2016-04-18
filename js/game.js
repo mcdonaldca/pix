@@ -24,6 +24,10 @@ function Game() {
 
   // Start the keyboard controller for key events (see js/keys.js).
   this.keyboardController(); 
+
+  // Defaults (should be set in opening sequence).
+  this.name = "Adele";
+  this.city = "San Francisco";
 }
 
 /**
@@ -34,15 +38,8 @@ function Game() {
   @param area      The area to start in.
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
+  /* Production: 
   this.displayScreen("keyboard");
-  // For skipping playthrough (for testing).
-  /*
-  this.time.begin();
-  this.moveToArea(area);
-  this.faceDir(this.face);
-  this.moveToSpace(this.x, this.y, this.face);
-  */
-
   // Fade in/out animation between areas.
   this.gameEl.removeClass("visible");
   var game = this;
@@ -54,6 +51,15 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   window.setTimeout(function() {
     game.status = "screen";
   }, 500);
+  */
+
+  // For skipping playthrough (for testing).
+  this.time.setTime(0, 1, 8, 0, "AM");
+  this.time.begin();
+  this.time.startTime();
+  this.moveToArea(area);
+  this.faceDir(this.face);
+  this.moveToSpace(this.x, this.y, this.face);
 
   this.messager = new Message("");
 }
@@ -120,7 +126,7 @@ Game.prototype.moveToArea = function(area) {
     // Save the current area we're traveling from.
     window.sessionStorage.setItem("from", this.area.name);
     door = window.sessionStorage.getItem("door");
-    newArea.build(this.area.elements);
+    newArea.build(this.area.elements, this.area.NPCs);
   } else {
     newArea.build();
   }
@@ -145,7 +151,7 @@ Game.prototype.moveToArea = function(area) {
   // Lock game mode until new area is totally loaded.
   this.status = "loading";
   window.setTimeout(function() {
-    game.status = "free";
+    game.status = game.focus == undefined ? "free" : "screen";
   }, 500);
 }
 
@@ -365,15 +371,17 @@ Game.prototype.exit = function(exitTo) {
   // Collection of areas character can't enter.
   var cantGo = [
     "colquitt-natalie", 
-    "margaret-kayla", 
-    "anne-diane",  
+    "margaret-kayla",  
+    "taylor-liam",
+    "anne-diane", 
     "elevator-roof"
   ];
 
   // If our exit goes somewhere we can't, customize the message.
   if ($.inArray(exitTo, cantGo) != -1) {
     if (exitTo == "colquitt-natalie" 
-      || exitTo == "margaret-kayla" 
+      || exitTo == "margaret-kayla"  
+      || exitTo == "taylor-liam"
       || exitTo == "anne-diane") { 
       this.messager.setMessage("You don't know the people that live here that well...");
     } else if (exitTo == "elevator-roof") { 

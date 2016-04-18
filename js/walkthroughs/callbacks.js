@@ -16,7 +16,18 @@ Game.prototype.hewittCallback = function(game) {
       game.screenEndFade();
     } else {
       game.time.setTime(0, 1, 8, 0, "AM");
-      // game.time.startTime();
+      game.startWalkthrough("rundown-apt1");
     }
+  }
+}
+
+/**
+  Rundown Apartment (1)
+**/
+Game.prototype.rundownApt1Callback = function(game) {
+  return function() {
+    game.time.startTime();
+    var apt2 = game.areas["apt-2"];
+    apt2.addInteraction(34, 4, new Message(game.name + "'s Apartment"), ["up"]);
   }
 }
