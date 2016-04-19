@@ -83,4 +83,4 @@ rundownApt.addPositionData("default", null, 2, 1, "up");
 
 rundownApt.addExit(1, 0, ["dw"], "apt-2");
 
-game.addArea(rundownApt.name, rundownApt);
+game.addArea(rundownApt.getName(), rundownApt);

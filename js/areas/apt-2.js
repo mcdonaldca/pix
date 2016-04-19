@@ -19,4 +19,4 @@ apt2.addPositionData("elevator", "left", 2, 3, "dw");
 apt2.addPositionData("elevator", "right", 3, 3, "dw");
 apt2.addPositionData("default", null, 33, 3, "dw");
 
-game.addArea("apt-2", apt2);
+game.addArea(apt2.getName(), apt2);

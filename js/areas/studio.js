@@ -27,4 +27,4 @@ studio.addExit(1, 0, ["dw"], "apt-2");
 studio.addPositionData("apt-2", null, 1, 0, "up");
 studio.addPositionData("default", null, 7, 4, "dw");
 
-game.addArea("studio", studio);
+game.addArea(studio.getName(), studio);

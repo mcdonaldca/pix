@@ -8,4 +8,4 @@ hewittHome.getItem("newspaper").hide();
 
 hewittHome.addPositionData("default", null, 4, 2, "lf");
 
-game.addArea("hewitt-home", hewittHome);
+game.addArea(hewittHome.getName(), hewittHome);

@@ -22,4 +22,4 @@ apt1.addPositionData("elevator", "left", 2, 3, "dw");
 apt1.addPositionData("elevator", "right", 3, 3, "dw");
 apt1.addPositionData("default", null, 3, 3, "dw");
 
-game.addArea("apt-1", apt1);
+game.addArea(apt1.getName(), apt1);

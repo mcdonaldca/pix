@@ -367,3 +367,11 @@ Area.prototype.addExit = function(x, y, dir, location, door) {
 Area.prototype.getItem = function(key) {
   return this.items[key];
 }
+
+/**
+  Getter for Area.name
+  @return The area name.
+**/
+Area.prototype.getName = function() {
+  return this.name;
+}

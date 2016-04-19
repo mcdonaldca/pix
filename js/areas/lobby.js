@@ -12,4 +12,4 @@ lobby.addPositionData("elevator", "left", 2, 4, "dw");
 lobby.addPositionData("elevator", "right", 3, 4, "dw");
 lobby.addPositionData("default", null, 5, 0, "up");
 
-game.addArea("lobby", lobby);
+game.addArea(lobby.getName(), lobby);
