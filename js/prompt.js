@@ -64,9 +64,8 @@ Prompt.prototype.removeMessage = function() {
   @param options The list of options to display.
   @param name    (Optional) The name to prefix on message.
   @param start   (Optional) Default selection to start with.
-  @param mark    (Optional) Boolean, whether or not mark the original option in red.
 **/
-Prompt.prototype.displayOptions = function(message, options, name, start, mark) {
+Prompt.prototype.displayOptions = function(message, options, name, start) {
   this.selectOptions = options;
 
   // Display the message.
@@ -77,9 +76,7 @@ Prompt.prototype.displayOptions = function(message, options, name, start, mark) 
   }
 
   // Builds the list's HTML.
-  start = start || 0;
-  mark = mark || false;
-  var optionsHtml = this.generateOptionsHTML(options, start, mark);
+  var optionsHtml = this.generateOptionsHTML(options, start);
   this.optionsContent.html(optionsHtml);
 
   this.currentSelect = start || 0;
@@ -93,9 +90,8 @@ Prompt.prototype.displayOptions = function(message, options, name, start, mark) 
   @param options The new options to be displayed.
   @param name    (Optional) The name to prefix on message.
   @param start   (Optional) Default selection to start with.
-  @param mark    (Optional) Boolean, whether or not mark an option in red.
 **/
-Prompt.prototype.updateOptions = function(message, options, name, start, mark) {
+Prompt.prototype.updateOptions = function(message, options, name, start) {
   this.selectOptions = options;
 
   name = name || "";
@@ -105,9 +101,7 @@ Prompt.prototype.updateOptions = function(message, options, name, start, mark) {
   this.setSelectArrow();
 
   // Builds the list's HTML.
-  start = start || 0;
-  mark = mark || false;
-  var optionsHtml = this.generateOptionsHTML(options, start, mark);
+  var optionsHtml = this.generateOptionsHTML(options, start);
   this.optionsContent.html(optionsHtml);
 }
 
@@ -128,13 +122,12 @@ Prompt.prototype.removeOptions = function() {
   Generates the HTML for the options to display.
   @param options The list of options.
   @param start   (Optional) Default selection to start with.
-  @param mark    (Optional) Boolean, whether or not mark an option in red.
   @return The genrated HTML string.
 **/
-Prompt.prototype.generateOptionsHTML = function(options, start, mark) {
+Prompt.prototype.generateOptionsHTML = function(options, start) {
   var html = "";
   for (var i = 0; i < options.length; i ++) {
-    if (mark && i == start) {
+    if (start != undefined && i == start) {
       html += "<div class='current-selection'>";
     } else {
       html += "<div>";
