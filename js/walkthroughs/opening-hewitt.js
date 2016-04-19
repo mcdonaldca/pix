@@ -41,10 +41,8 @@ Hewitt.prototype.interact = function() {
   switch(this.status) {
     case "prompt":
       if (this.current == 4) {
-        this.status = "playing";
         this.game.prompt.removeMessage();
-        this.current += 1;
-        this.step(this)();
+        this.continue();
       } else if (this.current == 6) {
         if (this.count == 0) {
           var selected = this.game.prompt.selected();
@@ -58,11 +56,9 @@ Hewitt.prototype.interact = function() {
         } else if (this.count == 1) {
           this.game.prompt.updateMessage("Here, this came today.", "mom");
         } else {
-          this.status = "playing";
-          this.count = -1;
           this.game.prompt.removeMessage();
-          this.current += 1;
-          this.step(this)();
+          this.count = -1;
+          this.continue();
         }
         this.count += 1;
       } else if (this.current == 8) {

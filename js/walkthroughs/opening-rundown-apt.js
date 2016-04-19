@@ -55,9 +55,7 @@ RundownApt1.prototype.interact = function() {
         } else {
           this.game.prompt.removeMessage();
           this.count = -1;
-          this.status = "playing";
-          this.current += 1;
-          this.step(this)();
+          this.continue();
         }
         this.count += 1;
       } else if (this.current == 10) {
@@ -77,9 +75,7 @@ RundownApt1.prototype.interact = function() {
         } else {
           this.game.prompt.removeMessage();
           this.count = -1;
-          this.status = "playing";
-          this.current += 1;
-          this.step(this)();
+          this.continue();
         }
         this.count += 1;
       }

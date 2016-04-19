@@ -204,3 +204,12 @@ Walkthrough.prototype.arrowLeft = function() {};
 Walkthrough.prototype.setCallback = function(callback) {
   this.callback = callback;
 }
+
+/**
+  Continutes a walkthrough (usually when stopped for prompting).
+**/
+Walkthrough.prototype.continue = function() {
+  this.status = "playing";
+  this.current += 1;
+  this.step(this)();
+}
