@@ -65,7 +65,8 @@ Time.prototype.startTime = function() {
 Time.prototype.tick = function(time) {
   return function() {
     // Only increase time if the timer should be active.
-    if (time.active) {
+    console.log(game.status);
+    if (time.active && game.status == "free") {
       time.time += 100;
       // Increment time every ten seconds.
       if (time.time % 10000 == 0) {
