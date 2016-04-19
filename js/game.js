@@ -2,8 +2,8 @@
   The master Game object. Manages all other objects and moving between areas.
 **/
 function Game() {
-  this.gameEl = $("#game"); // Game element.
-  this.avatar = new Avatar($("#avatar"), $("#reaction"), $("#sprite")); // Avatar element.
+  this.gameEl = $("#game");   // Game element.
+  this.player = new Player(); // Player.
   this.prompt = new Prompt(); // Interface with on-screen prompt.
 
   this.time = new Time(); // Tracks time in game.
@@ -38,6 +38,8 @@ function Game() {
   @param area      The area to start in.
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
+  this.messager = new Message("");
+
   /* Production: 
   this.displayScreen("keyboard");
   // Fade in/out animation between areas.
@@ -58,10 +60,8 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   this.time.begin();
   this.time.startTime();
   this.moveToArea(area);
-  this.faceDir(this.face);
-  this.moveToSpace(this.x, this.y, this.face);
-
-  this.messager = new Message("");
+  this.faceDir(startFace);
+  this.moveToSpace(startX, startY, startFace);
 }
 
 /**
@@ -166,19 +166,19 @@ Game.prototype.faceDir = function(dir) {
   window.sessionStorage.setItem("face", this.face);
   switch(dir) {
     case "lf":
-      this.avatar.faceLeft();
+      this.player.faceLeft();
       break;
 
     case "up":
-      this.avatar.faceUp();
+      this.player.faceUp();
       break;
 
     case "rt":
-      this.avatar.faceRight();
+      this.player.faceRight();
       break;
 
     case "dw":
-      this.avatar.faceDown();
+      this.player.faceDown();
       break;
 
     default:
@@ -227,7 +227,7 @@ Game.prototype.moveDown = function() {
   @param dir The direction for walking animation.
 **/
 Game.prototype.startWalking = function(dir) {
-  this.avatar.walk(dir);
+  this.player.walk(dir);
   if (this.event != undefined) {
     this.event.fireWalkStart(dir);
   }
@@ -237,7 +237,7 @@ Game.prototype.startWalking = function(dir) {
   Stops the avatars walking animation.
 **/
 Game.prototype.stopWalking = function() {
-  this.avatar.stopWalking();
+  this.player.stopWalking();
   if (this.event != undefined) {
     this.event.fireWalkStop();
   }
@@ -291,8 +291,8 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
       }
 
       // Set the player's new position.
-      this.avatar.setLeft(this.x);
-      this.avatar.setBottom(this.y, this.area.height);
+      this.player.setLeft(this.x);
+      this.player.setBottom(this.y, this.area.height);
       
       this.area.updateAreaPosition(this.x, this.y);
     }

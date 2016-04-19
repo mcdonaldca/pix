@@ -158,7 +158,7 @@ Walkthrough.prototype.getSubject = function(instruction) {
   var subject = undefined;
   switch (instruction.sub) {
     case "player":
-      subject = this.game.avatar;
+      subject = this.game.player;
       break;
 
     case "npc":

@@ -25,7 +25,7 @@ Game.prototype.newspaperCallback = function(game) {
 **/
 Game.prototype.characterSelectCallback = function(game) {
   return function(dataURL, hairColor, skinTone) {
-    game.avatar.setBackgroundImage(dataURL);
+    game.player.setBackgroundImage(dataURL);
 
     // Generate a mom sprite with the same hair and skin color.
     var canvas = document.createElement("canvas");

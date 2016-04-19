@@ -91,11 +91,11 @@ Prompt.prototype.displayOptions = function(message, options, name, start, mark) 
   Called to update the options being displayed.
   @param message The new message to be displayed.
   @param options The new options to be displayed.
+  @param name    (Optional) The name to prefix on message.
   @param start   (Optional) Default selection to start with.
   @param mark    (Optional) Boolean, whether or not mark an option in red.
-  @param name    (Optional) The name to prefix on message.
 **/
-Prompt.prototype.updateOptions = function(message, options, start, mark, name) {
+Prompt.prototype.updateOptions = function(message, options, name, start, mark) {
   this.selectOptions = options;
 
   name = name || "";

@@ -178,7 +178,7 @@ Game.prototype.keyboardController = function() {
 
 
         case 67: // c (become a cat)
-          game.avatar.becomeCat();
+          game.player.becomeCat();
           break;
 
         default: return; // exit this handler for other keys

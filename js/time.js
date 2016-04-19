@@ -30,6 +30,9 @@ function Time() {
     this.minute, 
     this.timeOfDay
     );
+
+  // Scheduled events.
+  this.scheduled = {};
 }
 
 /**
@@ -85,8 +88,8 @@ Time.prototype.inc = function() {
     // If we're changing times of day.
     if (this.hour == 12) {
       this.timeOfDay == "AM" ?
-        this.timeOfDay == "PM" :
-        this.timeOfDay == "AM";
+        this.timeOfDay = "PM" :
+        this.timeOfDay = "AM";
 
       this.timeOfDayEl.css(
         "background-position", 
@@ -94,6 +97,28 @@ Time.prototype.inc = function() {
           "0 0" :
           "0 -" + (8 * MULT).toString() + "px"
         );
+
+      // If it's a new day.
+      if (this.timeOfDay == "AM") {
+        this.day += 1;
+
+        // If it's a new season.
+        if (this.day == 31) {
+          this.day = 1;
+          this.season = (this.season + 1) % 4;
+          this.setSeason(this.season);
+        }
+        this.setNumber(this.dayTenthEl, Math.floor(this.day / 10));
+        this.setNumber(this.daySingleEl, this.day % 10);
+
+        // Check for scheduled events.
+        if (this.scheduled[this.season] != undefined 
+         && this.scheduled[this.season][this.day] != undefined) {
+          for (var i = 0; i < this.scheduled[this.season][this.day].length; i++) {
+            this.scheduled[this.season][this.day][i]();
+          }
+        }
+      }
 
     // Flip hour 13 to 1 o'clock.
     } else if (this.hour == 13) {
@@ -153,4 +178,30 @@ Time.prototype.setTime = function(season, day, hour, minute, timeOfDay) {
       "0 0" :
       "0 -" + (8 * MULT).toString() + "px"
     );
+}
+
+/**
+  Schedule an event for the future.
+  @param when     Keyword for when to schedule the event.
+  @param callback The callback for the event.
+**/
+Time.prototype.scheduleEvent = function(when, callback) {
+  switch(when) {
+    case "tomorrow":
+      var day = this.day;
+      var season = this.season;
+      day += 1;
+      if (day == 31) {
+        day = 1;
+        season = (season + 1) % 4;
+      }
+      if (this.scheduled[season] == undefined) this.scheduled[season] = {};
+      if (this.scheduled[season][day] == undefined) this.scheduled[season][day] = [];
+      
+      this.scheduled[season][day].push(callback);
+      break;
+
+    default:
+      break;
+  }
 }

@@ -3,12 +3,19 @@
 **/
 function Holland() {
   $.extend(this, new NPC("holland", "characters/holland", "shadow_lg"));
+  // Available renovations.
+  this.renovations = [
+    { name: "New wallpaper", item: "wallpaper", price: 350 },
+    { name: "Fix window", item: "window", price: 450 },
+    { name: "New carpet", item: "carpet", price: 290 },
+    { name: "New linens", item: "linens", price: 100 }
+  ];
 }
 
 /**
   Called when the player interacts with Holland.
   @param prompt The interface to the on-screen prompter.
-  @param dir    (Not used here) The direction the user is facing.
+  @param dir    The direction the user is facing.
   @return The current game status.
 **/
 Holland.prototype.interact = function(prompt, dir) {
@@ -23,13 +30,95 @@ Holland.prototype.interact = function(prompt, dir) {
       } else if (dir == "lf") {
         this.avatar.faceRight();
       }
-
-      prompt.displayMessage("Seems like you're running late today, Adele!", this.name);
+      // Greet the player.
+      prompt.displayMessage("Hey there!", this.name);
       break;
 
     case 1:
+      // Display conversation options.
       prompt.removeMessage();
-      
+      prompt.displayOptions(
+        "How can I help you?",
+        ["Renovations", "Nevermind"],
+        this.name
+        );
+      break;
+
+    case 2:
+      // Selected renovations.
+      if (prompt.selected() == 0) {
+        // Mark selected path for conversation tree.
+        this.track = "renovations";
+
+        // Build renovation options.
+        var renovationOptions = [];
+        for (var i = 0; i < this.renovations.length; i++) {
+          renovationOptions.push(this.renovations[i].name + " ($" + this.renovations[i].price + ")");
+        }
+
+        // If there is nothing to renovate.
+        if (renovationOptions.length == 0) {
+          prompt.removeOptions();
+          prompt.displayMessage("Looks like you don't have anything left to renovate!", this.name);
+          // Loop back to starting options.
+          this.count = 0;
+
+        // If there are still renovations remaining.
+        } else {
+          renovationOptions.push("Nothing");
+          // Display instead of update because of count loop.
+          prompt.displayOptions(
+            "What would you like to renovate?",
+            renovationOptions,
+            this.name
+            );
+        }
+
+      // Selected nevermind.
+      } else {
+        prompt.removeOptions();
+        prompt.displayMessage("Talk to you later!", this.name);
+        this.track = "nevermind";
+      }
+      break;
+
+    case 3:
+      // End of conversation.
+      if (this.track == "nevermind") {
+        prompt.removeMessage();
+        this.avatar.faceDown();
+        this.count = -1;
+        status = "free";
+
+      // Checking renovations.
+      } else {
+        // Save prompt information before clearing.
+        var s = prompt.selected();
+        var options = prompt.selectOptions;
+        prompt.removeOptions();
+
+        // Don't want to renovate;
+        if (options[s] == "Nothing") {
+          prompt.displayMessage("No worries, just let me know.", this.name);
+          this.count = 0;
+        } else {
+          var renov = this.renovations[s];
+          if (renov.price < game.player.wallet) {
+            prompt.displayMessage("All right, it should be done tomorrow!", this.name);
+            var final = options.length == 2;
+            game.time.scheduleEvent("tomorrow", game.areas["rundown-apt"].renovate(renov.item, final));
+            game.player.wallet -= renov.price;
+            this.renovations.splice(s, 1);
+            console.log(renov);
+          } else {
+            prompt.displayMessage("Hm... doesn't seem like you have the funds.", this.name)
+          }
+          this.count = 1;
+        }
+      }
+      break;
+
+    case 4:
       this.avatar.faceDown();
       this.count = -1;
       status = "free";
@@ -41,6 +130,16 @@ Holland.prototype.interact = function(prompt, dir) {
 
   this.count += 1;
   return status;
+}
+
+/**
+  Functions for prompt interaction.
+**/
+Holland.prototype.arrowUp = function(prompt) {
+  prompt.arrowUp();
+}
+Holland.prototype.arrowDown = function(prompt) {
+  prompt.arrowDown();
 }
 
 // Add Holland object to game's NPC collection.

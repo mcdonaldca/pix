@@ -14,7 +14,7 @@ RundownApt1.prototype.start = function(game) {
   this.instructions = [
     { act: "delay", dur: 1000 },
     { act: "react", sub: "player", react: "wat", dur: 2000 },
-    { act: "show", sub: "npc", type: "holland", dur: 0 },
+    { act: "show", sub: "npc", type: "holland", dur: ANIM_LENGTH },
     { act: "walk", sub: "npc", type: "holland", dir: "up", dist: 1, dur: ANIM_LENGTH },
     { act: "face", sub: "npc", type: "holland", dir: "rt", dur: 0 },
     { act: "message", message: "Hi there! You must be " + game.name + ".", name: "holland" },
@@ -24,7 +24,6 @@ RundownApt1.prototype.start = function(game) {
     { act: "face", sub: "npc", type: "holland", dir: "up", dur: 0 },
     { act: "options", message: "", options: ["It's... not what I expected.", "Is this a joke?"] },
     { act: "face", sub: "npc", type: "holland", dir: "rt", dur: 0 },
-    { act: "message", message: "Anyway, come find me in the lobby if you have any questions or want to do any renovations.", name: "holland" },
     { act: "walk", sub: "npc", type: "holland", dir: "dw", dist: 1, dur: ANIM_LENGTH },
     { act: "hide", sub: "npc", type: "holland", dur: 0 },
     { act: "callback" }
@@ -46,7 +45,6 @@ RundownApt1.prototype.start = function(game) {
   Called when the player presses space.
 **/
 RundownApt1.prototype.interact = function() {
-  console.log(this.status, this.current);
   switch(this.status) {
     case "prompt":
       if (this.current == 5) {
@@ -67,27 +65,28 @@ RundownApt1.prototype.interact = function() {
           this.game.prompt.removeOptions();
           this.game.prompt.displayMessage("Well, the place is a bit of a fixer-upper.", "holland");
         } else if (this.count == 1) {
-          this.game.prompt.updateMessage("It has some charm of it's own, though.", "holland");
+          this.game.prompt.updateMessage("It has some charm of its own, though.", "holland");
         } else if (this.count == 2) {
           this.game.prompt.updateMessage("But if you want to move out, all you have to do is find another renter!", "holland");
+        } else if (this.count == 3) {
+          this.game.prompt.updateMessage("Maybe you could put an ad online?", "holland");
+        } else if (this.count == 4) {
+          this.game.player.faceLeft();
+          this.game.getNPC("holland").avatar.faceRight();
+          this.game.prompt.updateMessage("Anyway, come find me in the lobby if you have any questions or want to do any renovations.", "holland");
         } else {
-          this.game.prompt.updateMessage("Maybe you could put an ad in the paper?", "holland");
+          this.game.prompt.removeMessage();
           this.count = -1;
           this.status = "playing";
           this.current += 1;
           this.step(this)();
         }
         this.count += 1;
-      } else if (this.current == 12) {
-        this.game.prompt.removeMessage();
-        this.status = "playing";
-        this.current += 1;
-        this.step(this)();
       }
       break;
 
     case "playing":
-      if (this.current == 15) {
+      if (this.current == 14) {
         this.game.getNPC("holland").getEl().remove();
         this.callback();
         return "free";
