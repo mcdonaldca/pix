@@ -286,6 +286,22 @@ Area.prototype.addItem = function(width, item, startCoord, extra) {
         .css("z-index", (this.height - startCoord[1]) * 10 + 5 + extra)
         .css("background-image", "url(img/items/" + this.name + "/" + item + ".svg)");
 
+  // Customizable items have extra background sizing.
+  var exceptions = {
+    "rundown-apt": {
+      "bed": 2,
+      "covers": 2
+    }
+  };
+
+  if (exceptions[this.name] != undefined && exceptions[this.name][item] != undefined) {
+    var ex = exceptions[this.name][item];
+    $(div).css(
+      "background-size", 
+      (width * ex * BLOCK * MULT).toString() + "px " + (BLOCK * MULT).toString() + "px"
+      );
+  }
+
   // Add to element collection.
   this.elements.push(div);
   // Add to item collection.

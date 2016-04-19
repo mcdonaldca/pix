@@ -20,8 +20,8 @@ RundownApt.prototype.renovate = function(item, final) {
 
     // Update bed items
     if (item == "linens") {
-      area.items["bed"].css("background-image", "url(img/items/" + area.name + "/linens-bed.svg)");
-      area.items["covers"].css("background-image", "url(img/items/" + area.name + "/linens-covers.svg)");
+      area.items["bed"].css("background-position", (BLOCK * MULT).toString() + "px 0");
+      area.items["covers"].css("background-position", (BLOCK * MULT).toString() + "px 0");
     }
 
     // If it's the last renovations, remove all the items.
