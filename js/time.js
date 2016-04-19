@@ -110,14 +110,6 @@ Time.prototype.inc = function() {
         }
         this.setNumber(this.dayTenthEl, Math.floor(this.day / 10));
         this.setNumber(this.daySingleEl, this.day % 10);
-
-        // Check for scheduled events.
-        if (this.scheduled[this.season] != undefined 
-         && this.scheduled[this.season][this.day] != undefined) {
-          for (var i = 0; i < this.scheduled[this.season][this.day].length; i++) {
-            this.scheduled[this.season][this.day][i]();
-          }
-        }
       }
 
     // Flip hour 13 to 1 o'clock.
@@ -204,4 +196,69 @@ Time.prototype.scheduleEvent = function(when, callback) {
     default:
       break;
   }
+}
+
+/**
+  Function called when the player goes to sleep.
+**/
+Time.prototype.sleep = function() {
+  /* Guide:
+  Note: user is forced to sleep @ 4am (passes out).
+  4:10AM  -  7PM: Wake up at 6AM the next morning.
+  7:10PM  - 12AM: Wake up at 8AM the next morning.
+  12:10AM -  4AM: Wake up at 10AM the next morning.
+  */
+
+  var sleepTiming = "early";
+
+  // Sleep between early cutoff and normal cutoff.
+  // 7:10PM or later
+  // Any PM time with hours 8 - 11
+  // 12:00AM
+  if ((this.hour == 7 && this.minute >= 10 && this.timeOfDay == "PM")
+   || (this.hour >= 8 && this.hour <= 11 && this.timeOfDay == "PM")
+   || (this.hour == 12 && this.minute == 0 && this.timeOfDay == "AM")) {
+    sleepTiming = "normal";
+  // Sleep after late cutoff and before passing out.
+  // 12:10AM or later
+  // Any AM time with hours 1 - 3
+  // 4:00AM
+  } else if ((this.hour == 12 && this.minute >= 10 && this.timeOfDay == "AM")
+          || (this.hour >= 1 && this.hour <= 3 && this.timeOfDay == "AM")
+          || (this.hour == 4 && this.minute == 0 && this.timeOfDay == "AM")) {
+    sleepTiming = "late";
+  }
+
+  // Find the scheduled events.
+  var scheduledSeason = this.season;
+  var scheduledDay = this.day;
+
+  if ((sleepTiming == "early" || sleepTiming == "normal") && 
+      !(this.hour == 12 && this.minute == 0 && this.timeOfDay == "AM")) {
+    this.day += 1;
+    scheduledDay = this.day;
+    if (this.day == 31) {
+      this.day = 1;
+      scheduledDay = this.day;
+      this.season = (season + 1) % 4;
+      scheduledSeason = this.season;
+    }
+  }
+
+  // Check for scheduled events.
+  if (this.scheduled[scheduledSeason] != undefined 
+   && this.scheduled[scheduledSeason][scheduledDay] != undefined) {
+    for (var i = 0; i < this.scheduled[scheduledSeason][scheduledDay].length; i++) {
+      this.scheduled[scheduledSeason][scheduledDay][i]();
+    }
+  }
+
+  // Find the hour to set.
+  var setHour = 6;
+  if (sleepTiming == "normal") {
+    setHour = 8;
+  } else if (sleepTiming == "late") {
+    setHour = 10;
+  }
+  this.setTime(this.season, this.day, setHour, 0, "AM");
 }

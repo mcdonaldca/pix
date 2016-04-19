@@ -36,7 +36,7 @@ RundownApt1.prototype.start = function(game) {
   holland.avatar.setLeft(1);
   holland.avatar.setBottom(0, game.area.height);
   holland.avatar.faceUp();
-  game.area.areaEl.append(holland.getEl());
+  game.area.append(holland.getEl());
   // Begin instruction sequence.
   this.step(this)();
 }

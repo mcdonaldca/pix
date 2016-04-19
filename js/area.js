@@ -129,7 +129,7 @@ Area.prototype.build = function(removeEls, removeNPCs) {
 
   // Add all the elements created upon intialization of the area.
   for (var i = 0; i < this.elements.length; i++) {
-    this.areaEl.append(this.elements[i]);
+    this.append(this.elements[i]);
   }
 
   // Add and place all NPCs.
@@ -138,7 +138,7 @@ Area.prototype.build = function(removeEls, removeNPCs) {
     npc.obj.place(npc.x, npc.y, this.height, npc.dir);
     this.space(npc.x, npc.y).setOccupied(npc.obj);
     npc.obj.avatar.show();
-    this.areaEl.append(npc.obj.getEl());
+    this.append(npc.obj.getEl());
   }
 }
 
@@ -374,4 +374,12 @@ Area.prototype.getItem = function(key) {
 **/
 Area.prototype.getName = function() {
   return this.name;
+}
+
+/**
+  Appends an HTML element to the area element.
+  @param el The element to append.
+**/
+Area.prototype.append = function(el) {
+  this.areaEl.append(el);
 }

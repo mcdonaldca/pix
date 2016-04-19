@@ -77,6 +77,7 @@ rundownApt.addRenovation(5, 4, "carpet", [0, 0], 0);
 rundownApt.addRenovation(1, 3, "linens", [4, 0], 1);
 
 rundownApt.addInteraction(0, 4, new Fridge(), ["up"]);
+rundownApt.addInteraction(4, 1, new SleepZone());
 
 rundownApt.addPositionData("apt-2", null, 1, 0, "up");
 rundownApt.addPositionData("default", null, 2, 1, "up");

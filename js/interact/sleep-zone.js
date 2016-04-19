@@ -16,15 +16,45 @@ SleepZone.prototype.interact = function(prompt, dir) {
 
   switch(this.count) {
     case 0:
-      prompt.displayMessage("It's a little early for a nap.");
+      // Check if they want to sleep.
+      prompt.displayOptions(
+        "Turn in for the day?",
+        ["Yes", "No"]
+        );
       break;
 
     case 1:
-      prompt.removeMessage();
+      // Save the selected value before removing options.
+      var s = prompt.selected();
+      prompt.removeOptions();
+      if (s == 0) {
+        // Create dark div for sleeping.
+        var shadowDiv = document.createElement("div");
+        game.area.append(shadowDiv);
+        $(shadowDiv).addClass("sleep-shadow")
+                    .css("opacity"); // Force browser to calc value.
+        $(shadowDiv).css("opacity", ".6");
+        game.player.reactSleep();
 
+        // Clean up.
+        setTimeout(function() {
+          game.time.sleep();
+          $(shadowDiv).css("opacity", "0");
+          setTimeout(function() {
+            $(shadowDiv).remove();
+            // Force interaction to free game play.
+            game.interact(dir);
+          }, 500);
+        }, 4000);
+      } else {
+        this.count = -1;
+        status = "free";
+      }
+      break;
+
+    case 2:
       this.count = -1;
       status = "free";
-      break;
 
     default:
       break;
@@ -35,5 +65,5 @@ SleepZone.prototype.interact = function(prompt, dir) {
 }
 
 // All interactables need these functions.
-SleepZone.prototype.arrowUp = function(prompt) {}
-SleepZone.prototype.arrowDown = function(prompt) {}
+SleepZone.prototype.arrowUp = function(prompt) { prompt.arrowUp(); }
+SleepZone.prototype.arrowDown = function(prompt) { prompt.arrowDown(); }

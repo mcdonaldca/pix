@@ -70,6 +70,17 @@ Avatar.prototype.reactWat = function() {
 }
 
 /**
+  Initializes sleep reaction for avatar.
+**/
+Avatar.prototype.reactSleep = function() {
+  this.reactionEl.addClass("react-sleep");
+  var avatar = this;
+  setTimeout(function() {
+    avatar.reactionEl.removeClass("react-sleep");
+  }, 4000);
+}
+
+/**
   Sets the left value for the avatar.
   @param x The left offset in blocks.
 **/
