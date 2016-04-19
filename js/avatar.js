@@ -17,8 +17,6 @@ function Avatar(avatar, reaction, sprite) {
   this.X_OFFSET = 3;
   this.Y_OFFSET = 1;
 
-  this.isCat = false; // Is the sprite a cat.
-
   this.x = 0;
   this.y = 0;
   this.face = 0;
@@ -163,17 +161,6 @@ Avatar.prototype.walk = function(dir) {
 Avatar.prototype.stopWalking = function() {
   this.spriteEl.removeClass();
   this.spriteEl.addClass("sprite");
-}
-
-/**
-  Easter egg to become a cat (or reverse).
-**/
-Avatar.prototype.becomeCat = function() {
-  this.spriteEl.css(
-    "background-image", 
-    this.isCat ? "url(" + this.spriteImageURL + ")" : "url(img/pets/black-cat.svg)"
-    );
-  this.isCat = !this.isCat;
 }
 
 /**
