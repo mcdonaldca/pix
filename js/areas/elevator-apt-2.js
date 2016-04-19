@@ -10,4 +10,4 @@ elevatorApt2.addPositionData("apt-2", "left", 1, 0, "up");
 elevatorApt2.addPositionData("apt-2", "right", 2, 0, "up");
 elevatorApt2.addPositionData("default", null, 2, 0, "up");
 
-game.addArea(elevatorApt2.getName(), elevatorApt2);
+game.addArea(elevatorApt2.getName() + "-apt-2", elevatorApt2);

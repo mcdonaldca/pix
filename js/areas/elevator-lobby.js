@@ -10,4 +10,4 @@ elevatorLobby.addPositionData("lobby", "left", 1, 0, "up");
 elevatorLobby.addPositionData("lobby", "right", 2, 0, "up");
 elevatorLobby.addPositionData("default", null, 2, 0, "up");
 
-game.addArea(elevatorLobby.getName(), elevatorLobby);
+game.addArea(elevatorLobby.getName() + "-lobby", elevatorLobby);
