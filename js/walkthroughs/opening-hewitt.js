@@ -13,9 +13,9 @@ Hewitt.prototype.start = function(game) {
   // Instructions for the walkthrough.
   this.instructions = [
     { act: "delay", dur: 1000 },
-    { act: "show", sub:"npc", type: "mom", dur: ANIM_LENGTH },
-    { act: "walk", sub: "npc", type: "mom", dir: "dw", dist: 1, dur: ANIM_LENGTH },
-    { act: "walk", sub: "npc", type: "mom", dir: "lf", dist: 2, dur: ANIM_LENGTH },
+    { act: "show", sub:"npc", type: "mom", dur: ANIM_LENGTH_NPC },
+    { act: "walk", sub: "npc", type: "mom", dir: "dw", dist: 1, dur: ANIM_LENGTH_NPC },
+    { act: "walk", sub: "npc", type: "mom", dir: "lf", dist: 2, dur: ANIM_LENGTH_NPC },
     { act: "message", message: "You seem like you have a lot on your mind lately.", name: "mom"},
     { act: "react", sub: "player", react: "wat", dur: 2000 },
     { act: "options", message: "What's going on?", options: ["I'd like to set out on my own.", "I hate it here. I want to leave."], name: "mom" },

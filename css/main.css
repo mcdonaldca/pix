@@ -1,3 +1,17 @@
+/**
+  Creates reaction animation.
+  @param name     The name of the reaction.
+  @param duration The length of the reaction.
+  @param steps    Number of animation steps.
+  @param end      The end of the reaction (in svg).
+**/
+/**
+  Creates walking animation.
+  @param direction The walking direction.
+  @param duration  The walking speed.
+  @param row       The row of the sprite sheet.
+  @param npc       If this is the NPC walking animation.
+**/
 body {
   background: #252525;
   margin: 0;
@@ -107,13 +121,105 @@ body {
     bottom: 0; }
     .area #avatar .sprite {
       background-image: url(../img/characters/adele.svg); }
+    .area #avatar .walk-left {
+      -webkit-animation: walk-left-start 0.45s steps(3), walk-left 0.6s 0.45s steps(4) infinite;
+      animation: walk-left-start 0.45s steps(3), walk-left 0.6s 0.45s steps(4) infinite; }
+@keyframes walk-left-start {
+  from {
+    background-position: -69px -261px; }
+  to {
+    background-position: -276px -261px; } }
+@-webkit-keyframes walk-left-start {
+  from {
+    background-position: -69px -261px; }
+  to {
+    background-position: -276px -261px; } }
+@keyframes walk-left {
+  from {
+    background-position: 0px -261px; }
+  to {
+    background-position: -276px -261px; } }
+@-webkit-keyframes walk-left {
+  from {
+    background-position: 0px -261px; }
+  to {
+    background-position: -276px -261px; } }
+    .area #avatar .walk-up {
+      -webkit-animation: walk-up-start 0.45s steps(3), walk-up 0.6s 0.45s steps(4) infinite;
+      animation: walk-up-start 0.45s steps(3), walk-up 0.6s 0.45s steps(4) infinite; }
+@keyframes walk-up-start {
+  from {
+    background-position: -69px -174px; }
+  to {
+    background-position: -276px -174px; } }
+@-webkit-keyframes walk-up-start {
+  from {
+    background-position: -69px -174px; }
+  to {
+    background-position: -276px -174px; } }
+@keyframes walk-up {
+  from {
+    background-position: 0px -174px; }
+  to {
+    background-position: -276px -174px; } }
+@-webkit-keyframes walk-up {
+  from {
+    background-position: 0px -174px; }
+  to {
+    background-position: -276px -174px; } }
+    .area #avatar .walk-right {
+      -webkit-animation: walk-right-start 0.45s steps(3), walk-right 0.6s 0.45s steps(4) infinite;
+      animation: walk-right-start 0.45s steps(3), walk-right 0.6s 0.45s steps(4) infinite; }
+@keyframes walk-right-start {
+  from {
+    background-position: -69px -87px; }
+  to {
+    background-position: -276px -87px; } }
+@-webkit-keyframes walk-right-start {
+  from {
+    background-position: -69px -87px; }
+  to {
+    background-position: -276px -87px; } }
+@keyframes walk-right {
+  from {
+    background-position: 0px -87px; }
+  to {
+    background-position: -276px -87px; } }
+@-webkit-keyframes walk-right {
+  from {
+    background-position: 0px -87px; }
+  to {
+    background-position: -276px -87px; } }
+    .area #avatar .walk-down {
+      -webkit-animation: walk-down-start 0.45s steps(3), walk-down 0.6s 0.45s steps(4) infinite;
+      animation: walk-down-start 0.45s steps(3), walk-down 0.6s 0.45s steps(4) infinite; }
+@keyframes walk-down-start {
+  from {
+    background-position: -69px 0; }
+  to {
+    background-position: -276px 0; } }
+@-webkit-keyframes walk-down-start {
+  from {
+    background-position: -69px 0; }
+  to {
+    background-position: -276px 0; } }
+@keyframes walk-down {
+  from {
+    background-position: 0px 0; }
+  to {
+    background-position: -276px 0; } }
+@-webkit-keyframes walk-down {
+  from {
+    background-position: 0px 0; }
+  to {
+    background-position: -276px 0; } }
     .area #avatar .shadow {
       background-image: url(../img/characters/shadow_sm.svg); }
   .area .npc {
     position: absolute;
     width: 69px;
     height: 87px;
-    transition: left 0.15s linear, bottom 0.15s linear; }
+    transition: left 0.3s linear, bottom 0.3s linear; }
   .area .reaction {
     position: absolute;
     top: -24px;
@@ -190,8 +296,8 @@ body {
     background-position: 0 0;
     background-size: 276px 348px; }
   .area .walk-left {
-    -webkit-animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite;
-    animation: walk-left-start 0.3375s steps(3), walk-left 0.45s 0.3375s steps(4) infinite; }
+    -webkit-animation: walk-left-start 0.45s steps(3), walk-left 0.6s 0.45s steps(4) infinite;
+    animation: walk-left-start 0.45s steps(3), walk-left 0.6s 0.45s steps(4) infinite; }
 @keyframes walk-left-start {
   from {
     background-position: -69px -261px; }
@@ -213,8 +319,8 @@ body {
   to {
     background-position: -276px -261px; } }
   .area .walk-up {
-    -webkit-animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite;
-    animation: walk-up-start 0.3375s steps(3), walk-up 0.45s 0.3375s steps(4) infinite; }
+    -webkit-animation: walk-up-start 0.45s steps(3), walk-up 0.6s 0.45s steps(4) infinite;
+    animation: walk-up-start 0.45s steps(3), walk-up 0.6s 0.45s steps(4) infinite; }
 @keyframes walk-up-start {
   from {
     background-position: -69px -174px; }
@@ -236,8 +342,8 @@ body {
   to {
     background-position: -276px -174px; } }
   .area .walk-right {
-    -webkit-animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite;
-    animation: walk-right-start 0.3375s steps(3), walk-right 0.45s 0.3375s steps(4) infinite; }
+    -webkit-animation: walk-right-start 0.45s steps(3), walk-right 0.6s 0.45s steps(4) infinite;
+    animation: walk-right-start 0.45s steps(3), walk-right 0.6s 0.45s steps(4) infinite; }
 @keyframes walk-right-start {
   from {
     background-position: -69px -87px; }
@@ -259,8 +365,8 @@ body {
   to {
     background-position: -276px -87px; } }
   .area .walk-down {
-    -webkit-animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite;
-    animation: walk-down-start 0.3375s steps(3), walk-down 0.45s 0.3375s steps(4) infinite; }
+    -webkit-animation: walk-down-start 0.225s steps(3), walk-down 0.3s 0.225s steps(4) infinite;
+    animation: walk-down-start 0.225s steps(3), walk-down 0.3s 0.225s steps(4) infinite; }
 @keyframes walk-down-start {
   from {
     background-position: -69px 0; }
@@ -281,6 +387,8 @@ body {
     background-position: 0px 0; }
   to {
     background-position: -276px 0; } }
+  .area .npc-doppelganger {
+    transition: left 0.15s linear, bottom 0.15s linear; }
   .area .item {
     position: absolute;
     background-size: 100%;

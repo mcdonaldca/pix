@@ -21,7 +21,6 @@ Walkthrough.prototype.step = function(wt) {
   return function() {
     // Find the current instruction.
     var step = wt.instructions[wt.current];
-    console.log(step.act)
 
     switch (step.act) {
       // Cause a character to react.

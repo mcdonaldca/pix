@@ -1,0 +1,69 @@
+/**
+  Creates reaction animation.
+  @param name     The name of the reaction.
+  @param duration The length of the reaction.
+  @param steps    Number of animation steps.
+  @param end      The end of the reaction (in svg).
+**/
+@mixin reaction($name, $duration, $steps, $end) {
+  .react-#{$name} {
+    -webkit-animation: react-#{$name} $duration steps($steps);
+            animation: react-#{$name} $duration steps($steps);
+  }
+
+  @keyframes react-#{$name} {
+    from { background-position: (-23px * $multiplier) ($end * $multiplier); }
+      to { background-position: (-23px * ($steps + 1) * $multiplier) ($end * $multiplier); }
+  }
+
+  @-webkit-keyframes react-#{$name} {
+    from { background-position: (-23px * $multiplier) ($end * $multiplier); }
+      to { background-position: (-23px * ($steps + 1) * $multiplier) ($end * $multiplier); }
+  }
+}
+
+
+/**
+  Creates walking animation.
+  @param direction The walking direction.
+  @param duration  The walking speed.
+  @param row       The row of the sprite sheet.
+  @param npc       If this is the NPC walking animation.
+**/
+@mixin walk($direction, $duration, $row, $npc) {
+  @if $npc {
+    .walk-#{$direction} {
+      -webkit-animation: walk-#{$direction}-start ($duration * 3 / 2) steps(3), 
+                         walk-#{$direction} ($duration * 2) ($duration * 3 / 2) steps(4) infinite;
+              animation: walk-#{$direction}-start ($duration * 3 / 2) steps(3), 
+                         walk-#{$direction} ($duration * 2) ($duration * 3 / 2) steps(4) infinite;
+    }
+  } @else {
+    .walk-#{$direction} {
+      -webkit-animation: walk-#{$direction}-start ($duration * 3) steps(3), 
+                         walk-#{$direction} ($duration * 4) ($duration * 3) steps(4) infinite;
+              animation: walk-#{$direction}-start ($duration * 3) steps(3), 
+                         walk-#{$direction} ($duration * 4) ($duration * 3) steps(4) infinite;
+    }
+  }
+
+  @keyframes walk-#{$direction}-start {
+   from { background-position: (-23px * $multiplier) ($row * $multiplier); }
+     to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+  }
+
+  @-webkit-keyframes walk-#{$direction}-start {
+     from { background-position: (-23px * $multiplier) ($row * $multiplier); }
+       to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+  }
+
+  @keyframes walk-#{$direction} {
+     from { background-position: 0px ($row * $multiplier); }
+       to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+  }
+
+  @-webkit-keyframes walk-#{$direction} {
+     from { background-position: 0px ($row * $multiplier); }
+       to { background-position: (-92px * $multiplier) ($row * $multiplier); }
+  }
+}

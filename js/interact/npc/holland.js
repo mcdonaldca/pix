@@ -109,7 +109,6 @@ Holland.prototype.interact = function(prompt, dir) {
             game.time.scheduleEvent("tomorrow", game.areas["rundown-apt"].renovate(renov.item, final));
             game.player.wallet -= renov.price;
             this.renovations.splice(s, 1);
-            console.log(renov);
           } else {
             prompt.displayMessage("Hm... doesn't seem like you have the funds.", this.name)
           }

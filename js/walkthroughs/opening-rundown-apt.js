@@ -14,8 +14,8 @@ RundownApt1.prototype.start = function(game) {
   this.instructions = [
     { act: "delay", dur: 1000 },
     { act: "react", sub: "player", react: "wat", dur: 2000 },
-    { act: "show", sub: "npc", type: "holland", dur: ANIM_LENGTH },
-    { act: "walk", sub: "npc", type: "holland", dir: "up", dist: 1, dur: ANIM_LENGTH },
+    { act: "show", sub: "npc", type: "holland", dur: ANIM_LENGTH_NPC },
+    { act: "walk", sub: "npc", type: "holland", dir: "up", dist: 1, dur: ANIM_LENGTH_NPC },
     { act: "face", sub: "npc", type: "holland", dir: "rt", dur: 0 },
     { act: "message", message: "Hi there! You must be " + game.name + ".", name: "holland" },
     { act: "delay", dur: 1000 },
@@ -24,7 +24,7 @@ RundownApt1.prototype.start = function(game) {
     { act: "face", sub: "npc", type: "holland", dir: "up", dur: 0 },
     { act: "options", message: "", options: ["It's... not what I expected.", "Is this a joke?"] },
     { act: "face", sub: "npc", type: "holland", dir: "rt", dur: 0 },
-    { act: "walk", sub: "npc", type: "holland", dir: "dw", dist: 1, dur: ANIM_LENGTH },
+    { act: "walk", sub: "npc", type: "holland", dir: "dw", dist: 1, dur: ANIM_LENGTH_NPC },
     { act: "hide", sub: "npc", type: "holland", dur: 0 },
     { act: "callback" }
   ];

@@ -21,7 +21,6 @@ Liam.prototype.interact = function(prompt, dir) {
         this.avatar.faceLeft();
       }
 
-      console.log(this.name)
       prompt.displayMessage("Good morning, sleepyhead!", this.name);
       break;
 

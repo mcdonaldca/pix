@@ -53,15 +53,16 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   window.setTimeout(function() {
     game.status = "screen";
   }, 500);
-  */
+  //*/
 
-  // For skipping playthrough (for testing).
+  //* For skipping playthrough (for testing).
   this.time.setTime(0, 1, 8, 0, "AM");
   this.time.begin();
   this.time.startTime();
   this.moveToArea(area);
   this.faceDir(startFace);
   this.moveToSpace(startX, startY, startFace);
+  //*/
 }
 
 /**

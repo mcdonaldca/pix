@@ -1,7 +1,11 @@
+@import "mixins";
 $multiplier: 3;
 // Production: $anim-speed: .25s; 
 $anim-speed: .15s;
+$anim-speed-npc: .3s;
+
 $transition: left $anim-speed linear, bottom $anim-speed linear;
+$transition-npc: left $anim-speed-npc linear, bottom $anim-speed-npc linear;
 
 body {
   background: #252525;
@@ -182,8 +186,14 @@ body {
     bottom: 0;
 
     .sprite {
-      background-image: url(../img/characters/adele.svg);
-    }
+      background-image: url(../img/characters/adele.svg);  
+    }        
+
+    $npc: false;
+    @include walk("left", $anim-speed, -87px, $npc);
+    @include walk("up", $anim-speed, -58px, $npc);
+    @include walk("right", $anim-speed, -29px, $npc);
+    @include walk("down", $anim-speed, 0, $npc);
 
     .shadow {
       background-image: url(../img/characters/shadow_sm.svg);
@@ -196,7 +206,7 @@ body {
     width: $w;
     height: $h;
     
-    transition: $transition;
+    transition: $transition-npc;
   }
 
   .reaction {
@@ -211,27 +221,10 @@ body {
     background-position: 0 0;
   }
 
-  @mixin reaction($name, $duration, $steps, $end) {
-    .#{$name} {
-      -webkit-animation: #{$name} $duration steps($steps);
-              animation: #{$name} $duration steps($steps);
-    }
-
-    @keyframes #{$name} {
-      from { background-position: (-23px * $multiplier) ($end * $multiplier); }
-        to { background-position: (-23px * ($steps + 1) * $multiplier) ($end * $multiplier); }
-    }
-
-    @-webkit-keyframes #{$name} {
-      from { background-position: (-23px * $multiplier) ($end * $multiplier); }
-        to { background-position: (-23px * ($steps + 1) * $multiplier) ($end * $multiplier); }
-    }
-  }
-
-  @include reaction("react-surprise", 1s, 8, 0);
-  @include reaction("react-love", 1s, 8, -19px);
-  @include reaction("react-wat", 2s, 11, -38px);
-  @include reaction("react-sleep", 4s, 11, -57px);
+  @include reaction("surprise", 1s, 8, 0);
+  @include reaction("love", 1s, 8, -19px);
+  @include reaction("wat", 2s, 11, -38px);
+  @include reaction("sleep", 4s, 11, -57px);
 
   .shadow {
     position: absolute;
@@ -255,41 +248,17 @@ body {
 
     background-position: 0 0;
     background-size: ($w * 4) ($h * 4);
+  }  
+
+  $npc: true;
+  @include walk("left", $anim-speed-npc, -87px, $npc);
+  @include walk("up", $anim-speed-npc, -58px, $npc);
+  @include walk("right", $anim-speed-npc, -29px, $npc);
+  @include walk("down", $anim-speed, 0, $npc);
+
+  .npc-doppelganger {
+    transition: $transition;
   }
-
-  @mixin walk($direction, $row) {
-    .walk-#{$direction} {
-      -webkit-animation: walk-#{$direction}-start ($anim-speed * 9 / 4) steps(3), 
-                         walk-#{$direction} ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-              animation: walk-#{$direction}-start ($anim-speed * 9 / 4) steps(3), 
-                         walk-#{$direction} ($anim-speed * 3) ($anim-speed * 9 / 4) steps(4) infinite;
-    }
-
-    @keyframes walk-#{$direction}-start {
-     from { background-position: (-23px * $multiplier) ($row * $multiplier); }
-       to { background-position: (-92px * $multiplier) ($row * $multiplier); }
-    }
-
-    @-webkit-keyframes walk-#{$direction}-start {
-       from { background-position: (-23px * $multiplier) ($row * $multiplier); }
-         to { background-position: (-92px * $multiplier) ($row * $multiplier); }
-    }
-
-    @keyframes walk-#{$direction} {
-       from { background-position: 0px ($row * $multiplier); }
-         to { background-position: (-92px * $multiplier) ($row * $multiplier); }
-    }
-
-    @-webkit-keyframes walk-#{$direction} {
-       from { background-position: 0px ($row * $multiplier); }
-         to { background-position: (-92px * $multiplier) ($row * $multiplier); }
-    }
-  }
-
-  @include walk("left", -87px);
-  @include walk("up", -58px);
-  @include walk("right", -29px);
-  @include walk("down", 0);
 
   .item {
     position: absolute;
