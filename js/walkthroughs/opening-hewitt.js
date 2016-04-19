@@ -109,4 +109,4 @@ Hewitt.prototype.interact = function() {
 // Add hewitt object to game's walkthrough selection.
 var hewitt = new Hewitt();
 hewitt.setCallback(game.hewittCallback(game));
-game.addWalkthrough("hewitt", hewitt);
+game.addWalkthrough("opening-hewitt", hewitt);

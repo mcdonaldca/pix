@@ -13,7 +13,7 @@ Game.prototype.newspaperCallback = function(game) {
   return function(city) {
     game.city = city;
     game.screenEndFade();
-    game.startWalkthrough("hewitt");
+    game.startWalkthrough("opening-hewitt");
   }
 }
 
@@ -39,7 +39,7 @@ Game.prototype.characterSelectCallback = function(game) {
 
     game.time.begin();
     game.getNPC("mom").avatar.setBackgroundImage(momDataURL);
-    game.startWalkthrough("hewitt");
+    game.startWalkthrough("opening-hewitt");
     game.screenEndFade();
   };
 }

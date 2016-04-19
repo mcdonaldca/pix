@@ -16,7 +16,7 @@ Game.prototype.hewittCallback = function(game) {
       game.screenEndFade();
     } else {
       game.time.setTime(0, 1, 8, 0, "AM");
-      game.startWalkthrough("rundown-apt1");
+      game.startWalkthrough("opening-rundown-apt");
     }
   }
 }
