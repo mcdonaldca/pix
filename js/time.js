@@ -279,5 +279,5 @@ Time.prototype.sleep = function() {
   } else if (sleepTiming == "late") {
     setHour = 10;
   }
-  this.setTime(this.season, this.day, setHour, 0, "AM");
+  this.setTime(this.daysPassed, setHour, 0, "AM");
 }
