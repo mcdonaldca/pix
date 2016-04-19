@@ -22,10 +22,15 @@ function Time() {
   this.seasonEl = $("#status .season");
   this.season = 3;
 
+  // Number of days passed in the game.
+  this.daysPassed = 0;
+  this.weekday = 0;
+  this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  this.weekdayEl = $("#status .weekday");
+
   // Set the time to begin with and start the timer.
   this.setTime(
-    this.season,
-    this.day,
+    this.daysPassed,
     this.hour, 
     this.minute, 
     this.timeOfDay
@@ -101,6 +106,7 @@ Time.prototype.inc = function() {
       // If it's a new day.
       if (this.timeOfDay == "AM") {
         this.day += 1;
+        this.daysPassed += 1;
 
         // If it's a new season.
         if (this.day == 31) {
@@ -146,19 +152,31 @@ Time.prototype.setSeason = function(season) {
 }
 
 /**
+  Sets the displayed day of the week.
+  @param season The season to display.
+**/
+Time.prototype.setWeekday = function(season) {
+  var offset = season * 8 * MULT;
+  this.weekdayEl.css("background-position", "0 -" + offset.toString() + "px");
+}
+
+/**
   Sets the current time of the game.
   @param hour      The new hour.
   @param minute    The new minute.
   @param timeOfDay The new time of day.
 **/
-Time.prototype.setTime = function(season, day, hour, minute, timeOfDay) {
-  this.season = season;
-  this.day = day;
+Time.prototype.setTime = function(daysPassed, hour, minute, timeOfDay) {
+  this.daysPassed = daysPassed;
+  this.weekday = daysPassed % 7;
+  this.season = Math.floor(daysPassed / 30) % 4;
+  this.day = (daysPassed % 30) + 1;
   this.hour = hour;
   this.minute = minute;
   this.timeOfDay = timeOfDay;
 
   this.setSeason(this.season);
+  this.setWeekday(this.weekday);
   this.setNumber(this.dayTenthEl, Math.floor(this.day / 10));
   this.setNumber(this.daySingleEl, this.day % 10);
   this.setNumber(this.hourTenthEl, Math.floor(this.hour / 10));
@@ -236,6 +254,7 @@ Time.prototype.sleep = function() {
   if ((sleepTiming == "early" || sleepTiming == "normal") && 
       !(this.hour == 12 && this.minute == 0 && this.timeOfDay == "AM")) {
     this.day += 1;
+    this.daysPassed += 1;
     scheduledDay = this.day;
     if (this.day == 31) {
       this.day = 1;
