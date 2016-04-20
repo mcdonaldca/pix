@@ -124,7 +124,7 @@ Time.prototype.inc = function() {
     }
 
     // Set the new hour time.
-    this.setNumber(this.hourTenthEl, Math.floor(this.hour / 10));
+    this.setNumber(this.hourTenthEl, Math.floor(this.hour / 10), true);
     this.setNumber(this.hourSingleEl, this.hour % 10);
   }
 
@@ -136,10 +136,15 @@ Time.prototype.inc = function() {
   Called to adjust a displayed number.
   @param numberEl The number element to adjust.
   @param value    The new value to display.
+  @param hour     Boolean, if it's an hour place.
 **/
-Time.prototype.setNumber = function(numberEl, value) {
-  var offset = value * 8 * MULT;
-  numberEl.css("background-position", "0 -" + offset.toString() + "px");
+Time.prototype.setNumber = function(numberEl, value, hour) {
+  if (!(hour && value == 0)) {
+    var offset = (8 + value * 8) * MULT;
+    numberEl.css("background-position", "0 -" + offset.toString() + "px");
+  } else {
+    numberEl.css("background-position", "0 0");
+  }
 }
 
 /**
@@ -179,7 +184,7 @@ Time.prototype.setTime = function(daysPassed, hour, minute, timeOfDay) {
   this.setWeekday(this.weekday);
   this.setNumber(this.dayTenthEl, Math.floor(this.day / 10));
   this.setNumber(this.daySingleEl, this.day % 10);
-  this.setNumber(this.hourTenthEl, Math.floor(this.hour / 10));
+  this.setNumber(this.hourTenthEl, Math.floor(this.hour / 10), true);
   this.setNumber(this.hourSingleEl, this.hour % 10);
   this.setNumber(this.minuteTenthEl, Math.floor(this.minute / 10));
   this.timeOfDayEl.css(

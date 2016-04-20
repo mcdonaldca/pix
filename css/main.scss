@@ -27,6 +27,30 @@ body {
   background-size: $w $h;
   opacity: 0;
 
+  .wallet-tho {
+    top: 11px * $multiplier;
+    left: 13px * $multiplier;
+    background-position: 0 (-32px * $multiplier);
+  }
+
+  .wallet-hun {
+    top: 11px * $multiplier;
+    left: 20px * $multiplier;
+    background-position: 0 (-32px * $multiplier);
+  }
+
+  .wallet-ten {
+    top: 11px * $multiplier;
+    left: 27px * $multiplier;
+    background-position: 0 (-32px * $multiplier);
+  }
+
+  .wallet-sin {
+    top: 11px * $multiplier;
+    left: 34px * $multiplier;
+    background-position: 0 (-32px * $multiplier);
+  }
+
   .season {
     position: absolute;
     top: 2px * $multiplier;
@@ -62,7 +86,7 @@ body {
     position: absolute;
 
     $w: 8px * $multiplier;
-    $h: 81px * $multiplier;
+    $h: 89px * $multiplier;
 
     width: $w;
     height: 9px * $multiplier;
@@ -78,33 +102,37 @@ body {
   .day-tenth {
     top: 2px * $multiplier;
     right: 33px * $multiplier;
-    background-position: 0 (-24px * $multiplier);
+    background-position: 0 (-32px * $multiplier);
   }
 
   .day-single {
     top: 2px * $multiplier;
     right: 26px * $multiplier;
+    background-position: 0 (-8px * $multiplier);
   }
 
   .hour-tenth {
     top: 11px * $multiplier;
     right: 50px * $multiplier;
+    background-position: 0 (-8px * $multiplier);
   }
 
   .hour-single {
     top: 11px * $multiplier;
     right: 43px * $multiplier;
-    background-position: 0 (-32px * $multiplier);
+    background-position: 0 (-40px * $multiplier);
   }
 
   .minute-tenth {
     top: 11px * $multiplier;
     right: 33px * $multiplier;
+    background-position: 0 (-8px * $multiplier);
   }
 
   .minute-single {
     top: 11px * $multiplier;
     right: 26px * $multiplier;
+    background-position: 0 (-8px * $multiplier);
   }
 
   .time-of-day {

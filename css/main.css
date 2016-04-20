@@ -25,6 +25,22 @@ body {
   background-image: url(../img/status/status.svg);
   background-size: 564px 75px;
   opacity: 0; }
+  #status .wallet-tho {
+    top: 33px;
+    left: 39px;
+    background-position: 0 -96px; }
+  #status .wallet-hun {
+    top: 33px;
+    left: 60px;
+    background-position: 0 -96px; }
+  #status .wallet-ten {
+    top: 33px;
+    left: 81px;
+    background-position: 0 -96px; }
+  #status .wallet-sin {
+    top: 33px;
+    left: 102px;
+    background-position: 0 -96px; }
   #status .season {
     position: absolute;
     top: 6px;
@@ -47,29 +63,33 @@ body {
     width: 24px;
     height: 27px;
     background-image: url(../img/status/numbers.svg);
-    background-size: 24px 243px; }
+    background-size: 24px 267px; }
     #status .number.dark {
       background-image: url(../img/status/numbers-dark.svg); }
   #status .day-tenth {
     top: 6px;
     right: 99px;
-    background-position: 0 -72px; }
+    background-position: 0 -96px; }
   #status .day-single {
     top: 6px;
-    right: 78px; }
+    right: 78px;
+    background-position: 0 -24px; }
   #status .hour-tenth {
     top: 33px;
-    right: 150px; }
+    right: 150px;
+    background-position: 0 -24px; }
   #status .hour-single {
     top: 33px;
     right: 129px;
-    background-position: 0 -96px; }
+    background-position: 0 -120px; }
   #status .minute-tenth {
     top: 33px;
-    right: 99px; }
+    right: 99px;
+    background-position: 0 -24px; }
   #status .minute-single {
     top: 33px;
-    right: 78px; }
+    right: 78px;
+    background-position: 0 -24px; }
   #status .time-of-day {
     position: absolute;
     top: 33px;

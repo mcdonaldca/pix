@@ -103,11 +103,11 @@ Holland.prototype.interact = function(prompt, dir) {
           this.count = 0;
         } else {
           var renov = this.renovations[s];
-          if (renov.price < game.player.wallet) {
+          if (game.player.wallet.afford(renov.price)) {
             prompt.displayMessage("All right, it should be done tomorrow!", this.name);
             var final = options.length == 2;
             game.time.scheduleEvent("tomorrow", game.areas["rundown-apt"].renovate(renov.item, final));
-            game.player.wallet -= renov.price;
+            game.player.wallet.spend(renov.price);
             this.renovations.splice(s, 1);
           } else {
             prompt.displayMessage("Hm... doesn't seem like you have the funds.", this.name)

@@ -9,13 +9,14 @@
   Hewitt
   @param count The number of times the callback has been called.
 **/
-Game.prototype.hewittCallback = function(game) {
+Game.prototype.openingHewittCallback = function(game) {
   return function(count) {
     if (count == 1) {
       game.displayScreen("newspaper");
       game.screenEndFade();
     } else {
       game.time.setTime(0, 1, 8, 0, "AM");
+      game.player.wallet.add(200);
       game.startWalkthrough("opening-rundown-apt");
     }
   }
@@ -24,7 +25,7 @@ Game.prototype.hewittCallback = function(game) {
 /**
   Rundown Apartment (1)
 **/
-Game.prototype.rundownApt1Callback = function(game) {
+Game.prototype.openingRundownAptCallback = function(game) {
   return function() {
     game.time.startTime();
     var apt2 = game.areas["apt-2"];

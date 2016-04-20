@@ -57,6 +57,7 @@ Game.prototype.start = function(startX, startY, startFace, area) {
 
   //* For skipping playthrough (for testing).
   this.time.setTime(0, 8, 0, "AM");
+  this.player.wallet.add(200);
   this.time.begin();
   this.time.startTime();
   this.moveToArea(area);

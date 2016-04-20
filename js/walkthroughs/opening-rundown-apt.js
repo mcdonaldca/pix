@@ -97,5 +97,5 @@ RundownApt1.prototype.interact = function() {
 
 // Add hewitt object to game's walkthrough selection.
 var rundownApt1 = new RundownApt1();
-rundownApt1.setCallback(game.rundownApt1Callback(game));
+rundownApt1.setCallback(game.openingRundownAptCallback(game));
 game.addWalkthrough("opening-rundown-apt", rundownApt1);

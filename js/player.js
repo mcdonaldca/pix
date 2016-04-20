@@ -3,7 +3,7 @@
 **/
 function Player() {
   $.extend(this, new Avatar($("#avatar"), $("#reaction"), $("#sprite")));
-  this.wallet = 2000;
+  this.wallet = new Wallet();
 
   this.isCat = false; // Is the sprite a cat.
 }
