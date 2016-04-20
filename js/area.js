@@ -346,10 +346,8 @@ Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
 Area.prototype.addEventZone = function(startCoord, endCoord, event) {
   // Go from top left to bottom right coordinates (inclusive).
   for (var x = startCoord[0]; x < endCoord[0] + 1; x++) {
-    console.log(startCoord,endCoord);
     for (var y = startCoord[1]; y > endCoord[1] - 1; y--) {
       this.space(x, y).setEvent(event);
-      console.log(x, y);
     }
   }
   
