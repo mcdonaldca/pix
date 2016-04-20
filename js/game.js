@@ -205,7 +205,7 @@ Game.prototype.moveLeft = function() {
 **/
 Game.prototype.moveUp = function() {
   this.faceDir("up");
-  this.moveToSpace(this.x, this.y + 1, "up");
+  this.moveToSpace(this.x, this.y - 1, "up");
 }
 
 /**
@@ -221,7 +221,7 @@ Game.prototype.moveRight = function() {
 **/
 Game.prototype.moveDown = function() {
   this.faceDir("dw");
-  this.moveToSpace(this.x, this.y - 1, "dw");
+  this.moveToSpace(this.x, this.y + 1, "dw");
 }
 
 /** 
@@ -293,9 +293,7 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
       }
 
       // Set the player's new position.
-      this.player.setLeft(this.x);
-      this.player.setBottom(this.y, this.area.height);
-      
+      this.player.setPosition(this.x, this.y);      
       this.area.updateAreaPosition(this.x, this.y);
     }
   } 
@@ -310,7 +308,7 @@ Game.prototype.validZone = function(x, y) {
   return x >= 0
       && x <= this.area.width - 1
       && y >= 0
-      && y <= this.area.height - 3;
+      && y <= this.area.height - 1;
 }
 
 /**
@@ -325,8 +323,8 @@ Game.prototype.interact = function() {
       // Find the x, y coordinate we're facing.
       faceX = this.face == "lf" ? this.x - 1 : this.x;
       faceX = this.face == "rt" ? this.x + 1 : faceX;
-      faceY = this.face == "up" ? this.y + 1 : this.y;
-      faceY = this.face == "dw" ? this.y - 1 : faceY;
+      faceY = this.face == "up" ? this.y - 1 : this.y;
+      faceY = this.face == "dw" ? this.y + 1 : faceY;
       faceSpace = this.area.space(faceX, faceY);
 
       // If we're in an interact zone, focus on that.

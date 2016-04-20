@@ -33,8 +33,7 @@ RundownApt1.prototype.start = function(game) {
   game.moveToArea("rundown-apt");
   var holland = game.getNPC("holland");
   holland.avatar.hide();
-  holland.avatar.setLeft(1);
-  holland.avatar.setBottom(0, game.area.height);
+  holland.avatar.setPosition(1, 0);
   holland.avatar.faceUp();
   game.area.append(holland.getEl());
   // Begin instruction sequence.

@@ -62,7 +62,7 @@ Walkthrough.prototype.step = function(wt) {
             break;
 
           case "up":
-            subject.setBottom(subject.y + 1, wt.game.area.height);
+            subject.setBottom(subject.y - 1);
             break;
 
           case "rt":
@@ -70,7 +70,7 @@ Walkthrough.prototype.step = function(wt) {
             break;
 
           case "dw":
-            subject.setBottom(subject.y - 1, wt.game.area.height);
+            subject.setBottom(subject.y + 1);
             break;
 
           default:

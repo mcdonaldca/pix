@@ -47,6 +47,9 @@ RundownApt.prototype.renovate = function(item, final) {
   @param z          Z-index of the object.
 **/
 RundownApt.prototype.addRenovation = function(width, height, item, startCoord, z) {
+  var translateX = (startCoord[0] * BLOCK * MULT).toString() + "px";
+  var translateY = (startCoord[1] * BLOCK * MULT).toString() + "px";
+
   /* Sample HTML
      <div class="item item-bed"></div>
   */
@@ -54,8 +57,7 @@ RundownApt.prototype.addRenovation = function(width, height, item, startCoord, z
   $(div).addClass("item item-" + item)
         .css("width", (width * BLOCK * MULT).toString() + "px")
         .css("height", (height * BLOCK * MULT).toString() + "px")
-        .css("left", (startCoord[0] * BLOCK * MULT).toString() + "px")
-        .css("bottom", (startCoord[1] * BLOCK * MULT).toString() + "px")
+        .css("transform", "translate(" + translateX + ", " + translateY + ")")
         .css("z-index", z)
         .css("background-image", "url(img/items/" + this.name + "/" + item + ".svg)");
 
@@ -68,20 +70,20 @@ RundownApt.prototype.addRenovation = function(width, height, item, startCoord, z
 
 var rundownApt = new RundownApt();
 
-rundownApt.addItem(1, "bed", [4, 2]);
-rundownApt.addItem(1, "covers", [4, 1]);
+rundownApt.addItem(1, "bed", [4, 3]);
+rundownApt.addItem(1, "covers", [4, 4]);
 
-rundownApt.addRenovation(5, 2, "wallpaper", [0, 4], 0);
-rundownApt.addRenovation(1, 2, "window", [3, 4], 1);
-rundownApt.addRenovation(5, 4, "carpet", [0, 0], 0);
-rundownApt.addRenovation(1, 3, "linens", [4, 0], 1);
+rundownApt.addRenovation(5, 2, "wallpaper", [0, 0], 0);
+rundownApt.addRenovation(1, 2, "window", [3, 0], 1);
+rundownApt.addRenovation(5, 4, "carpet", [0, 2], 0);
+rundownApt.addRenovation(1, 3, "linens", [4, 3], 1);
 
-rundownApt.addInteraction(0, 4, new Fridge(), ["up"]);
-rundownApt.addInteraction(4, 1, new SleepZone());
+rundownApt.addInteraction(0, 1, new Fridge(), ["up"]);
+rundownApt.addInteraction(4, 4, new SleepZone());
 
-rundownApt.addPositionData("apt-2", null, 1, 0, "up");
-rundownApt.addPositionData("default", null, 2, 1, "up");
+rundownApt.addPositionData("apt-2", null, 1, 5, "up");
+rundownApt.addPositionData("default", null, 2, 4, "up");
 
-rundownApt.addExit(1, 0, ["dw"], "apt-2");
+rundownApt.addExit(1, 5, ["dw"], "apt-2");
 
 game.addArea(rundownApt.getName(), rundownApt);

@@ -13,10 +13,10 @@ function Area(width, height, name, mask) {
   this.areaEl = $(".area"); // The area element to manipulate.
 
   // Following values are set in Area.setPlacementLimits
-  this.maxLeft = undefined;   // Greatest left position (in blocks) area should go.
-  this.minLeft = undefined;   // Smallest left position (in blocks) area should go.
-  this.maxBottom = undefined; // Greatest bottom position (in blocks) area should go.
-  this.minBottom = undefined; // Smallest bottom position (in blocks) area should go.
+  this.maxX = undefined;   // Greatest left position (in blocks) area should go.
+  this.minX = undefined;   // Smallest left position (in blocks) area should go.
+  this.maxY = undefined; // Greatest bottom position (in blocks) area should go.
+  this.minY = undefined; // Smallest bottom position (in blocks) area should go.
   this.setPlacementLimits();
 
   this.items = {};        // Item collection.
@@ -51,9 +51,6 @@ function Area(width, height, name, mask) {
 
       var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
       
-      // NOTE: Image data is processed with 0, 0 being the top left coordinate.
-      //       Our grid is stores with 0, 0 being the bottom left.
-      //       Y-coord is manipulated at the end, when saving the data
       // Iterating through BLOCKS, not individual pixels.
       for (var blockX = 0; blockX < area.width; blockX++) {
         for (var blockY = 0; blockY < area.height; blockY++) {
@@ -90,7 +87,7 @@ function Area(width, height, name, mask) {
 
           // If there are indeed blocked directions, set them on the related Space.
           if (blockedDirections.length > 0) {
-            area.space(blockX, area.height - blockY - 1).setBlocked(blockedDirections);
+            area.space(blockX, blockY).setBlocked(blockedDirections);
           }
         }
       }
@@ -108,8 +105,6 @@ function Area(width, height, name, mask) {
 Area.prototype.build = function(removeEls, removeNPCs) {
   // Save that we've entered a new room.
   window.sessionStorage.setItem("room", name);
-  // Set the background image to the area's svg.
-  $(".area-img").attr("src", "img/areas/" + this.name + ".svg");
 
   // Remove previous area's elements.
   removeEls = removeEls || [];
@@ -124,8 +119,10 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   }
 
   // Set the height and width of the area element.
+  // Set the background image to the area's svg.
   this.areaEl.css("width", (this.width * BLOCK * MULT).toString() + "px")
-             .css("height", (this.height * BLOCK * MULT).toString() + "px");
+             .css("height", (this.height * BLOCK * MULT).toString() + "px")
+             .css("background-image", "url(img/areas/" + this.name + ".svg)");
 
   // Add all the elements created upon intialization of the area.
   for (var i = 0; i < this.elements.length; i++) {
@@ -135,7 +132,7 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   // Add and place all NPCs.
   for (var i = 0; i < this.NPCs.length; i++) {
     var npc = this.NPCs[i];
-    npc.obj.place(npc.x, npc.y, this.height, npc.dir);
+    npc.obj.place(npc.x, npc.y, npc.dir);
     this.space(npc.x, npc.y).setOccupied(npc.obj);
     npc.obj.avatar.show();
     this.append(npc.obj.getEl());
@@ -156,19 +153,19 @@ Area.prototype.setPlacementLimits = function() {
   // of the game window.
 
   if (this.width < GAME_WIDTH) {
-    this.maxLeft = (GAME_WIDTH - this.width) / 2;
-    this.minLeft = this.maxLeft;
+    this.maxX = (GAME_WIDTH - this.width) / 2;
+    this.minX = this.maxX;
   } else {
-    this.maxLeft = 0;
-    this.minLeft = -1 * (this.width - GAME_WIDTH);
+    this.maxX = 0;
+    this.minX = -1 * (this.width - GAME_WIDTH);
   }
 
   if (this.height < GAME_HEIGHT) {
-    this.maxBottom = (GAME_HEIGHT - this.height) / 2;
-    this.minBottom = this.maxBottom;
+    this.maxY = (GAME_HEIGHT - this.height) / 2;
+    this.minY = this.maxY;
   } else {
-    this.maxBottom = 0;
-    this.minBottom = -1 * (this.height - GAME_HEIGHT);
+    this.maxY = 0;
+    this.minY = -1 * (this.height - GAME_HEIGHT);
   }
 }
 
@@ -178,21 +175,21 @@ Area.prototype.setPlacementLimits = function() {
   @param playerY The player's new y coordinate.
 **/
 Area.prototype.updateAreaPosition = function(playerX, playerY) {
+  var translateX = (-1 * (playerX - 5) * BLOCK * MULT).toString() + "px";
   if (playerX <= 4) {
-    this.areaEl.css("left", this.maxLeft * BLOCK * MULT);
+    translateX = (this.maxX * BLOCK * MULT).toString() + "px";
   } else if (playerX >= this.width - 5) {
-    this.areaEl.css("left", this.minLeft * BLOCK * MULT);
-  } else {
-    this.areaEl.css("left", -1 * (playerX - 5) * BLOCK * MULT);
+    translateX = (this.minX * BLOCK * MULT).toString() + "px";
   }
 
-  if (playerY <= 4) {
-    this.areaEl.css("bottom", this.maxBottom * BLOCK * MULT);
-  } else if (playerY >= this.height - 5) {
-    this.areaEl.css("bottom", this.minBottom * BLOCK * MULT);
-  } else {
-    this.areaEl.css("bottom", -1 * (playerY - 5) * BLOCK * MULT);
+  var translateY = (-1 * (playerY - 5) * BLOCK * MULT).toString() + "px";
+  if (playerY <= 5) {
+    translateY = (this.maxY * BLOCK * MULT).toString() + "px";
+  } else if (playerY >= this.height - 6) {
+    translateY = (this.minY * BLOCK * MULT).toString() + "px";
   }
+
+  this.areaEl.css("transform", "translate(" + translateX + ", " + translateY + ")");
 }
 
 /**
@@ -274,6 +271,9 @@ Area.prototype.validZone = function(x, y) {
 Area.prototype.addItem = function(width, item, startCoord, extra) {
   // Extra z-index padding.
   extra = extra || 0;
+  var translateX = (startCoord[0] * BLOCK * MULT).toString() + "px";
+  var translateY = (startCoord[1] * BLOCK * MULT).toString() + "px";
+
   /* Sample HTML
      <div class="item item-bed"></div>
   */
@@ -281,9 +281,8 @@ Area.prototype.addItem = function(width, item, startCoord, extra) {
   $(div).addClass("item item-" + item)
         .css("width", (width * BLOCK * MULT).toString() + "px")
         .css("height", (BLOCK * MULT).toString() + "px")
-        .css("left", (startCoord[0] * BLOCK * MULT).toString() + "px")
-        .css("bottom", (startCoord[1] * BLOCK * MULT).toString() + "px")
-        .css("z-index", (this.height - startCoord[1]) * 10 + 5 + extra)
+        .css("transform", "translate(" + translateX + ", " + translateY + ")")
+        .css("z-index", (startCoord[1] + 1) * 10 + 5 + extra)
         .css("background-image", "url(img/items/" + this.name + "/" + item + ".svg)");
 
   // Customizable items have extra background sizing.
@@ -340,15 +339,17 @@ Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
 
 /**
   Adds new event zones to an area.
-  @param startCoord Array of x, y coordinate (bottom left).
-  @param endCoord   Array of x, y coordinate (top right).
+  @param startCoord Array of x, y coordinate (top left).
+  @param endCoord   Array of x, y coordinate (bottom right).
   @param event      The event for the Spaces.
 **/
 Area.prototype.addEventZone = function(startCoord, endCoord, event) {
-  // Go from bottom left to top right coordinates (inclusive).
+  // Go from top left to bottom right coordinates (inclusive).
   for (var x = startCoord[0]; x < endCoord[0] + 1; x++) {
-    for (var y = startCoord[1]; y < endCoord[1] + 1; y++) {
+    console.log(startCoord,endCoord);
+    for (var y = startCoord[1]; y > endCoord[1] - 1; y--) {
       this.space(x, y).setEvent(event);
+      console.log(x, y);
     }
   }
   

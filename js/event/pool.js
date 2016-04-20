@@ -11,8 +11,8 @@ function Pool() {
   // Pool constraints.
   this.X_MIN = 21;
   this.X_MAX = 25;
-  this.Y_MIN = 8;
-  this.Y_MAX = 14;
+  this.Y_MIN = 3;
+  this.Y_MAX = 9;
 }
 
 /**
@@ -24,7 +24,7 @@ function Pool() {
 Pool.prototype.begin = function(x, y, dir) {
   this.fireMove(x, y);
   // If entering pool from the bottom
-  if (y == this.Y_MIN && x != this.X_MIN) {
+  if (y == this.Y_MAX && x != this.X_MIN) {
     var pool = this;
     // Don't have water appear right away (avoids flash)
     setTimeout(function() {
@@ -50,17 +50,15 @@ Pool.prototype.fireFace = function(dir) {
 **/
 Pool.prototype.fireMove = function(x, y) {
   // Restrictive in case the event zone exceeds pool size.
-  if (x >= this.X_MIN && x <= this.X_MAX) {
-    left_val = 0;
+  if ((x >= this.X_MIN && x <= this.X_MAX) && y >= this.Y_MIN && y <= this.Y_MAX) {
+    translateX = 0;
     if (x == this.X_MIN) {
-      left_val = ((x * BLOCK + 3) * MULT).toString() + "px";
+      translateX = ((x * BLOCK + 3) * MULT).toString() + "px";
     } else {
-      left_val = (x * BLOCK * MULT).toString() + "px";
+      translateX = (x * BLOCK * MULT).toString() + "px";
     }
-    this.water.css("left", left_val);
-  }
-  if (y >= this.Y_MIN && y <= this.Y_MAX) {
-    this.water.css("bottom", (y * BLOCK * MULT).toString() + "px");
+    var translateY = (y * BLOCK * MULT).toString() + "px";
+    this.water.css("transform", "translate(" + translateX + ", " + translateY + ")")
   }
 }
 
@@ -107,8 +105,6 @@ Pool.prototype.createElements = function() {
           .css("background-image", "url(img/items/apt-1/water.svg)")
           .css("height", (BLOCK * MULT).toString() + "px")
           .css("width",  (BLOCK * MULT).toString() + "px")
-          .css("left", ((21 * BLOCK + 3) * MULT).toString() + "px")
-          .css("bottom", (8 * BLOCK * MULT).toString() + "px")
           .css("z-index", 400);
   this.elements.push(water);
 

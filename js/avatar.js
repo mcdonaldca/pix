@@ -15,7 +15,7 @@ function Avatar(avatar, reaction, sprite) {
   this.SPRITE_WIDTH = 23;
   this.SPRITE_HEIGHT = 29;
   this.X_OFFSET = 3;
-  this.Y_OFFSET = 1;
+  this.Y_OFFSET = 12;
 
   this.x = 0;
   this.y = 0;
@@ -81,31 +81,40 @@ Avatar.prototype.reactSleep = function() {
 }
 
 /**
-  Sets the left value for the avatar.
+  Calls setPosition with new x value.
   @param x The left offset in blocks.
 **/
 Avatar.prototype.setLeft = function(x) {
-  this.x = x;
-  this.avatarEl.css("left", ((x * BLOCK - this.X_OFFSET) * MULT).toString() + "px");
+  this.setPosition(x, this.y);
 }
 
 /**
-  Sets the left value and z-index for the avatar.
-  @param y          The bottom offset in blocks.
-  @param areaHeight The height of the current area. (Optional, used to set z-index.)
+  Calls setPosition with new y value.
+  @param y The bottom offset in blocks.
 **/
-Avatar.prototype.setBottom = function(y, areaHeight) {
-  this.y = y;
-  this.avatarEl.css("bottom", ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + "px");
-
-  areaHeight = areaHeight || "";
-  if (areaHeight != "") {
-    this.avatarEl.css("z-index", (areaHeight - y) * 10);
-    if (this.reactionEl != null) {
-      this.reactionEl.css("z-index", (areaHeight - y) * 10 + 1);
-    }
-  }
+Avatar.prototype.setBottom = function(y) {
+  this.setPosition(this.x, y);
 }
+
+/**
+  Sets the transform value + z-index for the avatar.
+  @param x The left offset in blocks.
+  @param y The bottom offset in blocks.
+**/
+Avatar.prototype.setPosition = function(x, y) {
+  this.x = x;
+  this.y = y;
+
+  var translateX = ((x * BLOCK - this.X_OFFSET) * MULT).toString() + "px";
+  var translateY = ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + "px";
+
+  this.avatarEl.css("transform", "translate(" + translateX + ", " + translateY + ")");
+
+  this.avatarEl.css("z-index", (y + 1) * 10);
+  if (this.reactionEl != null) {
+    this.reactionEl.css("z-index", (y + 1) * 10 + 1);
+  }
+};
 
 /**
   Adjusts sprite to face left.

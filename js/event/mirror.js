@@ -62,12 +62,11 @@ Mirror.prototype.fireMove = function(x, y) {
   this.x = x;
 
   // Doppelganger mirrors on x-axis.
-  if (y == 10) { this.y = 15; }
-  else if (y == 11) { this.y = 14; }
-  else { this.y = 13 ;}
+  if (y == 7) { this.y = 2; }
+  else if (y == 6) { this.y = 3; }
+  else { this.y = 4 ;}
 
-  this.avatar.setLeft(this.x);
-  this.avatar.setBottom(this.y);
+  this.avatar.setPosition(this.x, this.y);
 }
 
 /**
@@ -149,15 +148,16 @@ Mirror.prototype.createElements = function() {
         <img src="img/items/mirror.svg">
       </div>
   */
+  var translateX = (7 * BLOCK * MULT).toString() + "px";
+  var translateY = (1 * BLOCK * MULT).toString() + "px";
 
   var mirror = document.createElement("div");
   $(mirror).addClass("item item-mirror")
            .css("display", "block")
-           .css("z-index", "3")
+           .css("z-index", "55")
            .css("height", (4 * BLOCK * MULT).toString() + "px")
            .css("width", (11 * BLOCK * MULT).toString() + "px")
-           .css("left", (7 * BLOCK * MULT).toString() + "px")
-           .css("bottom", (13 * BLOCK * MULT).toString() + "px")
+           .css("transform", "translate(" + translateX + ", " + translateY + ")")
            .css("background-image", "url(img/items/apt-1/mirror.svg)");
   this.elements.push(mirror);
 
@@ -165,6 +165,4 @@ Mirror.prototype.createElements = function() {
   this.mirror = $(mirror);
   this.avatar = new Avatar($(doppelganger), null, $(sprite));
   this.avatar.hide();
-  this.avatar.setLeft(8);
-  this.avatar.setBottom(13);
 }

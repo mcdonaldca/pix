@@ -1,17 +1,17 @@
 var lobby = new Area(10, 7, "lobby", true);
 
-lobby.addNPC(6, 4, "dw", game.getNPC("holland"), ["lf", "up"]);
-lobby.addInteraction(5, 4, holland, ["rt"]);
+lobby.addNPC(6, 2, "dw", game.getNPC("holland"), ["lf", "up"]);
+lobby.addInteraction(5, 2, holland, ["rt"]);
 
-lobby.addItem(2, "counter", [6, 4]);
+lobby.addItem(2, "counter", [6, 2]);
 
-lobby.addExit(2, 4, ["up"], "elevator-lobby", "left");
-lobby.addExit(3, 4, ["up"], "elevator-lobby", "right");
-lobby.addExit(2, 0, ["dw"], "city");
+lobby.addExit(2, 2, ["up"], "elevator-lobby", "left");
+lobby.addExit(3, 2, ["up"], "elevator-lobby", "right");
+lobby.addExit(2, 6, ["dw"], "city");
 
-lobby.addPositionData("city", null, 2, 0, "up");
-lobby.addPositionData("elevator", "left", 2, 4, "dw");
-lobby.addPositionData("elevator", "right", 3, 4, "dw");
-lobby.addPositionData("default", null, 5, 0, "up");
+lobby.addPositionData("city", null, 2, 6, "up");
+lobby.addPositionData("elevator", "left", 2, 2, "dw");
+lobby.addPositionData("elevator", "right", 3, 2, "dw");
+lobby.addPositionData("default", null, 5, 6, "up");
 
 game.addArea(lobby.getName(), lobby);

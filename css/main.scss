@@ -1,11 +1,7 @@
 @import "mixins";
 $multiplier: 3;
-// Production: $anim-speed: .25s; 
 $anim-speed: .15s;
 $anim-speed-npc: .3s;
-
-$transition: left $anim-speed linear, bottom $anim-speed linear;
-$transition-npc: left $anim-speed-npc linear, bottom $anim-speed-npc linear;
 
 body {
   background: #252525;
@@ -192,7 +188,8 @@ body {
 .area {
   position: absolute;
   overflow: hidden;
-  transition: $transition;
+  transition: transform $anim-speed linear;
+  background-size: 100%;
 
   img {
     width: 100%;
@@ -208,10 +205,7 @@ body {
     width: $w;
     height: $h;
     
-    transition: $transition;
-
-    left: -7px * $multiplier;
-    bottom: 0;
+    transition: transform $anim-speed linear;
 
     .sprite {
       background-image: url(../img/characters/adele.svg);  
@@ -234,7 +228,7 @@ body {
     width: $w;
     height: $h;
     
-    transition: $transition-npc;
+    transition: transform $anim-speed-npc linear;
   }
 
   .reaction {
@@ -285,13 +279,14 @@ body {
   @include walk("down", $anim-speed, 0, $npc);
 
   .npc-doppelganger {
-    transition: $transition;
+    transition: transform $anim-speed linear;
   }
 
   .item {
     position: absolute;
+
     background-size: 100%;
-    transition: $transition;
+    transition: transform $anim-speed linear;
   }
 
   .sleep-shadow {

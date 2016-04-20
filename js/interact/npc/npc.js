@@ -52,10 +52,12 @@ NPC.prototype.build = function() {
 
 /**
   Called to place the NPC in the area.
+  @param x   The new x value.
+  @param y   The new y value.
+  @param dir The direction to face.
 **/
-NPC.prototype.place = function(x, y, areaHeight, dir) {
-  this.avatar.setLeft(x);
-  this.avatar.setBottom(y, areaHeight);
+NPC.prototype.place = function(x, y, dir) {
+  this.avatar.setPosition(x, y);
   switch(dir) {
     case "lf":
       this.avatar.faceLeft();
