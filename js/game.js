@@ -119,7 +119,6 @@ Game.prototype.moveToArea = function(area) {
   // Initialize values to empty.
   var from = "";
   var door = "";
-
   // New area to move to.
   var newArea = this.areas[area];
   // If it's not a new game and we're in an area.
@@ -307,7 +306,7 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
 Game.prototype.validZone = function(x, y) {
   return x >= 0
       && x <= this.area.width - 1
-      && y >= 0
+      && y >= 1
       && y <= this.area.height - 1;
 }
 
