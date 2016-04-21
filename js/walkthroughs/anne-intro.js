@@ -118,7 +118,7 @@ AnneIntro.prototype.interact = function() {
             game.prompt.removeOptions();
             if (s == 0 || s == 1) {
               this.acceptedJob = true;
-              game.getNPC("anne").avatar.reactLove();
+              game.getNPC("anne").avatar.reactHappy();
               game.prompt.displayMessage("So glad to hear it!", "anne");
               // Begin "accepted" job track.
               this.track = "accepted";

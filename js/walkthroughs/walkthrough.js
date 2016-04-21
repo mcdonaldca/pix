@@ -38,6 +38,10 @@ Walkthrough.prototype.step = function(wt) {
             subject.reactLove();
             break;
 
+          case "happy":
+            subject.reactHappy();
+            break;
+
           default:
             break;
         }

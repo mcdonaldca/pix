@@ -81,6 +81,17 @@ Avatar.prototype.reactSleep = function() {
 }
 
 /**
+  Initializes happy reaction for avatar.
+**/
+Avatar.prototype.reactHappy = function() {
+  this.reactionEl.addClass("react-happy");
+  var avatar = this;
+  setTimeout(function() {
+    avatar.reactionEl.removeClass("react-happy");
+  }, 1000);
+}
+
+/**
   Calls setPosition with new x value.
   @param x The left offset in blocks.
 **/

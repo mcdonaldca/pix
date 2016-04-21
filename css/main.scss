@@ -239,7 +239,7 @@ body {
     width: $w;
 
     background-image: url(../img/characters/reaction.svg);
-    background-size: ($w * 12) (19px * $multiplier * 4);
+    background-size: ($w * 12) (19px * $multiplier * 5);
     background-position: 0 0;
   }
 
@@ -247,6 +247,7 @@ body {
   @include reaction("love", 1s, 8, -19px);
   @include reaction("wat", 2s, 11, -38px);
   @include reaction("sleep", 4s, 11, -57px);
+  @include reaction("happy", 1s, 8, -76px);
 
   .shadow {
     position: absolute;
