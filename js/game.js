@@ -377,7 +377,7 @@ Game.prototype.exit = function(exitTo) {
   ];
 
   // If our exit goes somewhere we can't, customize the message.
-  if ($.inArray(exitTo, cantGo) != -1) {
+  if (cantGo.indexOf(exitTo) != -1) {
     if (exitTo == "colquitt-natalie" 
       || exitTo == "margaret-kayla"  
       || exitTo == "taylor-liam"

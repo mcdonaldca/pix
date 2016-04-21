@@ -30,7 +30,7 @@ Space.prototype.setBlocked = function(dir) {
 Space.prototype.isBlocked = function(dir) {
   var isBlockedDir = false;
   if (this.blocked != undefined) {
-    isBlockedDir = $.inArray(dir, this.blocked) != -1;
+    isBlockedDir = this.blocked.indexOf(dir) != -1;
   }
   return isBlockedDir || this.isOccupied();
 }
@@ -113,7 +113,7 @@ Space.prototype.isInteractZone = function() {
 **/
 Space.prototype.canInteract = function(dir) {
   if (this.interactDir != undefined) {
-    return $.inArray(dir, this.interactDir) != -1;
+    return this.interactDir.indexOf(dir) != -1;
   }
   return false;
 }
@@ -183,7 +183,7 @@ Space.prototype.setExitDoor = function(door) {
 **/
 Space.prototype.hasExitAdjacent = function(dir) {
   return this.exit != undefined
-    && $.inArray(dir, this.exitDir) != -1;
+    && this.exitDir.indexOf(dir) != -1;
 }
 
 /**
