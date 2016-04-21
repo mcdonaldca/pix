@@ -5,27 +5,55 @@
   @param name   The name of the area. Should also be the name of the svg.
   @param mask   Whether or not a mask file should be processed.
 **/
-function LimitedArea(width, height, name, fullName, hours, mask) {
+function LimitedArea(width, height, name, fullName, hours, exitTo, mask) {
   $.extend(this, new Area(width, height, name, mask));
-  this.limited = true;
-  this.fullName = fullName;
-  this.hours = hours;
+  this.limited = true;      // Marks the area as a limited hours.
+  this.fullName = fullName; // Full name of the area.
+  this.hours = hours;       // List of hours specifications.
+  this.exitTo = exitTo;     // Area to exit to when the area closes.
 }
 
+/**
+  Returns a message declaring the area's hours.
+  @return Message object.
+**/
 LimitedArea.prototype.hoursMessage = function() {
   return new Message([this.fullName.toUpperCase(), "Open " + this.hours[0]]);
 };
 
+/**
+  Whether or not the place is open.
+  @return Boolean
+**/
 LimitedArea.prototype.isOpen = function(time) {
   var todaysHours = this.hours[1][time.weekday];
   if (todaysHours.length == 0) return false;
 
-  var currentHour = time.hour;
-  if (time.timeOfDay == "PM" && currentHour != 12) currentHour += 12;
+  return time.hour >= todaysHours[0] && time.hour <= todaysHours[1];
+};
 
-  return currentHour >= todaysHours[0] && currentHour <= todaysHours[1];
-}
-
+/**
+  Whether or not the place is closed.
+  @return Boolean
+**/
 LimitedArea.prototype.isClosed = function(time) {
   return !this.isOpen(time);
+};
+
+/**
+  Returns the hour of closing for the area.
+  @return The hour.
+**/
+LimitedArea.prototype.closing = function() {
+  return this.hours[1][game.time.weekday][1];
+};
+
+/**
+  Closes the area and forces the player to exit.
+**/
+LimitedArea.prototype.close = function() {
+  var closing = new Message(this.fullName + " is now closed.");
+  game.focus = closing;
+  game.status = closing.interact(this.prompt) || "free";
+  game.exit(this.exitTo);
 };

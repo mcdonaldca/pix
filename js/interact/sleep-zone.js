@@ -31,7 +31,7 @@ SleepZone.prototype.interact = function(prompt, dir) {
         // Create dark div for sleeping.
         var shadowDiv = document.createElement("div");
         game.area.append(shadowDiv);
-        $(shadowDiv).addClass("sleep-shadow")
+        $(shadowDiv).addClass("area-shadow")
                     .css("opacity"); // Force browser to calc value.
         $(shadowDiv).css("opacity", ".6");
         game.player.reactSleep();

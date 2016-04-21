@@ -3,6 +3,7 @@
 **/
 function Prompt() {
   this.count = 0; // State management for conversation flow.
+  this.displaying = false; // If the prompt is currently displaying something.
 
   this.messages = $(".messages");                // Messages container (show/hide).
   this.nextArrow = $(".next-arrow");             // Blinking arrow (show/hide).
@@ -23,6 +24,7 @@ function Prompt() {
   @param name    (Optional) The name to prefix.
 **/
 Prompt.prototype.displayMessage = function(message, name) {
+  this.displaying = true;
   name = name || "";
 
   this.nextArrow.show();
@@ -53,6 +55,7 @@ Prompt.prototype.updateMessage = function(message, name) {
   Remove currently visible message.
 **/
 Prompt.prototype.removeMessage = function() {
+  this.displaying = false;
   this.messages.hide();
   this.messageContent.html("");
   this.nextArrow.show();
@@ -66,6 +69,7 @@ Prompt.prototype.removeMessage = function() {
   @param start   (Optional) Default selection to start with.
 **/
 Prompt.prototype.displayOptions = function(message, options, name, start) {
+  this.displaying = true;
   this.selectOptions = options;
 
   // Display the message.
@@ -109,6 +113,7 @@ Prompt.prototype.updateOptions = function(message, options, name, start) {
   Remove and clean up after currently displayed options.
 **/
 Prompt.prototype.removeOptions = function() {
+  this.displaying = false;
   this.options.hide();
   this.currentSelect = 0;
   this.optionsContent.html("");
@@ -136,6 +141,14 @@ Prompt.prototype.generateOptionsHTML = function(options, start) {
   }
   return html;
 }
+
+/**
+  Getter for Prompt.displaying.
+  @return Boolean
+**/
+Prompt.prototype.isDisplaying = function() {
+  return this.displaying;
+};
 
 /**
   Moves the player's selection arrow and updates Interactable.currentSelect.

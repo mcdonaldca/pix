@@ -17,10 +17,10 @@ function Game() {
   this.event = undefined;  // The current event.
 
   //The following are initialized in Game.start
-  this.messager = undefined; // The Game's messaging system.
   this.x = undefined;        // The player's current x location.
   this.y = undefined;        // The player's current y location.
   this.face = undefined;     // The player's current faced direction.
+  this.messager = undefined; // The Game's messaging system.
 
   // Start the keyboard controller for key events (see js/keys.js).
   this.keyboardController(); 
@@ -372,6 +372,21 @@ Game.prototype.interact = function() {
 **/
 Game.prototype.exit = function(exitTo) {
   var area = this.areas[exitTo];
+
+  // If the player is entering a work place.
+  if (exitTo == "work") {
+    this.focus = new Work();
+    this.status = this.focus.interact(this.prompt) || "free";
+    return;
+  }
+
+  // If this is our first time visiting the Ritual Roasters shop, run the Anne Intro walkthrough.
+  if (exitTo == "ritual-roasters" && !area.isVisited()) {
+    area.setVisited();
+    this.startWalkthrough("anne-intro");
+    return;
+  }
+
   // Collection of areas character can't enter.
   var cantGo = [
     "colquitt-natalie", 
@@ -380,13 +395,6 @@ Game.prototype.exit = function(exitTo) {
     "anne-diane", 
     "elevator-roof"
   ];
-
-  // If this is our first time visiting the Ritual Roasters shop, run the Anne Intro walkthrough.
-  if (exitTo == "ritual-roasters" && !area.isVisited()) {
-    area.setVisited();
-    this.startWalkthrough("anne-intro");
-    return;
-  }
 
   // If our exit goes somewhere we can't, customize the message.
   if (cantGo.indexOf(exitTo) != -1) {

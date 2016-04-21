@@ -41,7 +41,7 @@ Game.prototype.anneIntroCallback = function(game) {
   return function(acceptedJob) {
     if (acceptedJob) {
       game.area.space(3, 2).setBlocked([]);
-      game.player.employ("Ritual Roasters Barista");
+      game.player.employ("Ritual Roasters Barista", 10);
     }
   }
 }

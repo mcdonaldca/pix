@@ -7,6 +7,7 @@ function Player() {
 
   this.isCat = false; // Is the sprite a cat.
   this.job = "unemployed"; // Players current job.
+  this.salary = 0;
 }
 
 /**
@@ -29,9 +30,19 @@ Player.prototype.getJob = function() {
 };
 
 /**
-  Setter for Player.jon
-  @param The new job.
+  Setter for Player.job and Player.salary
+  @param job    The new job.
+  @param salary The job's hourly pay.
 **/
-Player.prototype.employ = function(job) {
+Player.prototype.employ = function(job, salary) {
   this.job = job;
+  this.salary = salary;
 };
+
+/**
+  Called when the player works some number of hours.
+  @param hours The number of hours worked.
+**/
+Player.prototype.work = function(hours) {
+  this.wallet.add(Math.floor(hours * this.salary));
+}

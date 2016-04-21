@@ -18,18 +18,18 @@ Message.prototype.interact = function(prompt, dir) {
 
   switch(this.count) {
     case 0:
-      prompt.displayMessage(this.content[this.count]);
+      game.prompt.displayMessage(this.content[this.count]);
       break;
 
     case this.content.length:
-      prompt.removeMessage();
+      game.prompt.removeMessage();
 
       this.count = -1;
       status = "free";
       break;
 
     default:
-      prompt.updateMessage(this.content[this.count]);
+      game.prompt.updateMessage(this.content[this.count]);
       break;
   }
 

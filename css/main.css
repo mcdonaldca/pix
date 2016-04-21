@@ -425,7 +425,7 @@ body {
     position: absolute;
     background-size: 100%;
     transition: transform 0.15s linear; }
-  .area .sleep-shadow {
+  .area .area-shadow {
     position: absolute;
     top: 0;
     width: 100%;
