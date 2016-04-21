@@ -1,12 +1,14 @@
 /**  
   An area object that's only available at certain hours.
-  @param width  The width of the area (in blocks).
-  @param height The height of the area (in blocks);
-  @param name   The name of the area. Should also be the name of the svg.
-  @param mask   Whether or not a mask file should be processed.
+  @param width    The width of the area (in blocks).
+  @param height   The height of the area (in blocks);
+  @param name     The name of the area. Should also be the name of the svg.
+  @param fullName The full name (not key-shortened) of the area.
+  @param hours    List of availability for the store.
+  @param exitTo   Area to exit to when the area closes.
 **/
-function LimitedArea(width, height, name, fullName, hours, exitTo, mask) {
-  $.extend(this, new Area(width, height, name, mask));
+function LimitedArea(width, height, name, fullName, hours, exitTo) {
+  $.extend(this, new Area(width, height, name));
   this.limited = true;      // Marks the area as a limited hours.
   this.fullName = fullName; // Full name of the area.
   this.hours = hours;       // List of hours specifications.

@@ -3,8 +3,7 @@ var ritualRoasters = new LimitedArea(
   "ritual-roasters", 
   "Ritual Coffee Roasters", 
   ["6:00AM - 6:00PM, closed Wednesdays.", [[6, 18], [6, 18], [6, 18], [], [6, 18], [6, 18], [6, 18]]], 
-  "city-nw",
-  true
+  "city-nw"
   );
 
 ritualRoasters.addItem(1, "counter-end", [3, 1]);

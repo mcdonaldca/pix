@@ -1,4 +1,4 @@
-var hewittHome = new Area(7, 7, "hewitt-home", true);
+var hewittHome = new Area(7, 7, "hewitt-home");
 
 hewittHome.addNPC(5, 2, "dw", game.getNPC("mom"), ["up", "rt", "dw", "lf"]);
 

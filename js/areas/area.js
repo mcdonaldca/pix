@@ -3,9 +3,8 @@
   @param width  The width of the area (in blocks).
   @param height The height of the area (in blocks);
   @param name   The name of the area. Should also be the name of the svg.
-  @param mask   Whether or not a mask file should be processed.
 **/
-function Area(width, height, name, mask) {
+function Area(width, height, name) {
   this.width = width;   // Width of the area in blocks.
   this.height = height; // Height of the area in blocks.
   this.name = name;     // Name of the area.
@@ -36,69 +35,67 @@ function Area(width, height, name, mask) {
     }
   }
 
-  // Only do mask processing if necessary.
-  if (mask) {
-    // We'll load the mask as an image and then check the image data.
-    var image = new Image();
-    image.crossOrigin = "Anonymous";
+  // We'll load the mask as an image and then check the image data.
+  var image = new Image();
+  image.crossOrigin = "Anonymous";
 
-    // Process image data when mask image loads.
-    var area = this;
-    image.onload = function() {
-      var canvas = document.createElement('canvas');
-      canvas.width = image.width;
-      canvas.height = image.height;
+  // Process image data when mask image loads.
+  var area = this;
+  image.onload = function() {
+    var canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
 
-      var context = canvas.getContext('2d');
-      context.drawImage(image, 0, 0);
+    var context = canvas.getContext('2d');
+    context.drawImage(image, 0, 0);
 
-      var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      
-      // Iterating through BLOCKS, not individual pixels.
-      for (var blockX = 0; blockX < area.width; blockX++) {
-        for (var blockY = 0; blockY < area.height; blockY++) {
-          // Find the (inclusive) bounds of the block.
-          var xLeft = blockX * BLOCK;
-          var yTop = blockY * BLOCK;
-          var xRight = xLeft + BLOCK - 1;
-          var yBottom = yTop + BLOCK - 1;
- 
-          // Find middle x and y coordinates.
-          // Don't want to use pixel at corner of block.
-          var xMid = xLeft + 8;
-          var yMid = yTop + 8;
+    var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    
+    // Iterating through BLOCKS, not individual pixels.
+    for (var blockX = 0; blockX < area.width; blockX++) {
+      for (var blockY = 0; blockY < area.height; blockY++) {
+        // Find the (inclusive) bounds of the block.
+        var xLeft = blockX * BLOCK;
+        var yTop = blockY * BLOCK;
+        var xRight = xLeft + BLOCK - 1;
+        var yBottom = yTop + BLOCK - 1;
 
-          // Using combinations of coordinates, find index in image data.
-          var lfCheck = (yMid*imageData.width + xLeft) * 4;
-          var upCheck = (yTop*imageData.width + xMid) * 4;
-          var rtCheck = (yMid*imageData.width + xRight) * 4;
-          var dwCheck = (yBottom*imageData.width + xMid) * 4;
+        // Find middle x and y coordinates.
+        // Don't want to use pixel at corner of block.
+        var xMid = xLeft + 8;
+        var yMid = yTop + 8;
 
-          // Check if R value of pixel at each location is NOT "ff"
-          // If the R value is anything else, should be non-white and indicate a mask.
-          var lfBlocked = imageData.data[lfCheck].toString(16) != "ff";
-          var upBlocked = imageData.data[upCheck].toString(16) != "ff";
-          var rtBlocked = imageData.data[rtCheck].toString(16) != "ff";
-          var dwBlocked = imageData.data[dwCheck].toString(16) != "ff";
+        // Using combinations of coordinates, find index in image data.
+        var lfCheck = (yMid*imageData.width + xLeft) * 4;
+        var upCheck = (yTop*imageData.width + xMid) * 4;
+        var rtCheck = (yMid*imageData.width + xRight) * 4;
+        var dwCheck = (yBottom*imageData.width + xMid) * 4;
 
-          // Collect blocked directions.
-          var blockedDirections = [];
-          if (lfBlocked) { blockedDirections.push("rt"); }
-          if (upBlocked) { blockedDirections.push("dw"); }
-          if (rtBlocked) { blockedDirections.push("lf"); }
-          if (dwBlocked) { blockedDirections.push("up"); }
+        // Check if R value of pixel at each location is NOT "ff"
+        // If the R value is anything else, should be non-white and indicate a mask.
+        var lfBlocked = imageData.data[lfCheck].toString(16) != "ff";
+        var upBlocked = imageData.data[upCheck].toString(16) != "ff";
+        var rtBlocked = imageData.data[rtCheck].toString(16) != "ff";
+        var dwBlocked = imageData.data[dwCheck].toString(16) != "ff";
 
-          // If there are indeed blocked directions, set them on the related Space.
-          if (blockedDirections.length > 0) {
-            area.space(blockX, blockY).setBlocked(blockedDirections);
-          }
+        // Collect blocked directions.
+        var blockedDirections = [];
+        if (lfBlocked) { blockedDirections.push("rt"); }
+        if (upBlocked) { blockedDirections.push("dw"); }
+        if (rtBlocked) { blockedDirections.push("lf"); }
+        if (dwBlocked) { blockedDirections.push("up"); }
+
+        // If there are indeed blocked directions, set them on the related Space.
+        if (blockedDirections.length > 0) {
+          area.space(blockX, blockY).setBlocked(blockedDirections);
         }
       }
-    };
-    
-    // Onload will be called after image is set.
-    image.src = "img/areas/" + this.name + "_mask.png";
-  }
+    }
+  };
+  
+  // Onload will be called after image is set.
+  image.src = "img/areas/" + this.name + "_mask.png";
+  
 }
 
 /**

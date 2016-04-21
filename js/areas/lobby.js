@@ -1,4 +1,4 @@
-var lobby = new Area(10, 7, "lobby", true);
+var lobby = new Area(10, 7, "lobby");
 
 lobby.addNPC(6, 2, "dw", game.getNPC("holland"), ["lf", "up"]);
 lobby.addInteraction(5, 2, holland, ["rt"]);

@@ -1,4 +1,4 @@
-var apt2 = new Area(36, 6, "apt-2", true);
+var apt2 = new Area(36, 6, "apt-2");
 
 apt2.addInteraction(10, 1, new Message("Colquitt & Natalie's Apartment"), ["up"]);
 apt2.addInteraction(16, 1, new Message("Margaret & Kayla's Apartment"), ["up"]);

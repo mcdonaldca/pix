@@ -2,7 +2,7 @@
   Initial apartment for the player.
 **/
 function RundownApt() {
-  $.extend(this, new Area(5, 6, "rundown-apt", true));
+  $.extend(this, new Area(5, 6, "rundown-apt"));
   this.renovations = {};
 }
 
