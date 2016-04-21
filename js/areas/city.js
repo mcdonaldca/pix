@@ -85,6 +85,7 @@ cityNW.addExit(25, 31, ["dw"], "city-sw", "right");
 cityNW.addExit(31, 25, ["rt"], "city-ne", "top");
 cityNW.addExit(31, 26, ["rt"], "city-ne", "middle");
 cityNW.addExit(31, 27, ["rt"], "city-ne", "bottom");
+cityNW.addExit(24, 24, ["up"], "ritual-roasters");
 
 cityNW.addPositionData("city-sw", "left", 23, 31, "up");
 cityNW.addPositionData("city-sw", "center", 24, 31, "up");
@@ -92,6 +93,7 @@ cityNW.addPositionData("city-sw", "right", 25, 31, "up");
 cityNW.addPositionData("city-ne", "top", 31, 25, "lf");
 cityNW.addPositionData("city-ne", "middle", 31, 26, "lf");
 cityNW.addPositionData("city-ne", "bottom", 31, 27, "lf");
+cityNW.addPositionData("ritual-roasters", null, 24, 24, "dw");
 cityNW.addPositionData("default", null, 15, 15, "dw");
 
 game.addArea(cityNW.getName(), cityNW);
