@@ -66,10 +66,12 @@ RundownApt1.prototype.interact = function() {
         } else if (this.count == 2) {
           this.game.prompt.updateMessage("But if you want to move out, all you have to do is find another renter!", "holland");
         } else if (this.count == 3) {
-          this.game.prompt.updateMessage("Maybe you could put an ad online?", "holland");
+          this.game.prompt.updateMessage("Maybe you could put an ad online? All it takes is a computer!", "holland");
         } else if (this.count == 4) {
           this.game.player.faceLeft();
           this.game.getNPC("holland").avatar.faceRight();
+          this.game.prompt.updateMessage("The library has computers you can use, but it might be worth it to buy one of your own.", "holland");
+        } else if (this.count == 5) {
           this.game.prompt.updateMessage("Anyway, come find me in the lobby if you have any questions or want to do any renovations.", "holland");
         } else {
           this.game.prompt.removeMessage();
