@@ -23,9 +23,9 @@ AnneIntro.prototype.start = function() {
     { act: "walk", sub: "npc", type: "anne", dir: "dw", dist: 3, dur: ANIM_LENGTH_NPC },
     { act: "walk", sub: "npc", type: "anne", dir: "rt", dist: 1, dur: ANIM_LENGTH_NPC },
     { act: "face", sub: "npc", type: "anne", dir: "dw", dur: 0 },
-    { act: "walk", sub: "npc", type: "anne", dir: "dw", dist: 1, dur: ANIM_LENGTH_NPC },
-    { act: "message", message: "You must be " + game.name + "! You look just like your mother.", name: "anne" },
-    { act: "walk", sub: "npc", type: "anne", dir: "up", dist: 1, dur: ANIM_LENGTH_NPC },
+    { act: "walk", sub: "npc", type: "anne", dir: "dw", dist: 2, dur: ANIM_LENGTH_NPC },
+    { act: "message", message: "You must be " + game.name + "! I can see the family resemblence.", name: "anne" },
+    { act: "walk", sub: "npc", type: "anne", dir: "up", dist: 2, dur: ANIM_LENGTH_NPC },
     { act: "walk", sub: "npc", type: "anne", dir: "lf", dist: 1, dur: ANIM_LENGTH_NPC },
     { act: "walk", sub: "npc", type: "anne", dir: "up", dist: 3, dur: ANIM_LENGTH_NPC },
     { act: "walk", sub: "npc", type: "anne", dir: "rt", dist: 2, dur: ANIM_LENGTH_NPC },
@@ -40,6 +40,7 @@ AnneIntro.prototype.start = function() {
   var anne = game.getNPC("anne");
   anne.avatar.setPosition(5, 2);
   anne.avatar.hide();
+  game.player.stopWalking();
   // Begin instruction sequence.
   this.step(this)();
 }

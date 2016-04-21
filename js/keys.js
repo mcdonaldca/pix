@@ -16,7 +16,7 @@ Game.prototype.keyboardController = function() {
 
     if (key in keyActions) {
       // If the key isn't a movement (or the game is in conversation mode).
-      if (!(key in moveKeys) || (game.status != "free" && game.status != "loading")) { 
+      if (!(key in moveKeys)) { 
         // If it's a key we have an action for AND isn't locked.
         if (!(key in locked)) {
           keyPress(key)();
@@ -26,7 +26,7 @@ Game.prototype.keyboardController = function() {
       }
 
       // If no key is pressed, or this isn't our pressed key.
-      if (timer.key == undefined || timer.key != key) {
+      if ((timer.key == undefined || timer.key != key) && game.status == "free") {
         timer.key = key;
         game.stopWalking();
 
@@ -40,7 +40,7 @@ Game.prototype.keyboardController = function() {
         // If we're already facing the direction we're traveling.
         if (game.face == dir) {
           // Start walking animation.
-          game.startWalking(game.face)
+          game.startWalking(game.face);
           // Immediately begin walking.
           keyPress(key)();
         } else {
@@ -48,7 +48,7 @@ Game.prototype.keyboardController = function() {
           if (timer.timeout != undefined) {
             clearTimeout(timer.timeout);
           }
-          timer.timeout = setTimeout(game.startWalking(dir), ANIM_LENGTH);
+          timer.timeout = setTimeout(function() {game.startWalking(dir);}, ANIM_LENGTH);
         }
 
         // Start the walking interval.
@@ -99,7 +99,7 @@ Game.prototype.keyboardController = function() {
       }
       // If there was an interval set, clear it.
       if (timer.interval != undefined) { 
-        clearInterval(timer.interval); 
+        clearInterval(timer.interval);
       }
       // If there was a timeout set, clear it.
       if (timer.timeout != undefined) {
