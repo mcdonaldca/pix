@@ -2,7 +2,7 @@
   The player's mom.
 **/
 function Mom() {
-  $.extend(this, new NPC("mom", "characters/mom", "shadow_lg"));
+  $.extend(this, new NPC("mom", "characters/mom", "shadow_sm"));
 }
 
 /**

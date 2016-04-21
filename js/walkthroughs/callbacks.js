@@ -6,7 +6,7 @@
 **/
 
 /**
-  Hewitt
+  Opening - Hewitt
   @param count The number of times the callback has been called.
 **/
 Game.prototype.openingHewittCallback = function(game) {
@@ -23,12 +23,24 @@ Game.prototype.openingHewittCallback = function(game) {
 }
 
 /**
-  Rundown Apartment (1)
+  Opening - Rundown Apartment
 **/
 Game.prototype.openingRundownAptCallback = function(game) {
   return function() {
     game.time.startTime();
     var apt2 = game.areas["apt-2"];
     apt2.addInteraction(34, 4, new Message(game.name + "'s Apartment"), ["up"]);
+  }
+}
+
+/**
+  Anne Intro
+  @param acceptedJob If the player accepted the job at the shop.
+**/
+Game.prototype.anneIntroCallback = function(game) {
+  return function(acceptedJob) {
+    if (acceptedJob) {
+      game.area.space(3, 2).setBlocked([]);
+    }
   }
 }

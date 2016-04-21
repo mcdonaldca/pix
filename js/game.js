@@ -376,6 +376,13 @@ Game.prototype.exit = function(exitTo) {
     "elevator-roof"
   ];
 
+  // If this is our first time visiting the Ritual Roasters shop, run the Anne Intro walkthrough.
+  if (exitTo == "ritual-roasters" && !this.areas["ritual-roasters"].isVisited()) {
+    this.areas["ritual-roasters"].setVisited();
+    this.startWalkthrough("anne-intro");
+    return;
+  }
+
   // If our exit goes somewhere we can't, customize the message.
   if (cantGo.indexOf(exitTo) != -1) {
     if (exitTo == "colquitt-natalie" 

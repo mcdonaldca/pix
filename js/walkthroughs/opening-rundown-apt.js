@@ -82,14 +82,13 @@ OpeningRundownApt.prototype.interact = function() {
       }
       break;
 
-    case "playing":
-      if (this.current == 14) {
-        this.game.getNPC("holland").getEl().remove();
-        this.callback();
-        return "free";
-      }
+    case "done":
+      this.game.getNPC("holland").getEl().remove();
+      this.callback();
+      return "free";
       break;
 
+    case "playing":
     default:
       break;
   }

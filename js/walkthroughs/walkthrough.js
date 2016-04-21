@@ -2,14 +2,13 @@
   Walkthrough object to control a scene.
 **/
 function Walkthrough() {
-  // Set when the walkthrough starts.
-  this.game = undefined;
   // Callback is set upon walkthrough initialization.
   this.callback = undefined;
 
   this.status = "playing"; // Current status of the walkthrough.
   this.current = 0;        // Current instruction step of the walkthrough.
   this.count = 0;          // Conversational counter.
+  this.stepCount = 0;      // Step counter;
   this.instructions = [];  // Instructions for the walkthrough.
 };
 
@@ -27,8 +26,16 @@ Walkthrough.prototype.step = function(wt) {
       case "react":
         var subject = wt.getSubject(step);
         switch (step.react) {
+          case "surprise":
+            subject.reactSurprise();
+            break;
+
           case "wat":
             subject.reactWat();
+            break;
+
+          case "love":
+            subject.reactLove();
             break;
 
           default:
@@ -47,11 +54,12 @@ Walkthrough.prototype.step = function(wt) {
         var subject = wt.getSubject(step);
         subject.hide();
         wt.current += 1;
+        break;
 
       // Have a character walk in a direction.
       case "walk":
         var subject = wt.getSubject(step);
-        if (wt.count == 0) {
+        if (wt.stepCount == 0) {
           subject.stopWalking();
           subject.walk(step.dir);
         }
@@ -77,11 +85,11 @@ Walkthrough.prototype.step = function(wt) {
             break;
         }
 
-        wt.count += 1;
+        wt.stepCount += 1;
         // If the final step has been taken.
-        if (wt.count == step.dist) {
+        if (wt.stepCount == step.dist) {
           wt.current += 1;
-          wt.count = 0;
+          wt.stepCount = 0;
           // Stop the walking animation at the end of the step.
           setTimeout(function() {
             subject.stopWalking();
@@ -119,11 +127,11 @@ Walkthrough.prototype.step = function(wt) {
 
       // Display information through the prompt.
       case "message":
-        wt.game.prompt.displayMessage(step.message, step.name);
+        game.prompt.displayMessage(step.message, step.name);
         wt.status = "prompt";
         break;
       case "options":
-        wt.game.prompt.displayOptions(step.message, step.options, step.name);
+        game.prompt.displayOptions(step.message, step.options, step.name);
         wt.status = "prompt";
         break;
 
@@ -132,10 +140,18 @@ Walkthrough.prototype.step = function(wt) {
         wt.current += 1;
         break;
 
+
+
       // End the scene.
       case "callback":
-        wt.game.interact("");
+        wt.status = "done";
+        game.interact("");
         wt.current += 1;
+        break;
+
+      // Give control to walkthrough.
+      case "break":
+        game.interact("");
         break;
 
       default:
@@ -143,7 +159,7 @@ Walkthrough.prototype.step = function(wt) {
     }
 
     // Call next step (if we're not in prompting mode or at the end of the instructions).
-    if (wt.status != "prompt" && wt.current < wt.instructions.length) {
+    if (step.act != "break" && wt.status != "prompt" && wt.current < wt.instructions.length) {
       setTimeout(wt.step(wt), step.dur);
     }
   }
@@ -157,15 +173,15 @@ Walkthrough.prototype.getSubject = function(instruction) {
   var subject = undefined;
   switch (instruction.sub) {
     case "player":
-      subject = this.game.player;
+      subject = game.player;
       break;
 
     case "npc":
-      subject = this.game.getNPC(instruction.type).avatar;
+      subject = game.getNPC(instruction.type).avatar;
       break;
 
     case "item":
-      subject = this.game.area.getItem(instruction.type);
+      subject = game.area.getItem(instruction.type);
 
     default:
       break;
@@ -186,13 +202,13 @@ Walkthrough.prototype.exitTo = function() {
 **/
 Walkthrough.prototype.arrowUp = function() {
   if (this.status == "prompt") {
-    this.game.prompt.arrowUp();
+    game.prompt.arrowUp();
   }
 };
 Walkthrough.prototype.arrowRight = function() {};
 Walkthrough.prototype.arrowDown = function() {
   if (this.status == "prompt") {
-    this.game.prompt.arrowDown();
+    game.prompt.arrowDown();
   }
 };
 Walkthrough.prototype.arrowLeft = function() {};
