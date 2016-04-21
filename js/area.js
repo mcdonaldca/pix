@@ -133,7 +133,6 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   for (var i = 0; i < this.NPCs.length; i++) {
     var npc = this.NPCs[i];
     npc.obj.place(npc.x, npc.y, npc.dir);
-    this.space(npc.x, npc.y).setOccupied(npc.obj);
     npc.obj.avatar.show();
     this.append(npc.obj.getEl());
   }

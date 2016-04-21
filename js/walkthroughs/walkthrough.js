@@ -149,13 +149,13 @@ Walkthrough.prototype.step = function(wt) {
       // End the scene.
       case "callback":
         wt.status = "done";
-        game.interact("");
+        wt.interact("");
         wt.current += 1;
         break;
 
       // Give control to walkthrough.
       case "break":
-        game.interact("");
+        wt.interact("");
         break;
 
       default:

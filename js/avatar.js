@@ -26,6 +26,7 @@ function Avatar(avatar, reaction, sprite) {
   Shows the entire avatar.
 **/
 Avatar.prototype.show = function() {
+  game.area.space(this.x, this.y).setOccupied(this);
   this.avatarEl.show();
 }
 
@@ -33,6 +34,7 @@ Avatar.prototype.show = function() {
   Hides the entire avatar.
 **/
 Avatar.prototype.hide = function() {
+  if (game.area) game.area.space(this.x, this.y).setUnoccupied();
   this.avatarEl.hide();
 }
 
@@ -113,6 +115,10 @@ Avatar.prototype.setBottom = function(y) {
   @param y The bottom offset in blocks.
 **/
 Avatar.prototype.setPosition = function(x, y) {
+  if (game.area.space(this.x, this.y)) game.area.space(this.x, this.y).setUnoccupied();
+  game.area.space(x, y).setOccupied(this);
+  console.log(x, y);
+
   this.x = x;
   this.y = y;
 

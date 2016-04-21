@@ -121,17 +121,22 @@ Game.prototype.moveToArea = function(area) {
   var door = "";
   // New area to move to.
   var newArea = this.areas[area];
+  var oldArea = this.area;
+  this.area = newArea;
   // If it's not a new game and we're in an area.
-  if (this.area != undefined) {
-    from = this.area.name;
+  if (oldArea != undefined) {
+    from = oldArea.name;
     // Save the current area we're traveling from.
-    window.sessionStorage.setItem("from", this.area.name);
+    window.sessionStorage.setItem("from", from);
     door = window.sessionStorage.getItem("door");
-    newArea.build(this.area.elements, this.area.NPCs);
+
+    // Set wherever we were in the previous area to unoccupied.
+    oldArea.space(this.x, this.y).setUnoccupied();
+
+    newArea.build(oldArea.elements, oldArea.NPCs);
   } else {
     newArea.build();
   }
-  this.area = newArea;
   window.sessionStorage.setItem("area", area);
   // Remove door data until it's set again by a specific exit door.
   window.sessionStorage.removeItem("door");
