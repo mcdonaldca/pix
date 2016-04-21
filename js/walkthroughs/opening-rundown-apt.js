@@ -1,7 +1,7 @@
 /**
   Walkthrough when first appearing in the apartment.
 **/
-function RundownApt1() {
+function OpeningRundownApt() {
   $.extend(this, new Walkthrough());
 };
 
@@ -9,7 +9,7 @@ function RundownApt1() {
   Start the walkthrough.
   @param game Reference to the game object.
 **/
-RundownApt1.prototype.start = function(game) {
+OpeningRundownApt.prototype.start = function(game) {
   // Instructions for the walkthrough.
   this.instructions = [
     { act: "delay", dur: 1000 },
@@ -43,7 +43,7 @@ RundownApt1.prototype.start = function(game) {
 /**
   Called when the player presses space.
 **/
-RundownApt1.prototype.interact = function() {
+OpeningRundownApt.prototype.interact = function() {
   switch(this.status) {
     case "prompt":
       if (this.current == 5) {
@@ -97,6 +97,6 @@ RundownApt1.prototype.interact = function() {
 };
 
 // Add hewitt object to game's walkthrough selection.
-var rundownApt1 = new RundownApt1();
-rundownApt1.setCallback(game.openingRundownAptCallback(game));
-game.addWalkthrough("opening-rundown-apt", rundownApt1);
+var openingRundownApt = new OpeningRundownApt();
+openingRundownApt.setCallback(game.openingRundownAptCallback(game));
+game.addWalkthrough("opening-rundown-apt", openingRundownApt);

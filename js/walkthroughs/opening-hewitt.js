@@ -1,7 +1,7 @@
 /**
   Walkthrough at very beginning of the game.
 **/
-function Hewitt() {
+function OpeningHewitt() {
   $.extend(this, new Walkthrough());
 };
 
@@ -9,7 +9,7 @@ function Hewitt() {
   Start the walkthrough.
   @param game Reference to the game object.
 **/
-Hewitt.prototype.start = function(game) {
+OpeningHewitt.prototype.start = function(game) {
   // Instructions for the walkthrough.
   this.instructions = [
     { act: "delay", dur: 1000 },
@@ -37,7 +37,7 @@ Hewitt.prototype.start = function(game) {
 /**
   Called when the player presses space.
 **/
-Hewitt.prototype.interact = function() {
+OpeningHewitt.prototype.interact = function() {
   switch(this.status) {
     case "prompt":
       if (this.current == 4) {
@@ -102,7 +102,7 @@ Hewitt.prototype.interact = function() {
   return "walkthrough";
 };
 
-// Add hewitt object to game's walkthrough selection.
-var hewitt = new Hewitt();
-hewitt.setCallback(game.openingHewittCallback(game));
-game.addWalkthrough("opening-hewitt", hewitt);
+// Add OpeningHewitt object to game's walkthrough selection.
+var openingHewitt = new OpeningHewitt();
+openingHewitt.setCallback(game.openingHewittCallback(game));
+game.addWalkthrough("opening-hewitt", openingHewitt);
