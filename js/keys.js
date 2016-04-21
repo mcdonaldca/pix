@@ -4,7 +4,7 @@ Game.prototype.keyboardController = function() {
   // Keys with actions (dud values).
   var keyActions = { 37:1, 38:1, 39:1, 40:1, 13:1, 32:1, 87:1, 65:1, 83:1, 68:1, 82:1, 67:1 }
   // Tracks movement key presses.
-  var timer = {};
+  this.timer = {};
   // Prevents player from holding down a button and getting a ton of actions.
   var locked = {};
   // Production: var ANIM_LENGTH = 250;
@@ -26,8 +26,8 @@ Game.prototype.keyboardController = function() {
       }
 
       // If no key is pressed, or this isn't our pressed key.
-      if (timer.key == undefined || timer.key != key) {
-        timer.key = key;
+      if (game.timer.key == undefined || game.timer.key != key) {
+        game.timer.key = key;
         game.stopWalking();
 
         // Find the direction we're traveling (to start walking animation)
@@ -45,17 +45,17 @@ Game.prototype.keyboardController = function() {
           keyPress(key)();
         } else {
           // Start the animation around when the walking begins.
-          if (timer.timeout != undefined) {
-            clearTimeout(timer.timeout);
+          if (game.timer.timeout != undefined) {
+            clearTimeout(game.timer.timeout);
           }
-          timer.timeout = setTimeout(game.startWalking(dir), ANIM_LENGTH);
+          game.timer.timeout = setTimeout(game.startWalking(dir), ANIM_LENGTH);
         }
 
         // Start the walking interval.
-        if (timer.interval != undefined) {
-          clearInterval(timer.interval);
+        if (game.timer.interval != undefined) {
+          clearInterval(game.timer.interval);
         }
-        timer.interval = setInterval(keyPress(key), ANIM_LENGTH);
+        game.timer.interval = setInterval(keyPress(key), ANIM_LENGTH);
       }
     }
 
@@ -72,7 +72,7 @@ Game.prototype.keyboardController = function() {
     }
 
     // If the released key is being tracked.
-    if (timer.key == key) {
+    if (game.timer.key == key) {
       // If it's a movement key, trigger a face in the correct direction.
       // Doesn't affect player if already moving -- if a short key press,
       // it will change the direction they face.
@@ -98,19 +98,19 @@ Game.prototype.keyboardController = function() {
         game.stopWalking();
       }
       // If there was an interval set, clear it.
-      if (timer.interval != undefined) { 
-        clearInterval(timer.interval); 
+      if (game.timer.interval != undefined) { 
+        clearInterval(game.timer.interval); 
       }
       // If there was a timeout set, clear it.
-      if (timer.timeout != undefined) {
-        clearTimeout(timer.timeout);
+      if (game.timer.timeout != undefined) {
+        clearTimeout(game.timer.timeout);
       }
-      timer = {};
+      game.timer = {};
     }
   };
 
   window.onblur= function() {
-    timer = {};
+    game.timer = {};
   };
 
   function keyPress(key) {
