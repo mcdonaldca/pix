@@ -117,7 +117,6 @@ Avatar.prototype.setBottom = function(y) {
 Avatar.prototype.setPosition = function(x, y) {
   if (game.area.space(this.x, this.y)) game.area.space(this.x, this.y).setUnoccupied();
   game.area.space(x, y).setOccupied(this);
-  console.log(x, y);
 
   this.x = x;
   this.y = y;
