@@ -16,7 +16,7 @@ Game.prototype.keyboardController = function() {
 
     if (key in keyActions) {
       // If the key isn't a movement (or the game is in conversation mode).
-      if (!(key in moveKeys)) { 
+      if (!(key in moveKeys) || (game.status == "convo" || game.status == "walkthrough" || game.status == "screen")) { 
         // If it's a key we have an action for AND isn't locked.
         if (!(key in locked)) {
           keyPress(key)();
