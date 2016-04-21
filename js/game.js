@@ -143,17 +143,6 @@ Game.prototype.moveToArea = function(area) {
   this.faceDir(this.face);
   this.moveToSpace(this.x, this.y, this.face);
 
-  // If there was a walking interval set, clear it.
-  if (this.timer.interval != undefined) { 
-    clearInterval(this.timer.interval);
-    this.player.stopWalking();
-  }
-  // If there was a timeout set, clear it.
-  if (this.timer.timeout != undefined) {
-    clearTimeout(this.timer.timeout);
-  }
-  this.timer = {};
-
   // Fade in/out animation between areas.
   this.gameEl.removeClass("visible");
   var game = this;
