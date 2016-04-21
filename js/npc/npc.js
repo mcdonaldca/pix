@@ -81,6 +81,12 @@ NPC.prototype.place = function(x, y, dir) {
 }
 
 /**
+  Pass control to the prompt.
+**/
+NPC.prototype.arrowUp = function() { game.prompt.arrowUp(); }
+NPC.prototype.arrowDown = function() { game.prompt.arrowDown(); }
+
+/**
   Getter for NPC.el.
   @return HTMLElement that contains NPC pieces.
 **/

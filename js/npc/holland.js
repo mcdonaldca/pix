@@ -131,16 +131,6 @@ Holland.prototype.interact = function(prompt, dir) {
   return status;
 }
 
-/**
-  Functions for prompt interaction.
-**/
-Holland.prototype.arrowUp = function(prompt) {
-  prompt.arrowUp();
-}
-Holland.prototype.arrowDown = function(prompt) {
-  prompt.arrowDown();
-}
-
 // Add Holland object to game's NPC collection.
 var holland = new Holland();
 game.addNPC(holland.name, holland);
