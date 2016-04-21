@@ -30,7 +30,7 @@ OpeningRundownApt.prototype.start = function(game) {
   ];
   this.game = game;
 
-  game.moveToArea("rundown-apt");
+  game.exit("rundown-apt");
   var holland = game.getNPC("holland");
   holland.avatar.hide();
   holland.avatar.setPosition(1, 5);

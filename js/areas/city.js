@@ -79,6 +79,8 @@ game.addArea(citySW.getName(), citySW);
 
 var cityNW = new Area(32, 32, "city-nw");
 
+cityNW.addInteraction(26, 24, game.areas["ritual-roasters"].hoursMessage(), ["up"]);
+
 cityNW.addExit(23, 31, ["dw"], "city-sw", "left");
 cityNW.addExit(24, 31, ["dw"], "city-sw", "center");
 cityNW.addExit(25, 31, ["dw"], "city-sw", "right");

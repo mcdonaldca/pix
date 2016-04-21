@@ -35,7 +35,7 @@ AnneIntro.prototype.start = function() {
     { act: "face", sub: "npc", type: "anne", dir: "dw", dur: 0 }
   ];
 
-  game.moveToArea("ritual-roasters");
+  game.exit("ritual-roasters");
   var anne = game.getNPC("anne");
   anne.avatar.setPosition(5, 2);
   anne.avatar.hide();

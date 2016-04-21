@@ -1,27 +1,10 @@
-/**
-  Coffee shop in the city.
-**/
-function RitualRoasters() {
-  $.extend(this, new Area(6, 9, "ritual-roasters", true));
-  this.visited = false; // If the area has been visited yet.
-}
-
-/** 
-  Marks the area as visited.
-**/
-RitualRoasters.prototype.setVisited = function() {
-  this.visited = true;
-};
-
-/** 
-  Getter for RitualRoasters.visited.
-  @return Boolean
-**/
-RitualRoasters.prototype.isVisited = function() {
-  return this.visited;
-};
-
-var ritualRoasters = new RitualRoasters();
+var ritualRoasters = new LimitedArea(
+  6, 9, 
+  "ritual-roasters", 
+  "Ritual Coffee Roasters", 
+  ["6:00AM - 6:00PM, closed Wednesdays.", [[6, 18], [6, 18], [6, 18], [], [6, 18], [6, 18], [6, 18]]], 
+  true
+  );
 
 ritualRoasters.addItem(1, "counter-end", [3, 1]);
 ritualRoasters.addItem(1, "counter-end-2", [3, 2], 1);

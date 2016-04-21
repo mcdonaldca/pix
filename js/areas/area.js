@@ -13,11 +13,14 @@ function Area(width, height, name, mask) {
   this.areaEl = $(".area"); // The area element to manipulate.
 
   // Following values are set in Area.setPlacementLimits
-  this.maxX = undefined;   // Greatest left position (in blocks) area should go.
-  this.minX = undefined;   // Smallest left position (in blocks) area should go.
-  this.maxY = undefined; // Greatest bottom position (in blocks) area should go.
-  this.minY = undefined; // Smallest bottom position (in blocks) area should go.
+  this.maxX = undefined;   // Greatest translate X value (in blocks) area should go.
+  this.minX = undefined;   // Smallest translate X value (in blocks) area should go.
+  this.maxY = undefined;   // Greatest translate Y value (in blocks) area should go.
+  this.minY = undefined;   // Smallest translate Y value (in blocks) area should go.
   this.setPlacementLimits();
+
+  this.visited = false;   // If the area has been visited yet.
+  this.limited = false;   // No hourly limit.
 
   this.items = {};        // Item collection.
   this.NPCs = [];         // Collection of NPCs in area.
@@ -396,4 +399,27 @@ Area.prototype.getName = function() {
 **/
 Area.prototype.append = function(el) {
   this.areaEl.append(el);
+}
+
+/** 
+  Marks the area as visited.
+**/
+Area.prototype.setVisited = function() {
+  this.visited = true;
+};
+
+/** 
+  Getter for Area.visited.
+  @return Boolean
+**/
+Area.prototype.isVisited = function() {
+  return this.visited;
+};
+
+/**
+  Getter for Area.limited.
+  @param Boolean
+**/
+Area.prototype.isLimited = function() {
+  return this.limited;
 }

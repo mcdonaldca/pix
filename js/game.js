@@ -60,7 +60,7 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   this.player.wallet.add(200);
   this.time.begin();
   this.time.startTime();
-  this.moveToArea(area);
+  this.moveToArea(this.areas[area]);
   this.faceDir(startFace);
   this.moveToSpace(startX, startY, startFace);
   //*/
@@ -120,9 +120,8 @@ Game.prototype.moveToArea = function(area) {
   var from = "";
   var door = "";
   // New area to move to.
-  var newArea = this.areas[area];
   var oldArea = this.area;
-  this.area = newArea;
+  this.area = area;
   // If it's not a new game and we're in an area.
   if (oldArea != undefined) {
     from = oldArea.name;
@@ -133,11 +132,11 @@ Game.prototype.moveToArea = function(area) {
     // Set wherever we were in the previous area to unoccupied.
     oldArea.space(this.x, this.y).setUnoccupied();
 
-    newArea.build(oldArea.elements, oldArea.NPCs);
+    this.area.build(oldArea.elements, oldArea.NPCs);
   } else {
-    newArea.build();
+    this.area.build();
   }
-  window.sessionStorage.setItem("area", area);
+  window.sessionStorage.setItem("area", area.name);
   // Remove door data until it's set again by a specific exit door.
   window.sessionStorage.removeItem("door");
 
@@ -372,6 +371,7 @@ Game.prototype.interact = function() {
   @param exitTo The name of the area to go to.
 **/
 Game.prototype.exit = function(exitTo) {
+  var area = this.areas[exitTo];
   // Collection of areas character can't enter.
   var cantGo = [
     "colquitt-natalie", 
@@ -382,8 +382,8 @@ Game.prototype.exit = function(exitTo) {
   ];
 
   // If this is our first time visiting the Ritual Roasters shop, run the Anne Intro walkthrough.
-  if (exitTo == "ritual-roasters" && !this.areas["ritual-roasters"].isVisited()) {
-    this.areas["ritual-roasters"].setVisited();
+  if (exitTo == "ritual-roasters" && !area.isVisited()) {
+    area.setVisited();
     this.startWalkthrough("anne-intro");
     return;
   }
@@ -401,8 +401,12 @@ Game.prototype.exit = function(exitTo) {
 
     this.focus = this.messager;
     this.status = this.messager.interact(this.prompt) || "free";
+  } else if (area.isLimited() && area.isClosed(this.time)) {
+    this.messager.setMessage(area.fullName + " is closed right now.");
+    this.focus = this.messager;
+    this.status = this.messager.interact(this.prompt) || "free";
   } else {
-    this.moveToArea(exitTo);
+    this.moveToArea(area);
   }
 }
 
