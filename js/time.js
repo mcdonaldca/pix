@@ -21,6 +21,8 @@ function Time() {
   this.seasonEl = $("#status .season");
   this.season = 3;
 
+  this.year = 0;
+
   // Number of days passed in the game.
   this.daysPassed = 0;
   this.weekday = 0;
@@ -121,6 +123,9 @@ Time.prototype.incDay = function(inc) {
   if (this.day == 31) {
     this.day = 1;
     this.season = (this.season + 1) % 4;
+    if (this.season == 0) {
+      this.year += 1;
+    }
   }
 };
 
