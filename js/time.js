@@ -102,6 +102,10 @@ Time.prototype.incHour = function(inc) {
     this.hour = this.hour % 24;
     this.incDay(1);
   }
+
+  if (this.duskLevel() != 0) {
+    game.updateDuskLevel();
+  }
 };
 
 /**
@@ -218,6 +222,18 @@ Time.prototype.scheduleEvent = function(when, callback) {
     default:
       break;
   }
+}
+
+/**
+  Returns 0, 1, or 2 for the level of dusk outside.
+  @return Number
+**/
+Time.prototype.duskLevel = function() {
+  if (this.hour <= 3) return 2;
+  if (this.hour <= 5) return 1;
+  if (this.hour >= 21) return 2;
+  if (this.hour >= 19) return 1;
+  return 0;
 }
 
 /**

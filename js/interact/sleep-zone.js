@@ -28,20 +28,14 @@ SleepZone.prototype.interact = function(prompt, dir) {
       var s = prompt.selected();
       prompt.removeOptions();
       if (s == 0) {
-        // Create dark div for sleeping.
-        var shadowDiv = document.createElement("div");
-        game.area.append(shadowDiv);
-        $(shadowDiv).addClass("area-shadow")
-                    .css("opacity"); // Force browser to calc value.
-        $(shadowDiv).css("opacity", ".6");
+        game.areaShadowEl.css("opacity", ".8");
         game.player.reactSleep();
 
         // Clean up.
         setTimeout(function() {
           game.time.sleep();
-          $(shadowDiv).css("opacity", "0");
+          game.areaShadowEl.css("opacity", "0");
           setTimeout(function() {
-            $(shadowDiv).remove();
             // Force interaction to free game play.
             game.interact(dir);
           }, 500);

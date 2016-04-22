@@ -289,18 +289,17 @@ body {
     background-size: 100%;
     transition: transform $anim-speed linear;
   }
+}
 
-  .area-shadow {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    opacity: 0;
-    transition: opacity .5s ease-in-out;
-    // Won't work in all scenerios. Deal with later.
-    z-index: 100;
-  }
+.area-shadow {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  z-index: 15000;
 }
 
 #screen {
@@ -449,5 +448,6 @@ body {
 10x + 1 : Avatar/NPC reaction bubble
 10x + 5 : Item
 10000 : Screens
+15000 : Area Shadow
 20000 : Prompt
 ***************/

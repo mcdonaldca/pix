@@ -25,12 +25,7 @@ Work.prototype.interact = function(prompt, dir) {
       var s = prompt.selected();
       prompt.removeOptions();
       if (s == 0) {
-        // Create dark div.
-        var shadowDiv = document.createElement("div");
-        game.area.append(shadowDiv);
-        $(shadowDiv).addClass("area-shadow")
-                    .css("opacity"); // Force browser to calc value.
-        $(shadowDiv).css("opacity", "1");
+        game.areaShadowEl.css("opacity", "1");
 
         // Finalize work effects.
         setTimeout(function() {
@@ -42,9 +37,8 @@ Work.prototype.interact = function(prompt, dir) {
 
           game.player.work(hours);
           game.player.faceDown();
-          $(shadowDiv).css("opacity", "0");
+          game.areaShadowEl.css("opacity", "0");
           setTimeout(function() {
-            $(shadowDiv).remove();
             // Don't display all done if prompt is occupied (by closing time message).
             if (!game.prompt.isDisplaying()) game.prompt.displayMessage("All done!");
           }, 500);

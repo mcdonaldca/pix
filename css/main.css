@@ -425,15 +425,16 @@ body {
     position: absolute;
     background-size: 100%;
     transition: transform 0.15s linear; }
-  .area .area-shadow {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    opacity: 0;
-    transition: opacity .5s ease-in-out;
-    z-index: 100; }
+
+.area-shadow {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  z-index: 15000; }
 
 #screen {
   position: relative;
@@ -549,6 +550,7 @@ body {
 10x + 1 : Avatar/NPC reaction bubble
 10x + 5 : Item
 10000 : Screens
+15000 : Area Shadow
 20000 : Prompt
 ***************/
 

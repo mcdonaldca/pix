@@ -3,6 +3,7 @@
 **/
 function Game() {
   this.gameEl = $("#game");   // Game element.
+  this.areaShadowEl = $(".area-shadow"); // Area shadow.
   this.player = new Player(); // Player.
   this.prompt = new Prompt(); // Interface with on-screen prompt.
 
@@ -146,6 +147,7 @@ Game.prototype.moveToArea = function(area) {
   this.face = positionData.face;
   this.faceDir(this.face);
   this.moveToSpace(this.x, this.y, this.face);
+  this.updateDuskLevel();
 
   // Fade in/out animation between areas.
   this.gameEl.removeClass("visible");
@@ -367,6 +369,40 @@ Game.prototype.interact = function() {
 }
 
 /**
+  If we're in an outside space, update the dusk level of the space.
+**/
+Game.prototype.updateDuskLevel = function() {
+  var outsideAreas = [
+    "city-ne",
+    "city-se",
+    "city-sw",
+    "city-nw"
+  ];
+
+  if (outsideAreas.indexOf(this.area.name) != -1) {
+    console.log(this.time.duskLevel());
+    switch(this.time.duskLevel()) {
+      case 0:
+        this.areaShadowEl.css("opacity", "0");
+        break;
+
+      case 1:
+        this.areaShadowEl.css("opacity", ".4");
+        break;
+
+      case 2:
+        this.areaShadowEl.css("opacity", ".6");
+        break;
+
+      default:
+        break;
+    } 
+  } else {
+    this.areaShadowEl.css("opacity", "0");
+  }
+}
+
+/**
   Exits to another area.
   @param exitTo The name of the area to go to.
 **/
@@ -385,7 +421,7 @@ Game.prototype.exit = function(exitTo) {
     area.setVisited();
     this.startWalkthrough("anne-intro");
     return;
-  }
+  };
 
   // Collection of areas character can't enter.
   var cantGo = [
