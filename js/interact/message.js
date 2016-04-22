@@ -51,3 +51,5 @@ Message.prototype.setMessage = function(content) {
 // All interactables need these functions.
 Message.prototype.arrowUp = function(prompt) {}
 Message.prototype.arrowDown = function(prompt) {}
+Message.prototype.arrowRight = function(prompt) {}
+Message.prototype.arrowLeft = function(prompt) {}

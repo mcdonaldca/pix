@@ -93,7 +93,7 @@ AnneIntro.prototype.interact = function() {
         } else if (this.count == 2) {
           game.prompt.removeMessage();
           game.prompt.displayOptions(
-            "",
+            "PICK ONE:",
             ["I'd love to work here!", "Sure", "No thanks.", "Why would I want to work here?"]
             );
         // Response to job offer.
@@ -102,9 +102,6 @@ AnneIntro.prototype.interact = function() {
           if (this.track == "accepted") {
             if (this.trackCount == 0) {
               game.prompt.updateMessage("Whenever you want to come into work, just walk through that door back there.", "anne");
-              this.count = 2; // Reset to same count level.
-            } else if (this.trackCount == 1) {
-              game.prompt.updateMessage("Welcome to " + game.city + ", " + game.name + ".", "anne");
               this.count = 2; // Reset to same count level.
             } else {
               game.prompt.removeMessage();

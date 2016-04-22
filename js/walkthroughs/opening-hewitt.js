@@ -18,7 +18,7 @@ OpeningHewitt.prototype.start = function(game) {
     { act: "walk", sub: "npc", type: "mom", dir: "lf", dist: 2, dur: ANIM_LENGTH_NPC },
     { act: "message", message: "You seem like you have a lot on your mind lately.", name: "mom"},
     { act: "react", sub: "player", react: "wat", dur: 2000 },
-    { act: "options", message: "What's going on?", options: ["I'd like to set out on my own.", "I hate it here. I want to leave."], name: "mom" },
+    { act: "message", message: "What's going on?", name: "mom" },
     { act: "show", sub: "item", type: "newspaper", dur: 1000 },
     { act: "message", message: "It's the monthly paper -- there are usually a couple apartment listings.", name: "mom" },
     { act: "message", message: "Ah, " + game.city + " is a beautiful city.", name: "mom" }
@@ -45,6 +45,9 @@ OpeningHewitt.prototype.interact = function() {
         this.continue();
       } else if (this.current == 6) {
         if (this.count == 0) {
+          game.prompt.removeMessage();
+          game.prompt.displayOptions("PICK ONE:", ["I'd like to set out on my own.", "I hate it here. I want to leave."])
+        } else if (this.count == 1) {
           var selected = this.game.prompt.selected();
           this.game.prompt.removeOptions();
 
@@ -53,7 +56,7 @@ OpeningHewitt.prototype.interact = function() {
           } else {
             this.game.prompt.displayMessage("Oh... Well, I suppose it's time for you to make your way in the world.", "mom")
           }
-        } else if (this.count == 1) {
+        } else if (this.count == 2) {
           this.game.prompt.updateMessage("Here, this came today.", "mom");
         } else {
           this.game.prompt.removeMessage();
@@ -76,7 +79,7 @@ OpeningHewitt.prototype.interact = function() {
         } else if (this.count == 3) {
           this.game.prompt.removeMessage();
           this.game.prompt.displayOptions(
-            "",
+            "PICK ONE:",
             ["I'll miss you.", "Thanks, Mom!", "Whatever."]
             );
         } else if (this.count == 4) {

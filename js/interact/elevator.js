@@ -37,10 +37,18 @@ Elevator.prototype.interact = function(prompt, dir) {
 
     case 1:
       this.exit = prompt.selected();
-      prompt.removeOptions();
+      var destination = game.prompt.selectOptions[this.exit];
+      if (destination == "Lobby") destination = "the " + destination;
+      game.prompt.removeOptions();
+
+      // Let player know they've arrived.
+      var arrival = new Message("Ding! You've arrived at " + destination);
+      game.focus = arrival;
+      game.status = arrival.interact(this.prompt) || "free";
+      game.exit(this.exitTo());
 
       this.count = -1; // Will increment to 0 (to reset) at end of function.
-      status = "exit"; // Tells the game we're exiting to a different location.
+      status = "convo"; 
       break;
 
     default:

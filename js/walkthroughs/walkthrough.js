@@ -48,6 +48,8 @@ Walkthrough.prototype.step = function(wt) {
         wt.current += 1;
         break;
 
+
+
       // Cause an NPC or an item to appear or disappear.
       case "show":
         var subject = wt.getSubject(step);
@@ -59,6 +61,8 @@ Walkthrough.prototype.step = function(wt) {
         subject.hide();
         wt.current += 1;
         break;
+
+
 
       // Have a character walk in a direction.
       case "walk":
@@ -101,6 +105,8 @@ Walkthrough.prototype.step = function(wt) {
         }
         break;
 
+
+
       // Have a character face a certain direction.
       case "face":
         var subject = wt.getSubject(step);
@@ -129,6 +135,7 @@ Walkthrough.prototype.step = function(wt) {
         break;
 
 
+
       // Display information through the prompt.
       case "message":
         game.prompt.displayMessage(step.message, step.name);
@@ -138,6 +145,8 @@ Walkthrough.prototype.step = function(wt) {
         game.prompt.displayOptions(step.message, step.options, step.name);
         wt.status = "prompt";
         break;
+
+
 
       // Freeze the view for a bit.
       case "delay":
@@ -152,6 +161,8 @@ Walkthrough.prototype.step = function(wt) {
         game.interact("");
         wt.current += 1;
         break;
+
+
 
       // Give control to walkthrough.
       case "break":

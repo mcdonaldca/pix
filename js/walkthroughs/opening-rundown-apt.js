@@ -22,7 +22,7 @@ OpeningRundownApt.prototype.start = function(game) {
     { act: "react", sub: "player", react: "wat", dur: 2000 },
     { act: "delay", dur: 1000 },
     { act: "face", sub: "npc", type: "holland", dir: "up", dur: 0 },
-    { act: "options", message: "", options: ["It's... not what I expected.", "Is this a joke?"] },
+    { act: "options", message: "PICK ONE:", options: ["It's... not what I expected.", "Is this a joke?"] },
     { act: "face", sub: "npc", type: "holland", dir: "rt", dur: 0 },
     { act: "walk", sub: "npc", type: "holland", dir: "dw", dist: 1, dur: ANIM_LENGTH_NPC },
     { act: "hide", sub: "npc", type: "holland", dur: 0 },
