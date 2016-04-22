@@ -44,7 +44,7 @@ Anne.prototype.interact = function(prompt, dir) {
 
         case 3:
           game.prompt.displayMessage("Of course! Whenever you want to come into work, just walk through that door back there.", "anne");
-          game.player.employ("Ritual Roasters Barista", 10);
+          game.player.employ("Ritual Roasters Barista", 12);
           game.area.space(3, 2).setBlocked([]);
           game.area.getItem("counter-end").hide();
           game.area.getItem("counter").hide();
