@@ -7,7 +7,7 @@ function Time() {
   this.time = 0;             // The current time elapsed (in milliseconds).
   this.statusEl = $("#status");
 
-  this.hour = 4; // Current hour.
+  this.hour = 16; // Current hour.
   this.hourTenthEl = $("#status .hour-tenth"); // Tenths place of the hour.
   this.hourSingleEl = $("#status .hour-single"); // Ones place of the hour.
   this.minute = 0; // Current minute.
@@ -25,7 +25,7 @@ function Time() {
 
   // Number of days passed in the game.
   this.daysPassed = 0;
-  this.weekday = 0;
+  this.weekday = 6;
   this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   this.weekdayEl = $("#status .weekday");
 

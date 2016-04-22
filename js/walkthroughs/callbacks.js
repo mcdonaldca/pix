@@ -15,7 +15,7 @@ Game.prototype.openingHewittCallback = function(game) {
       game.displayScreen("newspaper");
       game.screenEndFade();
     } else {
-      game.time.setTime(0, 1, 8, 0, "AM");
+      game.time.setTime(0, 13, 0);
       game.player.wallet.add(200);
       game.startWalkthrough("opening-rundown-apt");
     }
