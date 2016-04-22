@@ -416,13 +416,6 @@ Game.prototype.exit = function(exitTo) {
     return;
   }
 
-  // If this is our first time visiting the Ritual Roasters shop, run the Anne Intro walkthrough.
-  if (exitTo == "ritual-roasters" && !area.isVisited()) {
-    area.setVisited();
-    this.startWalkthrough("anne-intro");
-    return;
-  };
-
   // Collection of areas character can't enter.
   var cantGo = [
     "colquitt-natalie", 
@@ -450,6 +443,13 @@ Game.prototype.exit = function(exitTo) {
     this.focus = this.messager;
     this.status = this.messager.interact(this.prompt) || "free";
   } else {
+      // If this is our first time visiting the Ritual Roasters shop, run the Anne Intro walkthrough.
+    if (exitTo == "ritual-roasters" && !area.isVisited()) {
+      area.setVisited();
+      this.startWalkthrough("anne-intro");
+      return;
+    };
+
     this.moveToArea(area);
   }
 }
