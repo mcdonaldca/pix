@@ -42,7 +42,7 @@ Elevator.prototype.interact = function(prompt, dir) {
       game.prompt.removeOptions();
 
       // Let player know they've arrived.
-      var arrival = new Message("Ding! You've arrived at " + destination);
+      var arrival = new Message("Ding ding! You've arrived at " + destination);
       game.focus = arrival;
       game.status = arrival.interact(this.prompt) || "free";
       game.exit(this.exitTo());
