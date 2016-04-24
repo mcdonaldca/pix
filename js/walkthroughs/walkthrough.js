@@ -177,6 +177,9 @@ Walkthrough.prototype.step = function(wt) {
     if (step.act != "break" && wt.status != "prompt" && wt.current < wt.instructions.length) {
       setTimeout(wt.step(wt), step.dur);
     }
+    if (wt.current == wt.instructions.length) {
+      wt.current = 0;
+    }
   }
 }
 

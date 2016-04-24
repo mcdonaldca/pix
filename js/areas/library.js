@@ -6,6 +6,11 @@ var library = new LimitedArea(
   "city-sw"
   );
 
+library.addEventZone([10, 12], [10, 12], new RequireCard());
+
+library.addNPC(7, 14, "rt", game.getNPC("mary"), ["dw", "rt", "up"]);
+library.addInteraction(8, 14, game.getNPC("mary"), "lf");
+
 library.addItem(2, "bookshelf", [ 1,  5]);
 library.addItem(2, "bookshelf", [ 1,  8]);
 library.addItem(2, "bookshelf", [ 1, 11]);
@@ -19,6 +24,6 @@ library.addItem(2, "bookshelf", [10,  8]);
 library.addExit(10, 15, ["dw"], "city-sw");
 
 library.addPositionData("city-sw", null, 10, 15, "up");
-library.addPositionData("default", null, 3, 8, "up");
+library.addPositionData("default", null, 10, 15, "up");
 
 game.addArea(library.getName(), library);

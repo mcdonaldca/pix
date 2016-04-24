@@ -17,10 +17,7 @@ function Game() {
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
 
-  //The following are initialized in Game.start
-  this.x = undefined;        // The player's current x location.
-  this.y = undefined;        // The player's current y location.
-  this.face = undefined;     // The player's current faced direction.
+  // Initialized in Game.start
   this.messager = undefined; // The Game's messaging system.
 
   // Start the keyboard controller for key events (see js/keys.js).
@@ -131,7 +128,7 @@ Game.prototype.moveToArea = function(area) {
     door = window.sessionStorage.getItem("door");
 
     // Set wherever we were in the previous area to unoccupied.
-    oldArea.space(this.x, this.y).setUnoccupied();
+    oldArea.space(this.player.x, this.player.y).setUnoccupied();
 
     this.area.build(oldArea.elements, oldArea.NPCs);
   } else {
@@ -142,11 +139,8 @@ Game.prototype.moveToArea = function(area) {
   window.sessionStorage.removeItem("door");
 
   var positionData = this.area.getPositionData(from, door);
-  this.x = positionData.x;
-  this.y = positionData.y;
-  this.face = positionData.face;
-  this.faceDir(this.face);
-  this.moveToSpace(this.x, this.y, this.face);
+  this.faceDir(positionData.face);
+  this.moveToSpace(positionData.x, positionData.y, positionData.face);
   this.updateDuskLevel();
 
   // Fade in/out animation between areas.
@@ -202,7 +196,7 @@ Game.prototype.faceDir = function(dir) {
 **/
 Game.prototype.moveLeft = function() {
   this.faceDir("lf");
-  this.moveToSpace(this.x - 1, this.y, "lf");
+  this.moveToSpace(this.player.x - 1, this.player.y, "lf");
 }
 
 /**
@@ -210,7 +204,7 @@ Game.prototype.moveLeft = function() {
 **/
 Game.prototype.moveUp = function() {
   this.faceDir("up");
-  this.moveToSpace(this.x, this.y - 1, "up");
+  this.moveToSpace(this.player.x, this.player.y - 1, "up");
 }
 
 /**
@@ -218,7 +212,7 @@ Game.prototype.moveUp = function() {
 **/
 Game.prototype.moveRight = function() {
   this.faceDir("rt");
-  this.moveToSpace(this.x + 1, this.y, "rt");
+  this.moveToSpace(this.player.x + 1, this.player.y, "rt");
 }
 
 /**
@@ -226,7 +220,7 @@ Game.prototype.moveRight = function() {
 **/
 Game.prototype.moveDown = function() {
   this.faceDir("dw");
-  this.moveToSpace(this.x, this.y + 1, "dw");
+  this.moveToSpace(this.player.x, this.player.y + 1, "dw");
 }
 
 /** 
@@ -258,12 +252,13 @@ Game.prototype.stopWalking = function() {
 **/
 Game.prototype.moveToSpace = function(toX, toY, fromDir) {
   // First check if we're trying to move into an exit.
-  if (this.area.space(this.x, this.y).hasExitAdjacent(this.face)) {
+  if (this.area.space(this.player.x, this.player.y) &&
+      this.area.space(this.player.x, this.player.y).hasExitAdjacent(this.face)) {
     // If there is a specific door we're exiting, save it.
     if (space.hasExitDoor()) {
       window.sessionStorage.setItem("door", space.getDoor())
     }
-    this.exit(this.area.space(this.x, this.y).exitTo());
+    this.exit(this.area.space(this.player.x, this.player.y).exitTo());
     return;
   }
 
@@ -273,23 +268,21 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
 
     // Make sure we can travel into that space from our current direction.
     if (!space.isBlocked(fromDir)) {
-      this.x = toX;
-      this.y = toY;
       // Keeping around for debugging purposes.
-      console.log(this.x, this.y);
+      console.log(toX, toY);
       // Save our current location (for page reload).
       // Will likely be removed when saving game is possible (no need to save every step).
-      window.sessionStorage.setItem("x", this.x);
-      window.sessionStorage.setItem("y", this.y);
+      window.sessionStorage.setItem("x", toX);
+      window.sessionStorage.setItem("y", toY);
 
       // If we're entering an event space, trigger it!
       if (space.hasEvent() && this.event == undefined) {
         this.event = space.getEvent();
-        this.event.begin(this.x, this.y, this.face);
+        this.event.begin(toX, toY, this.player.face);
 
       // If we're still in an event space, fire movement event.
       } else if (space.hasEvent()) {
-        this.event.fireMove(this.x, this.y);
+        this.event.fireMove(toX, toY);
 
       // If we're not in an event space, but have an event saved, end it!
       } else if (this.event != undefined) {
@@ -298,8 +291,8 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir) {
       }
 
       // Set the player's new position.
-      this.player.setPosition(this.x, this.y);      
-      this.area.updateAreaPosition(this.x, this.y);
+      this.player.setPosition(toX, toY);      
+      this.area.updateAreaPosition(toX, toY);
     }
   } 
 }
@@ -323,13 +316,13 @@ Game.prototype.interact = function() {
   switch(this.status) {
     // If the game is in free mode, try and interact with something.
     case "free":
-      currentSpace = this.area.space(this.x, this.y);
+      currentSpace = this.area.space(this.player.x, this.player.y);
 
       // Find the x, y coordinate we're facing.
-      faceX = this.face == "lf" ? this.x - 1 : this.x;
-      faceX = this.face == "rt" ? this.x + 1 : faceX;
-      faceY = this.face == "up" ? this.y - 1 : this.y;
-      faceY = this.face == "dw" ? this.y + 1 : faceY;
+      faceX = this.face == "lf" ? this.player.x - 1 : this.player.x;
+      faceX = this.face == "rt" ? this.player.x + 1 : faceX;
+      faceY = this.face == "up" ? this.player.y - 1 : this.player.y;
+      faceY = this.face == "dw" ? this.player.y + 1 : faceY;
       faceSpace = this.area.space(faceX, faceY);
 
       // If we're in an interact zone, focus on that.
@@ -380,7 +373,6 @@ Game.prototype.updateDuskLevel = function() {
   ];
 
   if (outsideAreas.indexOf(this.area.name) != -1) {
-    console.log(this.time.duskLevel());
     switch(this.time.duskLevel()) {
       case 0:
         this.areaShadowEl.css("opacity", "0");

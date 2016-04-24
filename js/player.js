@@ -9,7 +9,9 @@ function Player() {
   this.job = "unemployed"; // Players current job.
   this.salary = 0;
 
-  this.hoursWorked = {}
+  this.hoursWorked = {};
+
+  this.libraryAccess = false;
 }
 
 /**
@@ -53,3 +55,18 @@ Player.prototype.work = function(hours) {
   this.wallet.add(Math.floor(hours * this.salary));
   this.hoursWorked[this.job].hours += hours;
 }
+
+/**
+  Called to give the player a library card.
+**/
+Player.prototype.getLibraryCard = function() {
+  this.libraryAccess = true;
+}
+
+/**
+  Getter for Player.libraryAccess
+  @return Boolean
+**/
+Player.prototype.hasLibraryCard = function() {
+  return this.libraryAccess;
+};
