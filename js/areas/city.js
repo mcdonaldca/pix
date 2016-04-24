@@ -48,6 +48,8 @@ game.addArea(citySE.getName(), citySE);
 
 var citySW = new Area(32, 32, "city-sw");
 
+citySW.addInteraction(15, 4, game.areas["library"].hoursMessage(), ["up"]);
+
 citySW.addExit(23, 1, ["up"], "city-nw", "left");
 citySW.addExit(24, 1, ["up"], "city-nw", "center");
 citySW.addExit(25, 1, ["up"], "city-nw", "right");
@@ -59,6 +61,7 @@ citySW.addExit(31, 15, ["rt"], "city-se", "middle-2");
 citySW.addExit(31, 16, ["rt"], "city-se", "bottom-2");
 citySW.addExit(31, 22, ["rt"], "city-se", "top-3");
 citySW.addExit(31, 23, ["rt"], "city-se", "bottom-3");
+citySW.addExit(13, 5, ["up"], "library");
 citySW.addExit(29, 2, ["up"], "lobby");
 
 citySW.addPositionData("city-nw", "left", 23, 1, "dw");
@@ -72,6 +75,7 @@ citySW.addPositionData("city-se", "middle-2", 31, 15, "lf");
 citySW.addPositionData("city-se", "bottom-2", 31, 16, "lf");
 citySW.addPositionData("city-se", "top-3", 31, 22, "lf");
 citySW.addPositionData("city-se", "bottom-3", 31, 23, "lf");
+citySW.addPositionData("library", null, 13, 5, "dw");
 citySW.addPositionData("lobby", null, 29, 2, "dw");
 citySW.addPositionData("default", null, 15, 15, "dw");
 
