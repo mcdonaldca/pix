@@ -31,7 +31,7 @@ LimitedArea.prototype.isOpen = function(time) {
   var todaysHours = this.hours[1][time.weekday];
   if (todaysHours.length == 0) return false;
 
-  return time.hour >= todaysHours[0] && time.hour <= todaysHours[1];
+  return time.hour >= todaysHours[0] && time.hour <= todaysHours[1] - 1;
 };
 
 /**
