@@ -24,6 +24,8 @@ Walkthrough.prototype.step = function(wt) {
     switch (step.act) {
       // Cause a character to react.
       case "react":
+        game.setStatus("loading");
+        var delay = 1000;
         var subject = wt.getSubject(step);
         switch (step.react) {
           case "surprise":
@@ -32,6 +34,7 @@ Walkthrough.prototype.step = function(wt) {
 
           case "wat":
             subject.reactWat();
+            delay = 2000;
             break;
 
           case "love":
@@ -45,6 +48,9 @@ Walkthrough.prototype.step = function(wt) {
           default:
             break;
         }
+        setTimeout(function() {
+          game.setStatus("walkthrough");
+        }, delay);
         wt.current += 1;
         break;
 

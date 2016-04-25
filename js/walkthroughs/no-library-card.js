@@ -11,10 +11,10 @@ function NoLibraryCard() {
 NoLibraryCard.prototype.start = function() {
   // Instructions for the walkthrough.
   this.instructions = [
-    { act: "react", sub: "npc", type: "mary", react: "surprise", dur: 1500 },
+    { act: "react", sub: "npc", type: "mary", react: "surprise", dur: 1000 },
+    { act: "face", sub: "player", dir: "dw", dur: ANIM_LENGTH_NPC },
     { act: "message", message: "You can't enter without a library card!", name: "mary" },
     { act: "walk", sub: "player", dir: "dw", dist: 2, dur: ANIM_LENGTH },
-    { act: "face", sub: "player", dir: "dw", dur: ANIM_LENGTH },
     { act: "callback" }
   ];
 
@@ -28,7 +28,7 @@ NoLibraryCard.prototype.start = function() {
 NoLibraryCard.prototype.interact = function() {
   switch(this.status) {
     case "prompt":
-      if (this.current == 1) {
+      if (this.current == 2) {
         game.prompt.removeMessage();
         this.continue();
       }

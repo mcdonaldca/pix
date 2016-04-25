@@ -47,9 +47,9 @@ Game.prototype.start = function(startX, startY, startFace, area) {
     game.gameEl.addClass("visible");
   }, 250);
   // Lock game mode until new area is totally loaded.
-  this.status = "loading";
+  this.setStatus("loading");
   window.setTimeout(function() {
-    game.status = "screen";
+    game.steStatus("screen");
   }, 500);
   //*/
 
@@ -110,6 +110,13 @@ Game.prototype.getNPC = function (key) {
 }
 
 /**
+  Setter for Game.status
+**/
+Game.prototype.setStatus = function(status) {
+  this.status = status;
+}
+
+/**
   Set up for transitioning to a new area in the game.
   @param area The name of the area to move to.
 **/
@@ -150,9 +157,9 @@ Game.prototype.moveToArea = function(area) {
     game.gameEl.addClass("visible");
   }, 250);
   // Lock game mode until new area is totally loaded.
-  this.status = "loading";
+  this.setStatus("loading");
   window.setTimeout(function() {
-    game.status = game.focus == undefined ? "free" : "screen";
+    game.setStatus(game.focus == undefined ? "free" : "screen");
   }, 500);
 }
 
@@ -328,15 +335,15 @@ Game.prototype.interact = function() {
       // If we're in an interact zone, focus on that.
       if (currentSpace.isInteractZone()) {
         this.focus = currentSpace.getInteraction();
-        this.status = this.focus.interact(this.prompt, this.face) || "free";
+        this.setStatus(this.focus.interact(this.prompt, this.face) || "free");
 
       // If we're facing an interactable space.
       } else if (faceSpace != undefined && faceSpace.canInteract(this.face)) {
         this.focus = faceSpace.getInteraction();
-        this.status = this.focus.interact(this.prompt, this.face) || "free";
+        this.setStatus(this.focus.interact(this.prompt, this.face) || "free");
       }
 
-      if (this.status == "free") {
+      if (this.focus && this.status == "free") {
         this.focus = undefined;
       }
       break;
@@ -345,9 +352,9 @@ Game.prototype.interact = function() {
     case "convo":
     case "screen":
     case "walkthrough":
-      this.status = this.focus.interact(this.prompt, this.face) || "free";
+      this.setStatus(this.focus.interact(this.prompt, this.face) || "free");
 
-      if (this.status == "free") {
+      if (this.focus && this.status == "free") {
         this.focus = undefined;
       } else if (this.status == "exit") {
         var exit = this.focus.exitTo();
@@ -356,6 +363,7 @@ Game.prototype.interact = function() {
       }
       break;
 
+    case "loading":
     default:
       break;
   }
@@ -404,7 +412,7 @@ Game.prototype.exit = function(exitTo) {
   // If the player is entering a work place.
   if (exitTo == "work") {
     this.focus = new Work();
-    this.status = this.focus.interact(this.prompt) || "free";
+    this.setStatus(this.focus.interact(this.prompt) || "free");
     return;
   }
 
@@ -429,11 +437,11 @@ Game.prototype.exit = function(exitTo) {
     }
 
     this.focus = this.messager;
-    this.status = this.messager.interact(this.prompt) || "free";
+    this.setStatus(this.messager.interact(this.prompt) || "free");
   } else if (area.isLimited() && area.isClosed(this.time)) {
     this.messager.setMessage(area.fullName + " is closed right now.");
     this.focus = this.messager;
-    this.status = this.messager.interact(this.prompt) || "free";
+    this.setStatus(this.messager.interact(this.prompt) || "free");
   } else {
       // If this is our first time visiting the Ritual Roasters shop, run the Anne Intro walkthrough.
     if (exitTo == "ritual-roasters" && !area.isVisited()) {
@@ -455,7 +463,7 @@ Game.prototype.displayScreen = function(screen) {
   if (screenObj != undefined) {
     screenObj.display(this.prompt);
     this.focus = screenObj;
-    this.status = "screen";
+    this.setStatus("screen");
   }
 }
 
@@ -466,8 +474,8 @@ Game.prototype.displayScreen = function(screen) {
 Game.prototype.startWalkthrough = function(walkthrough) {
   var walkthroughObj = this.walkthroughs[walkthrough];
   if (walkthroughObj != undefined) {
+    this.setStatus("walkthrough");
     walkthroughObj.start(this);
     this.focus = walkthroughObj;
-    this.status = "walkthrough";
   }
 }

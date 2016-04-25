@@ -44,7 +44,7 @@ Elevator.prototype.interact = function(prompt, dir) {
       // Let player know they've arrived.
       var arrival = new Message("Ding ding! You've arrived at " + destination);
       game.focus = arrival;
-      game.status = arrival.interact(this.prompt) || "free";
+      game.setStatus(arrival.interact(this.prompt) || "free");
       game.exit(this.exitTo());
 
       this.count = -1; // Will increment to 0 (to reset) at end of function.

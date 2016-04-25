@@ -78,7 +78,7 @@ Mary.prototype.interact = function(prompt, dir) {
         setTimeout(function() {
           game.prompt.displayMessage("You're all set! Come in whenever you like.", mary.name);
           game.player.getLibraryCard();
-          game.status = "convo";
+          game.setStatus("convo");
         }, 2000);
       } else {
         game.prompt.removeMessage();

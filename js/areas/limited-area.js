@@ -56,6 +56,6 @@ LimitedArea.prototype.closing = function() {
 LimitedArea.prototype.close = function() {
   var closing = new Message(this.fullName + " is now closed.");
   game.focus = closing;
-  game.status = closing.interact(this.prompt) || "free";
+  game.setStatus(closing.interact(this.prompt) || "free");
   game.exit(this.exitTo);
 };
