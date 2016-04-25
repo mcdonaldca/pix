@@ -76,7 +76,7 @@ Newspaper.prototype.arrowDown = function() {
   @param dir Direction user is facing. Not used.
 **/
 Newspaper.prototype.interact = function(dir) {
-  var gameStatus = "screen";
+  var gameStatus = "focused";
   var currentSelect = this.prompt.selected();
 
   switch(this.count) {
@@ -122,7 +122,7 @@ Newspaper.prototype.interact = function(dir) {
 
         // Accepted city!
         if (currentSelect == 0) {
-          gameStatus = "walkthrough";
+          gameStatus = "focused";
           this.endScreen();
           this.callback(this.city);
         }

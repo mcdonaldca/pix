@@ -206,7 +206,7 @@ CharacterSelect.prototype.interact = function(dir) {
     }
 
     this.status = "selection";
-    return selected == 0 ? "walkthrough" : "screen";
+    return "focused";
   }
 
   // Current selected value!
@@ -268,7 +268,7 @@ CharacterSelect.prototype.interact = function(dir) {
       break;
   }
   // Stay on screen.
-  return "screen";
+  return "focused";
 }
 
 // Add CharacterSelect object to game's screen selection.

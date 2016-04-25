@@ -68,6 +68,6 @@ Game.prototype.screenEndFade = function() {
   // Lock game mode until new area is totally loaded.
   this.status = "loading";
   window.setTimeout(function() {
-    game.setStatus("screen");
+    game.setStatus("focused");
   }, 500);
 }

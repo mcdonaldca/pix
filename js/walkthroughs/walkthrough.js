@@ -24,8 +24,6 @@ Walkthrough.prototype.step = function(wt) {
     switch (step.act) {
       // Cause a character to react.
       case "react":
-        game.setStatus("loading");
-        var delay = 1000;
         var subject = wt.getSubject(step);
         switch (step.react) {
           case "surprise":
@@ -34,7 +32,6 @@ Walkthrough.prototype.step = function(wt) {
 
           case "wat":
             subject.reactWat();
-            delay = 2000;
             break;
 
           case "love":
@@ -48,9 +45,6 @@ Walkthrough.prototype.step = function(wt) {
           default:
             break;
         }
-        setTimeout(function() {
-          game.setStatus("walkthrough");
-        }, delay);
         wt.current += 1;
         break;
 
@@ -144,10 +138,12 @@ Walkthrough.prototype.step = function(wt) {
 
       // Display information through the prompt.
       case "message":
+        game.setStatus("focused");
         game.prompt.displayMessage(step.message, step.name);
         wt.status = "prompt";
         break;
       case "options":
+        game.setStatus("focused");
         game.prompt.displayOptions(step.message, step.options, step.name);
         wt.status = "prompt";
         break;
@@ -164,6 +160,7 @@ Walkthrough.prototype.step = function(wt) {
       // End the scene.
       case "callback":
         wt.status = "done";
+        game.setStatus("focused");
         game.interact("");
         wt.current += 1;
         break;
@@ -249,6 +246,7 @@ Walkthrough.prototype.setCallback = function(callback) {
   Continutes a walkthrough (usually when stopped for prompting).
 **/
 Walkthrough.prototype.continue = function() {
+  game.setStatus("walkthrough");
   this.status = "playing";
   this.current += 1;
   this.step(this)();

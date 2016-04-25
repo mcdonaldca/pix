@@ -12,7 +12,7 @@ function SleepZone() {
   @return The current game status.
 **/
 SleepZone.prototype.interact = function(prompt, dir) {
-  var status = "convo"
+  var status = "focused"
 
   switch(this.count) {
     case 0:

@@ -12,7 +12,7 @@ function Work() {
   @return The current game status.
 **/
 Work.prototype.interact = function(prompt, dir) {
-  var status = "convo"
+  var status = "focused"
 
   switch(this.count) {
     case 0:

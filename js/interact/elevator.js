@@ -23,7 +23,7 @@ function Elevator(floor) {
   @return The current game status.
 **/
 Elevator.prototype.interact = function(prompt, dir) {
-  var status = "convo"
+  var status = "focused"
 
   switch(this.count) {
     case 0:
@@ -48,7 +48,7 @@ Elevator.prototype.interact = function(prompt, dir) {
       game.exit(this.exitTo());
 
       this.count = -1; // Will increment to 0 (to reset) at end of function.
-      status = "convo"; 
+      status = "focused"; 
       break;
 
     default:

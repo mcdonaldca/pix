@@ -20,7 +20,7 @@ function Holland() {
 **/
 Holland.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
-  var status = "convo"
+  var status = "focused";
 
   switch(this.count) {
     case 0:

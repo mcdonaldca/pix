@@ -9,7 +9,7 @@ function Mary() {
   Called when the player interacts with Mary.
 **/
 Mary.prototype.interact = function(prompt, dir) {
-  var status = "convo";
+  var status = "focused";
 
   switch (this.count) {
     case 0:
@@ -78,7 +78,7 @@ Mary.prototype.interact = function(prompt, dir) {
         setTimeout(function() {
           game.prompt.displayMessage("You're all set! Come in whenever you like.", mary.name);
           game.player.getLibraryCard();
-          game.setStatus("convo");
+          game.setStatus("focused");
         }, 2000);
       } else {
         game.prompt.removeMessage();

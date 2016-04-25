@@ -92,7 +92,7 @@ OpeningRundownApt.prototype.interact = function() {
     default:
       break;
   }
-  return "walkthrough";
+  return "focused";
 };
 
 // Add hewitt object to game's walkthrough selection.

@@ -32,7 +32,8 @@ AnneIntro.prototype.start = function() {
     { act: "break" },
     { act: "walk", sub: "npc", type: "anne", dir: "rt", dist: 1, dur: ANIM_LENGTH_NPC },
     { act: "walk", sub: "npc", type: "anne", dir: "dw", dist: 2, dur: ANIM_LENGTH_NPC },
-    { act: "face", sub: "npc", type: "anne", dir: "dw", dur: 0 }
+    { act: "face", sub: "npc", type: "anne", dir: "dw", dur: 0 },
+    { act: "callback" }
   ];
 
   game.exit("ritual-roasters");
@@ -108,8 +109,6 @@ AnneIntro.prototype.interact = function() {
               this.count = -1;
               this.trackCount = 0;
               this.continue();
-              this.callback(this.acceptedJob);
-              return "free";
             }
             this.trackCount += 1;
           } else {
@@ -133,8 +132,6 @@ AnneIntro.prototype.interact = function() {
           game.prompt.removeMessage();
           this.count = -1;
           this.continue();
-          this.callback(this.acceptedJob);
-          return "free";
         }
         this.count += 1;
       }
@@ -156,10 +153,15 @@ AnneIntro.prototype.interact = function() {
       }
       break;
 
+    case "done":
+      this.callback(this.acceptedJob);
+      return "free";
+      break;
+
     default:
       break;
   }
-  return "walkthrough";
+  return "focused";
 };
 
 // Add hewitt object to game's walkthrough selection.

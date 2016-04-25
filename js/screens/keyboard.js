@@ -197,7 +197,7 @@ Keyboard.prototype.interact = function(dir) {
       this.prompt.removeMessage();
       this.status = "selection";
     }
-    return "screen";
+    return "focused";
   }
 
   // Current selected value!
@@ -249,7 +249,7 @@ Keyboard.prototype.interact = function(dir) {
       break;
   }
   // Stay on screen.
-  return "screen";
+  return "focused";
 }
 
 /**

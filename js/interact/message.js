@@ -14,7 +14,7 @@ function Message(content) {
   @return The current game status.
 **/
 Message.prototype.interact = function(prompt, dir) {
-  var status = "convo"
+  var status = "focused"
 
   switch(this.count) {
     case 0:

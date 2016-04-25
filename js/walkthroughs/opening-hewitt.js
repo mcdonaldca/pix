@@ -68,7 +68,7 @@ OpeningHewitt.prototype.interact = function() {
         this.current += 1;
         this.game.prompt.removeMessage();
         this.callback(1);
-        return "screen";
+        return "focused";
       } else if (this.current == 9) {
         if (this.count == 0) {
           this.game.prompt.updateMessage("Actually, an old friend of mine runs a coffee shop there.", "mom");
@@ -102,7 +102,7 @@ OpeningHewitt.prototype.interact = function() {
     default:
       break;
   }
-  return "walkthrough";
+  return "focused";
 };
 
 // Add OpeningHewitt object to game's walkthrough selection.

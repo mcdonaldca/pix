@@ -16,7 +16,7 @@ Game.prototype.keyboardController = function() {
 
     if (key in keyActions) {
       // If the key isn't a movement (or the game is in conversation mode).
-      if (!(key in moveKeys) || (game.status == "convo" || game.status == "walkthrough" || game.status == "screen")) { 
+      if (!(key in moveKeys) || (game.status == "focused")) { 
         // If it's a key we have an action for AND isn't locked.
         if (!(key in locked)) {
           keyPress(key)();
@@ -118,26 +118,22 @@ Game.prototype.keyboardController = function() {
       switch(key) {
         case 37: // left
           if (game.status == "free") game.moveLeft();
-          if (game.status == "screen") game.focus.arrowLeft();
+          if (game.status == "focused") game.focus.arrowLeft();
           break;
 
         case 38: // up
           if (game.status == "free") game.moveUp();
-          if (game.status == "convo" 
-           || game.status == "screen"
-           || game.status == "walkthrough") game.focus.arrowUp(game.prompt);
+          if (game.status == "focused") game.focus.arrowUp(game.prompt);
           break;
 
         case 39: // right
           if (game.status == "free") game.moveRight();
-          if (game.status == "screen") game.focus.arrowRight();
+          if (game.status == "focused") game.focus.arrowRight();
           break;
 
         case 40: // down
           if (game.status == "free") game.moveDown();
-          if (game.status == "convo" 
-           || game.status == "screen"
-           || game.status == "walkthrough") game.focus.arrowDown(game.prompt);
+          if (game.status == "focused") game.focus.arrowDown(game.prompt);
           break;
 
 

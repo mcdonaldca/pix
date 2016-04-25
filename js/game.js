@@ -49,12 +49,12 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   // Lock game mode until new area is totally loaded.
   this.setStatus("loading");
   window.setTimeout(function() {
-    game.steStatus("screen");
+    game.setStatus("focused");
   }, 500);
   //*/
 
   //* For skipping playthrough (for testing).
-  this.time.setTime(0, 8, 0, "AM");
+  this.time.setTime(1, 8, 0, "AM");
   this.player.wallet.add(200);
   this.time.begin();
   this.time.startTime();
@@ -159,7 +159,7 @@ Game.prototype.moveToArea = function(area) {
   // Lock game mode until new area is totally loaded.
   this.setStatus("loading");
   window.setTimeout(function() {
-    game.setStatus(game.focus == undefined ? "free" : "screen");
+    game.setStatus(game.focus == undefined ? "free" : "focused");
   }, 500);
 }
 
@@ -349,9 +349,7 @@ Game.prototype.interact = function() {
       break;
 
     // If game is in conversation mode, advance the conversation.
-    case "convo":
-    case "screen":
-    case "walkthrough":
+    case "focused":
       this.setStatus(this.focus.interact(this.prompt, this.face) || "free");
 
       if (this.focus && this.status == "free") {
@@ -364,6 +362,7 @@ Game.prototype.interact = function() {
       break;
 
     case "loading":
+    case "walkthrough":
     default:
       break;
   }
@@ -463,7 +462,7 @@ Game.prototype.displayScreen = function(screen) {
   if (screenObj != undefined) {
     screenObj.display(this.prompt);
     this.focus = screenObj;
-    this.setStatus("screen");
+    this.setStatus("focused");
   }
 }
 

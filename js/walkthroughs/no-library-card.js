@@ -42,7 +42,7 @@ NoLibraryCard.prototype.interact = function() {
     default:
       break;
   }
-  return "walkthrough";
+  return "focused";
 };
 
 // Add NoLibraryCard object to game's walkthrough selection.
