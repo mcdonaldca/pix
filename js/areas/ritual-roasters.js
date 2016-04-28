@@ -18,10 +18,8 @@ ritualRoasters.addNPC(5, 4, "dw", game.getNPC("anne"), ["up", "dw"]);
 
 ritualRoasters.addInteraction(0, 2, new Message("That's not your coffee..."), ["lf"]);
 
-ritualRoasters.addExit(3, 8, ["dw"], "city-nw");
-ritualRoasters.addExit(5, 2, ["up"], "work");
-
-ritualRoasters.addPositionData("city-nw", null, 3, 8, "up");
-ritualRoasters.addPositionData("default", null, 3, 8, "up");
+ritualRoasters.addExit(3, 8, "dw", "city-nw");
+ritualRoasters.addExit(5, 2, "up", "work");
+ritualRoasters.addPositionData(3, 8, "up", "default");
 
 game.addArea(ritualRoasters.getName(), ritualRoasters);

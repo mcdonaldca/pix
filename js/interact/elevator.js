@@ -8,9 +8,7 @@ function Elevator(floor) {
   this.floor = floor;
   this.exit = floor;
   this.count = 0;
-  this.floorOptions = [
-    "Roof", 
-    "Floor 2", 
+  this.floorOptions = [ 
     "Floor 1", 
     "Lobby"
   ];
@@ -42,7 +40,7 @@ Elevator.prototype.interact = function(prompt, dir) {
       game.prompt.removeOptions();
 
       // Let player know they've arrived.
-      var arrival = new Message("Ding ding! You've arrived at " + destination);
+      var arrival = new Message("Ding! You've arrived at " + destination);
       game.focus = arrival;
       game.setStatus(arrival.interact(this.prompt) || "free");
       game.exit(this.exitTo());
@@ -82,10 +80,8 @@ Elevator.prototype.arrowDown = function(prompt) {
 Elevator.prototype.exitTo = function() {
   var exit = "";
   switch(this.exit) {
-    case 0: exit = "elevator-roof"; break;
-    case 1: exit = "elevator-apt-2"; break;
-    case 2: exit = "elevator-apt-1"; break;
-    case 3: exit = "elevator-lobby"; break;
+    case 0: exit = "le-chateau-elevator-floor-1"; break;
+    case 1: exit = "le-chateau-elevator-lobby"; break;
     default: break;
   }
   return exit;

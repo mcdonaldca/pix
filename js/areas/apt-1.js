@@ -15,11 +15,8 @@ apt1.addInteraction(16,  9, treadmillMessage, ["rt"]);
 apt1.addInteraction(16,  8, treadmillMessage, ["rt"]);
 apt1.addInteraction(21, 13, new Message("Pool"), ["up"]);
 
-apt1.addExit(2, 14, ["up"], "elevator-apt-1", "left");
-apt1.addExit(3, 14, ["up"], "elevator-apt-1", "right");
-
-apt1.addPositionData("elevator", "left", 2, 14, "dw");
-apt1.addPositionData("elevator", "right", 3, 14, "dw");
-apt1.addPositionData("default", null, 3, 14, "dw");
+apt1.addExit(2, 14, "up", "elevator-apt-1", "left");
+apt1.addExit(3, 14, "up", "elevator-apt-1", "right");
+apt1.addPositionData(3, 14, "dw", "default");
 
 game.addArea(apt1.getName(), apt1);

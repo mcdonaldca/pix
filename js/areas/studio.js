@@ -1,4 +1,4 @@
-var studio = new Area(10, 9, "studio", true);
+var studio = new Area(10, 9, "studio");
 
 studio.addNPC(6, 6, "dw", game.getNPC("liam"), ["rt", "up"]);
 studio.addNPC(8, 4, "dw", game.getNPC("vio"), ["lf", "up", "rt", "dw"]);
@@ -22,9 +22,7 @@ studio.addInteraction(8, 2, new SleepZone());
 studio.addInteraction(9, 2, new SleepZone());
 studio.addInteraction(9, 8, new Message("Hm... you should probably water your plant more."), ["rt", "dw"]);
 
-studio.addExit(1, 8, ["dw"], "apt-2");
-
-studio.addPositionData("apt-2", null, 1, 8, "up");
-studio.addPositionData("default", null, 7, 4, "dw");
+studio.addExit(1, 8, "dw", "le-chateau-floor-1");
+studio.addPositionData(7, 4, "dw", "default");
 
 game.addArea(studio.getName(), studio);

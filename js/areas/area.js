@@ -1,13 +1,15 @@
 /**  
   The Area object manages the grid and spaces of a room/area.
-  @param width  The width of the area (in blocks).
-  @param height The height of the area (in blocks);
-  @param name   The name of the area. Should also be the name of the svg.
+  @param width        The width of the area (in blocks).
+  @param height       The height of the area (in blocks);
+  @param name         The name of the area. Should also be the name of the svg.
+  @param areaOverride Name of area's svg (if different from name).
 **/
-function Area(width, height, name) {
+function Area(width, height, name, areaOverride) {
   this.width = width;   // Width of the area in blocks.
   this.height = height; // Height of the area in blocks.
   this.name = name;     // Name of the area.
+  this.svgName = areaOverride || name; // Name of the SVG for the area.
 
   this.areaEl = $(".area"); // The area element to manipulate.
 
@@ -94,7 +96,7 @@ function Area(width, height, name) {
   };
   
   // Onload will be called after image is set.
-  image.src = "img/areas/" + this.name + "_mask.png";
+  image.src = "img/areas/" + this.svgName + "_mask.png";
   
 }
 
@@ -122,7 +124,7 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   // Set the background image to the area's svg.
   this.areaEl.css("width", (this.width * BLOCK * MULT).toString() + "px")
              .css("height", (this.height * BLOCK * MULT).toString() + "px")
-             .css("background-image", "url(img/areas/" + this.name + ".svg)");
+             .css("background-image", "url(img/areas/" + this.svgName + ".svg)");
 
   // Add all the elements created upon intialization of the area.
   for (var i = 0; i < this.elements.length; i++) {
@@ -192,52 +194,6 @@ Area.prototype.updateAreaPosition = function(playerX, playerY) {
 }
 
 /**
-  Adds information about player positioning when entering an area.
-  @param areaFrom The area the player is coming from.
-  @param door     The door the player is coming from (optional, can be null).
-  @param x        The x coordinate to be placed at.
-  @param y        The y coordinate to be placed at.
-  @param face     The direction to be facing.
-**/
-Area.prototype.addPositionData = function(areaFrom, door, x, y, face) {
-  // Construct a key for the postionData map
-  // Concatinates the are and door (if there is a door).
-  // ex. apt-1-left, apt-1-right, studio
-  var key = areaFrom;
-  if (door != null && door != "") {
-    key += "-" + door;
-  }
-  this.positionData[key] = { x: x, y: y, face: face};
-}
-
-/**
-  Find where the player should be placed give they came from a certain area/door.
-  @param areaFrom The area the player is coming from.
-  @param door     The door the player is coming from.
-**/
-Area.prototype.getPositionData = function(areaFrom, door) {
-  // Construct key from information.
-  var key = areaFrom;
-  if (door != null && door != "") {
-    key += "-" + door;
-  }
-
-  // If we have that particular key.
-  if (key in this.positionData) {
-    return this.positionData[key];
-
-  // Don't have the key, but have a default location.
-  } else if (this.positionData.default != undefined) {
-    return this.positionData.default;
-
-  // Don't have the key or a default
-  // Shouldn't arrive at this unless something was incorrectly set up.
-  } else {
-    return { x: 0, y: 0, face: "up"};
-  }
-}
-
-/**
   Returns a space from the Area's grid.
   @param x The x block coordinate.
   @param y The y block coordinate.
@@ -282,7 +238,7 @@ Area.prototype.addItem = function(width, item, startCoord, extra) {
         .css("height", (BLOCK * MULT).toString() + "px")
         .css("transform", "translate(" + translateX + ", " + translateY + ")")
         .css("z-index", (startCoord[1] + 1) * 10 + 5 + extra)
-        .css("background-image", "url(img/items/" + this.name + "/" + item + ".svg)");
+        .css("background-image", "url(img/items/" + this.svgName + "/" + item + ".svg)");
 
   // Customizable items have extra background sizing.
   var exceptions = {
@@ -292,8 +248,8 @@ Area.prototype.addItem = function(width, item, startCoord, extra) {
     }
   };
 
-  if (exceptions[this.name] != undefined && exceptions[this.name][item] != undefined) {
-    var ex = exceptions[this.name][item];
+  if (exceptions[this.svgName] != undefined && exceptions[this.svgName][item] != undefined) {
+    var ex = exceptions[this.svgName][item];
     $(div).css(
       "background-size", 
       (width * ex * BLOCK * MULT).toString() + "px " + (BLOCK * MULT).toString() + "px"
@@ -370,6 +326,59 @@ Area.prototype.addExit = function(x, y, dir, location, door) {
   this.space(x, y).setExit(dir, location);
   if (door != "") {
     this.space(x, y).setExitDoor(door);
+  }
+
+  var oppDir = "dw";
+  if (dir == "lf") oppDir = "rt";
+  else if (dir == "rt") oppDir = "lf";
+  else if (dir == "dw") oppDir = "up";
+
+  this.addPositionData(x, y, oppDir, location, door);
+}
+
+/**
+  Adds information about player positioning when entering an area.
+  @param x        The x coordinate to be placed at.
+  @param y        The y coordinate to be placed at.
+  @param dir      The direction to be facing.
+  @param location The area the player is coming from.
+  @param door     The door the player is coming from (optional, can be null).
+**/
+Area.prototype.addPositionData = function(x, y, dir, location, door) {
+  // Construct a key for the postionData map
+  // Concatinates the are and door (if there is a door).
+  // ex. apt-1-left, apt-1-right, studio
+  var key = location;
+  if (door != null && door != "") {
+    key += "-" + door;
+  }
+  this.positionData[key] = { x: x, y: y, face: dir};
+}
+
+/**
+  Find where the player should be placed give they came from a certain area/door.
+  @param areaFrom The area the player is coming from.
+  @param door     The door the player is coming from.
+**/
+Area.prototype.getPositionData = function(areaFrom, door) {
+  // Construct key from information.
+  var key = areaFrom;
+  if (door != null && door != "") {
+    key += "-" + door;
+  }
+
+  // If we have that particular key.
+  if (key in this.positionData) {
+    return this.positionData[key];
+
+  // Don't have the key, but have a default location.
+  } else if (this.positionData.default != undefined) {
+    return this.positionData.default;
+
+  // Don't have the key or a default
+  // Shouldn't arrive at this unless something was incorrectly set up.
+  } else {
+    return { x: 0, y: 0, face: "up"};
   }
 }
 

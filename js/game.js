@@ -425,7 +425,7 @@ Game.prototype.exit = function(exitTo) {
   // If our exit goes somewhere we can't, customize the message.
   if (exitTo in cantGo) {
     if (exitTo == "margaret-liam") { 
-      this.messager.setMessage("You don't know the people that live here that well...");
+      this.messager.setMessage("Nobody's home and you don't know the people that live here that well...");
     } else if (exitTo == "elevator-roof") { 
       this.messager.setMessage("You need a key to the roof.");
     } else if (exitTo == "upgrade-apt") {

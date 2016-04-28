@@ -28,8 +28,8 @@ Game.prototype.openingHewittCallback = function(game) {
 Game.prototype.openingRundownAptCallback = function(game) {
   return function() {
     game.time.startTime();
-    var apt2 = game.areas["apt-2"];
-    apt2.addInteraction(34, 4, new Message(game.name + "'s Apartment"), ["up"]);
+    var leChateauFloor1 = game.areas["le-chateau-floor-1"];
+    leChateauFloor1.addInteraction(22, 1, new Message(game.name + "'s Apartment"), ["up"]);
   }
 }
 

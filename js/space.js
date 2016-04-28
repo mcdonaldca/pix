@@ -182,8 +182,7 @@ Space.prototype.setExitDoor = function(door) {
   @return Boolean
 **/
 Space.prototype.hasExitAdjacent = function(dir) {
-  return this.exit != undefined
-    && this.exitDir.indexOf(dir) != -1;
+  return this.exit != undefined && this.exitDir == dir;
 }
 
 /**

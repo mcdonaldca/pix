@@ -6,6 +6,6 @@ hewittHome.addItem(4, "table", [1, 3]);
 hewittHome.addItem(1, "newspaper", [3, 4]);
 hewittHome.getItem("newspaper").hide();
 
-hewittHome.addPositionData("default", null, 4, 4, "lf");
+hewittHome.addPositionData(4, 4, "lf", "default");
 
 game.addArea(hewittHome.getName(), hewittHome);
