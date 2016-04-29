@@ -3,36 +3,36 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="48px" height="16px" viewBox="0 0 48 16" enable-background="new 0 0 48 16" xml:space="preserve">
-<path fill="#373031" d="M0,12h48v4h-1v-3H1v3H0V12z"/>
-<path fill="#807878" d="M1,13h9v1H2v2H1V13z"/>
+<path fill="#4E2311" d="M0,12h48v4h-1v-3H1v3H0V12z"/>
+<path fill="#8A6041" d="M1,13h9v1H2v2H1V13z"/>
 <path fill="#5B5B5B" d="M10,13h6v1h-6V13z"/>
 <path fill="#594A4A" d="M16,13h1v1h-1V13z"/>
-<path fill="#807878" d="M17,13h14v1H17V13z"/>
+<path fill="#8A6041" d="M17,13h14v1H17V13z"/>
 <path fill="#594A4A" d="M31,13h1v1h-1V13z"/>
 <path fill="#5B5B5B" d="M32,13h6v1h-6V13z"/>
-<path fill="#807878" d="M38,13h9v3h-1v-2h-8V13z"/>
-<path fill="#655C5C" d="M2,14h7v1H3v1H2V14z"/>
+<path fill="#8A6041" d="M38,13h9v3h-1v-2h-8V13z"/>
+<path fill="#7D4C2C" d="M2,14h7v1H3v1H2V14z"/>
 <path fill="#5B5B5B" d="M9,14h1v2H9V14z"/>
 <path fill="#CED1D8" d="M10,14h1v1h-1V14z"/>
 <path fill="#F7F7F7" d="M11,14h4v2h-5v-1h1V14z"/>
 <path fill="#CED1D8" d="M15,14h1v2h-1V14z"/>
 <path fill="#5B5B5B" d="M16,14h1v1h-1V14z"/>
 <path fill="#594A4A" d="M17,14h1v1h-1V14z"/>
-<path fill="#655C5C" d="M18,14h12v1H18V14z"/>
+<path fill="#7D4C2C" d="M18,14h12v1H18V14z"/>
 <path fill="#594A4A" d="M30,14h1v1h-1V14z"/>
 <path fill="#5B5B5B" d="M31,14h1v1h-1V14z"/>
 <path fill="#CED1D8" d="M32,14h1v2h-1V14z"/>
 <path fill="#F7F7F7" d="M33,14h4v1h1v1h-5V14z"/>
 <path fill="#CED1D8" d="M37,14h1v1h-1V14z"/>
 <path fill="#5B5B5B" d="M38,14h1v2h-1V14z"/>
-<path fill="#655C5C" d="M39,14h7v2h-1v-1h-6V14z"/>
-<path fill="#807878" d="M3,15h6v1H3V15z"/>
+<path fill="#7D4C2C" d="M39,14h7v2h-1v-1h-6V14z"/>
+<path fill="#8A6041" d="M3,15h6v1H3V15z"/>
 <path fill="#79726C" d="M16,15h1v1h-1V15z"/>
 <path fill="#949489" d="M17,15h1v1h-1V15z"/>
 <path fill="#594A4A" d="M18,15h1v1h-1V15z"/>
-<path fill="#807878" d="M19,15h10v1H19V15z"/>
+<path fill="#8A6041" d="M19,15h10v1H19V15z"/>
 <path fill="#594A4A" d="M29,15h1v1h-1V15z"/>
 <path fill="#949489" d="M30,15h1v1h-1V15z"/>
 <path fill="#79726C" d="M31,15h1v1h-1V15z"/>
-<path fill="#807878" d="M39,15h6v1h-6V15z"/>
+<path fill="#8A6041" d="M39,15h6v1h-6V15z"/>
 </svg>

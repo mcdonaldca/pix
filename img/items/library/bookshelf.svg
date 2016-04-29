@@ -3,25 +3,25 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="32px" height="16px" viewBox="0 0 32 16" enable-background="new 0 0 32 16" xml:space="preserve">
-<path fill="#373031" d="M6,3h8v1H6V3z"/>
-<path fill="#373031" d="M18,3h8v1h-8V3z"/>
-<path fill="#373031" d="M5,4h1v1H5V4z"/>
-<path fill="#655C5C" d="M6,4h8v2H5V5h1V4z"/>
-<path fill="#373031" d="M14,4h1v1h-1V4z"/>
-<path fill="#373031" d="M17,4h1v1h-1V4z"/>
-<path fill="#655C5C" d="M18,4h8v2h-9V5h1V4z"/>
-<path fill="#373031" d="M26,4h1v1h-1V4z"/>
-<path fill="#373031" d="M4,5h1v11H4V5z"/>
-<path fill="#898181" d="M14,5h1v1h-1V5z"/>
-<path fill="#373031" d="M15,5h2v11h-2V5z"/>
-<path fill="#898181" d="M26,5h1v1h-1V5z"/>
-<path fill="#373031" d="M27,5h1v11h-1V5z"/>
-<path fill="#4A4142" d="M5,6h10v1H5V6z"/>
-<path fill="#4A4142" d="M17,6h10v1H17V6z"/>
-<path fill="#655C5C" d="M5,7h9v1H6v8H5V7z"/>
-<path fill="#898181" d="M14,7h1v9h-1V7z"/>
-<path fill="#655C5C" d="M17,7h9v1h-8v8h-1V7z"/>
-<path fill="#898181" d="M26,7h1v9h-1V7z"/>
-<path fill="#726B6B" d="M6,8h8v8H6V8z"/>
-<path fill="#726B6B" d="M18,8h8v8h-8V8z"/>
+<path fill="#4E2311" d="M6,3h8v1H6V3z"/>
+<path fill="#4E2311" d="M18,3h8v1h-8V3z"/>
+<path fill="#4E2311" d="M5,4h1v1H5V4z"/>
+<path fill="#7D4C2C" d="M6,4h8v2H5V5h1V4z"/>
+<path fill="#4E2311" d="M14,4h1v1h-1V4z"/>
+<path fill="#4E2311" d="M17,4h1v1h-1V4z"/>
+<path fill="#7D4C2C" d="M18,4h8v2h-9V5h1V4z"/>
+<path fill="#4E2311" d="M26,4h1v1h-1V4z"/>
+<path fill="#4E2311" d="M4,5h1v11H4V5z"/>
+<path fill="#9C6E4F" d="M14,5h1v1h-1V5z"/>
+<path fill="#4E2311" d="M15,5h2v11h-2V5z"/>
+<path fill="#9C6E4F" d="M26,5h1v1h-1V5z"/>
+<path fill="#4E2311" d="M27,5h1v11h-1V5z"/>
+<path fill="#5D3821" d="M5,6h10v1H5V6z"/>
+<path fill="#5D3821" d="M17,6h10v1H17V6z"/>
+<path fill="#7D4C2C" d="M5,7h9v1H6v8H5V7z"/>
+<path fill="#9C6E4F" d="M14,7h1v9h-1V7z"/>
+<path fill="#7D4C2C" d="M17,7h9v1h-8v8h-1V7z"/>
+<path fill="#9C6E4F" d="M26,7h1v9h-1V7z"/>
+<path fill="#8A6041" d="M6,8h8v8H6V8z"/>
+<path fill="#8A6041" d="M18,8h8v8h-8V8z"/>
 </svg>
