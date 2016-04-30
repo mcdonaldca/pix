@@ -107,7 +107,7 @@ body {
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  background-image: url(../img/status/background.svg);
+  background-image: url(../img/pieces/background.svg);
   background-size: 564px 564px;
   height: 564px;
   width: 564px; }
@@ -498,7 +498,7 @@ body {
     margin-top: 15px;
     padding: 0;
     border: 15px solid transparent;
-    border-image-source: url("../img/border.svg");
+    border-image-source: url("../img/pieces/border.svg");
     border-image-width: 24px;
     border-image-repeat: repeat;
     border-image-slice: 10; }
@@ -519,7 +519,10 @@ body {
     .prompt .options .select-arrow {
       position: absolute;
       height: 27px;
-      width: 21px; }
+      width: 21px;
+      background-image: url(../img/pieces/arrow.svg);
+      background-position: 0 0;
+      background-size: 42px 27px; }
       .prompt .messages .next-arrow img,
       .prompt .messages .select-arrow img,
       .prompt .options .next-arrow img,
@@ -529,7 +532,19 @@ body {
     .prompt .messages .next-arrow,
     .prompt .options .next-arrow {
       bottom: 15px;
-      right: 12px; }
+      right: 12px;
+      -webkit-animation: flash-arrow 0.6s steps(2) infinite;
+      animation: flash-arrow 0.6s steps(2) infinite; }
+@keyframes flash-arrow {
+  from {
+    background-position: 0 0; }
+  to {
+    background-position: -30px 0; } }
+@-webkit-keyframes flash-arrow {
+  from {
+    background-position: 0 0; }
+  to {
+    background-position: -30px 0; } }
     .prompt .messages .select-arrow,
     .prompt .options .select-arrow {
       top: 12px;
