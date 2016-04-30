@@ -309,3 +309,14 @@ Time.prototype.work = function(closeHour) {
     return 4;
   }
 };
+
+/**
+  Called to find the general time of day.
+  @return String, time of day.
+**/
+Time.prototype.timeOfDay = function() {
+  if (this.hour < 4) return "evening";
+  if (this.hour < 12) return "morning";
+  if (this.hour < 17) return "afternoon";
+  if (this.hour <= 23) return "evening";
+}

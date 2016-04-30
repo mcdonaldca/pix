@@ -20,7 +20,7 @@ Rama.prototype.interact = function(prompt, dir) {
         game.prompt.displayMessage("Hi! You're the new barista, right? I'm Rama.", "rama");
         this.talkedTo = true;
       } else {
-        game.prompt.displayMessage("Good morning! It's a beautiful day.", "rama");
+        game.prompt.displayMessage("Good " + game.time.timeOfDay() + "! It's a beautiful day.", "rama");
       }
       break;
 
