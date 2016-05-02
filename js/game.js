@@ -58,7 +58,7 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   this.player.wallet.add(200);
   this.time.begin();
   this.time.startTime();
-  this.moveToArea(this.areas[area]);
+  this.moveToArea(area);
   this.faceDir(startFace);
   this.moveToSpace(startX, startY, startFace);
   //*/
@@ -126,6 +126,7 @@ Game.prototype.moveToArea = function(area) {
   var door = "";
   // New area to move to.
   var oldArea = this.area;
+  if (typeof area == "string") { area = this.areas[area]; }
   this.area = area;
   // If it's not a new game and we're in an area.
   if (oldArea != undefined) {
