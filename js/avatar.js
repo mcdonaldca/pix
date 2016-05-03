@@ -20,6 +20,8 @@ function Avatar(avatar, reaction, sprite) {
   this.x = 0;
   this.y = 0;
   this.face = 0;
+
+  this.isPlayer = false;
 }
 
 /**
@@ -126,9 +128,12 @@ Avatar.prototype.setPosition = function(x, y) {
 
   this.avatarEl.css("transform", "translate(" + translateX + ", " + translateY + ")");
 
-  this.avatarEl.css("z-index", (y + 1) * 10);
+  var zVal = (y + 1) * 10;
+  if (this.isPlayer) zVal++;
+
+  this.avatarEl.css("z-index", zVal);
   if (this.reactionEl != null) {
-    this.reactionEl.css("z-index", (y + 1) * 10 + 1);
+    this.reactionEl.css("z-index", zVal + 1);
   }
 };
 
@@ -206,4 +211,11 @@ Avatar.prototype.stopWalking = function() {
 Avatar.prototype.setBackgroundImage = function(url) {
   this.spriteEl.css("background-image", "url(" + url + ")");
   this.spriteImageURL = url;
+}
+
+/**
+  Marks this particular avatar as the player's avatar.
+**/
+Avatar.prototype.setIsPlayer = function() {
+  this.isPlayer = true;
 }

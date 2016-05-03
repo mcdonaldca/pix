@@ -5,6 +5,7 @@ function Game() {
   this.gameEl = $("#game");   // Game element.
   this.areaShadowEl = $(".area-shadow"); // Area shadow.
   this.player = new Player(); // Player.
+  this.player.setIsPlayer();
   this.prompt = new Prompt(); // Interface with on-screen prompt.
 
   this.time = new Time(); // Tracks time in game.
