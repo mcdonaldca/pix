@@ -179,10 +179,11 @@ Keyboard.prototype.interact = function(dir) {
 
     // They've entered a valid name.
     if (this.entry.length > 0) {
+      var selected = this.prompt.selected();
       this.prompt.removeOptions();
 
       // Confirmed their name.
-      if (this.prompt.selected() == 0) {
+      if (selected == 0) {
         this.endScreen();
         this.callback(this.entry);
         this.status = "selection";
