@@ -320,3 +320,10 @@ Time.prototype.timeOfDay = function() {
   if (this.hour < 17) return "afternoon";
   if (this.hour <= 23) return "evening";
 }
+
+/**
+  @return String, date in DD-SS-YY format
+**/
+Time.prototype.today = function() {
+  return String(this.day) + "-" + this.seasons[this.season] + "-" + String(this.year);
+}

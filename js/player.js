@@ -4,6 +4,7 @@
 function Player() {
   $.extend(this, new Avatar($("#avatar"), $("#reaction"), $("#sprite")));
   this.wallet = new Wallet();
+  this.karma = new Karma();
 
   this.isCat = false; // Is the sprite a cat.
   this.job = "unemployed"; // Players current job.

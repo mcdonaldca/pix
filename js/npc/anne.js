@@ -32,14 +32,17 @@ Anne.prototype.interact = function(prompt, dir) {
       switch(s) {
         case 0:
           game.prompt.displayMessage("I'm so glad to hear that!", "anne");
+          game.player.karma.update("anne", 1, "Told Anne you were doing great.");
           break;
 
         case 1:
           game.prompt.displayMessage("Glad to hear it.", "anne");
+          game.player.karma.log("Told Anne you were doing okay.");
           break;
 
         case 2:
           game.prompt.displayMessage("I'm sorry to hear that. Let me know if I can help.", "anne");
+          game.player.karma.update("anne", -1, "Told Anne you were doing terrible.");
           break;
 
         case 3:
