@@ -20,8 +20,9 @@ function Area(width, height, name, areaOverride) {
   this.minY = undefined;   // Smallest translate Y value (in blocks) area should go.
   this.setPlacementLimits();
 
-  this.visited = false;   // If the area has been visited yet.
-  this.limited = false;   // No hourly limit.
+  this.visited = false;     // If the area has been visited yet.
+  this.limited = false;     // No hourly limit.
+  this.residential = false; // No occupancy requirements.
 
   this.items = {};        // Item collection.
   this.NPCs = [];         // Collection of NPCs in area.
@@ -293,6 +294,20 @@ Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
 }
 
 /**
+  Determines if an NPC is within an area.
+  @param name The name of the NPC.
+  @return T/F if the NPC is present.
+**/
+Area.prototype.hasNPC = function(name) {
+  for (var i = 0; i < this.NPCs.length; i++) {
+    if (this.NPCs[i].obj.name == name) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
   Adds new event zones to an area.
   @param startCoord Array of x, y coordinate (top left).
   @param endCoord   Array of x, y coordinate (bottom right).
@@ -424,8 +439,16 @@ Area.prototype.isVisited = function() {
 
 /**
   Getter for Area.limited.
-  @param Boolean
+  @return Boolean
 **/
 Area.prototype.isLimited = function() {
   return this.limited;
+}
+
+/**
+  Getter for Area.residential.
+  @return Boolean
+**/
+Area.prototype.isResidential = function() {
+  return this.residential;
 }

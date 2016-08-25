@@ -6,8 +6,8 @@ function NPC(name, sprite, shadow) {
   name = name || "NoName";
   this.name = name; // Name of NPC.
   sprite = sprite || "characters/test-char.svg";
-  this.img = sprite; // The sprite image for the character.
-  this.shadow = shadow; // The type of shadow for the character (if any).
+  this.img = sprite;     // The sprite image for the character.
+  this.shadow = shadow;  // The type of shadow for the character (if any).
   this.talkedTo = false; // Tracks if the character has been spoken to.
 
   // The following values are set in NPC.build.

@@ -1,4 +1,9 @@
-var liamMargaret = new Area(28, 15, "liam-margaret");
+var liamMargaret = new ResedentialArea(
+  28, 15, 
+  "liam-margaret", 
+  ["liam", "margaret"],
+  "le-chateau-floor-1"
+);
 
 liamMargaret.addNPC(20, 4, "dw", game.getNPC("margaret"), ["up", "rt", "dw", "lf"]);
 
