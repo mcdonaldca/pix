@@ -3,7 +3,7 @@
 var leChateauLobby = new Area(10, 7, "le-chateau-lobby");
 
 leChateauLobby.addNPC(6, 2, "dw", game.getNPC("holland"), ["lf", "up"]);
-leChateauLobby.addInteraction(5, 2, holland, ["rt"]);
+leChateauLobby.addInteraction(5, 2, game.getNPC("holland"), ["rt"]);
 
 leChateauLobby.addItem(2, "counter", [6, 2]);
 
@@ -33,7 +33,7 @@ leChateauFloor1.addInteraction(22, 1, new Message(game.name + "'s Apartment"), [
 leChateauFloor1.addExit( 2, 2, "up", "le-chateau-elevator-floor-1", "left");
 leChateauFloor1.addExit( 3, 2, "up", "le-chateau-elevator-floor-1", "right");
 leChateauFloor1.addExit( 9, 2, "up", "upgrade-apt");
-leChateauFloor1.addExit(15, 2, "up", "margaret-liam");
+leChateauFloor1.addExit(15, 2, "up", "liam-margaret");
 leChateauFloor1.addExit(21, 2, "up", "rundown-apt");
 leChateauFloor1.addPositionData(21, 2, "dw", "default");
 

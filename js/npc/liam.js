@@ -8,7 +8,7 @@ function Liam() {
 /**
   Called when the player interacts with Liam.
   @param prompt The interface to the on-screen prompter.
-  @param dir    (Not used here) The direction the user is facing.
+  @param dir    The direction the user is facing.
   @return The current game status.
 **/
 Liam.prototype.interact = function(prompt, dir) {

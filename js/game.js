@@ -435,16 +435,17 @@ Game.prototype.exit = function(exitTo) {
 
   // Collection of areas character can't enter.
   var cantGo = { 
-    "margaret-liam": 1,
+    //"margaret-liam": 1,
     "elevator-roof": 1,
     "upgrade-apt": 1,
   };
 
   // If our exit goes somewhere we can't, customize the message.
   if (exitTo in cantGo) {
-    if (exitTo == "margaret-liam") { 
+    /*if (exitTo == "margaret-liam") { 
       this.messager.setMessage("Nobody's home and you don't know the people that live here that well...");
-    } else if (exitTo == "elevator-roof") { 
+    } else */
+    if (exitTo == "elevator-roof") { 
       this.messager.setMessage("You need a key to the roof.");
     } else if (exitTo == "upgrade-apt") {
       this.messager.setMessage("Looks like it's under construction.")
