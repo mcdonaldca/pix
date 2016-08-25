@@ -484,6 +484,40 @@ body {
     font-size: 81px;
     font-family: VT323, monospace;
     z-index: 10001; }
+  #screen .screen__email {
+    position: absolute;
+    left: 66px;
+    width: 435px;
+    height: 66px; }
+  #screen .email__more-up,
+  #screen .email__more-down {
+    position: absolute;
+    left: 246px;
+    width: 36px;
+    height: 24px;
+    background-size: 100%; }
+  #screen .email__more-up {
+    background-image: url(../img/screens/email/more-up.svg);
+    top: 69px; }
+  #screen .email__more-down {
+    background-image: url(../img/screens/email/more-down.svg);
+    bottom: 30px; }
+  #screen .email__icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 39px;
+    height: 66px;
+    background-image: url(../img/screens/email/mail.svg);
+    background-size: 39px 132px; }
+  #screen .email__text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 66px;
+    font-size: 30px;
+    font-family: VT323, monospace;
+    text-overflow: ellipsis; }
 
 .prompt {
   position: absolute;

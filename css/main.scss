@@ -362,6 +362,52 @@ body {
     font-family: VT323, monospace;
     z-index: 10001;
   }
+
+  .screen__email {
+    position: absolute;
+    left: 22px * $multiplier;
+    width: 145px * $multiplier;
+    height: 22px * $multiplier;
+  }
+
+  .email__more-up,
+  .email__more-down {
+    position: absolute;
+    left: 82px * $multiplier;
+    width: 12px * $multiplier;
+    height: 8px * $multiplier;
+    background-size: 100%;
+  }
+
+  .email__more-up {
+    background-image: url(../img/screens/email/more-up.svg);
+    top: 23px * $multiplier;
+  }
+
+  .email__more-down {
+    background-image: url(../img/screens/email/more-down.svg);
+    bottom: 10px * $multiplier;
+  }
+
+  .email__icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 13px * $multiplier;
+    height: 22px * $multiplier;
+    background-image: url(../img/screens/email/mail.svg);
+    background-size: 13px * $multiplier 44px * $multiplier;
+  }
+
+  .email__text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 22px * $multiplier;
+    font-size: 10px * $multiplier;
+    font-family: VT323, monospace;
+    text-overflow: ellipsis;
+  }
 }
 
 .prompt {

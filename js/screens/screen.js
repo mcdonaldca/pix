@@ -20,6 +20,9 @@ function Screen(background) {
 **/
 Screen.prototype.display = function(prompt) {
   this.prompt = prompt;
+  if (this.customDisplay) {
+    this.customDisplay();
+  }
   this.screenEl.css("background-image", "url(" + this.background + ")");
   for (var i = 0; i < this.elements.length; i++) {
     this.screenEl.append(this.elements[i]);

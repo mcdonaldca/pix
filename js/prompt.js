@@ -37,6 +37,29 @@ Prompt.prototype.displayMessage = function(message, name) {
 }
 
 /**
+  Used to display a multiline message.
+  @param message The list of lines to display.
+  @param name    (Optional) The name to prefix.
+**/
+Prompt.prototype.displayMultilineMessage = function(message, name) {
+  this.displaying = true;
+  name = name || "";
+
+  this.nextArrow.show();
+  // If it's something with a name, prefix it.
+  if (name != "") {
+    message = name.toUpperCase() + ": " + message;
+  }
+  var multiline = "";
+  for (var i = 0; i < message.length - 1; i++) {
+    multiline += message[i] + "<br>";
+  }
+  multiline += message[message.length - 1];
+  this.messageContent.html(multiline);
+  this.messages.show();
+};
+
+/**
   Updates the currently visible message.
   @param message The message to display.
   @param name    (Optional) The name to prefix.
@@ -49,6 +72,26 @@ Prompt.prototype.updateMessage = function(message, name) {
     message = name.toUpperCase() + ": " + message;
   }
   this.messageContent.html(message);
+}
+
+/**
+  Updates the currently visible message with a multiline message.
+  @param message The list of lines to display.
+  @param name    (Optional) The name to prefix.
+**/
+Prompt.prototype.updateMultilineMessage = function(message, name) {
+  name = name || "";
+
+  // If it's something with a name, prefix it.
+  if (name != "") {
+    message = name.toUpperCase() + ": " + message;
+  }
+  var multiline = "";
+  for (var i = 0; i < message.length - 1; i++) {
+    multiline += message[i] + "<br>";
+  }
+  multiline += message[message.length - 1];
+  this.messageContent.html(multiline);
 }
 
 /**

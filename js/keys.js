@@ -2,7 +2,7 @@ Game.prototype.keyboardController = function() {
   // Keys that move the player (dud values).
   var moveKeys = { 37:1, 38:1, 39:1, 40:1 };
   // Keys with actions (dud values).
-  var keyActions = { 37:1, 38:1, 39:1, 40:1, 13:1, 32:1, 87:1, 65:1, 83:1, 68:1, 82:1, 67:1 }
+  var keyActions = { 8:1, 27:1, 37:1, 38:1, 39:1, 40:1, 13:1, 32:1, 87:1, 65:1, 83:1, 68:1, 82:1, 67:1 }
   // Tracks movement key presses.
   var timer = {};
   // Prevents player from holding down a button and getting a ton of actions.
@@ -142,6 +142,14 @@ Game.prototype.keyboardController = function() {
         case 13: // enter
         case 32: // space
           game.interact();
+          break;
+
+
+
+
+        case 27: // esc
+        case 8: // backspace
+          game.backspace();
           break;
 
 

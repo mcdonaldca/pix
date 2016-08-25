@@ -318,6 +318,22 @@ Game.prototype.validZone = function(x, y) {
       && y <= this.area.height - 1;
 }
 
+/** 
+  Handles a player using the backspace key.
+**/
+Game.prototype.backspace = function() {
+  switch(this.status) {
+    case "focused":
+      if (this.focus.backspace) {
+        this.focus.backspace();
+      }
+      break;
+
+    default:
+      break;
+  }
+}
+
 /**
   Handles a player trying to interact with something
 **/
