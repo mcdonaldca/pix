@@ -126,6 +126,14 @@ Space.prototype.getInteraction = function() {
   return this.interaction;
 }
 
+/** 
+  Sets a space as no longer an interaction zone.
+**/
+Space.prototype.clearInteractionZone = function() {
+  this.interaction = undefined;
+  this.interactDir = undefined;
+}
+
 
 
 

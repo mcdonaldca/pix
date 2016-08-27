@@ -8,7 +8,7 @@
 <path fill="#9EA39E" d="M86,0h4v1h-4V0z"/>
 <path fill="#9EA39E" d="M95,0h1v9H69V8h26V0z"/>
 <path fill="#B8BDB8" d="M0,4h95v1H0V4z"/>
-<path fill="#CCD1CC" d="M0,5h95v3H69v1h-1v1H44V9h-1V8H0V5z"/>
+<path fill="#CCD1CC" d="M0,5h95v3H69v1h-1v3h-3v-2H47v2h-3V9h-1V8H0V5z"/>
 <path fill="#9EA39E" d="M0,8h43v1H0V8z"/>
 <path fill="#C2C7C2" d="M0,9h43v1H0V9z"/>
 <path fill="#9EA39E" d="M43,9h1v7h-1V9z"/>
@@ -16,9 +16,7 @@
 <path fill="#C2C7C2" d="M69,9h26v1H69V9z"/>
 <path fill="#A5A9A5" d="M95,9h1v1h-1V9z"/>
 <path fill="#CCD1CC" d="M0,10h43v1H0V10z"/>
-<path fill="#D7DCD7" d="M44,10h3v6h-3V10z"/>
 <path fill="#808480" d="M47,10h18v1H47V10z"/>
-<path fill="#D7DCD7" d="M65,10h3v6h-3V10z"/>
 <path fill="#CCD1CC" d="M69,10h26v1H69V10z"/>
 <path fill="#AEB2AE" d="M95,10h1v1h-1V10z"/>
 <path fill="#D7DCD7" d="M0,11h43v5H0V11z"/>
@@ -26,4 +24,6 @@
 <path fill="#9EA39E" d="M64,11h1v5h-1V11z"/>
 <path fill="#D7DCD7" d="M69,11h26v5H69V11z"/>
 <path fill="#B7BBB7" d="M95,11h1v5h-1V11z"/>
+<path fill="#D7DCD7" d="M44,12h3v4h-3V12z"/>
+<path fill="#D7DCD7" d="M65,12h3v4h-3V12z"/>
 </svg>

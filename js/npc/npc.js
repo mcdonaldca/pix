@@ -11,6 +11,7 @@ function NPC(name, sprite, shadow) {
   this.talkedTo = false; // Tracks if the character has been spoken to.
 
   // The following values are set in NPC.build.
+  this.currentLocation = undefined;
   this.avatar = undefined;
   this.el = undefined;
   this.build();
@@ -93,3 +94,11 @@ NPC.prototype.arrowDown = function() { game.prompt.arrowDown(); }
 NPC.prototype.getEl = function() {
   return this.el;
 }
+
+/**
+  Updates the saved location of the NPC
+  @param location The new location.
+**/
+NPC.prototype.updateLocation = function(location) {
+  this.currentLocation = location;
+};

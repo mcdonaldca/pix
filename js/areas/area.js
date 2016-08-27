@@ -294,6 +294,28 @@ Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
 }
 
 /**
+  Removes an NPC from the area.
+  @param npcName The name of the NPC to remove
+**/
+Area.prototype.removeNPC = function(npcName) {
+  var removeIndex = undefined;
+  for (var i = 0; i < this.NPCs.length; i++) {
+    if (this.NPCs[i].obj.name == npcName) {
+      removeIndex = i;
+      console.log(removeIndex);
+    }
+  }
+
+  if (removeIndex != undefined) { 
+    var npc = this.NPCs[removeIndex];
+    this.space(npc.x, npc.y).clearInteractionZone();
+    $(npc.obj.getEl()).remove();
+
+    this.NPCs.splice(removeIndex, 1); 
+  }
+};
+
+/**
   Determines if an NPC is within an area.
   @param name The name of the NPC.
   @return T/F if the NPC is present.

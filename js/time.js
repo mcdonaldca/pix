@@ -108,6 +108,8 @@ Time.prototype.incHour = function(inc) {
   if (this.duskLevel() != 0) {
     game.updateDuskLevel();
   }
+
+  this.updateNPClocations();
 };
 
 /**
@@ -327,3 +329,28 @@ Time.prototype.timeOfDay = function() {
 Time.prototype.today = function() {
   return String(this.day) + "-" + this.seasons[this.season] + "-" + String(this.year);
 }
+
+/**
+  Updates the locations of NPCs who will move.
+**/
+Time.prototype.updateNPClocations = function() {
+  for (npc in game.NPCs) {
+    var character = game.NPCs[npc]
+    if (character.schedule) {
+      if (character.schedule["weekday"]) {
+        if (character.schedule["weekday"][this.hour]) {
+          var areaChange = character.schedule["weekday"][this.hour].area;
+          var x = character.schedule["weekday"][this.hour].x;
+          var y = character.schedule["weekday"][this.hour].y;
+          var face = character.schedule["weekday"][this.hour].face;
+          var dir = character.schedule["weekday"][this.hour].dir;
+          if(character.currentLocation) {
+            game.areas[character.currentLocation].removeNPC(character.name);
+          }
+          game.areas[areaChange].addNPC(x, y, face, character, dir);
+          character.updateLocation(areaChange);
+        }
+      }
+    }
+  }
+};
