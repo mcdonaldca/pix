@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pix</title>
+  <link rel="stylesheet" type="text/css" href="css/spec.css">
+</head>
+
+<body>
+  <div class="test-html-area">
+    <div id="status">
+      <div class="number wallet-tho"></div>
+      <div class="number wallet-hun"></div>
+      <div class="number wallet-ten"></div>
+      <div class="number wallet-sin"></div>
+      <div class="season"></div>
+      <div class="number dark day-tenth"></div>
+      <div class="number dark day-single"></div>
+      <div class="weekday"></div>
+      <div class="number hour-tenth"></div>
+      <div class="number hour-single"></div>
+      <div class="number minute-tenth"></div>
+      <div class="number minute-single"></div>
+      <div class="time-of-day"></div>
+    </div>
+    <div class="background"></div>
+    <div id="game">
+      <div class="area">
+        <div id="avatar">
+          <div id="reaction" class="reaction"></div>
+          <div id="sprite" class="sprite"></div>
+          <div class="shadow"></div>
+        </div>
+      </div>
+      <div class="area-shadow"></div>
+
+      <div id="screen">
+        <div class="prompt">
+          <div class="messages">
+            <div class="content">
+            </div>
+            <div class="next-arrow"></div>
+          </div>
+          <div class="options">
+            <div class="content">
+            </div>
+            <div class="select-arrow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Spec Suite</h1>
+    <div class="results"></div>
+    <ul>
+      <li>
+        <h2>areas</h2>
+        <ul>
+          <li>
+            <a href="#" class="test areas__area">
+              Area
+              <div class="test__marker"></div>
+            </a>
+          </li>
+          <li>
+            <a href class="test areas__limited-area">
+              LimitedArea
+              <div class="test__marker"></div>
+            </a>
+          </li>
+          <li>
+            <a href class="test areas__residential-area">
+              ResidentialArea
+              <div class="test__marker"></div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- GENERIC INCLUDES -->
+
+  <script src="js/third-party/jquery-1.12.0.min.js"></script>
+  <script src="js/third-party/sinon-1.17.5.js"></script>
+  <script src="js/third-party/chai.js"></script>
+  <script src="js/third-party/sinon-chai.js"></script>
+
+  <!-- CLASS INCLUDES -->
+
+  <!-- Sprite generation -->
+  <script src="js/sprite/sprite-data.js"></script>
+  <script src="js/sprite/sprite-generator.js"></script>
+
+  <!-- Building blocks for game. -->
+  <script src="js/constants.js"></script>
+  <script src="js/avatar.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/karma.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/prompt.js"></script>
+  <script src="js/time.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/space.js"></script>
+  <script src="js/keys.js"></script>
+  <script> var game = new Game(); </script>
+
+  <!-- Interactable objects. -->
+  <script src="js/interact/message.js"></script>
+  <script src="js/interact/elevator.js"></script>
+  <script src="js/interact/fridge.js"></script>
+  <script src="js/interact/sleep-zone.js"></script>
+  <script src="js/interact/work.js"></script>
+  <script src="js/interact/computer.js"></script>
+
+  <!-- Interactable characters. -->
+  <script src="js/npc/npc.js"></script>
+  <script src="js/npc/liam.js"></script>
+  <script src="js/npc/vio.js"></script>
+  <script src="js/npc/holland.js"></script>
+  <script src="js/npc/mom.js"></script>
+  <script src="js/npc/anne.js"></script>
+  <script src="js/npc/rama.js"></script>
+  <script src="js/npc/mary.js"></script>
+  <script src="js/npc/margaret.js"></script>
+
+  <!-- Event objects. -->
+  <script src="js/event/mirror.js"></script>
+  <script src="js/event/pool.js"></script>
+  <script src="js/event/require-card.js"></script>
+
+  <!-- Different game areas. -->
+  <script src="js/areas/area.js"></script>
+  <script src="js/areas/limited-area.js"></script>
+  <script src="js/areas/residential-area.js"></script>
+  <script src="js/areas/studio.js"></script>
+  <script src="js/areas/le-chateau.js"></script>
+  <script src="js/areas/rundown-apt.js"></script>
+  <script src="js/areas/hewitt-home.js"></script>
+  <script src="js/areas/ritual-roasters.js"></script>
+  <script src="js/areas/library.js"></script>
+  <script src="js/areas/city.js"></script>
+  <script src="js/areas/liam-margaret.js"></script>
+
+  <!-- Player walkthroughs -->
+  <script src="js/walkthroughs/callbacks.js"></script>
+  <script src="js/walkthroughs/walkthrough.js"></script>
+  <script src="js/walkthroughs/opening-hewitt.js"></script>
+  <script src="js/walkthroughs/opening-rundown-apt.js"></script>
+  <script src="js/walkthroughs/anne-intro.js"></script>
+  <script src="js/walkthroughs/no-library-card.js"></script>
+
+  <!-- Different player screens. -->
+  <script src="js/screens/callbacks.js"></script>
+  <script src="js/screens/screen.js"></script>
+  <script src="js/screens/character-select.js"></script>
+  <script src="js/screens/newspaper.js"></script>
+  <script src="js/screens/keyboard.js"></script>
+  <script src="js/screens/email.js"></script>
+
+  <!-- SPEC INCLUDES -->
+
+  <script src="js/spec/spec.js"></script>
+  <script src="js/spec/areas/area_spec.js"></script>
+</body>
+</html>

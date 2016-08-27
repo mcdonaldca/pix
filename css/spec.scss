@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  font-weight: normal;
+}
+
+.test-html-area { display: none; }
+
+h1 {
+  font-size: 30px;
+  margin: 10px 20px 15px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+ul {
+  list-style: none;
+  margin: 5px 0 0 40px;
+
+  ul {
+    margin-left: 20px;
+  }
+}
+
+.results {
+  background-color: #eee;
+  border-radius: 3px;
+  padding: 10px 20px 15px;
+  margin: 0px 40px;
+  font-size: 12px;
+
+  h2 {
+    margin-bottom: 5px;
+  }
+
+  .check {
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+  }
+
+  .test-name {
+    display: inline-block;
+    padding-left: 10px;
+  }
+
+  .true {
+    .check { background-color: yellowgreen; }
+  }
+
+  .false {
+    .check { 
+      background-color: red; 
+    }
+
+    .test-name { 
+      font-weight: bold; 
+    }
+  }
+
+  .error-message {
+    color: red;
+    margin-left: 30px;
+    font-size: 10px;
+
+    b { font-weight: bold; }
+  }
+}
+
+a.test {
+  display: inline-block;
+  background-color: #eee;
+  padding: 3px 10px;
+  margin: 2px 0;
+  color: black;
+  font: 11px monospace;
+  text-decoration: none;
+  border-radius: 2px;
+
+  &:hover {
+    background-color: #ddd;
+  }
+
+  &.failed {
+    background-color: pink;
+  }
+}
+
+.test__marker {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: #333;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.failed .test__marker {
+  background-color: red;
+}
+
+.passed .test__marker {
+  background-color: yellowgreen;
+}
