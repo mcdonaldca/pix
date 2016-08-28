@@ -1,4 +1,4 @@
-var liamMargaret = new ResedentialArea(
+var liamMargaret = new ResidentialArea(
   28, 15, 
   "liam-margaret", 
   ["liam", "margaret"],

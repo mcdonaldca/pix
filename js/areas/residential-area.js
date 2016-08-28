@@ -3,33 +3,34 @@
   @param width     The width of the area (in blocks).
   @param height    The height of the area (in blocks);
   @param name      The name of the area. Should also be the name of the svg.
-  @param occupants A list of NPCs who own the space.
+  @param residents A list of NPCs who own the space.
   @param exitTo    Area to exit to when the area should clear.
 **/
-function ResedentialArea(width, height, name, occupants, exitTo) {
+function ResidentialArea(width, height, name, residents, exitTo) {
   $.extend(this, new Area(width, height, name));
-  this.residential = true;
+  this.class = 'ResidentialArea';
 
-  this.occupants = occupants; // The owners of the space.
+  this.residential = true;
+  this.residents = residents; // The owners of the space.
   this.exitTo = exitTo;       // Area to exit to when the area closes.
 }
 
 /**
-  Determine if the occupants of an area are present.
-  @return T/F is one of the occupants is present.
+  Determine if the residents of an area are present.
+  @return T/F is one of the residents is present.
 **/
-ResedentialArea.prototype.isOccupied = function() {
-  var occupied = false;
-  for (var i = 0; i < this.occupants.length; i++) {
-    occupied = occupied || this.hasNPC(this.occupants[i]);
+ResidentialArea.prototype.residentsPresent = function() {
+  var someoneHome = false;
+  for (var i = 0; i < this.residents.length; i++) {
+    someoneHome = someoneHome || this.hasNPC(this.residents[i]);
   }
-  return occupied;
+  return someoneHome;
 };
 
 /**
   Determine if the occupants of an area are not present.
   @return T/F is none of the occupants are present.
 **/
-ResedentialArea.prototype.isUnoccupied = function() {
-  return !this.isOccupied();
+ResidentialArea.prototype.residentsAbsent = function() {
+  return !this.residentsPresent();
 };

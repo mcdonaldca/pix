@@ -453,7 +453,7 @@ Game.prototype.exit = function(exitTo) {
     this.messager.setMessage(area.fullName + " is closed right now.");
     this.focus = this.messager;
     this.setStatus(this.messager.interact(this.prompt) || "free");
-  } else if (area.isResidential() && area.isUnoccupied()) {
+  } else if (area.isResidential() && area.residentsAbsent()) {
     this.messager.setMessage("Nobody's home right now.");
     this.focus = this.messager;
     this.setStatus(this.messager.interact(this.prompt) || "free");
