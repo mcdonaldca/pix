@@ -10,3 +10,11 @@ ANIM_LENGTH_NPC = 300; // NPC movement animation length.
 // Game width & height should always be odd so player is visually centered.
 GAME_WIDTH = 11;  // Width of game view.
 GAME_HEIGHT = 11; // Height of game view.
+
+// Directions that sprites face.
+DIR = {
+  LF: 'left',
+  UP: 'up',
+  RT: 'right',
+  DW: 'down',
+}
