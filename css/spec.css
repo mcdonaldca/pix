@@ -7,6 +7,12 @@
 .test-html-area {
   display: none; }
 
+.container {
+  margin-bottom: 20px; }
+
+ul.results__list > li {
+  margin: 20px 0; }
+
 h1 {
   font-size: 30px;
   margin: 10px 20px 15px; }
@@ -19,6 +25,8 @@ ul {
   margin: 5px 0 0 40px; }
   ul ul {
     margin-left: 20px; }
+  ul ul.results__index {
+    margin-left: 0; }
 
 .results {
   background-color: #eee;

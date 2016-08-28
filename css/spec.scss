@@ -7,6 +7,14 @@
 
 .test-html-area { display: none; }
 
+.container {
+  margin-bottom: 20px;
+}
+
+ul.results__list > li {
+    margin: 20px 0;
+}
+
 h1 {
   font-size: 30px;
   margin: 10px 20px 15px;
@@ -23,7 +31,14 @@ ul {
   ul {
     margin-left: 20px;
   }
+
+  // No margin for set of tests at root of folder.
+  ul.results__index {
+    margin-left: 0;
+  }
 }
+
+
 
 .results {
   background-color: #eee;
