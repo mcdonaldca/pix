@@ -3,7 +3,7 @@ function AreaSpec() {
 
   var spec = this;
   spec.describe('.constructor', function() {
-    spec.it('correctly sets up area object', function() {
+    spec.it('correctly sets up Area object', function() {
       var width = 10;
       var height = 9;
       var svgName = 'test';
