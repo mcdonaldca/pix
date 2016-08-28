@@ -30,7 +30,7 @@ Spec.prototype.testResultsHTML = function(testName, testResults) {
   if (!testResults.passed) {
     testOutput += '<div class="test-output__error-message">' + testResults.error + '</div>';
   }
-  var passedClass = this.success ? 'passed' : 'failed';
+  var passedClass = testResults.passed ? 'passed' : 'failed';
   return '<div class="results__test-output ' + passedClass + '">' + testOutput + '</div>'
 };
 
