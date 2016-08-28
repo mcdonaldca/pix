@@ -14,13 +14,15 @@ Spec.prototype.resultsHTML = function() {
 };
 
 Spec.prototype.errorMessageHTML = function(error = {}) {
-  return '<div class="message">' + 
-   error.message + 
-   '</div><div class="expected"><b>expected:</b> ' + 
-   error.expected + 
-   '</div><div class="actual"><b>actual:</b> ' + 
-   error.actual + 
-   '</div>';
+  var errorMessage = '<div class="message">' + error.message + '</div>';
+  if (error.expected || error.actual) {
+    errorMessage += '<div class="expected"><b>expected:</b> ' + 
+                    error.expected + 
+                    '</div><div class="actual"><b>actual:</b> ' + 
+                    error.actual + 
+                    '</div>';
+  }
+  return errorMessage;
 };
 
 Spec.prototype.testResultsHTML = function(testName, testResults) {
