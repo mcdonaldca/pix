@@ -28,26 +28,33 @@ ul {
   font-size: 12px; }
   .results h2 {
     margin-bottom: 5px; }
-  .results .check {
+  .results .results__describe-block .results__describe-block {
+    margin-left: 18px; }
+  .results .results__test-output {
+    margin: 2px 0; }
+  .results .test-output__indicator {
     display: inline-block;
     height: 8px;
     width: 8px;
-    border-radius: 50%; }
-  .results .test-name {
+    border-radius: 50%;
+    margin-left: 8px; }
+  .results .test-output__name {
     display: inline-block;
     padding-left: 10px; }
-  .results .true .check {
-    background-color: yellowgreen; }
-  .results .false .check {
-    background-color: red; }
-  .results .false .test-name {
-    font-weight: bold; }
-  .results .error-message {
+  .results .test-output__error-message {
     color: red;
     margin-left: 30px;
     font-size: 10px; }
-    .results .error-message b {
+    .results .test-output__error-message b {
       font-weight: bold; }
+  .results .results__test-output.description .test-output__name {
+    padding-left: 0; }
+  .results .results__test-output.passed .test-output__indicator {
+    background-color: yellowgreen; }
+  .results .results__test-output.failed .test-output__indicator {
+    background-color: red; }
+  .results .results__test-output.failed .test-output__name {
+    font-weight: bold; }
 
 a.test {
   display: inline-block;

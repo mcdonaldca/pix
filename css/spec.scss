@@ -36,38 +36,60 @@ ul {
     margin-bottom: 5px;
   }
 
-  .check {
+  // Only indent describe blocks that aren't top level.
+  .results__describe-block .results__describe-block {
+    margin-left: 18px;
+  }
+
+  .results__test-output {
+    margin: 2px 0;
+  }
+
+  .test-output__indicator {
     display: inline-block;
     height: 8px;
     width: 8px;
+
     border-radius: 50%;
+    margin-left: 8px;
   }
 
-  .test-name {
+  .test-output__name {
     display: inline-block;
     padding-left: 10px;
   }
 
-  .true {
-    .check { background-color: yellowgreen; }
-  }
-
-  .false {
-    .check { 
-      background-color: red; 
-    }
-
-    .test-name { 
-      font-weight: bold; 
-    }
-  }
-
-  .error-message {
+  .test-output__error-message {
     color: red;
     margin-left: 30px;
     font-size: 10px;
 
     b { font-weight: bold; }
+  }
+
+  // Remove padding if the "test output" is a describe value.
+  .results__test-output.description {
+    .test-output__name {
+      padding-left: 0;
+    }
+  }
+
+  // Styles for passing tests.
+  .results__test-output.passed {
+    .test-output__indicator {
+      background-color: yellowgreen;
+    }
+  }
+
+  // Styles for failing tests.
+  .results__test-output.failed {
+    .test-output__indicator {
+      background-color: red;
+    }
+
+    .test-output__name {
+      font-weight: bold; 
+    }
   }
 }
 

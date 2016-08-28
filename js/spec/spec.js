@@ -1,61 +1,83 @@
 function Spec(className) {
   this.testEl = $(className);
-  this.tests = [];
-  this.output = "";
+  this.results = [];
+  this.success = true;
 
   var specObj = this;
   this.testEl.click(function() {
-    $(".results").html("<h2>" + specObj.testEl.text() + "</h2>" + specObj.results());
+    $('.results').html(specObj.resultsHTML());
   });
 }
 
-Spec.prototype.run = function() {
-  if (this.tests.length == 0) { this.declare(); }
+Spec.prototype.resultsHTML = function() {
+  return '<h2>' + this.testEl.text() + '</h2>' + this.output();
+};
 
-  var results = [];
+Spec.prototype.errorMessageHTML = function(error = {}) {
+  return '<div class="message">' + 
+   error.message + 
+   '</div><div class="expected"><b>expected:</b> ' + 
+   error.expected + 
+   '</div><div class="actual"><b>actual:</b> ' + 
+   error.actual + 
+   '</div>';
+};
+
+Spec.prototype.testResultsHTML = function(testName, testResults) {
+  var testIndicator = '<div class="test-output__indicator"></div>'
+  var testName = '<div class="test-output__name">' + testName + '</div>';
+  var testOutput = testIndicator + testName;
+  if (!testResults.passed) {
+    testOutput += '<div class="test-output__error-message">' + testResults.error + '</div>';
+  }
+  var passedClass = this.success ? 'passed' : 'failed';
+  return '<div class="results__test-output ' + passedClass + '">' + testOutput + '</div>'
+};
+
+Spec.prototype.testDescribeHTML = function(description) {
+  var describeBlockOuter = '<div class="results__describe-block">'
+  var testOutputOuter = '<div class="results__test-output description">'
+  var testDescription = '<div class="test-output__name">' + description + '</div>';
+  return describeBlockOuter + testOutputOuter + testDescription + '</div>';
+};
+
+Spec.prototype.run = function() {
+  var passedClass = this.success ? 'passed' : 'failed';
+  this.testEl.addClass(passedClass);
+}
+
+Spec.prototype.runTest = function(method) {
+  var errorMessage = '';
   var success = true;
 
-  for (var i = 0; i < this.tests.length; i++) {
-    var testResults = this.tests[i].method();
-    success = success && testResults.passed;
-    var testOutput = "<div class='check'></div><div class='test-name'>" + this.tests[i].desc + "</div>";
-    if (!testResults.passed) {
-      testOutput += "<div class='error-message'>" + testResults.error + "</div>";
-    }
-    results.push("<div class='test-output " + testResults.passed + "'>" + testOutput + '</div>');
+  try {
+    method();      
+  } catch(error) {
+    success = false;
+    errorMessage = this.errorMessageHTML(error);
   }
 
-  var passedClass = success ? "passed" : "failed";
-  this.testEl.addClass(passedClass);
-  for (var i = 0; i < results.length; i++) {
-    this.output += results[i];
-  };
+  return {
+    passed: success,
+    error: errorMessage,
+  }
 }
 
-Spec.prototype.results = function() {
-  if (!this.output) { this.run(); }
-  return this.output;
+Spec.prototype.output = function() {
+  if (!this.results) { this.run(); }
+  return this.results.join('');
 }
 
-Spec.prototype.test = function(method) {
-  return function() {
-    var errorMessage = "";
-    var success = true;
-    try {
-      method();      
-    } catch(err) {
-      success = false;
-      errorMessage = "<div class='message'>" + 
-                     err.message + 
-                     "</div><div class='expected'><b>expected:</b> " + 
-                     err.expected + 
-                     "</div><div class='actual'><b>actual:</b> " + 
-                     err.actual + 
-                     "</div>";
-    }
-    return {
-      passed: success,
-      error: errorMessage,
-    }
-  } 
+Spec.prototype.describe = function(description, method) {
+  this.results.push(this.testDescribeHTML(description));
+  method();
+  this.results.push('</div>');
+};
+
+Spec.prototype.it = function(description, method) {
+  var testResults = this.runTest(method);
+  this.success = this.success && testResults.passed;
+  this.results.push(this.testResultsHTML(description, testResults));
 }
+
+var expect = chai.expect;
