@@ -3,6 +3,8 @@
   ex. blocked directions, whether it's an interaction, or event zone, etc.
 **/
 function Space() {
+  this.class = "space";
+  
   // Variables initialized through setters.
   this.blocked = undefined;     // The directions the space is blocked from.
   this.occupied = undefined;    // The NPC the space is occupied by.

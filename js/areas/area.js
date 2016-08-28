@@ -6,6 +6,8 @@
   @param areaOverride Name of area's svg (if different from name).
 **/
 function Area(width, height, name, areaOverride) {
+  this.class = "area";
+  
   this.width = width;   // Width of the area in blocks.
   this.height = height; // Height of the area in blocks.
   this.name = name;     // Name of the area.
@@ -19,6 +21,10 @@ function Area(width, height, name, areaOverride) {
   this.maxY = undefined;   // Greatest translate Y value (in blocks) area should go.
   this.minY = undefined;   // Smallest translate Y value (in blocks) area should go.
   this.setPlacementLimits();
+
+  // Following values are set in Area.updateAreaPosition
+  this.computedXOffset = undefined;
+  this.computedYOffset = undefined;
 
   this.visited = false;     // If the area has been visited yet.
   this.limited = false;     // No hourly limit.
@@ -198,6 +204,9 @@ Area.prototype.updateAreaPosition = function(playerX, playerY) {
     translateY = (this.minY * BLOCK * MULT).toString() + "px";
   }
 
+  // Mostly for testings, since transform value isn't accessible for checks w/ jquery.
+  this.computedXOffset = translateX;
+  this.computedYOffset = translateY;
   this.areaEl.css("transform", "translate(" + translateX + ", " + translateY + ")");
 }
 

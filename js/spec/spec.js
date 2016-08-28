@@ -64,7 +64,6 @@ Spec.prototype.runTest = function(method) {
 }
 
 Spec.prototype.output = function() {
-  if (!this.results) { this.run(); }
   return this.results.join('');
 }
 
