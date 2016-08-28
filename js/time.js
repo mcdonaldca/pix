@@ -96,8 +96,8 @@ Time.prototype.incMin = function(inc) {
 Time.prototype.incHour = function(inc) {
   this.hour += inc;
 
-  if (game.area.isLimited() && this.hour == game.area.closing()) {
-    game.area.close();
+  if (game.area.isLimited() && this.hour == game.area.closingTime(this.weekday)) {
+    game.closeArea();
   }
 
   if (this.hour > 23) {

@@ -449,7 +449,7 @@ Game.prototype.exit = function(exitTo) {
 
     this.focus = this.messager;
     this.setStatus(this.messager.interact(this.prompt) || "free");
-  } else if (area.isLimited() && area.isClosed(this.time)) {
+  } else if (area.isLimited() && area.isClosed(this.time.weekday, this.time.hour)) {
     this.messager.setMessage(area.fullName + " is closed right now.");
     this.focus = this.messager;
     this.setStatus(this.messager.interact(this.prompt) || "free");
@@ -493,4 +493,14 @@ Game.prototype.startWalkthrough = function(walkthrough) {
     walkthroughObj.start(this);
     this.focus = walkthroughObj;
   }
+}
+
+/**
+  Closes the current area and forces the player to exit.
+**/
+Game.prototype.closeArea = function() {
+  var closing = new Message(this.area.fullName + " is now closed.");
+  this.focus = closing;
+  this.setStatus(closing.interact(this.prompt) || "free");
+  this.exit(this.area.exitTo);
 }

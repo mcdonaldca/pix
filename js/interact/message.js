@@ -3,6 +3,8 @@
   @param content Array of strings to display
 **/
 function Message(content) {
+  this.class = 'Message';
+  
   this.count = 0;
   this.setMessage(content);
 }

@@ -31,7 +31,7 @@ Work.prototype.interact = function(prompt, dir) {
         setTimeout(function() {
           var hours = 0;
           // If the area can close, pass the closing hour.
-          if (game.area.isLimited()) hours = game.time.work(game.area.closing());
+          if (game.area.isLimited()) hours = game.time.work(game.area.closingTime(game.time.weekday));
           // If the area doesn't have a closing time
           else hours = game.time.work();
 

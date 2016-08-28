@@ -2,7 +2,7 @@ var library = new LimitedArea(
   13, 16, 
   "library", 
   "San Francisco Library", 
-  ["8:00AM - 9:00PM Weekdays, 9:00AM - 8:00PM Weekends", [[9, 20], [8, 21], [8, 21], [8, 21], [8, 21], [8, 21], [9, 20]]], 
+  ["Open 8:00AM - 9:00PM Weekdays, 9:00AM - 8:00PM Weekends", [[9, 20], [8, 21], [8, 21], [8, 21], [8, 21], [8, 21], [9, 20]]], 
   "city-sw"
   );
 

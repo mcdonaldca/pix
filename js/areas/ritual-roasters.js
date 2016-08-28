@@ -2,7 +2,7 @@ var ritualRoasters = new LimitedArea(
   6, 9, 
   "ritual-roasters", 
   "Ritual Coffee Roasters", 
-  ["6:00AM - 6:00PM, closed Wednesdays.", [[6, 18], [6, 18], [6, 18], [], [6, 18], [6, 18], [6, 18]]], 
+  ["Open 6:00AM - 6:00PM, closed Wednesdays.", [[6, 18], [6, 18], [6, 18], [], [6, 18], [6, 18], [6, 18]]], 
   "city-nw"
 );
 

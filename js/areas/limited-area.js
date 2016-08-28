@@ -9,10 +9,13 @@
 **/
 function LimitedArea(width, height, name, fullName, hours, exitTo) {
   $.extend(this, new Area(width, height, name));
-  this.limited = true;      // Marks the area as a limited hours.
-  this.fullName = fullName; // Full name of the area.
-  this.hours = hours;       // List of hours specifications.
-  this.exitTo = exitTo;     // Area to exit to when the area closes.
+  this.class = "LimitedArea";
+
+  this.limited = true;         // Marks the area as a limited hours.
+  this.fullName = fullName;    // Full name of the area.
+  this.hoursText = hours[0] // Text description of hours.
+  this.hours = hours[1];       // List of hours specifications.
+  this.exitTo = exitTo;        // Area to exit to when the area closes.
 }
 
 /**
@@ -20,42 +23,35 @@ function LimitedArea(width, height, name, fullName, hours, exitTo) {
   @return Message object.
 **/
 LimitedArea.prototype.hoursMessage = function() {
-  return new Message([this.fullName.toUpperCase(), "Open " + this.hours[0]]);
+  return new Message([this.fullName.toUpperCase(), this.hoursText]);
 };
 
 /**
   Whether or not the place is open.
   @return Boolean
 **/
-LimitedArea.prototype.isOpen = function(time) {
-  var todaysHours = this.hours[1][time.weekday];
+LimitedArea.prototype.isOpen = function(weekday, hour) {
+  var todaysHours = this.hours[weekday];
   if (todaysHours.length == 0) return false;
 
-  return time.hour >= todaysHours[0] && time.hour <= todaysHours[1] - 1;
+  return hour >= todaysHours[0] && hour <= todaysHours[1] - 1;
 };
 
 /**
   Whether or not the place is closed.
   @return Boolean
 **/
-LimitedArea.prototype.isClosed = function(time) {
-  return !this.isOpen(time);
+LimitedArea.prototype.isClosed = function(weekday, hour) {
+  return !this.isOpen(weekday, hour);
 };
 
 /**
   Returns the hour of closing for the area.
   @return The hour.
 **/
-LimitedArea.prototype.closing = function() {
-  return this.hours[1][game.time.weekday][1];
-};
+LimitedArea.prototype.closingTime = function(weekday) {
+  var todaysHours = this.hours[weekday];
+  if (todaysHours.length == 0) return 0;
 
-/**
-  Closes the area and forces the player to exit.
-**/
-LimitedArea.prototype.close = function() {
-  var closing = new Message(this.fullName + " is now closed.");
-  game.focus = closing;
-  game.setStatus(closing.interact(this.prompt) || "free");
-  game.exit(this.exitTo);
+  return todaysHours[1];
 };
