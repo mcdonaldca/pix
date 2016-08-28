@@ -1,10 +1,13 @@
 @import "mixins";
+$block: 16px;
 $multiplier: 3;
 $anim-speed: .15s;
 $anim-speed-npc: .3s;
+$game-width: 11;
+$game-height: 11;
 
 body {
-  background: #252525;
+  background: #353535;
   margin: 0;
   padding: 0;
 }
@@ -13,7 +16,7 @@ body {
   position: relative;
 
   $h: 25px * $multiplier;
-  $w: (16px * 11 + 12) * $multiplier;
+  $w: ($block * $game-width + 12) * $multiplier;
 
   width: $w;
   height: $h;
@@ -156,8 +159,8 @@ body {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
 
-  $h: (16px * 11 + 12) * $multiplier;
-  $w: (16px * 11 + 12) * $multiplier;
+  $h: ($block * $game-height + 12) * $multiplier;
+  $w: ($block * $game-width + 12) * $multiplier;
   
   background-image: url(../img/pieces/background.svg);
   background-size: $w $h;
@@ -171,8 +174,8 @@ body {
   overflow: hidden;
   background: black;
 
-  height: 16px * 11 * $multiplier;
-  width: 16px * 11 * $multiplier;
+  height: $block * $game-height * $multiplier;
+  width: $block * $game-width * $multiplier;
 
   margin: 0 auto;
 
@@ -492,7 +495,7 @@ body {
   }
 
   .messages {
-    width: (16px * 11) * $multiplier - 30px;
+    width: ($block * $game-width) * $multiplier - 30px;
   }
 
   .options {

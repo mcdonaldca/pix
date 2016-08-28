@@ -145,9 +145,6 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   Called to set the max and min values to position the area within the game window.
 **/
 Area.prototype.setPlacementLimits = function() {
-  var GAME_WIDTH = 11;
-  var GAME_HEIGHT = 11;
-
   // If the area isn't as wide or as tall as the game window, the max and min
   // should be the same (and centered within the game window). If the area is
   // wider or taller than the game window, the greatest offset should be 0 and 
@@ -177,17 +174,27 @@ Area.prototype.setPlacementLimits = function() {
   @param playerY The player's new y coordinate.
 **/
 Area.prototype.updateAreaPosition = function(playerX, playerY) {
-  var translateX = (-1 * (playerX - 5) * BLOCK * MULT).toString() + "px";
-  if (playerX <= 4) {
+  // Game width & height should always be odd, so player is visually centered.
+  var gameWidthHalf = (GAME_WIDTH - 1) / 2;
+  var gameHeightHalf = (GAME_HEIGHT - 1) / 2;
+
+  // Area background should be placed half of the screen width to the left of the player.
+  var translateX = (-1 * (playerX - gameWidthHalf) * BLOCK * MULT).toString() + "px";
+  // Close to left side, fix area X position.
+  if (playerX <= gameWidthHalf - 1) {
     translateX = (this.maxX * BLOCK * MULT).toString() + "px";
-  } else if (playerX >= this.width - 5) {
+  // Close to right side, fix area X position.
+  } else if (playerX >= this.width - gameWidthHalf) {
     translateX = (this.minX * BLOCK * MULT).toString() + "px";
   }
 
-  var translateY = (-1 * (playerY - 5) * BLOCK * MULT).toString() + "px";
-  if (playerY <= 5) {
+  // Area background should be placed half of the screen above the player.
+  var translateY = (-1 * (playerY - gameHeightHalf) * BLOCK * MULT).toString() + "px";
+  // Close to top, fix area Y position.
+  if (playerY <= gameHeightHalf) {
     translateY = (this.maxY * BLOCK * MULT).toString() + "px";
-  } else if (playerY >= this.height - 6) {
+  // Close to bottom, fix area Y position.
+  } else if (playerY >= this.height - gameHeightHalf - 1) {
     translateY = (this.minY * BLOCK * MULT).toString() + "px";
   }
 
