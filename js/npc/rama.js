@@ -13,8 +13,8 @@ Rama.prototype.interact = function(prompt, dir) {
 
   switch (this.count) {
     case 0:
-      if (dir == "dw") this.avatar.faceUp();
-      else if (dir == "lf") this.avatar.faceRight();
+      if (dir == "dw") this.faceUp();
+      else if (dir == "lf") this.faceRight();
 
       if (!this.talkedTo) {
         game.prompt.displayMessage("Hi! You're the new barista, right? I'm Rama.", "rama");
@@ -26,7 +26,7 @@ Rama.prototype.interact = function(prompt, dir) {
 
     case 1:
       game.prompt.removeMessage();
-      this.avatar.faceLeft();
+      this.faceLeft();
       this.count = -1;
       status = "free";
       break;

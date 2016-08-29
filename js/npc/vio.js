@@ -15,16 +15,16 @@ Vio.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
 
   if (dir == "lf") {
-    this.avatar.faceRight();
+    this.faceRight();
   } else if (dir == "up") {
-    this.avatar.faceDown();
+    this.faceDown();
   } else if (dir == "rt") {
-    this.avatar.faceLeft();
+    this.faceLeft();
   } else if (dir == "dw") {
-    this.avatar.faceUp();
+    this.faceUp();
   } 
 
-  this.avatar.reactLove();
+  this.reactLove();
   return "free";
 }
 

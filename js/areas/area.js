@@ -141,8 +141,10 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   // Add and place all NPCs.
   for (var i = 0; i < this.NPCs.length; i++) {
     var npc = this.NPCs[i];
-    npc.obj.place(npc.x, npc.y, npc.dir);
-    npc.obj.avatar.show();
+    npc.obj.setPosition(npc.x, npc.y);
+    npc.obj.faceDir(npc.dir);
+    npc.obj.show();
+    this.space(npc.x, npc.y).setOccupied(npc.obj);
     this.append(npc.obj.getEl());
   }
 }
@@ -318,14 +320,14 @@ Area.prototype.removeNPC = function(npcName) {
   for (var i = 0; i < this.NPCs.length; i++) {
     if (this.NPCs[i].obj.name == npcName) {
       removeIndex = i;
-      console.log(removeIndex);
     }
   }
 
   if (removeIndex != undefined) { 
-    var npc = this.NPCs[removeIndex];
+    var npc = this.NPCs[removeIndex].obj;
     this.space(npc.x, npc.y).clearInteractionZone();
-    $(npc.obj.getEl()).remove();
+    this.space(npc.x, npc.y).setUnoccupied();
+    $(npc.getEl()).remove();
 
     this.NPCs.splice(removeIndex, 1); 
   }

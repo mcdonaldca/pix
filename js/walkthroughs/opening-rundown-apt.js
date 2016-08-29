@@ -32,9 +32,9 @@ OpeningRundownApt.prototype.start = function(game) {
 
   game.exit("rundown-apt");
   var holland = game.getNPC("holland");
-  holland.avatar.hide();
-  holland.avatar.setPosition(1, 5);
-  holland.avatar.faceUp();
+  holland.hide();
+  holland.setPosition(1, 5);
+  holland.faceUp();
   game.area.append(holland.getEl());
   // Begin instruction sequence.
   this.step(this)();
@@ -69,7 +69,7 @@ OpeningRundownApt.prototype.interact = function() {
           this.game.prompt.updateMessage("Maybe you could put an ad online? All it takes is a computer!", "holland");
         } else if (this.count == 4) {
           this.game.player.faceLeft();
-          this.game.getNPC("holland").avatar.faceRight();
+          this.game.getNPC("holland").faceRight();
           this.game.prompt.updateMessage("The library has computers you can use, but it might be worth it to buy one of your own.", "holland");
         } else if (this.count == 5) {
           this.game.prompt.updateMessage("Anyway, come find me in the lobby if you have any questions or want to do any renovations.", "holland");

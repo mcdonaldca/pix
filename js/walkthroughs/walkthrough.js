@@ -198,7 +198,7 @@ Walkthrough.prototype.getSubject = function(instruction) {
       break;
 
     case "npc":
-      subject = game.getNPC(instruction.type).avatar;
+      subject = game.getNPC(instruction.type);
       break;
 
     case "item":

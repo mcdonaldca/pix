@@ -38,7 +38,7 @@ Game.prototype.characterSelectCallback = function(game) {
     var momDataURL = spriteGenerator.getDataURL();
 
     game.time.begin();
-    game.getNPC("mom").avatar.setBackgroundImage(momDataURL);
+    game.getNPC("mom").setBackgroundImage(momDataURL);
     game.startWalkthrough("opening-hewitt");
     game.screenEndFade();
   };

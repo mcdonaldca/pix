@@ -8,7 +8,7 @@ function Mirror() {
 
   // Following variables are set in Mirror.createElements
   this.mirror = undefined;       // The mirror HTML element.
-  this.avatar = undefined;       // The doppelganger Avatar.
+  this.doppelganger = undefined;       // The doppelganger Avatar.
 
   this.elements = []; // HTML elements for the functional Mirror.
   this.createElements();
@@ -23,7 +23,7 @@ function Mirror() {
 Mirror.prototype.begin = function(x, y, dir) {
   this.fireFace(dir);
   this.fireMove(x, y);
-  this.avatar.show();
+  this.doppelganger.show();
 }
 
 /**
@@ -33,19 +33,19 @@ Mirror.prototype.begin = function(x, y, dir) {
 Mirror.prototype.fireFace = function(dir) {
   switch(dir) {
     case "lf":
-      this.avatar.faceLeft();
+      this.doppelganger.faceLeft();
       break;
 
     case "up":
-      this.avatar.faceDown();
+      this.doppelganger.faceDown();
       break;
 
     case "rt":
-      this.avatar.faceRight();
+      this.doppelganger.faceRight();
       break;
 
     case "dw":
-      this.avatar.faceUp();
+      this.doppelganger.faceUp();
       break;
 
     default:
@@ -66,7 +66,7 @@ Mirror.prototype.fireMove = function(x, y) {
   else if (y == 6) { this.y = 3; }
   else { this.y = 4 ;}
 
-  this.avatar.setPosition(this.x, this.y);
+  this.doppelganger.setPosition(this.x, this.y);
 }
 
 /**
@@ -76,19 +76,19 @@ Mirror.prototype.fireMove = function(x, y) {
 Mirror.prototype.fireWalkStart = function(dir) {
   switch(dir) {
     case "lf":
-      this.avatar.walk("lf");
+      this.doppelganger.walk("lf");
       break;
 
     case "up":
-      this.avatar.walk("dw");
+      this.doppelganger.walk("dw");
       break;
 
     case "rt":
-      this.avatar.walk("rt");
+      this.doppelganger.walk("rt");
       break;
 
     case "dw":
-      this.avatar.walk("up");
+      this.doppelganger.walk("up");
       break;
 
     default:
@@ -100,14 +100,14 @@ Mirror.prototype.fireWalkStart = function(dir) {
   Event fired when player stops walking animation.
 **/
 Mirror.prototype.fireWalkStop = function() {
-  this.avatar.stopWalking();
+  this.doppelganger.stopWalking();
 }
 
 /**
   Called when the mirror event should end (when event zone exited).
 **/
 Mirror.prototype.end = function() {
-  this.avatar.hide();
+  this.doppelganger.hide();
 }
 
 /**
@@ -122,26 +122,13 @@ Mirror.prototype.getElements = function() {
   Generates the necessary HTML elements & adds them to Mirror.elements.
 **/
 Mirror.prototype.createElements = function() {
-  /* Ouput HTML:
-      <div class="npc npc-doppelganger">
-        <div class="avatar" id="doppelganger"></div>
-        <div class="shadow">
-          <img src="img/characters/shadow_sm.svg">
-        </div>
-      </div>
-  */
-
-  var doppelganger = document.createElement("div");
-  $(doppelganger).addClass("npc npc-doppelganger");
-  var sprite = document.createElement("div");
-  $(sprite).addClass("sprite")
-           .css("background-image", "url(img/characters/adele.svg)");
-  var shadow = document.createElement("div");
-  $(shadow).addClass("shadow")
-           .css("background-image", "url(img/characters/shadow_sm.svg)");
-  $(doppelganger).append(sprite)
-                 .append(shadow);
-  this.elements.push(doppelganger);
+  var doppelganger = new Avatar(
+    false, 
+    'doppelganger', 
+    'characters/adele', 
+    'shadow_sm'
+  );
+  this.elements.push(doppelganger.getEl());
 
   /* Output HTML:
       <div id="mirror" class="item">
@@ -163,6 +150,6 @@ Mirror.prototype.createElements = function() {
 
   // Save necessary HTML elements.
   this.mirror = $(mirror);
-  this.avatar = new Avatar($(doppelganger), null, $(sprite));
-  this.avatar.hide();
+  this.doppelganger = doppelganger;
+  this.doppelganger.hide();
 }

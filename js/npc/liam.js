@@ -18,7 +18,7 @@ Liam.prototype.interact = function(prompt, dir) {
   switch(this.count) {
     case 0:
       if (dir == "rt") {
-        this.avatar.faceLeft();
+        this.faceLeft();
       }
 
       prompt.displayMessage("Good morning, sleepyhead!", this.name);
@@ -31,7 +31,7 @@ Liam.prototype.interact = function(prompt, dir) {
     case 2:
       prompt.removeMessage();
 
-      this.avatar.faceDown();
+      this.faceDown();
       this.count = -1;
       status = "free";
       break;

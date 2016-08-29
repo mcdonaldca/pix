@@ -26,9 +26,9 @@ Holland.prototype.interact = function(prompt, dir) {
     case 0:
       // Have Holland face the appropriate direction to speak.
       if (dir == "rt") {
-        this.avatar.faceLeft();
+        this.faceLeft();
       } else if (dir == "lf") {
-        this.avatar.faceRight();
+        this.faceRight();
       }
       // Greet the player.
       prompt.displayMessage("Hey there!", this.name);
@@ -86,7 +86,7 @@ Holland.prototype.interact = function(prompt, dir) {
       // End of conversation.
       if (this.track == "nevermind") {
         prompt.removeMessage();
-        this.avatar.faceDown();
+        this.faceDown();
         this.count = -1;
         status = "free";
 
@@ -118,7 +118,7 @@ Holland.prototype.interact = function(prompt, dir) {
       break;
 
     case 4:
-      this.avatar.faceDown();
+      this.faceDown();
       this.count = -1;
       status = "free";
       break;

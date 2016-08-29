@@ -13,9 +13,9 @@ Mary.prototype.interact = function(prompt, dir) {
 
   switch (this.count) {
     case 0:
-      if (dir == "up") this.avatar.faceDown();
-      else if (dir == "rt") this.avatar.faceLeft();
-      else if (dir == "dw") this.avatar.faceUp();
+      if (dir == "up") this.faceDown();
+      else if (dir == "rt") this.faceLeft();
+      else if (dir == "dw") this.faceUp();
 
       // If the player has a library card.
       if (game.player.hasLibraryCard()) {
@@ -37,7 +37,7 @@ Mary.prototype.interact = function(prompt, dir) {
     case 1:
       if (this.track == "has card") {
         game.prompt.removeMessage();
-        this.avatar.faceRight();
+        this.faceRight();
         status = "free";
         this.count = -1;
       } else {
@@ -73,7 +73,7 @@ Mary.prototype.interact = function(prompt, dir) {
       if (this.track == "yes") {
         game.prompt.removeMessage();
         status = "loading";
-        game.getNPC("mary").avatar.reactWat();
+        game.getNPC("mary").reactWat();
         var mary = this;
         setTimeout(function() {
           game.prompt.displayMessage("You're all set! Come in whenever you like.", mary.name);
@@ -82,7 +82,7 @@ Mary.prototype.interact = function(prompt, dir) {
         }, 2000);
       } else {
         game.prompt.removeMessage();
-        this.avatar.faceRight();
+        this.faceRight();
         status = "free";
         this.count = -1;
       }
@@ -90,7 +90,7 @@ Mary.prototype.interact = function(prompt, dir) {
 
     case 4:
       game.prompt.removeMessage();
-      this.avatar.faceRight();
+      this.faceRight();
       status = "free";
       this.count = -1;
       break;

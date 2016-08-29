@@ -14,7 +14,7 @@ Anne.prototype.interact = function(prompt, dir) {
 
   switch(this.count) {
     case 0:
-      if (dir == "dw") this.avatar.faceUp();
+      if (dir == "dw") this.faceUp();
       var options = ["Great!", "Okay", "Terrible."];
       if (game.player.getJob() == "unemployed") {
         options.push("I'd like a job.");
@@ -57,7 +57,7 @@ Anne.prototype.interact = function(prompt, dir) {
       break;
 
     case 2:
-      this.avatar.faceDown();
+      this.faceDown();
       game.prompt.removeMessage();
       this.count = -1;
       status = "free";

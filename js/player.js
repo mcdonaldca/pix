@@ -2,7 +2,7 @@
   Extension of Avatar for the player.
 **/
 function Player() {
-  $.extend(this, new Avatar($("#avatar"), $("#reaction"), $("#sprite")));
+  $.extend(this, new Avatar(true));
   this.wallet = new Wallet();
   this.karma = new Karma();
 
@@ -21,7 +21,7 @@ function Player() {
 Player.prototype.becomeCat = function() {
   this.spriteEl.css(
     "background-image", 
-    this.isCat ? "url(" + this.spriteImageURL + ")" : "url(img/pets/black-cat.svg)"
+    this.isCat ? "url(img/characters/adele.svg)" : "url(img/pets/black-cat.svg)"
     );
   this.isCat = !this.isCat;
 }

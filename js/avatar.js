@@ -1,15 +1,19 @@
 /**
   The Avatar object handles display changes for any sprite.
-  @param avatar   The avatar element (should contain sprite element).
-  @param reaction The element used to display reactions.
-  @param sprite   The sprite element (should have a sprite backgroud image).
+  @param isPlayer Boolean, if avatar is the player's avatar.
+  @param name     (Optional) The name of the NPC.
+  @param sprite   (Optional) The url for the sprite image.
+  @param shadow   (Optional) The url for the shadow, if any.
 **/
-function Avatar(avatar, reaction, sprite) {
-  this.avatarEl = avatar;     // The avatar element (contains sprite).
-  this.reactionEl = reaction; // The reaction element.
-  this.spriteEl = sprite;     // The sprite element.
+function Avatar(isPlayer, name, sprite, shadow) {
+  this.class = 'Avatar';
 
-  this.spriteImageURL = "img/characters/adele.svg";
+  this.isPlayer = isPlayer || false;
+  this.name = name || 'no-name'; // Name of NPC.
+  this.img = sprite || 'characters/test-char';  // The sprite image for the character.
+  this.shadow = shadow;  // The type of shadow for the character (if any).
+
+  this.build();
 
   // Sprite constant values.
   this.SPRITE_WIDTH = 23;
@@ -17,18 +21,64 @@ function Avatar(avatar, reaction, sprite) {
   this.X_OFFSET = 3;
   this.Y_OFFSET = 12;
 
+  this.REACTION_DURATIONS = {
+    'happy': 1000,
+    'love': 1000,
+    'sleep': 4000,
+    'surprise': 1000,
+    'wat': 2000,
+  }
+
   this.x = 0;
   this.y = 0;
-  this.face = 0;
-
-  this.isPlayer = false;
+  this.face = DIR.DW;
 }
+
+/**
+  Builds the elements to display an avatar in the game.
+**/
+Avatar.prototype.build = function() {
+  if (this.isPlayer) {
+    this.avatarEl = $('#avatar');
+    this.reactionEl = $('#reaction');
+    this.spriteEl = $('#sprite');
+  } else {
+    /* Sample HTML
+       <div class="npc npc-liam">
+         <div class="avatar"></div>
+         <div class="shadow"></div>
+       </div>
+    */
+    var div = document.createElement('div');
+    $(div).addClass('npc npc-' + this.name);
+
+    var reaction = document.createElement('div');
+    $(reaction).addClass('reaction');
+    $(div).append(reaction);
+
+    var sprite = document.createElement('div');
+    $(sprite).addClass('sprite')
+             .css('background-image', 'url(img/' + this.img + '.svg)');
+    $(div).append(sprite);
+
+    // Some Avatars don't have shadows.
+    if (this.shadow != undefined) {
+      var shadow = document.createElement('div');
+      $(shadow).addClass('shadow')
+               .css('background-image', 'url(img/characters/' + this.shadow + '.svg)');
+      $(div).append(shadow);
+    }
+
+    this.avatarEl = $(div);
+    this.reactionEl = $(reaction);
+    this.spriteEl = $(sprite);
+  }
+};
 
 /**
   Shows the entire avatar.
 **/
 Avatar.prototype.show = function() {
-  game.area.space(this.x, this.y).setOccupied(this);
   this.avatarEl.show();
 }
 
@@ -36,64 +86,34 @@ Avatar.prototype.show = function() {
   Hides the entire avatar.
 **/
 Avatar.prototype.hide = function() {
-  if (game.area) game.area.space(this.x, this.y).setUnoccupied();
   this.avatarEl.hide();
 }
 
 /**
-  Initializes surprise reaction for avatar.
+  Called to have the avatar perform a reaction.
+  @param reaction The reaction to display.
 **/
-Avatar.prototype.reactSurprise = function() {
-  this.reactionEl.addClass("react-surprise");
-  var avatar = this;
-  setTimeout(function() {
-    avatar.reactionEl.removeClass("react-surprise");
-  }, 1000);
+Avatar.prototype.react = function(reaction) {
+  if (this.REACTION_DURATIONS[reaction]) {
+    var reactionClass = 'react-' + reaction;
+    var reactionDuration = this.REACTION_DURATIONS[reaction];
+
+    this.reactionEl.addClass(reactionClass);
+    var avatar = this;
+    setTimeout(function() {
+      avatar.reactionEl.removeClass(reactionClass);
+    }, reactionDuration);
+  }
 }
 
-/**
-  Initializes love reaction for avatar.
+/** 
+  Methods to call `react`
 **/
-Avatar.prototype.reactLove = function() {
-  this.reactionEl.addClass("react-love");
-  var avatar = this;
-  setTimeout(function() {
-    avatar.reactionEl.removeClass("react-love");
-  }, 1000);
-}
-
-/**
-  Initializes wat reaction for avatar.
-**/
-Avatar.prototype.reactWat = function() {
-  this.reactionEl.addClass("react-wat");
-  var avatar = this;
-  setTimeout(function() {
-    avatar.reactionEl.removeClass("react-wat");
-  }, 2000);
-}
-
-/**
-  Initializes sleep reaction for avatar.
-**/
-Avatar.prototype.reactSleep = function() {
-  this.reactionEl.addClass("react-sleep");
-  var avatar = this;
-  setTimeout(function() {
-    avatar.reactionEl.removeClass("react-sleep");
-  }, 4000);
-}
-
-/**
-  Initializes happy reaction for avatar.
-**/
-Avatar.prototype.reactHappy = function() {
-  this.reactionEl.addClass("react-happy");
-  var avatar = this;
-  setTimeout(function() {
-    avatar.reactionEl.removeClass("react-happy");
-  }, 1000);
-}
+Avatar.prototype.reactHappy = function() { this.react('happy'); }
+Avatar.prototype.reactLove = function() { this.react('love'); }
+Avatar.prototype.reactSleep = function() { this.react('sleep'); }
+Avatar.prototype.reactSurprise = function() { this.react('surprise'); }
+Avatar.prototype.reactWat = function() { this.react('wat'); }
 
 /**
   Calls setPosition with new x value.
@@ -117,57 +137,58 @@ Avatar.prototype.setBottom = function(y) {
   @param y The bottom offset in blocks.
 **/
 Avatar.prototype.setPosition = function(x, y) {
-  if (game.area.space(this.x, this.y)) game.area.space(this.x, this.y).setUnoccupied();
-  game.area.space(x, y).setOccupied(this);
-
   this.x = x;
   this.y = y;
 
-  var translateX = ((x * BLOCK - this.X_OFFSET) * MULT).toString() + "px";
-  var translateY = ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + "px";
+  var translateX = ((x * BLOCK - this.X_OFFSET) * MULT).toString() + 'px';
+  var translateY = ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + 'px';
 
-  this.avatarEl.css("transform", "translate(" + translateX + ", " + translateY + ")");
+  this.avatarEl.css('transform', 'translate(' + translateX + ', ' + translateY + ')');
 
   var zVal = (y + 1) * 10;
   if (this.isPlayer) zVal++;
 
-  this.avatarEl.css("z-index", zVal);
-  if (this.reactionEl != null) {
-    this.reactionEl.css("z-index", zVal + 1);
-  }
+  this.avatarEl.css('z-index', zVal);
+  this.reactionEl.css('z-index', zVal + 1);
 };
 
 /**
-  Adjusts sprite to face left.
+  Adjusts sprite to display facing a specific direction.
+  @param dir The direction to face.
 **/
-Avatar.prototype.faceLeft = function() {
-  this.face = "lf";
-  this.spriteEl.css("background-position", "0 " + (-3 * this.SPRITE_HEIGHT * MULT).toString() + "px");
-}
+Avatar.prototype.faceDir = function(dir) {
+  this.face = dir;
+
+  var bgPos = 0;
+  switch(dir) {
+    case DIR.LF:
+      bgPos = -3;
+      break;
+
+    case DIR.UP:
+      bgPos = -2;
+      break;
+
+    case DIR.RT:
+      bgPos = -1;
+      break;
+
+    // Default `bgPos` is down.
+    case DIR.DW:
+    default:
+      break;
+  }
+
+  this.spriteEl.css('background-position', '0 ' + (bgPos * this.SPRITE_HEIGHT * MULT).toString() + 'px');
+};
 
 /**
-  Adjusts sprite to face up.
+  Methods to call `face`.
 **/
-Avatar.prototype.faceUp = function() {
-  this.face = "up";
-  this.spriteEl.css("background-position", "0 " + (-2 * this.SPRITE_HEIGHT * MULT).toString() + "px");
-}
-
-/**
-  Adjusts sprite to face right.
-**/
-Avatar.prototype.faceRight = function() {
-  this.face = "rt";
-  this.spriteEl.css("background-position", "0 " + (-1 * this.SPRITE_HEIGHT * MULT).toString() + "px");
-}
-
-/**
-  Adjusts sprite to face down.
-**/
-Avatar.prototype.faceDown = function() {
-  this.face = "dw";
-  this.spriteEl.css("background-position", "0 0");
-}
+Avatar.prototype.faceLeft = function() { this.faceDir(DIR.LF); }
+Avatar.prototype.faceUp = function() { this.faceDir(DIR.UP); }
+Avatar.prototype.faceRight = function() { this.faceDir(DIR.RT); }
+Avatar.prototype.faceDown = function() { this.faceDir(DIR.DW); }
 
 /**
   Called to begining sprite's walking animation.
@@ -175,20 +196,20 @@ Avatar.prototype.faceDown = function() {
 **/
 Avatar.prototype.walk = function(dir) {
   switch(dir) {
-    case "lf":
-      this.spriteEl.addClass("walk-left");
+    case 'lf':
+      this.spriteEl.addClass('walk-left');
       break;
 
-    case "up":
-      this.spriteEl.addClass("walk-up");
+    case 'up':
+      this.spriteEl.addClass('walk-up');
       break;
       
-    case "rt":
-      this.spriteEl.addClass("walk-right");
+    case 'rt':
+      this.spriteEl.addClass('walk-right');
       break;
       
-    case "dw":
-      this.spriteEl.addClass("walk-down");
+    case 'dw':
+      this.spriteEl.addClass('walk-down');
       break;
 
     default:
@@ -201,7 +222,7 @@ Avatar.prototype.walk = function(dir) {
 **/
 Avatar.prototype.stopWalking = function() {
   this.spriteEl.removeClass();
-  this.spriteEl.addClass("sprite");
+  this.spriteEl.addClass('sprite');
 }
 
 /**
@@ -209,13 +230,12 @@ Avatar.prototype.stopWalking = function() {
   @param url The url (or dataURL) for the avatar.
 **/
 Avatar.prototype.setBackgroundImage = function(url) {
-  this.spriteEl.css("background-image", "url(" + url + ")");
-  this.spriteImageURL = url;
+  this.spriteEl.css('background-image', 'url(' + url + ')');
 }
 
-/**
-  Marks this particular avatar as the player's avatar.
+/** 
+  Returns the parent element of the avatar to add and remove from the game.
 **/
-Avatar.prototype.setIsPlayer = function() {
-  this.isPlayer = true;
+Avatar.prototype.getEl = function() {
+  return this.avatarEl;
 }

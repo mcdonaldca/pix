@@ -38,8 +38,8 @@ AnneIntro.prototype.start = function() {
 
   game.exit("ritual-roasters");
   var anne = game.getNPC("anne");
-  anne.avatar.setPosition(5, 2);
-  anne.avatar.hide();
+  anne.setPosition(5, 2);
+  anne.hide();
   game.player.stopWalking();
   // Begin instruction sequence.
   this.step(this)();
@@ -116,7 +116,7 @@ AnneIntro.prototype.interact = function() {
             game.prompt.removeOptions();
             if (s == 0 || s == 1) {
               this.acceptedJob = true;
-              game.getNPC("anne").avatar.reactHappy();
+              game.getNPC("anne").reactHappy();
               game.prompt.displayMessage("So glad to hear it!", "anne");
               // Begin "accepted" job track.
               this.track = "accepted";
@@ -140,7 +140,7 @@ AnneIntro.prototype.interact = function() {
     case "playing":
       if (this.current == 17) {
         if (!this.acceptedJob) {
-          game.getNPC("anne").avatar.faceLeft();
+          game.getNPC("anne").faceLeft();
           var wt = this;
           setTimeout(function() {
             game.area.getItem("counter").show();
