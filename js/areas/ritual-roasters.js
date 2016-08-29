@@ -12,7 +12,7 @@ ritualRoasters.addItem(2, "counter", [2, 2], 1);
 ritualRoasters.addItem(1, "counter-glass", [5, 4]);
 ritualRoasters.addItem(1, "houseplant", [5, 7]);
 
-ritualRoasters.addNPC(4, 3, "lf", rama, ["lf", "dw"]);
+ritualRoasters.addNPC(4, 3, "lf", game.getNPC('twumasiwaa'), ["lf", "dw"]);
 ritualRoasters.addInteraction(3, 3, new Message("Buying interaction coming soon"), ["rt"]);
 ritualRoasters.addNPC(5, 4, "dw", game.getNPC("anne"), ["up", "dw"]);
 

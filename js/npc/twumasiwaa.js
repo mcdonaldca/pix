@@ -1,14 +1,14 @@
 /**
   Rama
 **/
-function Rama() {
-  $.extend(this, new NPC("rama", "characters/rama", "shadow_sm"));
+function Twumasiwaa() {
+  $.extend(this, new NPC("twumasiwaa", "characters/twumasiwaa", "shadow_sm"));
 }
 
 /**
   No interaction needed for now.
 **/
-Rama.prototype.interact = function(prompt, dir) {
+Twumasiwaa.prototype.interact = function(prompt, dir) {
   var status = "focused";
 
   switch (this.count) {
@@ -17,10 +17,10 @@ Rama.prototype.interact = function(prompt, dir) {
       else if (dir == "lf") this.faceRight();
 
       if (!this.talkedTo) {
-        game.prompt.displayMessage("Hi! You're the new barista, right? I'm Rama.", "rama");
+        game.prompt.displayMessage("Hi! You're the new barista, right? I'm Twumasiwaa.", this.name);
         this.talkedTo = true;
       } else {
-        game.prompt.displayMessage("Good " + game.time.timeOfDay() + "! It's a beautiful day.", "rama");
+        game.prompt.displayMessage("Good " + game.time.timeOfDay() + "! It's a beautiful day.", this.name);
       }
       break;
 
@@ -39,6 +39,6 @@ Rama.prototype.interact = function(prompt, dir) {
   return status;
 }
 
-// Add Rama object to game's NPC collection.
-var rama = new Rama();
-game.addNPC(rama.name, rama);
+// Add Twumasiwaa object to game's NPC collection.
+var twumasiwaa = new Twumasiwaa();
+game.addNPC(twumasiwaa.name, twumasiwaa);
