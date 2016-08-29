@@ -503,3 +503,11 @@ Game.prototype.closeArea = function() {
   this.setStatus(closing.interact(this.prompt) || "free");
   this.exit(this.area.exitTo);
 }
+
+Game.prototype.updateKarma = function(key, change, logMessage) {
+  game.player.karma.update(key, change, logMessage);
+}
+
+Game.prototype.logHistory = function(logMessage, today) {
+  game.player.karma.log(logMessage, game.time.today());
+};
