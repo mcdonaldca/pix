@@ -3,14 +3,14 @@
 **/
 function Player() {
   $.extend(this, new Avatar(true));
+  this.class = 'Player';
+
   this.wallet = new Wallet();
   this.karma = new Karma();
 
   this.isCat = false; // Is the sprite a cat.
   this.job = "unemployed"; // Players current job.
   this.salary = 0;
-
-  this.hoursWorked = {};
 
   this.libraryAccess = false;
 }
@@ -42,10 +42,6 @@ Player.prototype.getJob = function() {
 Player.prototype.employ = function(job, salary) {
   this.job = job;
   this.salary = salary;
-
-  this.hoursWorked[this.job] = {};
-  this.hoursWorked[this.job].start = [game.time.day, game.time.season, game.time.year];
-  this.hoursWorked[this.job].hours = 0;
 };
 
 /**
@@ -54,7 +50,6 @@ Player.prototype.employ = function(job, salary) {
 **/
 Player.prototype.work = function(hours) {
   this.wallet.add(Math.floor(hours * this.salary));
-  this.hoursWorked[this.job].hours += hours;
 }
 
 /**

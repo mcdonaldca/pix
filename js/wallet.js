@@ -2,6 +2,8 @@
   Object to manage player's funds.
 **/
 function Wallet() {
+  this.class = 'Wallet';
+  
   this.numbers = [
     $("#status .wallet-tho"),
     $("#status .wallet-hun"),
