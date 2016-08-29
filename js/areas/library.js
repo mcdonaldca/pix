@@ -27,6 +27,6 @@ library.addItem(2, "bookshelf", [10,  5]);
 library.addItem(2, "bookshelf", [10,  8]);
 
 library.addExit(10, 15, "dw", "city-sw");
-library.addPositionData(10, 15, "up", "default");
+library.addPositionData(10, 14, "up", "default");
 
 game.addArea(library.getName(), library);
