@@ -17,7 +17,7 @@ Liam.prototype.interact = function(prompt, dir) {
 
   switch(this.count) {
     case 0:
-      if (dir == "rt") {
+      if (dir == DIR.RT) {
         this.faceLeft();
       }
 

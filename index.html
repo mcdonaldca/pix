@@ -128,13 +128,13 @@
         face = window.sessionStorage.getItem("face"),
         area = window.sessionStorage.getItem("area");
 
-    area == undefined ? game.start(7, 4, "dw", "studio") : game.start(x, y, face, area);
+    area == undefined ? game.start(7, 4, DIR.DW, "studio") : game.start(x, y, face, area);
 
     /* Production:
       $(document).ready(function() {
         var prompt = new Prompt();
         var game = new Game();
-        game.start(7, 4, "dw", "studio");
+        game.start(7, 4, DIR.DW, "studio");
       });    
     */
   </script>

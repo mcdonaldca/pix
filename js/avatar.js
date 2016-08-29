@@ -162,23 +162,19 @@ Avatar.prototype.faceDir = function(dir) {
   var bgPos = 0;
   switch(dir) {
     case DIR.LF:
-    case 'lf':
       bgPos = -3;
       break;
 
     case DIR.UP:
-    case 'up':
       bgPos = -2;
       break;
 
     case DIR.RT:
-    case 'rt':
       bgPos = -1;
       break;
 
     // Default `bgPos` is down.
     case DIR.DW:
-    case 'dw':
     default:
       break;
   }
@@ -200,19 +196,19 @@ Avatar.prototype.faceDown = function() { this.faceDir(DIR.DW); }
 **/
 Avatar.prototype.walk = function(dir) {
   switch(dir) {
-    case 'lf':
+    case DIR.LF:
       this.spriteEl.addClass('walk-left');
       break;
 
-    case 'up':
+    case DIR.UP:
       this.spriteEl.addClass('walk-up');
       break;
       
-    case 'rt':
+    case DIR.RT:
       this.spriteEl.addClass('walk-right');
       break;
       
-    case 'dw':
+    case DIR.DW:
       this.spriteEl.addClass('walk-down');
       break;
 

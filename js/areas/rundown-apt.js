@@ -78,10 +78,10 @@ rundownApt.addRenovation(1, 2, "window", [3, 0], 1);
 rundownApt.addRenovation(5, 4, "carpet", [0, 2], 0);
 rundownApt.addRenovation(1, 3, "linens", [4, 3], 1);
 
-rundownApt.addInteraction(0, 1, new Fridge(), ["up"]);
+rundownApt.addInteraction(0, 1, new Fridge(), [DIR.UP]);
 rundownApt.addInteraction(4, 4, new SleepZone());
 
-rundownApt.addExit(1, 5, "dw", "le-chateau-floor-1");
-rundownApt.addPositionData(2, 4, "up", "default");
+rundownApt.addExit(1, 5, DIR.DW, "le-chateau-floor-1");
+rundownApt.addPositionData(2, 4, DIR.UP, "default");
 
 game.addArea(rundownApt.getName(), rundownApt);

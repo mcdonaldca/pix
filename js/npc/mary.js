@@ -13,9 +13,9 @@ Mary.prototype.interact = function(prompt, dir) {
 
   switch (this.count) {
     case 0:
-      if (dir == "up") this.faceDown();
-      else if (dir == "rt") this.faceLeft();
-      else if (dir == "dw") this.faceUp();
+      if (dir == DIR.UP) this.faceDown();
+      else if (dir == DIR.RT) this.faceLeft();
+      else if (dir == DIR.DW) this.faceUp();
 
       // If the player has a library card.
       if (game.player.hasLibraryCard()) {

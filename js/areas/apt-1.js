@@ -8,15 +8,15 @@ apt1.addItem(9, "wall",      [8,  11]);
 apt1.addItem(3, "doorframe", [19, 12], 20);
 apt1.addItem(9, "wall",      [19, 11]);
 
-apt1.addInteraction(10, 13, new Message("Gym"), ["up"]);
+apt1.addInteraction(10, 13, new Message("Gym"), [DIR.UP]);
 var treadmillMessage = new Message("You don't have time to run!")
-apt1.addInteraction(16, 10, treadmillMessage, ["rt"]);
-apt1.addInteraction(16,  9, treadmillMessage, ["rt"]);
-apt1.addInteraction(16,  8, treadmillMessage, ["rt"]);
-apt1.addInteraction(21, 13, new Message("Pool"), ["up"]);
+apt1.addInteraction(16, 10, treadmillMessage, [DIR.RT]);
+apt1.addInteraction(16,  9, treadmillMessage, [DIR.RT]);
+apt1.addInteraction(16,  8, treadmillMessage, [DIR.RT]);
+apt1.addInteraction(21, 13, new Message("Pool"), [DIR.UP]);
 
-apt1.addExit(2, 14, "up", "elevator-apt-1", "left");
-apt1.addExit(3, 14, "up", "elevator-apt-1", "right");
-apt1.addPositionData(3, 14, "dw", "default");
+apt1.addExit(2, 14, DIR.UP, "elevator-apt-1", "left");
+apt1.addExit(3, 14, DIR.UP, "elevator-apt-1", "right");
+apt1.addPositionData(3, 14, DIR.DW, "default");
 
 game.addArea(apt1.getName(), apt1);

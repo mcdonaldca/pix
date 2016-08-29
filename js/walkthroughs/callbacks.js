@@ -29,7 +29,7 @@ Game.prototype.openingRundownAptCallback = function(game) {
   return function() {
     game.time.startTime();
     var leChateauFloor1 = game.areas["le-chateau-floor-1"];
-    leChateauFloor1.addInteraction(22, 1, new Message(game.name + "'s Apartment"), ["up"]);
+    leChateauFloor1.addInteraction(22, 1, new Message(game.name + "'s Apartment"), [DIR.UP]);
   }
 }
 

@@ -174,19 +174,19 @@ Game.prototype.faceDir = function(dir) {
   this.face = dir;
   window.sessionStorage.setItem("face", this.face);
   switch(dir) {
-    case "lf":
+    case DIR.LF:
       this.player.faceLeft();
       break;
 
-    case "up":
+    case DIR.UP:
       this.player.faceUp();
       break;
 
-    case "rt":
+    case DIR.RT:
       this.player.faceRight();
       break;
 
-    case "dw":
+    case DIR.DW:
       this.player.faceDown();
       break;
 
@@ -203,32 +203,32 @@ Game.prototype.faceDir = function(dir) {
   Moves player one space to the left.
 **/
 Game.prototype.moveLeft = function() {
-  this.faceDir("lf");
-  this.moveToSpace(this.player.x - 1, this.player.y, "lf");
+  this.faceDir(DIR.LF);
+  this.moveToSpace(this.player.x - 1, this.player.y, DIR.LF);
 }
 
 /**
   Moves player one space up.
 **/
 Game.prototype.moveUp = function() {
-  this.faceDir("up");
-  this.moveToSpace(this.player.x, this.player.y - 1, "up");
+  this.faceDir(DIR.UP);
+  this.moveToSpace(this.player.x, this.player.y - 1, DIR.UP);
 }
 
 /**
   Moves player one space to the right.
 **/
 Game.prototype.moveRight = function() {
-  this.faceDir("rt");
-  this.moveToSpace(this.player.x + 1, this.player.y, "rt");
+  this.faceDir(DIR.RT);
+  this.moveToSpace(this.player.x + 1, this.player.y, DIR.RT);
 }
 
 /**
   Moves player one space down.
 **/
 Game.prototype.moveDown = function() {
-  this.faceDir("dw");
-  this.moveToSpace(this.player.x, this.player.y + 1, "dw");
+  this.faceDir(DIR.DW);
+  this.moveToSpace(this.player.x, this.player.y + 1, DIR.DW);
 }
 
 /** 
@@ -343,10 +343,10 @@ Game.prototype.interact = function() {
       currentSpace = this.area.space(this.player.x, this.player.y);
 
       // Find the x, y coordinate we're facing.
-      faceX = this.face == "lf" ? this.player.x - 1 : this.player.x;
-      faceX = this.face == "rt" ? this.player.x + 1 : faceX;
-      faceY = this.face == "up" ? this.player.y - 1 : this.player.y;
-      faceY = this.face == "dw" ? this.player.y + 1 : faceY;
+      faceX = this.face == DIR.LF ? this.player.x - 1 : this.player.x;
+      faceX = this.face == DIR.RT ? this.player.x + 1 : faceX;
+      faceY = this.face == DIR.UP ? this.player.y - 1 : this.player.y;
+      faceY = this.face == DIR.DW ? this.player.y + 1 : faceY;
       faceSpace = this.area.space(faceX, faceY);
 
       // If we're in an interact zone, focus on that.

@@ -173,13 +173,13 @@ function AvatarSpec() {
     spec.it('adds the correct class to the sprite', function() {
       var avatar = new Avatar();
 
-      avatar.walk('lf');
+      avatar.walk(DIR.LF);
       expect(avatar.spriteEl.attr('class')).to.contain('walk-left');
-      avatar.walk('up');
+      avatar.walk(DIR.UP);
       expect(avatar.spriteEl.attr('class')).to.contain('walk-up');
-      avatar.walk('rt');
+      avatar.walk(DIR.RT);
       expect(avatar.spriteEl.attr('class')).to.contain('walk-right');
-      avatar.walk('dw');
+      avatar.walk(DIR.DW);
       expect(avatar.spriteEl.attr('class')).to.contain('walk-down');
     });
   });

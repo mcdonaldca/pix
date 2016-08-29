@@ -14,13 +14,13 @@ function Vio() {
 Vio.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
 
-  if (dir == "lf") {
+  if (dir == DIR.LF) {
     this.faceRight();
-  } else if (dir == "up") {
+  } else if (dir == DIR.UP) {
     this.faceDown();
-  } else if (dir == "rt") {
+  } else if (dir == DIR.RT) {
     this.faceLeft();
-  } else if (dir == "dw") {
+  } else if (dir == DIR.DW) {
     this.faceUp();
   } 
 

@@ -25,9 +25,9 @@ Holland.prototype.interact = function(prompt, dir) {
   switch(this.count) {
     case 0:
       // Have Holland face the appropriate direction to speak.
-      if (dir == "rt") {
+      if (dir == DIR.RT) {
         this.faceLeft();
-      } else if (dir == "lf") {
+      } else if (dir == DIR.LF) {
         this.faceRight();
       }
       // Greet the player.

@@ -32,10 +32,10 @@ Game.prototype.keyboardController = function() {
 
         // Find the direction we're traveling (to start walking animation)
         var dir = "";
-        if (key == 37) dir = "lf";
-        if (key == 38) dir = "up";
-        if (key == 39) dir = "rt";
-        if (key == 40) dir = "dw";
+        if (key == 37) dir = DIR.LF;
+        if (key == 38) dir = DIR.UP;
+        if (key == 39) dir = DIR.RT;
+        if (key == 40) dir = DIR.DW;
 
         // If we're already facing the direction we're traveling.
         if (game.face == dir) {
@@ -156,19 +156,19 @@ Game.prototype.keyboardController = function() {
 
 
         case 87: // w
-          if (game.status == "free") game.faceDir("up");
+          if (game.status == "free") game.faceDir(DIR.UP);
           break;
 
         case 65: // a
-          if (game.status == "free") game.faceDir("lf");
+          if (game.status == "free") game.faceDir(DIR.LF);
           break;
 
         case 83: // s
-          if (game.status == "free") game.faceDir("dw");
+          if (game.status == "free") game.faceDir(DIR.DW);
           break;
 
         case 68: // d
-          if (game.status == "free") game.faceDir("rt");
+          if (game.status == "free") game.faceDir(DIR.RT);
           break;
 
 

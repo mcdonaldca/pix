@@ -73,19 +73,19 @@ Walkthrough.prototype.step = function(wt) {
         }
 
         switch (step.dir) {
-          case "lf":
+          case DIR.LF:
             subject.setLeft(subject.x - 1);
             break;
 
-          case "up":
+          case DIR.UP:
             subject.setBottom(subject.y - 1);
             break;
 
-          case "rt":
+          case DIR.RT:
             subject.setLeft(subject.x + 1);
             break;
 
-          case "dw":
+          case DIR.DW:
             subject.setBottom(subject.y + 1);
             break;
 
@@ -112,19 +112,19 @@ Walkthrough.prototype.step = function(wt) {
         var subject = wt.getSubject(step);
 
         switch (step.dir) {
-          case "lf":
+          case DIR.LF:
             subject.faceLeft();
             break;
 
-          case "up":
+          case DIR.UP:
             subject.faceUp();
             break;
 
-          case "rt":
+          case DIR.RT:
             subject.faceRight();
             break;
 
-          case "dw":
+          case DIR.DW:
             subject.faceDown();
             break;
 

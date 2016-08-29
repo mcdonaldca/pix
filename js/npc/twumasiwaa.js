@@ -13,8 +13,8 @@ Twumasiwaa.prototype.interact = function(prompt, dir) {
 
   switch (this.count) {
     case 0:
-      if (dir == "dw") this.faceUp();
-      else if (dir == "lf") this.faceRight();
+      if (dir == DIR.DW) this.faceUp();
+      else if (dir == DIR.LF) this.faceRight();
 
       if (!this.talkedTo) {
         game.prompt.displayMessage("Hi! You're the new barista, right? I'm Twumasiwaa.", this.name);

@@ -32,19 +32,19 @@ Mirror.prototype.begin = function(x, y, dir) {
 **/
 Mirror.prototype.fireFace = function(dir) {
   switch(dir) {
-    case "lf":
+    case DIR.LF:
       this.doppelganger.faceLeft();
       break;
 
-    case "up":
+    case DIR.UP:
       this.doppelganger.faceDown();
       break;
 
-    case "rt":
+    case DIR.RT:
       this.doppelganger.faceRight();
       break;
 
-    case "dw":
+    case DIR.DW:
       this.doppelganger.faceUp();
       break;
 
@@ -75,20 +75,20 @@ Mirror.prototype.fireMove = function(x, y) {
 **/
 Mirror.prototype.fireWalkStart = function(dir) {
   switch(dir) {
-    case "lf":
-      this.doppelganger.walk("lf");
+    case DIR.LF:
+      this.doppelganger.walk(DIR.LF);
       break;
 
-    case "up":
-      this.doppelganger.walk("dw");
+    case DIR.UP:
+      this.doppelganger.walk(DIR.DW);
       break;
 
-    case "rt":
-      this.doppelganger.walk("rt");
+    case DIR.RT:
+      this.doppelganger.walk(DIR.RT);
       break;
 
-    case "dw":
-      this.doppelganger.walk("up");
+    case DIR.DW:
+      this.doppelganger.walk(DIR.UP);
       break;
 
     default:

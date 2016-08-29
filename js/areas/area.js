@@ -89,10 +89,10 @@ function Area(width, height, name, areaOverride) {
 
         // Collect blocked directions.
         var blockedDirections = [];
-        if (lfBlocked) { blockedDirections.push("rt"); }
-        if (upBlocked) { blockedDirections.push("dw"); }
-        if (rtBlocked) { blockedDirections.push("lf"); }
-        if (dwBlocked) { blockedDirections.push("up"); }
+        if (lfBlocked) { blockedDirections.push(DIR.RT); }
+        if (upBlocked) { blockedDirections.push(DIR.DW); }
+        if (rtBlocked) { blockedDirections.push(DIR.LF); }
+        if (dwBlocked) { blockedDirections.push(DIR.UP); }
 
         // If there are indeed blocked directions, set them on the related Space.
         if (blockedDirections.length > 0) {
@@ -383,10 +383,10 @@ Area.prototype.addExit = function(x, y, dir, location, door) {
     this.space(x, y).setExitDoor(door);
   }
 
-  var oppDir = "dw";
-  if (dir == "lf") oppDir = "rt";
-  else if (dir == "rt") oppDir = "lf";
-  else if (dir == "dw") oppDir = "up";
+  var oppDir = DIR.DW;
+  if (dir == DIR.LF) oppDir = DIR.RT;
+  else if (dir == DIR.RT) oppDir = DIR.LF;
+  else if (dir == DIR.DW) oppDir = DIR.UP;
 
   this.addPositionData(x, y, oppDir, location, door);
 }
@@ -433,7 +433,7 @@ Area.prototype.getPositionData = function(areaFrom, door) {
   // Don't have the key or a default
   // Shouldn't arrive at this unless something was incorrectly set up.
   } else {
-    return { x: 0, y: 0, face: "up"};
+    return { x: 0, y: 0, face: DIR.UP};
   }
 }
 

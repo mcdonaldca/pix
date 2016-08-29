@@ -14,7 +14,7 @@ Anne.prototype.interact = function(prompt, dir) {
 
   switch(this.count) {
     case 0:
-      if (dir == "dw") this.faceUp();
+      if (dir == DIR.DW) this.faceUp();
       var options = ["Great!", "Okay", "Terrible."];
       if (game.player.getJob() == "unemployed") {
         options.push("I'd like a job.");
