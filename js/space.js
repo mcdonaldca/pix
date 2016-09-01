@@ -45,6 +45,12 @@ Space.prototype.blockedFrom = function() {
   return this.blocked != undefined ? this.blocked : [];
 }
 
+/**
+  Marks a space as unblocked.
+**/
+Space.prototype.unblock = function() {
+  this.blocked = undefined;
+}
 
 
 
