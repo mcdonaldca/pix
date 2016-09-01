@@ -71,7 +71,6 @@ Time.prototype.tick = function(time) {
       // Increment time every ten seconds.
       if (time.time % 10000 == 0) {
         time.incMin(10);
-        time.updateDisplay();
       }
     }
   }
@@ -86,6 +85,8 @@ Time.prototype.incMin = function(inc) {
   if (this.minute == 60) {
     this.minute = 0;
     this.incHour(1);
+  } else {
+    this.setTime(this.daysPassed, this.hour, this.minute);
   }
 };
 
@@ -96,17 +97,11 @@ Time.prototype.incMin = function(inc) {
 Time.prototype.incHour = function(inc) {
   this.hour += inc;
 
-  if (game.area.isLimited() && this.hour == game.area.closingTime(this.weekday)) {
-    game.closeArea();
-  }
-
   if (this.hour > 23) {
     this.hour = this.hour % 24;
     this.incDay(1);
-  }
-
-  if (this.duskLevel() != 0) {
-    game.updateDuskLevel();
+  } else {
+    this.setTime(this.daysPassed, this.hour, this.minute);
   }
 
   this.updateNPClocations();
@@ -118,18 +113,38 @@ Time.prototype.incHour = function(inc) {
 **/
 
 Time.prototype.incDay = function(inc) {
-  this.day += inc;
   this.daysPassed += inc;
-  this.weekday = (this.weekday + 1) % 7
-
-  if (this.day == 31) {
-    this.day = 1;
-    this.season = (this.season + 1) % 4;
-    if (this.season == 0) {
-      this.year += 1;
-    }
-  }
+  this.setTime(this.daysPassed, this.hour, this.minute);
 };
+
+/**
+  Sets the current time of the game.
+  @param hour      The new hour.
+  @param minute    The new minute.
+  @param timeOfDay The new time of day.
+**/
+Time.prototype.setTime = function(daysPassed, hour, minute) {
+  this.daysPassed = daysPassed;
+  this.weekday = daysPassed % 7;
+  this.year = Math.floor(daysPassed / 120);
+  this.season = Math.floor(daysPassed / 30) % 4;
+  this.day = (daysPassed % 30) + 1;
+  this.hour = hour;
+  this.minute = minute;
+
+  if (game.area && 
+      game.area.isLimited() && 
+      game.area.isClosed(this.weekday, this.hour)
+  ) {
+    game.closeArea();
+  }
+
+  if (this.duskLevel() != 0) {
+    game.updateDuskLevel();
+  }
+
+  this.updateDisplay();
+}
 
 /**
   Updates the time display.
@@ -186,23 +201,6 @@ Time.prototype.setSeason = function(season) {
 Time.prototype.setWeekday = function(season) {
   var offset = season * 8 * MULT;
   this.weekdayEl.css("background-position", "0 -" + offset.toString() + "px");
-}
-
-/**
-  Sets the current time of the game.
-  @param hour      The new hour.
-  @param minute    The new minute.
-  @param timeOfDay The new time of day.
-**/
-Time.prototype.setTime = function(daysPassed, hour, minute) {
-  this.daysPassed = daysPassed;
-  this.weekday = daysPassed % 7;
-  this.season = Math.floor(daysPassed / 30) % 4;
-  this.day = (daysPassed % 30) + 1;
-  this.hour = hour;
-  this.minute = minute;
-
-  this.updateDisplay();
 }
 
 /**
