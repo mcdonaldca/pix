@@ -53,8 +53,7 @@ function Margaret() {
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 1, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.LF },
-                    { act: 'end' }])
+                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.LF }])
     },
     'ritual-roasters': {
       'library': 
@@ -75,8 +74,7 @@ function Margaret() {
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 5, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 1, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.LF },
-                    { act: 'end' }])
+                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.LF }])
     },
     'library': {
       'liam-margaret': 
@@ -93,17 +91,16 @@ function Margaret() {
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 3, dur: ANIM_LENGTH_NPC },
                     { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-lobby', x: 2, y: 6 },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 4, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-floor-1', x: 3, y: 2 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 1, dur: ANIM_LENGTH_NPC },
+                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-floor-1', x: 2, y: 2 },
+                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 2, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 12, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
+                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 2, dur: ANIM_LENGTH_NPC },
                     { act: 'exit', sub: 'npc', type: 'margaret', to: 'liam-margaret', x: 12, y: 12 },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 6, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 7, dur: ANIM_LENGTH_NPC },
                     { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.DW },
-                    { act: 'end' }])
+                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.DW }])
     }
   }
 

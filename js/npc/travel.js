@@ -64,11 +64,7 @@ Travel.prototype.step = function(t) {
         game.areas[t.npc.currentLocation].addNPC(step.x, step.y, DIR.DW, t.npc, []);
         t.npc.setPosition(step.x, step.y, /* arrivingInArea */ true);
         t.npc.faceDir(step.dir);
-        
-        t.current += 1;
-        break;
 
-      case 'end':
         t.current += 1;
         break;
 
