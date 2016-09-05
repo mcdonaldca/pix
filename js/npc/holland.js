@@ -2,14 +2,28 @@
   Holland is the doorman for the apartment building.
 **/
 function Holland() {
-  $.extend(this, new NPC("holland", "characters/holland", "shadow_lg"));
+  $.extend(this, new NPC('holland', 'characters/holland', 'shadow_lg'));
   // Available renovations.
   this.renovations = [
-    { name: "New wallpaper", item: "wallpaper", price: 350 },
-    { name: "Fix window", item: "window", price: 450 },
-    { name: "New carpet", item: "carpet", price: 290 },
-    { name: "New linens", item: "linens", price: 100 }
+    { name: 'New wallpaper', item: 'wallpaper', price: 350 },
+    { name: 'Fix window', item: 'window', price: 450 },
+    { name: 'New carpet', item: 'carpet', price: 290 },
+    { name: 'New linens', item: 'linens', price: 100 }
   ];
+
+  this.SCHEDULE = { everyday: [[0, 1]] };
+  this.SCHEDULE_STATUSES = {
+    1: {
+      area: 'le-chateau-lobby',
+      x: 6,
+      y: 2,
+      face: DIR.DW,
+      dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
+    }
+  }
+
+  this.buildNPCSchedule();
+  this.currentLocation = 'le-chateau-lobby';
 }
 
 /**
@@ -20,7 +34,7 @@ function Holland() {
 **/
 Holland.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
-  var status = "focused";
+  var status = 'focused';
 
   switch(this.count) {
     case 0:
@@ -31,15 +45,15 @@ Holland.prototype.interact = function(prompt, dir) {
         this.faceRight();
       }
       // Greet the player.
-      prompt.displayMessage("Hey there!", this.name);
+      prompt.displayMessage('Hey there!', this.name);
       break;
 
     case 1:
       // Display conversation options.
       prompt.removeMessage();
       prompt.displayOptions(
-        "How can I help you?",
-        ["Renovations", "Nevermind"],
+        'How can I help you?',
+        ['Renovations', 'Nevermind'],
         this.name
         );
       break;
@@ -48,27 +62,27 @@ Holland.prototype.interact = function(prompt, dir) {
       // Selected renovations.
       if (prompt.selected() == 0) {
         // Mark selected path for conversation tree.
-        this.track = "renovations";
+        this.track = 'renovations';
 
         // Build renovation options.
         var renovationOptions = [];
         for (var i = 0; i < this.renovations.length; i++) {
-          renovationOptions.push(this.renovations[i].name + " ($" + this.renovations[i].price + ")");
+          renovationOptions.push(this.renovations[i].name + ' ($' + this.renovations[i].price + ')');
         }
 
         // If there is nothing to renovate.
         if (renovationOptions.length == 0) {
           prompt.removeOptions();
-          prompt.displayMessage("Looks like you don't have anything left to renovate!", this.name);
+          prompt.displayMessage('Looks like you don\'t have anything left to renovate!', this.name);
           // Loop back to starting options.
           this.count = 0;
 
         // If there are still renovations remaining.
         } else {
-          renovationOptions.push("Nothing");
+          renovationOptions.push('Nothing');
           // Display instead of update because of count loop.
           prompt.displayOptions(
-            "What would you like to renovate?",
+            'What would you like to renovate?',
             renovationOptions,
             this.name
             );
@@ -77,18 +91,18 @@ Holland.prototype.interact = function(prompt, dir) {
       // Selected nevermind.
       } else {
         prompt.removeOptions();
-        prompt.displayMessage("Talk to you later!", this.name);
-        this.track = "nevermind";
+        prompt.displayMessage('Talk to you later!', this.name);
+        this.track = 'nevermind';
       }
       break;
 
     case 3:
       // End of conversation.
-      if (this.track == "nevermind") {
+      if (this.track == 'nevermind') {
         prompt.removeMessage();
         this.faceDown();
         this.count = -1;
-        status = "free";
+        status = 'free';
 
       // Checking renovations.
       } else {
@@ -98,19 +112,19 @@ Holland.prototype.interact = function(prompt, dir) {
         prompt.removeOptions();
 
         // Don't want to renovate;
-        if (options[s] == "Nothing") {
-          prompt.displayMessage("No worries, just let me know.", this.name);
+        if (options[s] == 'Nothing') {
+          prompt.displayMessage('No worries, just let me know.', this.name);
           this.count = 0;
         } else {
           var renov = this.renovations[s];
           if (game.player.wallet.afford(renov.price)) {
-            prompt.displayMessage("All right, it should be done tomorrow!", this.name);
+            prompt.displayMessage('All right, it should be done tomorrow!', this.name);
             var final = options.length == 2;
-            game.time.scheduleEvent("tomorrow", game.areas["rundown-apt"].renovate(renov.item, final));
+            game.time.scheduleEvent('tomorrow', game.areas['rundown-apt'].renovate(renov.item, final));
             game.player.wallet.spend(renov.price);
             this.renovations.splice(s, 1);
           } else {
-            prompt.displayMessage("Hm... doesn't seem like you have the funds.", this.name)
+            prompt.displayMessage('Hm... doesn\'t seem like you have the funds.', this.name)
           }
           this.count = 1;
         }
@@ -120,7 +134,7 @@ Holland.prototype.interact = function(prompt, dir) {
     case 4:
       this.faceDown();
       this.count = -1;
-      status = "free";
+      status = 'free';
       break;
 
     default:

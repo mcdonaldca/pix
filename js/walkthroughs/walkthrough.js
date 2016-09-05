@@ -5,7 +5,7 @@ function Walkthrough() {
   // Callback is set upon walkthrough initialization.
   this.callback = undefined;
 
-  this.status = "playing"; // Current status of the walkthrough.
+  this.status = 'playing'; // Current status of the walkthrough.
   this.current = 0;        // Current instruction step of the walkthrough.
   this.count = 0;          // Conversational counter.
   this.stepCount = 0;      // Step counter;
@@ -23,22 +23,22 @@ Walkthrough.prototype.step = function(wt) {
 
     switch (step.act) {
       // Cause a character to react.
-      case "react":
+      case 'react':
         var subject = wt.getSubject(step);
         switch (step.react) {
-          case "surprise":
+          case 'surprise':
             subject.reactSurprise();
             break;
 
-          case "wat":
+          case 'wat':
             subject.reactWat();
             break;
 
-          case "love":
+          case 'love':
             subject.reactLove();
             break;
 
-          case "happy":
+          case 'happy':
             subject.reactHappy();
             break;
 
@@ -51,12 +51,12 @@ Walkthrough.prototype.step = function(wt) {
 
 
       // Cause an NPC or an item to appear or disappear.
-      case "show":
+      case 'show':
         var subject = wt.getSubject(step);
         subject.show();
         wt.current += 1;
         break;
-      case "hide":
+      case 'hide':
         var subject = wt.getSubject(step);
         subject.hide();
         wt.current += 1;
@@ -65,33 +65,14 @@ Walkthrough.prototype.step = function(wt) {
 
 
       // Have a character walk in a direction.
-      case "walk":
+      case 'walk':
         var subject = wt.getSubject(step);
         if (wt.stepCount == 0) {
           subject.stopWalking();
           subject.walk(step.dir);
         }
 
-        switch (step.dir) {
-          case DIR.LF:
-            subject.setLeft(subject.x - 1);
-            break;
-
-          case DIR.UP:
-            subject.setBottom(subject.y - 1);
-            break;
-
-          case DIR.RT:
-            subject.setLeft(subject.x + 1);
-            break;
-
-          case DIR.DW:
-            subject.setBottom(subject.y + 1);
-            break;
-
-          default:
-            break;
-        }
+        subject.moveDir(step.dir);
 
         wt.stepCount += 1;
         // If the final step has been taken.
@@ -108,68 +89,49 @@ Walkthrough.prototype.step = function(wt) {
 
 
       // Have a character face a certain direction.
-      case "face":
+      case 'face':
         var subject = wt.getSubject(step);
 
-        switch (step.dir) {
-          case DIR.LF:
-            subject.faceLeft();
-            break;
-
-          case DIR.UP:
-            subject.faceUp();
-            break;
-
-          case DIR.RT:
-            subject.faceRight();
-            break;
-
-          case DIR.DW:
-            subject.faceDown();
-            break;
-
-          default:
-            break;
-        }
+        subject.faceDir(step.dir);
         wt.current += 1;
         break;
 
 
 
       // Display information through the prompt.
-      case "message":
-        game.setStatus("focused");
+      case 'message':
+        game.setStatus('focused');
         game.prompt.displayMessage(step.message, step.name);
-        wt.status = "prompt";
+        wt.status = 'prompt';
         break;
-      case "options":
-        game.setStatus("focused");
+      case 'options':
+        game.setStatus('focused');
         game.prompt.displayOptions(step.message, step.options, step.name);
-        wt.status = "prompt";
+        wt.status = 'prompt';
         break;
 
 
 
       // Freeze the view for a bit.
-      case "delay":
+      case 'delay':
         wt.current += 1;
         break;
 
 
 
       // End the scene.
-      case "callback":
-        wt.status = "done";
-        game.setStatus("focused");
-        game.interact("");
+      case 'callback':
+        wt.status = 'done';
+        game.setStatus('focused');
+        game.interact('');
         wt.current += 1;
         break;
 
 
 
       // Give control to walkthrough.
-      case "break":
-        wt.interact("");
+      case 'break':
+        wt.interact('');
         break;
 
       default:
@@ -177,7 +139,7 @@ Walkthrough.prototype.step = function(wt) {
     }
 
     // Call next step (if we're not in prompting mode or at the end of the instructions).
-    if (step.act != "break" && wt.status != "prompt" && wt.current < wt.instructions.length) {
+    if (step.act != 'break' && wt.status != 'prompt' && wt.current < wt.instructions.length) {
       setTimeout(wt.step(wt), step.dur);
     }
     if (wt.current == wt.instructions.length) {
@@ -193,15 +155,15 @@ Walkthrough.prototype.step = function(wt) {
 Walkthrough.prototype.getSubject = function(instruction) {
   var subject = undefined;
   switch (instruction.sub) {
-    case "player":
+    case 'player':
       subject = game.player;
       break;
 
-    case "npc":
+    case 'npc':
       subject = game.getNPC(instruction.type);
       break;
 
-    case "item":
+    case 'item':
       subject = game.area.getItem(instruction.type);
 
     default:
@@ -222,13 +184,13 @@ Walkthrough.prototype.exitTo = function() {
   Necessary functions for a focus object.
 **/
 Walkthrough.prototype.arrowUp = function() {
-  if (this.status == "prompt") {
+  if (this.status == 'prompt') {
     game.prompt.arrowUp();
   }
 };
 Walkthrough.prototype.arrowRight = function() {};
 Walkthrough.prototype.arrowDown = function() {
-  if (this.status == "prompt") {
+  if (this.status == 'prompt') {
     game.prompt.arrowDown();
   }
 };
@@ -246,8 +208,8 @@ Walkthrough.prototype.setCallback = function(callback) {
   Continutes a walkthrough (usually when stopped for prompting).
 **/
 Walkthrough.prototype.continue = function() {
-  game.setStatus("walkthrough");
-  this.status = "playing";
+  game.setStatus('walkthrough');
+  this.status = 'playing';
   this.current += 1;
   this.step(this)();
 }

@@ -6,14 +6,14 @@
   @param areaOverride Name of area's svg (if different from name).
 **/
 function Area(width, height, name, areaOverride) {
-  this.class = "area";
+  this.class = 'area';
   
   this.width = width;   // Width of the area in blocks.
   this.height = height; // Height of the area in blocks.
   this.name = name;     // Name of the area.
   this.svgName = areaOverride || name; // Name of the SVG for the area.
 
-  this.areaEl = $(".area"); // The area element to manipulate.
+  this.areaEl = $('.area'); // The area element to manipulate.
 
   // Following values are set in Area.setPlacementLimits
   this.maxX = undefined;   // Greatest translate X value (in blocks) area should go.
@@ -46,7 +46,7 @@ function Area(width, height, name, areaOverride) {
 
   // We'll load the mask as an image and then check the image data.
   var image = new Image();
-  image.crossOrigin = "Anonymous";
+  image.crossOrigin = 'Anonymous';
 
   // Process image data when mask image loads.
   var area = this;
@@ -80,12 +80,12 @@ function Area(width, height, name, areaOverride) {
         var rtCheck = (yMid*imageData.width + xRight) * 4;
         var dwCheck = (yBottom*imageData.width + xMid) * 4;
 
-        // Check if R value of pixel at each location is NOT "ff"
+        // Check if R value of pixel at each location is NOT 'ff'
         // If the R value is anything else, should be non-white and indicate a mask.
-        var lfBlocked = imageData.data[lfCheck].toString(16) != "ff";
-        var upBlocked = imageData.data[upCheck].toString(16) != "ff";
-        var rtBlocked = imageData.data[rtCheck].toString(16) != "ff";
-        var dwBlocked = imageData.data[dwCheck].toString(16) != "ff";
+        var lfBlocked = imageData.data[lfCheck].toString(16) != 'ff';
+        var upBlocked = imageData.data[upCheck].toString(16) != 'ff';
+        var rtBlocked = imageData.data[rtCheck].toString(16) != 'ff';
+        var dwBlocked = imageData.data[dwCheck].toString(16) != 'ff';
 
         // Collect blocked directions.
         var blockedDirections = [];
@@ -103,7 +103,7 @@ function Area(width, height, name, areaOverride) {
   };
   
   // Onload will be called after image is set.
-  image.src = "img/areas/" + this.svgName + "_mask.png";
+  image.src = 'img/areas/' + this.svgName + '_mask.png';
   
 }
 
@@ -113,7 +113,7 @@ function Area(width, height, name, areaOverride) {
 **/
 Area.prototype.build = function(removeEls, removeNPCs) {
   // Save that we've entered a new room.
-  window.sessionStorage.setItem("room", name);
+  window.sessionStorage.setItem('room', name);
 
   // Remove previous area's elements.
   removeEls = removeEls || [];
@@ -124,14 +124,14 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   // Remove previous area's NPCs.
   removeNPCs = removeNPCs || {};
   for (var i = 0; i < removeNPCs.length; i++) {
-    $(removeNPCs[i].obj.getEl()).remove();
+    $(removeNPCs[i].getEl()).remove();
   }
 
   // Set the height and width of the area element.
   // Set the background image to the area's svg.
-  this.areaEl.css("width", (this.width * BLOCK * MULT).toString() + "px")
-             .css("height", (this.height * BLOCK * MULT).toString() + "px")
-             .css("background-image", "url(img/areas/" + this.svgName + ".svg)");
+  this.areaEl.css('width', (this.width * BLOCK * MULT).toString() + 'px')
+             .css('height', (this.height * BLOCK * MULT).toString() + 'px')
+             .css('background-image', 'url(img/areas/' + this.svgName + '.svg)');
 
   // Add all the elements created upon intialization of the area.
   for (var i = 0; i < this.elements.length; i++) {
@@ -141,11 +141,8 @@ Area.prototype.build = function(removeEls, removeNPCs) {
   // Add and place all NPCs.
   for (var i = 0; i < this.NPCs.length; i++) {
     var npc = this.NPCs[i];
-    npc.obj.setPosition(npc.x, npc.y);
-    npc.obj.faceDir(npc.dir);
-    npc.obj.show();
-    this.space(npc.x, npc.y).setOccupied(npc.obj);
-    this.append(npc.obj.getEl());
+    this.space(npc.x, npc.y).setOccupied(npc);
+    this.append(npc.getEl());
   }
 }
 
@@ -187,29 +184,29 @@ Area.prototype.updateAreaPosition = function(playerX, playerY) {
   var gameHeightHalf = (GAME_HEIGHT - 1) / 2;
 
   // Area background should be placed half of the screen width to the left of the player.
-  var translateX = (-1 * (playerX - gameWidthHalf) * BLOCK * MULT).toString() + "px";
+  var translateX = (-1 * (playerX - gameWidthHalf) * BLOCK * MULT).toString() + 'px';
   // Close to left side, fix area X position.
   if (playerX <= gameWidthHalf - 1) {
-    translateX = (this.maxX * BLOCK * MULT).toString() + "px";
+    translateX = (this.maxX * BLOCK * MULT).toString() + 'px';
   // Close to right side, fix area X position.
   } else if (playerX >= this.width - gameWidthHalf) {
-    translateX = (this.minX * BLOCK * MULT).toString() + "px";
+    translateX = (this.minX * BLOCK * MULT).toString() + 'px';
   }
 
   // Area background should be placed half of the screen above the player.
-  var translateY = (-1 * (playerY - gameHeightHalf) * BLOCK * MULT).toString() + "px";
+  var translateY = (-1 * (playerY - gameHeightHalf) * BLOCK * MULT).toString() + 'px';
   // Close to top, fix area Y position.
   if (playerY <= gameHeightHalf) {
-    translateY = (this.maxY * BLOCK * MULT).toString() + "px";
+    translateY = (this.maxY * BLOCK * MULT).toString() + 'px';
   // Close to bottom, fix area Y position.
   } else if (playerY >= this.height - gameHeightHalf - 1) {
-    translateY = (this.minY * BLOCK * MULT).toString() + "px";
+    translateY = (this.minY * BLOCK * MULT).toString() + 'px';
   }
 
   // Mostly for testings, since transform value isn't accessible for checks w/ jquery.
   this.computedXOffset = translateX;
   this.computedYOffset = translateY;
-  this.areaEl.css("transform", "translate(" + translateX + ", " + translateY + ")");
+  this.areaEl.css('transform', 'translate(' + translateX + ', ' + translateY + ')');
 }
 
 /**
@@ -245,33 +242,33 @@ Area.prototype.validZone = function(x, y) {
 Area.prototype.addItem = function(width, item, startCoord, extra) {
   // Extra z-index padding.
   extra = extra || 0;
-  var translateX = (startCoord[0] * BLOCK * MULT).toString() + "px";
-  var translateY = (startCoord[1] * BLOCK * MULT).toString() + "px";
+  var translateX = (startCoord[0] * BLOCK * MULT).toString() + 'px';
+  var translateY = (startCoord[1] * BLOCK * MULT).toString() + 'px';
 
   /* Sample HTML
-     <div class="item item-bed"></div>
+     <div class='item item-bed'></div>
   */
-  var div = document.createElement("div");
-  $(div).addClass("item item-" + item)
-        .css("width", (width * BLOCK * MULT).toString() + "px")
-        .css("height", (BLOCK * MULT).toString() + "px")
-        .css("transform", "translate(" + translateX + ", " + translateY + ")")
-        .css("z-index", (startCoord[1] + 1) * 10 + 5 + extra)
-        .css("background-image", "url(img/items/" + this.svgName + "/" + item + ".svg)");
+  var div = document.createElement('div');
+  $(div).addClass('item item-' + item)
+        .css('width', (width * BLOCK * MULT).toString() + 'px')
+        .css('height', (BLOCK * MULT).toString() + 'px')
+        .css('transform', 'translate(' + translateX + ', ' + translateY + ')')
+        .css('z-index', (startCoord[1] + 1) * 10 + 5 + extra)
+        .css('background-image', 'url(img/items/' + this.svgName + '/' + item + '.svg)');
 
   // Customizable items have extra background sizing.
   var exceptions = {
-    "rundown-apt": {
-      "bed": 2,
-      "covers": 2
+    'rundown-apt': {
+      'bed': 2,
+      'covers': 2
     }
   };
 
   if (exceptions[this.svgName] != undefined && exceptions[this.svgName][item] != undefined) {
     var ex = exceptions[this.svgName][item];
     $(div).css(
-      "background-size", 
-      (width * ex * BLOCK * MULT).toString() + "px " + (BLOCK * MULT).toString() + "px"
+      'background-size', 
+      (width * ex * BLOCK * MULT).toString() + 'px ' + (BLOCK * MULT).toString() + 'px'
       );
   }
 
@@ -306,9 +303,12 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
 **/
 Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
   // Add to NPC collection.
-  this.NPCs.push({ obj: npc, x: x, y: y, dir: dir });
+  this.NPCs.push(npc);
   // Call addInteraction with parameters.
   this.addInteraction(x, y, npc, interactDir);
+
+  // If player currently in area, add the NPC's element.
+  if (game.area == this) this.append(npc.getEl());
 }
 
 /**
@@ -318,13 +318,13 @@ Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
 Area.prototype.removeNPC = function(npcName) {
   var removeIndex = undefined;
   for (var i = 0; i < this.NPCs.length; i++) {
-    if (this.NPCs[i].obj.name == npcName) {
+    if (this.NPCs[i].name == npcName) {
       removeIndex = i;
     }
   }
 
   if (removeIndex != undefined) { 
-    var npc = this.NPCs[removeIndex].obj;
+    var npc = this.NPCs[removeIndex];
     this.space(npc.x, npc.y).clearInteractionZone();
     this.space(npc.x, npc.y).setUnoccupied();
     $(npc.getEl()).remove();
@@ -340,7 +340,7 @@ Area.prototype.removeNPC = function(npcName) {
 **/
 Area.prototype.hasNPC = function(name) {
   for (var i = 0; i < this.NPCs.length; i++) {
-    if (this.NPCs[i].obj.name == name) {
+    if (this.NPCs[i].name == name) {
       return true;
     }
   }
@@ -377,9 +377,9 @@ Area.prototype.addEventZone = function(startCoord, endCoord, event) {
   @param door     The door exiting from (optional).
 **/
 Area.prototype.addExit = function(x, y, dir, location, door) {
-  door = door || ""
+  door = door || ''
   this.space(x, y).setExit(dir, location);
-  if (door != "") {
+  if (door != '') {
     this.space(x, y).setExitDoor(door);
   }
 
@@ -404,8 +404,8 @@ Area.prototype.addPositionData = function(x, y, dir, location, door) {
   // Concatinates the are and door (if there is a door).
   // ex. apt-1-left, apt-1-right, studio
   var key = location;
-  if (door != null && door != "") {
-    key += "-" + door;
+  if (door != null && door != '') {
+    key += '-' + door;
   }
   this.positionData[key] = { x: x, y: y, face: dir};
 }
@@ -418,8 +418,8 @@ Area.prototype.addPositionData = function(x, y, dir, location, door) {
 Area.prototype.getPositionData = function(areaFrom, door) {
   // Construct key from information.
   var key = areaFrom;
-  if (door != null && door != "") {
-    key += "-" + door;
+  if (door != null && door != '') {
+    key += '-' + door;
   }
 
   // If we have that particular key.

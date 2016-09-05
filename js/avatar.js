@@ -133,10 +133,15 @@ Avatar.prototype.setBottom = function(y) {
 
 /**
   Sets the transform value + z-index for the avatar.
-  @param x The left offset in blocks.
-  @param y The bottom offset in blocks.
+  @param x              The left offset in blocks.
+  @param y              The bottom offset in blocks.
+  @param arrivingInArea If the avatar is arriving in the area.
 **/
-Avatar.prototype.setPosition = function(x, y) {
+Avatar.prototype.setPosition = function(x, y, arrivingInArea) {
+  if (this.currentLocation) {
+    if (!arrivingInArea) game.areas[this.currentLocation].space(this.x, this.y).setUnoccupied();
+    game.areas[this.currentLocation].space(x, y).setOccupied(this);
+  }
   this.x = x;
   this.y = y;
 
@@ -181,6 +186,38 @@ Avatar.prototype.faceDir = function(dir) {
 
   this.spriteEl.css('background-position', '0 ' + (bgPos * this.SPRITE_HEIGHT * MULT).toString() + 'px');
 };
+
+/**
+  Method that routes calls to set position.
+  @param dir The direction the avatar is moving (one block).
+**/
+Avatar.prototype.moveDir = function(dir) {
+  var newX = this.x;
+  var newY = this.y;
+
+  switch(dir) {
+    case DIR.LF:
+      newX -= 1;
+      break;
+
+    case DIR.UP:
+      newY -= 1;
+      break;
+
+    case DIR.RT:
+      newX += 1;
+      break;
+
+    case DIR.DW:
+      newY += 1;
+      break;
+
+    default:
+      break;
+  }
+
+  this.setPosition(newX, newY);
+}
 
 /**
   Methods to call `face`.

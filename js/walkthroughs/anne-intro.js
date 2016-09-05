@@ -164,7 +164,7 @@ AnneIntro.prototype.interact = function() {
   return "focused";
 };
 
-// Add hewitt object to game's walkthrough selection.
+// Add Anne Intro walkthrough object to game's walkthrough selection.
 var anneIntro = new AnneIntro();
 anneIntro.setCallback(game.anneIntroCallback(game));
 game.addWalkthrough("anne-intro", anneIntro);

@@ -5,20 +5,20 @@ function Time() {
   this.active = false;       // If time is currently passing.
   this.interval = undefined; // The time interval.
   this.time = 0;             // The current time elapsed (in milliseconds).
-  this.statusEl = $("#status");
+  this.statusEl = $('#status');
 
   this.hour = 16; // Current hour.
-  this.hourTenthEl = $("#status .hour-tenth"); // Tenths place of the hour.
-  this.hourSingleEl = $("#status .hour-single"); // Ones place of the hour.
+  this.hourTenthEl = $('#status .hour-tenth'); // Tenths place of the hour.
+  this.hourSingleEl = $('#status .hour-single'); // Ones place of the hour.
   this.minute = 0; // Current minute.
-  this.minuteTenthEl = $("#status .minute-tenth"); // Tenths place of the minute.
-  this.timeOfDayEl = $("#status .time-of-day"); // AM/PM element.
+  this.minuteTenthEl = $('#status .minute-tenth'); // Tenths place of the minute.
+  this.timeOfDayEl = $('#status .time-of-day'); // AM/PM element.
 
   this.day = 30;
-  this.dayTenthEl = $("#status .day-tenth"); // Tenths place of the hour.
-  this.daySingleEl = $("#status .day-single"); // Ones place of the hour.
-  this.seasons = ["SP", "SU", "AU", "WI"];
-  this.seasonEl = $("#status .season");
+  this.dayTenthEl = $('#status .day-tenth'); // Tenths place of the hour.
+  this.daySingleEl = $('#status .day-single'); // Ones place of the hour.
+  this.seasons = ['SP', 'SU', 'AU', 'WI'];
+  this.seasonEl = $('#status .season');
   this.season = 3;
 
   this.year = 0;
@@ -26,14 +26,23 @@ function Time() {
   // Number of days passed in the game.
   this.daysPassed = 0;
   this.weekday = 6;
-  this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  this.weekdayEl = $("#status .weekday");
+  this.weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  this.weekdayEl = $('#status .weekday');
 
   // Set the time to begin with and start the timer.
   this.updateDisplay();
 
   // Scheduled events.
   this.scheduled = {};
+
+  // Locations of NPCs at given times.
+  this.NPCSchedule = {};
+  for (var day = 0; day < 7; day++) {
+    this.NPCSchedule[day] = {};
+    for (var time = 0; time < 24; time++) {
+      this.NPCSchedule[day][time] = [];
+    }
+  }
 }
 
 /**
@@ -41,7 +50,7 @@ function Time() {
 **/
 Time.prototype.begin = function() {
   this.interval = setInterval(this.tick(this), 100);
-  this.statusEl.css("opacity", 1);
+  this.statusEl.css('opacity', 1);
 }
 
 /**
@@ -66,7 +75,7 @@ Time.prototype.startTime = function() {
 Time.prototype.tick = function(time) {
   return function() {
     // Only increase time if the timer should be active.
-    if (time.active && game.status == "free") {
+    if (time.active && game.status == 'free') {
       time.time += 100;
       // Increment time every ten seconds.
       if (time.time % 10000 == 0) {
@@ -103,8 +112,6 @@ Time.prototype.incHour = function(inc) {
   } else {
     this.setTime(this.daysPassed, this.hour, this.minute);
   }
-
-  this.updateNPClocations();
 };
 
 /**
@@ -123,7 +130,7 @@ Time.prototype.incDay = function(inc) {
   @param minute    The new minute.
   @param timeOfDay The new time of day.
 **/
-Time.prototype.setTime = function(daysPassed, hour, minute) {
+Time.prototype.setTime = function(daysPassed, hour, minute, skipTravel) {
   this.daysPassed = daysPassed;
   this.weekday = daysPassed % 7;
   this.year = Math.floor(daysPassed / 120);
@@ -143,6 +150,7 @@ Time.prototype.setTime = function(daysPassed, hour, minute) {
     game.updateDuskLevel();
   }
 
+  this.updateNPClocations(skipTravel);
   this.updateDisplay();
 }
 
@@ -163,10 +171,10 @@ Time.prototype.updateDisplay = function() {
   this.setNumber(this.hourSingleEl, hourDisplay % 10);
   this.setNumber(this.minuteTenthEl, Math.floor(this.minute / 10));
   this.timeOfDayEl.css(
-    "background-position", 
+    'background-position', 
     this.hour < 12 ?
-      "0 0" :
-      "0 -" + (8 * MULT).toString() + "px"
+      '0 0' :
+      '0 -' + (8 * MULT).toString() + 'px'
     );
 }
 
@@ -179,9 +187,9 @@ Time.prototype.updateDisplay = function() {
 Time.prototype.setNumber = function(numberEl, value, hour) {
   if (!(hour && value == 0)) {
     var offset = (8 + value * 8) * MULT;
-    numberEl.css("background-position", "0 -" + offset.toString() + "px");
+    numberEl.css('background-position', '0 -' + offset.toString() + 'px');
   } else {
-    numberEl.css("background-position", "0 0");
+    numberEl.css('background-position', '0 0');
   }
 }
 
@@ -191,7 +199,7 @@ Time.prototype.setNumber = function(numberEl, value, hour) {
 **/
 Time.prototype.setSeason = function(season) {
   var offset = season * 8 * MULT;
-  this.seasonEl.css("background-position", "0 -" + offset.toString() + "px");
+  this.seasonEl.css('background-position', '0 -' + offset.toString() + 'px');
 }
 
 /**
@@ -200,7 +208,7 @@ Time.prototype.setSeason = function(season) {
 **/
 Time.prototype.setWeekday = function(season) {
   var offset = season * 8 * MULT;
-  this.weekdayEl.css("background-position", "0 -" + offset.toString() + "px");
+  this.weekdayEl.css('background-position', '0 -' + offset.toString() + 'px');
 }
 
 /**
@@ -210,7 +218,7 @@ Time.prototype.setWeekday = function(season) {
 **/
 Time.prototype.scheduleEvent = function(when, callback) {
   switch(when) {
-    case "tomorrow":
+    case 'tomorrow':
       var day = this.day;
       var season = this.season;
       day += 1;
@@ -252,15 +260,15 @@ Time.prototype.sleep = function() {
   12:00AM -  3:50AM: Wake up at 10AM the next morning.
   */
 
-  var sleepTiming = "early";
+  var sleepTiming = 'early';
 
   if (this.hour >= 19) {
-    sleepTiming = "normal";
+    sleepTiming = 'normal';
   } else if (this.hour < 4) {
-    sleepTiming = "late";
+    sleepTiming = 'late';
   }
 
-  if (sleepTiming == "early" || sleepTiming == "normal") {
+  if (sleepTiming == 'early' || sleepTiming == 'normal') {
     this.incDay(1);
   }
 
@@ -275,9 +283,9 @@ Time.prototype.sleep = function() {
   }
 
   var setHour = 6;
-  if (sleepTiming == "normal") {
+  if (sleepTiming == 'normal') {
     setHour = 8;
-  } else if (sleepTiming == "late") {
+  } else if (sleepTiming == 'late') {
     setHour = 10;
   }
   this.setTime(this.daysPassed, setHour, 0);
@@ -315,40 +323,42 @@ Time.prototype.work = function(closeHour) {
   @return String, time of day.
 **/
 Time.prototype.timeOfDay = function() {
-  if (this.hour < 4) return "evening";
-  if (this.hour < 12) return "morning";
-  if (this.hour < 17) return "afternoon";
-  if (this.hour <= 23) return "evening";
+  if (this.hour < 4) return 'evening';
+  if (this.hour < 12) return 'morning';
+  if (this.hour < 17) return 'afternoon';
+  if (this.hour <= 23) return 'evening';
 }
 
 /**
   @return String, date in DD-SS-YY format
 **/
 Time.prototype.today = function() {
-  return String(this.day) + "-" + this.seasons[this.season] + "-" + String(this.year);
+  return String(this.day) + '-' + this.seasons[this.season] + '-' + String(this.year);
 }
 
 /**
   Updates the locations of NPCs who will move.
+  @param skipTravel If travel instructions between locations should be ignored.
 **/
-Time.prototype.updateNPClocations = function() {
-  for (npc in game.NPCs) {
-    var character = game.NPCs[npc]
-    if (character.schedule) {
-      if (character.schedule["weekday"]) {
-        if (character.schedule["weekday"][this.hour]) {
-          var areaChange = character.schedule["weekday"][this.hour].area;
-          var x = character.schedule["weekday"][this.hour].x;
-          var y = character.schedule["weekday"][this.hour].y;
-          var face = character.schedule["weekday"][this.hour].face;
-          var dir = character.schedule["weekday"][this.hour].dir;
-          if(character.currentLocation) {
-            game.areas[character.currentLocation].removeNPC(character.name);
-          }
-          game.areas[areaChange].addNPC(x, y, face, character, dir);
-          character.updateLocation(areaChange);
-        }
-      }
-    }
+Time.prototype.updateNPClocations = function(skipTravel) {
+  var locations = this.NPCSchedule[this.weekday][this.hour];
+  
+  for (var i = 0; i < locations.length; i++) {
+    var NPCName = locations[i][0];
+    var newStatus = locations[i][1];
+    game.getNPC(NPCName).updateScheduleStatus(newStatus, skipTravel);
   }
 };
+
+/**
+  Adds an NPC's schedule to the entire NPC schedule.
+  @param name     The name of the NPC.
+  @param schedule The NPC's schedule.
+**/
+Time.prototype.augmentNPCSchedule = function(name, schedule) {
+  for (var day = 0; day < 7; day++) {
+    for (var time = 0; time < 24; time++) {
+      this.NPCSchedule[day][time].push([name, schedule[day][time]]);
+    }
+  }
+}
