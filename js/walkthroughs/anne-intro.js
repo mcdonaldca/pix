@@ -38,8 +38,8 @@ AnneIntro.prototype.start = function() {
 
   game.exit("ritual-roasters");
   var anne = game.getNPC("anne");
-  anne.setPosition(5, 2);
-  anne.hide();
+  anne.setPosition(5, 2)
+      .hide();
   game.player.stopWalking();
   // Begin instruction sequence.
   this.step(this)();

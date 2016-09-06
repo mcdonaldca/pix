@@ -77,21 +77,26 @@ Avatar.prototype.build = function() {
 
 /**
   Shows the entire avatar.
+  @returns The avatar object, for chaining calls.
 **/
 Avatar.prototype.show = function() {
   this.avatarEl.show();
+  return this;
 }
 
 /**
   Hides the entire avatar.
+  @returns The avatar object, for chaining calls.
 **/
 Avatar.prototype.hide = function() {
   this.avatarEl.hide();
+  return this;
 }
 
 /**
   Called to have the avatar perform a reaction.
   @param reaction The reaction to display.
+  @returns        The avatar object, for chaining calls.
 **/
 Avatar.prototype.react = function(reaction) {
   if (this.REACTION_DURATIONS[reaction]) {
@@ -104,92 +109,41 @@ Avatar.prototype.react = function(reaction) {
       avatar.reactionEl.removeClass(reactionClass);
     }, reactionDuration);
   }
+  return this;
 }
 
 /** 
   Methods to call `react`
+  @returns The avatar object, for chaining calls.
 **/
-Avatar.prototype.reactHappy = function() { this.react('happy'); }
-Avatar.prototype.reactLove = function() { this.react('love'); }
-Avatar.prototype.reactSleep = function() { this.react('sleep'); }
-Avatar.prototype.reactSurprise = function() { this.react('surprise'); }
-Avatar.prototype.reactWat = function() { this.react('wat'); }
+Avatar.prototype.reactHappy = function() { return this.react('happy'); }
+Avatar.prototype.reactLove = function() { return this.react('love'); }
+Avatar.prototype.reactSleep = function() { return this.react('sleep'); }
+Avatar.prototype.reactSurprise = function() { return this.react('surprise'); }
+Avatar.prototype.reactWat = function() { return this.react('wat'); }
 
 /**
   Calls setPosition with new x value.
   @param x The left offset in blocks.
+  @returns The avatar object, for chaining calls.
 **/
 Avatar.prototype.setLeft = function(x) {
-  this.setPosition(x, this.y);
+  return this.setPosition(x, this.y);
 }
 
 /**
   Calls setPosition with new y value.
   @param y The bottom offset in blocks.
+  @returns The avatar object, for chaining calls.
 **/
 Avatar.prototype.setBottom = function(y) {
-  this.setPosition(this.x, y);
+  return this.setPosition(this.x, y);
 }
-
-/**
-  Sets the transform value + z-index for the avatar.
-  @param x              The left offset in blocks.
-  @param y              The bottom offset in blocks.
-  @param arrivingInArea If the avatar is arriving in the area.
-**/
-Avatar.prototype.setPosition = function(x, y, arrivingInArea) {
-  if (this.currentLocation) {
-    if (!arrivingInArea) game.areas[this.currentLocation].space(this.x, this.y).setUnoccupied();
-    game.areas[this.currentLocation].space(x, y).setOccupied(this);
-  }
-  this.x = x;
-  this.y = y;
-
-  var translateX = ((x * BLOCK - this.X_OFFSET) * MULT).toString() + 'px';
-  var translateY = ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + 'px';
-
-  this.avatarEl.css('transform', 'translate(' + translateX + ', ' + translateY + ')');
-
-  var zVal = (y + 1) * 10;
-  if (this.isPlayer) zVal++;
-
-  this.avatarEl.css('z-index', zVal);
-  this.reactionEl.css('z-index', zVal + 1);
-};
-
-/**
-  Adjusts sprite to display facing a specific direction.
-  @param dir The direction to face.
-**/
-Avatar.prototype.faceDir = function(dir) {
-  this.face = dir;
-
-  var bgPos = 0;
-  switch(dir) {
-    case DIR.LF:
-      bgPos = -3;
-      break;
-
-    case DIR.UP:
-      bgPos = -2;
-      break;
-
-    case DIR.RT:
-      bgPos = -1;
-      break;
-
-    // Default `bgPos` is down.
-    case DIR.DW:
-    default:
-      break;
-  }
-
-  this.spriteEl.css('background-position', '0 ' + (bgPos * this.SPRITE_HEIGHT * MULT).toString() + 'px');
-};
 
 /**
   Method that routes calls to set position.
   @param dir The direction the avatar is moving (one block).
+  @returns   The avatar object, for chaining calls.
 **/
 Avatar.prototype.moveDir = function(dir) {
   var newX = this.x;
@@ -216,20 +170,84 @@ Avatar.prototype.moveDir = function(dir) {
       break;
   }
 
-  this.setPosition(newX, newY);
+  return this.setPosition(newX, newY);
 }
 
 /**
-  Methods to call `face`.
+  Sets the transform value + z-index for the avatar.
+  @param x              The left offset in blocks.
+  @param y              The bottom offset in blocks.
+  @param arrivingInArea If the avatar is arriving in the area.
+  @returns              The avatar object, for chaining calls.
 **/
-Avatar.prototype.faceLeft = function() { this.faceDir(DIR.LF); }
-Avatar.prototype.faceUp = function() { this.faceDir(DIR.UP); }
-Avatar.prototype.faceRight = function() { this.faceDir(DIR.RT); }
-Avatar.prototype.faceDown = function() { this.faceDir(DIR.DW); }
+Avatar.prototype.setPosition = function(x, y, arrivingInArea) {
+  if (this.currentLocation) {
+    if (!arrivingInArea) game.areas[this.currentLocation].space(this.x, this.y).setUnoccupied();
+    game.areas[this.currentLocation].space(x, y).setOccupied(this);
+  }
+  this.x = x;
+  this.y = y;
+
+  var translateX = ((x * BLOCK - this.X_OFFSET) * MULT).toString() + 'px';
+  var translateY = ((y * BLOCK - this.Y_OFFSET) * MULT).toString() + 'px';
+
+  this.avatarEl.css('transform', 'translate(' + translateX + ', ' + translateY + ')');
+
+  var zVal = (y + 1) * 10;
+  if (this.isPlayer) zVal++;
+
+  this.avatarEl.css('z-index', zVal);
+  this.reactionEl.css('z-index', zVal + 1);
+
+  return this;
+};
+
+/**
+  Methods to call `face`.
+  @returns The avatar object, for chaining calls.
+**/
+Avatar.prototype.faceLeft = function() { return this.faceDir(DIR.LF); }
+Avatar.prototype.faceUp = function() { return this.faceDir(DIR.UP); }
+Avatar.prototype.faceRight = function() { return this.faceDir(DIR.RT); }
+Avatar.prototype.faceDown = function() { return this.faceDir(DIR.DW); }
+
+/**
+  Adjusts sprite to display facing a specific direction.
+  @param dir The direction to face.
+  @returns   The avatar object, for chaining calls.
+**/
+Avatar.prototype.faceDir = function(dir) {
+  this.face = dir;
+
+  var bgPos = 0;
+  switch(dir) {
+    case DIR.LF:
+      bgPos = -3;
+      break;
+
+    case DIR.UP:
+      bgPos = -2;
+      break;
+
+    case DIR.RT:
+      bgPos = -1;
+      break;
+
+    // Default `bgPos` is down.
+    case DIR.DW:
+    default:
+      break;
+  }
+
+  this.spriteEl.css('background-position', '0 ' + (bgPos * this.SPRITE_HEIGHT * MULT).toString() + 'px');
+
+  return this;
+};
 
 /**
   Called to begining sprite's walking animation.
   @param dir The direction to walk in.
+  @returns   The avatar object, for chaining calls.
 **/
 Avatar.prototype.walk = function(dir) {
   switch(dir) {
@@ -252,26 +270,33 @@ Avatar.prototype.walk = function(dir) {
     default:
       break;
   }
+
+  return this;
 }
 
 /**
   Called to stop walking animation.
+  @returns The avatar object, for chaining calls.
 **/
 Avatar.prototype.stopWalking = function() {
   this.spriteEl.removeClass();
   this.spriteEl.addClass('sprite');
+  return this;
 }
 
 /**
   Sets the background image for the avatar's sprite.
   @param url The url (or dataURL) for the avatar.
+  @returns   The avatar object, for chaining calls.
 **/
 Avatar.prototype.setBackgroundImage = function(url) {
   this.spriteEl.css('background-image', 'url(' + url + ')');
+  return this;
 }
 
 /** 
-  Returns the parent element of the avatar to add and remove from the game.
+  Getter for Avatar.avatarEL
+  @returns The parent element of the avatar to add and remove from the game.
 **/
 Avatar.prototype.getEl = function() {
   return this.avatarEl;

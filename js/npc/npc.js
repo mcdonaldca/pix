@@ -100,8 +100,8 @@ NPC.prototype.updateScheduleStatus = function(newStatus, skipTravel) {
         game.areas[this.currentLocation].removeNPC(this.name);
       }
       game.areas[area].addNPC(x, y, face, this, dir);
-      this.setPosition(x, y);
-      this.faceDir(face);
+      this.setPosition(x, y)
+          .faceDir(face);
       this.currentLocation = area;
     }
 
