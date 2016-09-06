@@ -31,76 +31,48 @@ function Margaret() {
   this.SCHEDULE_TRAVEL = {
     'liam-margaret': {
       'ritual-roasters': 
-        new Travel(this, [{ act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 7, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 6, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-floor-1', x: 15, y: 2 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 12, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-lobby', x: 2, y: 2 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 4, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'city-sw', x: 29, y: 2 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 3, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 5, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 5, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'city-nw', x: 24, y: 31 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 7, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'ritual-roasters', x: 3, y: 8 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 3, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.LF }])
+        new Travel(this, [
+          { act: 'path', area: 'liam-margaret', start: { x: 20, y: 4 }, end: { x: 12, y: 12 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'le-chateau-floor-1', x: 15, y: 2 },
+          { act: 'path', area: 'le-chateau-floor-1', start: { x: 15, y: 2 }, end: { x: 3, y: 2 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'le-chateau-lobby', x: 2, y: 2 },
+          { act: 'path', area: 'le-chateau-lobby', start: { x: 2, y: 2 }, end: { x: 2, y: 6 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-sw', x: 29, y: 2 },
+          { act: 'path', area: 'city-sw', start: { x: 29, y: 2 }, end: { x: 24, y: 1 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-nw', x: 24, y: 31 },
+          { act: 'path', area: 'city-nw', start: { x: 24, y: 31 }, end: { x: 24, y: 24 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'ritual-roasters', x: 3, y: 8 },
+          { act: 'path', area: 'ritual-roasters', start: { x: 3, y: 8 }, end: { x: 1, y: 2 }, dur: ANIM_LENGTH_NPC },
+          { act: 'face', dir: DIR.LF }
+        ])
     },
     'ritual-roasters': {
       'library': 
-        new Travel(this, [{ act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 3, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'city-nw', x: 24, y: 24 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 7, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'city-sw', x: 24, y: 1 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 10, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 11, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 6, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'library', x: 10, y: 15 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 3, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 5, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.LF, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.LF }])
+        new Travel(this, [
+          { act: 'path', area: 'ritual-roasters', start: { x: 1, y: 2 }, end: { x: 3, y: 8 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-nw', x: 24, y: 24 },
+          { act: 'path', area: 'city-nw', start: { x: 24, y: 24 }, end: { x: 24, y: 31 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-sw', x: 24, y: 1 },
+          { act: 'path', area: 'city-sw', start: { x: 24, y: 1 }, end: { x: 13, y: 5 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'library', x: 10, y: 15 },
+          { act: 'path', area: 'library', start: { x: 10, y: 15 }, end: { x: 8, y: 6 }, dur: ANIM_LENGTH_NPC },
+          { act: 'face', dir: DIR.LF }
+        ])
     },
     'library': {
       'liam-margaret': 
-        new Travel(this, [{ act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 5, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 3, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'city-sw', x: 13, y: 5 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 6, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 11, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 6, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 5, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 3, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-lobby', x: 2, y: 6 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 4, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-floor-1', x: 2, y: 2 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.DW, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 12, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'exit', sub: 'npc', type: 'margaret', to: 'liam-margaret', x: 12, y: 12 },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 1, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 6, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.UP, dist: 7, dur: ANIM_LENGTH_NPC },
-                    { act: 'walk', sub: 'npc', type: 'margaret', dir: DIR.RT, dist: 2, dur: ANIM_LENGTH_NPC },
-                    { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.DW }])
+        new Travel(this, [
+          { act: 'path', area: 'library', start: { x: 8, y: 6 }, end: { x: 10, y: 15 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-sw', x: 13, y: 5 },
+          { act: 'path', area: 'city-sw', start: { x: 13, y: 5 }, end: { x: 29, y: 2 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-lobby', x: 2, y: 6 },
+          { act: 'path', area: 'le-chateau-lobby', start: { x: 2, y: 6 }, end: { x: 3, y: 2 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-floor-1', x: 2, y: 2 },
+          { act: 'path', area: 'le-chateau-floor-1', start: { x: 2, y: 2 }, end: { x: 15, y: 2 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', sub: 'npc', type: 'margaret', to: 'liam-margaret', x: 12, y: 12 },
+          { act: 'path', area: 'liam-margaret', start: { x: 12, y: 12 }, end: { x: 20, y: 4 }, dur: ANIM_LENGTH_NPC },
+          { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.DW }
+        ])
     }
   }
 

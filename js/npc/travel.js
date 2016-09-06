@@ -1,12 +1,17 @@
 /**
   Travel object to dictate the path an NPC travels.
+  @param npc          The NPC doing the traveling.
+  @param instructions The instructions to follow.
 **/
 function Travel(npc, instructions) {
   this.npc = npc;
   this.instructions = instructions;
 
-  this.current = 0;        // Current instruction step of the walkthrough.
-  this.stepCount = 0;      // Step counter;
+  this.current = 0; // Current instruction step of the walkthrough.
+
+  this.currentPath = undefined; // Current path being followed.
+  this.walkCount = 0;           // Which walking instruction within path.
+  this.stepCount = 0;           // Which step within the walking instruction.
 };
 
 Travel.prototype.start = function() {
@@ -26,28 +31,45 @@ Travel.prototype.step = function(t) {
 
     switch (step.act) {
 
-      // Have the npc walk in a direction.
-      case 'walk':
-        if (t.stepCount == 0) {
-          t.npc.stopWalking();
-          t.npc.walk(step.dir);
+      // Walk the NPC along a generated area route.
+      case 'path':
+        // If the path hasn't been generated yet, do so.
+        if (!t.currentPath) {
+          var directions = game.areas[step.area].pathBetween(step.start, step.end);
+          var route = t.processRoute(directions);
+          t.currentPath = route;
         }
 
-        t.npc.moveDir(step.dir);
+        // Find our current walk instruction.
+        var currWalkInstruction = t.currentPath[t.walkCount];
+        // If on first step, set new walking direction.
+        if (t.stepCount == 0) {
+          t.npc.stopWalking();
+          t.npc.walk(currWalkInstruction.dir);
+        }
+
+        // Move our current direction.
+        t.npc.moveDir(currWalkInstruction.dir);
 
         t.stepCount += 1;
         // If the final step has been taken.
-        if (t.stepCount == step.dist) {
-          t.current += 1;
+        if (t.stepCount == currWalkInstruction.dist) {
+          t.walkCount += 1;
           t.stepCount = 0;
           // Stop the walking animation at the end of the step.
           setTimeout(function() {
             t.npc.stopWalking();
           }, step.dur);
         }
+        
+        // If we've hit the end of the route, reset tracking values and continue.
+        if (t.walkCount == t.currentPath.length) {
+          t.currentPath = undefined;
+          t.walkCount = 0;
+          t.stepCount = 0;
+          t.current += 1;
+        }        
         break;
-
-
 
       // Have the npc face a certain direction.
       case 'face':
@@ -80,6 +102,31 @@ Travel.prototype.step = function(t) {
       t.current = 0;
     }
   }
+}
+
+/**
+  Takes a set of direction instructions and bundles into distances.
+  Ex. "lf", "lf" => { "lf", 2 }
+  @param directions The list of directions
+  @returns An list of objects with directions and distances.
+**/
+Travel.prototype.processRoute = function(directions) {
+  var route = [];
+  var currentInstruction = 0;
+  var currentDir = directions[0];
+  route.push({ dir: currentDir, dist: 1 });
+
+  for (var i = 1; i < directions.length; i++) {
+    if (directions[i] === currentDir) {
+      route[currentInstruction].dist += 1
+    } else {
+      currentDir = directions[i];
+      route.push({ dir: currentDir, dist: 1 });
+      currentInstruction += 1;
+    }
+  }
+
+  return route;
 }
 
 /**

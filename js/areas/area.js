@@ -34,13 +34,24 @@ function Area(width, height, name, areaOverride) {
   this.NPCs = [];         // Collection of NPCs in area.
   this.elements = [];     // HTML elements added to area.
   this.positionData = {}; // Player positioning based on entrances from other areas.
+  
+  this.createAreaGrid();
+  this.createPaths();
+}
+
+/**
+  Creates the area's space grid with blocked data.
+**/
+Area.prototype.createAreaGrid = function() {
+  var height = this.height;
+  var width = this.width;
 
   this.grid = new Array(width); // Collection of spaces in the area.
   // Create a new Space object for every grid coordinate.
-  for (var i = 0; i < width; i++) {
-    this.grid[i] = new Array(height);
-    for (var n = 0; n < height; n++) {
-      this.grid[i][n] = new Space();
+  for (var x = 0; x < width; x++) {
+    this.grid[x] = new Array(height);
+    for (var y = 0; y < height; y++) {
+      this.grid[x][y] = new Space(this.name, x, y);
     }
   }
 
@@ -104,8 +115,180 @@ function Area(width, height, name, areaOverride) {
   
   // Onload will be called after image is set.
   image.src = 'img/areas/' + this.svgName + '_mask.png';
+};
+
+/**
+  Builds the paths NPCs can follow in the game.
+**/
+Area.prototype.createPaths = function() {
+  // We'll load the path as an image and then check the image data.
+  var image = new Image();
+  image.crossOrigin = 'Anonymous';
+
+  // Process image data when path image loads.
+  var area = this;
+  image.onload = function() {
+    var canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    var context = canvas.getContext('2d');
+    context.drawImage(image, 0, 0);
+
+    var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    
+    // Iterating through BLOCKS, not individual pixels.
+    for (var blockX = 0; blockX < area.width; blockX++) {
+      for (var blockY = 0; blockY < area.height; blockY++) {
+        // Find the (inclusive) bounds of the block.
+        var xLeft = blockX * BLOCK;
+        var yTop = blockY * BLOCK;
+        var xRight = xLeft + BLOCK - 1;
+        var yBottom = yTop + BLOCK - 1;
+
+        // Find middle x and y coordinates.
+        var xMid = xLeft + 8;
+        var yMid = yTop + 8;
+
+        // Using combinations of coordinates, find index in image data.
+        var lfCheck = (yMid*imageData.width + xLeft) * 4;
+        var upCheck = (yTop*imageData.width + xMid) * 4;
+        var rtCheck = (yMid*imageData.width + xRight) * 4;
+        var dwCheck = (yBottom*imageData.width + xMid) * 4;
+
+        // Check if R value of pixel at each location is NOT 'ff'
+        // If the R value is anything else, should be non-white and indicate a mask.
+        var lfPath = imageData.data[lfCheck].toString(16) != 'ff';
+        var upPath = imageData.data[upCheck].toString(16) != 'ff';
+        var rtPath = imageData.data[rtCheck].toString(16) != 'ff';
+        var dwPath = imageData.data[dwCheck].toString(16) != 'ff';
+
+        // Collect path directions.
+        var nodePaths = [];
+        if (lfPath) nodePaths.push(DIR.LF);
+        if (upPath) nodePaths.push(DIR.UP);
+        if (rtPath) nodePaths.push(DIR.RT);
+        if (dwPath) nodePaths.push(DIR.DW);
+
+        // If there are indeed path directions, set them on the related Space.
+        if (nodePaths.length > 0) {
+          area.space(blockX, blockY).setPaths(nodePaths);
+        }
+      }
+    }
+  };
   
-}
+  // Onload will be called after image is set.
+  image.src = 'img/areas/' + this.svgName + '_path.png';
+};
+
+/**
+  Calculates the directions necessary to get form one coordinate to another in an area.
+  @param startCoord Object with x and y value, starting space.
+  @param endCoord Object with x and y value, ending space.
+**/
+Area.prototype.pathBetween = function(startCoord, endCoord) {
+  var INFINITY = 1/0;
+
+  // Make sure the provided coordinates are actually nodes.
+  var startNode = this.space(startCoord.x, startCoord.y),
+      endNode = this.space(endCoord.x, endCoord.y);
+  if (!startNode.hasPaths() ||
+      !endNode.hasPaths()) return;
+
+  // Build list of unvisited nodes.
+  var nodes = [];
+  // Tracking for distances, previous nodes, and neighbors.
+  var distances = {},
+      previous = {},
+      neighbors = {};
+  // Iterate through all spaces and set distances, previous, and neighbors.
+  for (var x = 0; x < this.width; x++) {
+    for (var y = 0; y < this.height; y++) {
+      var currentSpace = this.space(x, y);
+      if (currentSpace.hasPaths()) {
+        // Add to unvisited node collection.
+        nodes.push(currentSpace);
+        // Set initial values.
+        distances[currentSpace.getId()] = INFINITY;
+        previous[currentSpace.getId()] = {};
+        neighbors[currentSpace.getId()] = {};
+
+        // Find neighboring space references.
+        var paths = currentSpace.getPaths();
+        for (var i = 0; i < paths.length; i++) {
+          var neighbor = undefined;
+          switch (paths[i]) {
+            case DIR.LF:
+              neighbor = this.space(x - 1, y);
+              break;
+
+            case DIR.UP:
+              neighbor = this.space(x, y - 1);
+              break;
+
+            case DIR.RT:
+              neighbor = this.space(x + 1, y);
+              break;
+
+            case DIR.DW:
+              neighbor = this.space(x, y + 1);
+              break;
+
+            default:
+              break;
+          }
+          neighbors[currentSpace.getId()][paths[i]] = neighbor;
+        }
+      }
+    }
+  }
+
+  // Distance from starting node is 0.
+  distances[startNode.getId()] = 0;
+
+  // While we still have nodes to visit.
+  while (nodes.length > 0) {
+    var minDist = INFINITY;
+    var node = undefined;
+    // Find the node with the smallest distance from the current node.
+    for (var i = 0; i < nodes.length; i++) {
+      if (distances[nodes[i].getId()] < minDist) {
+        minDist = distances[nodes[i].getId()];
+        node = nodes[i];
+      }
+    }
+
+    // Remove node from unvisited list.
+    var nodeIndex = nodes.indexOf(node);
+    nodes.splice(nodeIndex, 1);
+
+    // Iterate through available paths.
+    var paths = node.getPaths()
+    for (var i = 0; i < paths.length; i++) {
+      var neighbor = neighbors[node.getId()][paths[i]];
+      var distance = distances[node.getId()] + 1;
+      // If a new minimum distance is found, overwrite existing distance.
+      if (distance < distances[neighbor.getId()]) {
+        distances[neighbor.getId()] = distance;
+        previous[neighbor.getId()].node = node;
+        previous[neighbor.getId()].dir = paths[i];
+      }
+    }
+  }
+
+  // Starting from the end node, trace the path back.
+  var path = [];
+  node = endNode;
+  while (previous[node.getId()].node) {
+    path.push(previous[node.getId()].dir)
+    node = previous[node.getId()].node;
+  }
+  // Reverse path to put directions in correct order.
+  path.reverse();
+
+  return path;
+};
 
 /**
   Called when we've entered an area and the HTML should be built out.

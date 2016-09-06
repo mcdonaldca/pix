@@ -1,9 +1,15 @@
 /**
   The Space object holds all information about a particular space in the game.
   ex. blocked directions, whether it's an interaction, or event zone, etc.
+  @param area The area the space is in.
+  @param x    The space's x value.
+  @param y    The space's y value.
 **/
-function Space() {
+function Space(area, x, y) {
   this.class = "space";
+  
+  // Space's unique identifier. 
+  this.id = area + '-' + x.toString() + '-' + y.toString();
   
   // Variables initialized through setters.
   this.blocked = undefined;     // The directions the space is blocked from.
@@ -223,4 +229,42 @@ Space.prototype.getDoor = function() {
 **/
 Space.prototype.exitTo = function() {
   return this.exit != undefined ? this.exit : "";
+}
+
+
+
+
+
+/** PATH + NODE RELATED METHODS **/
+
+/**
+  Getter for space's unique ID.
+  @returns Space.id
+**/
+Space.prototype.getId = function() {
+  return this.id;
+}
+
+/**
+  Setter for the path directions a space can go.
+  @param paths The list of directions.
+**/
+Space.prototype.setPaths = function(paths) {
+  this.paths = paths;
+}
+
+/**
+  Setter for the path directions a space can go.
+  @returns The list of directions.
+**/
+Space.prototype.getPaths = function() {
+  return this.paths;
+}
+
+/**
+  If a space has determined paths.
+  @returns T/F if there are paths for this space.
+**/
+Space.prototype.hasPaths = function() {
+  return this.paths && this.paths.length > 0;
 }
