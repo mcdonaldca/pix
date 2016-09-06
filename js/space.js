@@ -7,7 +7,7 @@
 **/
 function Space(area, x, y) {
   this.class = "space";
-  
+
   // Space's unique identifier. 
   this.id = area + '-' + x.toString() + '-' + y.toString();
   
@@ -20,14 +20,17 @@ function Space(area, x, y) {
   this.exit = undefined;        // Where the exit leads.
   this.exitDir = undefined;     // The direction to face to exit.
   this.door = undefined;        // The door (left or right) the player would exit through.
+  this.paths = undefined;       // Directions an NPC can travel from the current space.
 }
 
 /**
   Setter for Space.blocked.
   @param dir The directions the space is blocked from.
+  @returns   The space object, for chaining calls.
 **/
 Space.prototype.setBlocked = function(dir) {
   this.blocked = dir;
+  return this;
 }
 
 /**
@@ -53,9 +56,11 @@ Space.prototype.blockedFrom = function() {
 
 /**
   Marks a space as unblocked.
+  @returns The space object, for chaining calls.
 **/
 Space.prototype.unblock = function() {
   this.blocked = undefined;
+  return this;
 }
 
 
@@ -64,16 +69,20 @@ Space.prototype.unblock = function() {
 /**
   Setter for Space.occupied.
   @param npc The NPC occupying the space.
+  @returns   The space object, for chaining calls.
 **/
 Space.prototype.setOccupied = function(npc) {
   this.occupied = npc;
+  return this;
 }
 
 /**
   Setter for Space.occupied.
+  @returns The space object, for chaining calls.
 **/
 Space.prototype.setUnoccupied = function() {
   this.occupied = undefined;
+  return this;
 }
 
 /**
@@ -99,17 +108,21 @@ Space.prototype.getOccupant = function() {
 /**
   Setter for Space.interaction.
   @param interaction The Interactable object for the space.
+  @returns           The space object, for chaining calls.
 **/
 Space.prototype.setInteractionZone = function(interaction) {
   this.interaction = interaction;
+  return this;
 }
 
 /**
   Setter for Space.interactDir.
   @param dir The directions from which the space can interact.
+  @returns   The space object, for chaining calls.
 **/
 Space.prototype.setInteractionDirection = function(dir) {
   this.interactDir = dir;
+  return this;
 }
 
 /**
@@ -142,10 +155,12 @@ Space.prototype.getInteraction = function() {
 
 /** 
   Sets a space as no longer an interaction zone.
+  @returns The space object, for chaining calls.
 **/
 Space.prototype.clearInteractionZone = function() {
   this.interaction = undefined;
   this.interactDir = undefined;
+  return this;
 }
 
 
@@ -155,9 +170,11 @@ Space.prototype.clearInteractionZone = function() {
 /**
   Setter for Space.event.
   @param event The Event object for the space.
+  @returns     The space object, for chaining calls.
 **/
 Space.prototype.setEvent = function(event) {
   this.event = event;
+  return this;
 }
 
 /**
@@ -184,18 +201,22 @@ Space.prototype.getEvent = function() {
   Setter for Space.exit.
   @param dir      The direction to face to exit.
   @param location Where the exit leads.
+  @returns        The space object, for chaining calls.
 **/
 Space.prototype.setExit = function(dir, location) {
   this.exit = location;
   this.exitDir = dir;
+  return this;
 }
 
 /**
   Setter for Space.door.
   @param door The door (left or right) the player would exit through.
+  @returns    The space object, for chaining calls.
 **/
 Space.prototype.setExitDoor = function(door) {
   this.door = door;
+  return this;
 }
 
 /**
@@ -248,9 +269,11 @@ Space.prototype.getId = function() {
 /**
   Setter for the path directions a space can go.
   @param paths The list of directions.
+  @returns     The space object, for chaining calls.
 **/
 Space.prototype.setPaths = function(paths) {
   this.paths = paths;
+  return this;
 }
 
 /**

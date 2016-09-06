@@ -508,8 +508,8 @@ Area.prototype.removeNPC = function(npcName) {
 
   if (removeIndex != undefined) { 
     var npc = this.NPCs[removeIndex];
-    this.space(npc.x, npc.y).clearInteractionZone();
-    this.space(npc.x, npc.y).setUnoccupied();
+    this.space(npc.x, npc.y).clearInteractionZone()
+                            .setUnoccupied();
     $(npc.getEl()).remove();
 
     this.NPCs.splice(removeIndex, 1); 
