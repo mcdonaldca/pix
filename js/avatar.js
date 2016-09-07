@@ -249,6 +249,35 @@ Avatar.prototype.faceDir = function(dir) {
 };
 
 /**
+  Called to face an opposite direction.
+  @param dir The original direction.
+*/
+Avatar.prototype.faceOppositeDir = function(dir) {
+  var oppDir = DIR.UP;
+
+  switch(dir) {
+    case DIR.LF:
+      oppDir = DIR.RT;
+      break;
+
+    case DIR.UP:
+      oppDir = DIR.DW;
+      break;
+
+    case DIR.RT:
+      oppDir = DIR.LF;
+      break;
+
+    // Default dir is opposite of down.
+    case DIR.DW:
+    default:
+      break;
+  }
+
+  this.faceDir(oppDir);
+};
+
+/**
   Called to begining sprite's walking animation.
   @param dir The direction to walk in.
   @returns   The avatar object, for chaining calls.

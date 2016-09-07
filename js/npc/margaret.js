@@ -77,6 +77,11 @@ function Margaret() {
   }
 
   this.buildNPCSchedule();
+
+  this.relationshipStatus = {
+    foundRoomate: false,
+    offeredPlace: false,
+  }
 }
 
 /**
@@ -86,7 +91,114 @@ function Margaret() {
   @return The current game status.
 **/
 Margaret.prototype.interact = function(prompt, dir) {
-  
+  var status = 'focused';
+
+  if (!this.talkedTo) { 
+    switch(this.count) {
+      case 0:
+        this.saveFace = this.face;
+        this.faceOppositeDir(dir);
+        game.prompt.displayMessage('Hi! I\'m Maragret, what\'s your name?', this.name);
+        break;
+
+      case 1:
+        game.prompt.updateMessage(game.name + '? Nice to meet you.', this.name);
+        break;
+
+      default:
+        game.prompt.removeMessage();
+        this.faceDir(this.saveFace);
+        this.count = -1;
+        this.talkedTo = true;
+        status = 'free';
+        break;
+    }
+  } else if (!this.relationshipStatus['foundRoomate'] && !this.relationshipStatus['offeredPlace']) {
+    switch(this.count) {
+      case 0:
+        this.saveFace = this.face;
+        this.faceOppositeDir(dir);
+        game.prompt.displayMessage('*sigh*', this.name);
+        break;
+
+      case 1:
+        game.prompt.removeMessage();
+        game.prompt.displayOptions(
+          'PICK ONE:', 
+          ['Is everything okay?', 'What\'s wrong?', 'Stop sighing.']
+        );
+        break;
+
+      case 2:
+        var s = game.prompt.selected();
+        game.prompt.removeOptions();
+        if (s == 2) {
+          this.reactWat();
+          game.prompt.displayMessage('Okay.', this.name);
+          this.count = 100;
+        } else {
+          game.prompt.displayMessage('Oh, it\'s not that big of a deal.', this.name);
+        }
+        break;
+
+      case 3:
+        game.prompt.updateMessage('One of my roommates just left for ' + 'New York' + ' and we haven\'t found a new one yet.', this.name);
+        break;
+
+      case 4:
+        game.prompt.updateMessage('It\'s been pretty stressful.', this.name);
+        break;
+
+      case 5:
+        game.prompt.removeMessage();
+        game.prompt.displayOptions(
+          'PICK ONE:', 
+          [
+            'Could I move in?', 
+            'I\'m sorry to hear that.',
+            'Suck it up, that\'s not that bad.'
+          ]
+        );
+        break;
+
+      case 6:
+        var s = game.prompt.selected();
+        game.prompt.removeOptions();
+        if (s == 1) {
+          game.prompt.displayMessage('Thanks.', this.name);
+          this.count = 100;
+        } else if (s == 2) {
+          game.prompt.displayMessage('I guess you\'re right', this.name);
+          this.count = 100;
+        } else {
+          game.prompt.displayMessage('Really? You want to move in?', this.name);
+        }
+        break;
+
+      case 7:
+        this.reactHappy();
+        game.prompt.updateMessage('That\'s so great!', this.name);
+        break;
+
+      case 8:
+        game.prompt.updateMessage('Swing by our place when your\'e ready!', this.name);
+        this.offeredPlace = true;
+        break;
+
+      default:
+        if(this.offeredPlace) this.relationshipStatus['offeredPlace'] = true;
+        game.prompt.removeMessage();
+        this.faceDir(this.saveFace);
+        this.count = -1;
+        status = 'free';
+        break;
+    }
+  } else {
+    status = 'free';
+  }
+
+  this.count += 1;
+  return status;
 }
 
 // Add Margaret object to game's NPC collection.
