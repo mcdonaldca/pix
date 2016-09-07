@@ -5,19 +5,47 @@ function Anne() {
   $.extend(this, new NPC('anne', 'characters/anne', 'shadow_sm'));
   this.talkedTo = true;
 
-  this.SCHEDULE = { everyday: [[0, 1]] };
+  this.SCHEDULE = { everyday: [[1, 0, 0], [2, 5, 30], [1, 18, 30]], wednesday: [[1, 0, 0]] };
   this.SCHEDULE_STATUSES = {
     1: {
+      area: 'city-ne',
+      x: 12,
+      y: 24,
+      face: DIR.DW,
+      dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
+    },
+    2: {
       area: 'ritual-roasters',
       x: 5,
       y: 4,
       face: DIR.DW,
       dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
     }
-  }
+  };
+  this.SCHEDULE_TRAVEL = {
+    'city-ne': {
+      'ritual-roasters': new Travel(this, [
+          { act: 'path', area: 'city-ne', start: { x: 12, y: 24 }, end: { x: 0, y: 26 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-nw', x: 31, y: 26 },
+          { act: 'path', area: 'city-nw', start: { x: 31, y: 26 }, end: { x: 24, y: 24 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'ritual-roasters', x: 3, y: 8 },
+          { act: 'path', area: 'ritual-roasters', start: { x: 3, y: 8 }, end: { x: 5, y: 4 }, dur: ANIM_LENGTH_NPC },
+          { act: 'face', dir: DIR.DW }
+        ])
+    },
+    'ritual-roasters': {
+      'city-ne': new Travel(this, [
+          { act: 'path', area: 'ritual-roasters', start: { x: 5, y: 4 }, end: { x: 3, y: 8 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-nw', x: 24, y: 24 },
+          { act: 'path', area: 'city-nw', start: { x: 24, y: 24 }, end: { x: 31, y: 26 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-ne', x: 0, y: 26 },
+          { act: 'path', area: 'city-ne', start: { x: 0, y: 26 }, end: { x: 12, y: 24 }, dur: ANIM_LENGTH_NPC },
+          { act: 'face', dir: DIR.DW }
+        ])
+    }
+  };
 
   this.buildNPCSchedule();
-  this.currentLocation = 'ritual-roasters';
 }
 
 /**

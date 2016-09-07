@@ -9,7 +9,6 @@ var library = new LimitedArea(
 library.addEventZone([10, 12], [10, 12], new RequireCard());
 
 var computer = new Computer();
-library.addNPC(7, 14, DIR.RT, game.getNPC("mary"), [DIR.DW, DIR.RT, DIR.UP]);
 library.addInteraction(5,  6, computer, DIR.RT);
 library.addInteraction(5,  8, computer, DIR.RT);
 library.addInteraction(7,  8, computer, DIR.LF);

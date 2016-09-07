@@ -1,7 +1,7 @@
 var studio = new Area(10, 9, "studio");
 
-studio.addNPC(6, 6, DIR.DW, game.getNPC("liam"), [DIR.RT, DIR.UP]);
-studio.addNPC(8, 4, DIR.DW, game.getNPC("vio"), [DIR.LF, DIR.UP, DIR.RT, DIR.DW]);
+//studio.addNPC(6, 6, DIR.DW, game.getNPC("liam"), [DIR.RT, DIR.UP]);
+//studio.addNPC(8, 4, DIR.DW, game.getNPC("vio"), [DIR.LF, DIR.UP, DIR.RT, DIR.DW]);
 
 studio.addItem(3, "bed",        [7, 2]);
 studio.addItem(2, "counter",    [2, 3]);

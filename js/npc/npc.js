@@ -36,14 +36,18 @@ NPC.prototype.buildNPCSchedule = function() {
   var scheduleData = {};
   for (var day = 0; day < 7; day++) {
     scheduleData[day] = {};
-    for (var time = 0; time < 24; time++) {
-      scheduleData[day][time] = 0;
+    for (var hour = 0; hour < 24; hour++) {
+      scheduleData[day][hour] = {};
+      for (var min = 0; min < 60; min += 10) {
+        scheduleData[day][hour][min] = 0;
+      }
     }
   }
 
   if (this.SCHEDULE.everyday) this.generateDailySchedule(scheduleData, [0, 1, 2, 3, 4, 5, 6], this.SCHEDULE.everyday)
   if (this.SCHEDULE.weekday)  this.generateDailySchedule(scheduleData, [1, 2, 3, 4, 5], this.SCHEDULE.weekday);
   if (this.SCHEDULE.weekend)  this.generateDailySchedule(scheduleData, [0, 6], this.SCHEDULE.weekend);
+  if (this.SCHEDULE.wednesday)  this.generateDailySchedule(scheduleData, [3], this.SCHEDULE.wednesday);
 
   game.time.augmentNPCSchedule(this.name, scheduleData);
 }
@@ -55,21 +59,50 @@ NPC.prototype.buildNPCSchedule = function() {
   @param scheduleList   The specification for the days' schedule.
 **/
 NPC.prototype.generateDailySchedule = function(scheduleObject, dayList, scheduleList) {
+  // Build a schedule for each day in the day list.
   for (var dayIndex = 0; dayIndex < dayList.length; dayIndex++) {
     var day = dayList[dayIndex];
-    var startTime = 0;
+
+    // Initialize time values.
+    var startHour = 0;
+    var changeHour = 0;
+    var changeMin = 0;
+
+    // Iterate through schedule specifications.
     for (var i = 1; i < scheduleList.length + 1; i++) {
-      var changeTime;
+      // Grab position value from previous spec.
+      var newPosition = scheduleList[i - 1][0];
+
+      // Finish out previous hour (if there was a minute specified)
+      for (var min = changeMin; min < 60; min += 10) {
+        scheduleObject[day][changeHour][min] = newPosition;
+      }
+
+      // If we're past the end of the list, the final hour should be the end of the day.
       if (i == scheduleList.length) {
-        changeTime = 24;
+        changeHour = 23;
       } else {
-        changeTime = scheduleList[i][0];
+        changeHour = scheduleList[i][1];
       }
-      var newPosition = scheduleList[i - 1][1];
-      for (var time = startTime; time < changeTime; time++) {
-        scheduleObject[day][time] = newPosition;
+      // Iterate through intermediate hours and set position.
+      for (var hour = startHour + 1; hour < changeHour; hour++) {
+        for (var min = 0; min < 60; min += 10) {
+          scheduleObject[day][hour][min] = newPosition;
+        }
       }
-      startTime = changeTime;
+
+      // If we're past the end of the list, the final hour should be the last minute.
+      if (i == scheduleList.length) {
+        changeMin = 60;
+      } else {
+        changeMin = scheduleList[i][2];
+      }
+      for (var min = 0; min < changeMin; min += 10) {
+        scheduleObject[day][changeHour][min] = newPosition;
+      }
+
+      // Next round should start from the hour we ended on.
+      startHour = changeHour;
     }
   }
 }
@@ -78,17 +111,18 @@ NPC.prototype.generateDailySchedule = function(scheduleObject, dayList, schedule
   Update the location/status of an NPC.
   @param newStatus  The new status the NPC should transition to.
   @param skipTravel If travel patterns should be ignored and NPC just placed.
+  @param forcePlace Place the NPC even if that's they're current status.
 **/
-NPC.prototype.updateScheduleStatus = function(newStatus, skipTravel) {
+NPC.prototype.updateScheduleStatus = function(newStatus, skipTravel, forcePlace) {
   // Only update status if there is a valid new status 
   // and we're not already in that status.
-  if (newStatus != 0 && this.scheduleStatus != newStatus) {
+  if (forcePlace || (newStatus != 0 && this.scheduleStatus != newStatus)) {
     var area = this.SCHEDULE_STATUSES[newStatus].area;
     var x = this.SCHEDULE_STATUSES[newStatus].x;
     var y = this.SCHEDULE_STATUSES[newStatus].y;
     var face = this.SCHEDULE_STATUSES[newStatus].face;
-    var dir = this.SCHEDULE_STATUSES[newStatus].dir;
 
+    // When game initially starts, no locations are set.
     if (this.currentLocation) {
       if (this.SCHEDULE_TRAVEL[this.currentLocation]) var travelDirections = this.SCHEDULE_TRAVEL[this.currentLocation][area];
     }
@@ -97,12 +131,18 @@ NPC.prototype.updateScheduleStatus = function(newStatus, skipTravel) {
       travelDirections.start();
     } else {
       if(this.currentLocation) {
-        game.areas[this.currentLocation].removeNPC(this.name);
+        game.areas[this.currentLocation].removeNPC(this);
       }
-      game.areas[area].addNPC(x, y, face, this, dir);
-      this.setPosition(x, y)
-          .faceDir(face);
-      this.currentLocation = area;
+      game.areas[area].addNPC(this);
+      if (this.currentLocation != area) {
+        var previousLocation = this.currentLocation;
+        this.currentLocation = area;
+        this.setPosition(x, y, true, previousLocation)
+            .faceDir(face);
+      } else {
+        this.setPosition(x, y)
+            .faceDir(face);
+      }
     }
 
     this.scheduleStatus = newStatus;

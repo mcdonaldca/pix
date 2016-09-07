@@ -139,10 +139,8 @@ Space.prototype.isInteractZone = function() {
   @param dir The direction the player is trying to interact from.
 **/
 Space.prototype.canInteract = function(dir) {
-  if (this.interactDir != undefined) {
-    return this.interactDir.indexOf(dir) != -1;
-  }
-  return false;
+  var validInteractDir = this.interactDir != undefined && this.interactDir.indexOf(dir) != -1;
+  return validInteractDir || this.isOccupied();
 }
 
 /**
@@ -150,7 +148,7 @@ Space.prototype.canInteract = function(dir) {
   @return Interactable
 **/
 Space.prototype.getInteraction = function() {
-  return this.interaction;
+  return this.getOccupant() || this.interaction;
 }
 
 /** 

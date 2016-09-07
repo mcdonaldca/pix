@@ -5,8 +5,6 @@ var liamMargaret = new ResidentialArea(
   "le-chateau-floor-1"
 );
 
-liamMargaret.addNPC(20, 4, DIR.DW, game.getNPC("margaret"), [DIR.UP, DIR.RT, DIR.DW, DIR.LF]);
-
 liamMargaret.addItem(1, "living-room-wall-short",    [ 1,  5]);
 liamMargaret.addItem(6, "living-room-wall-long",     [ 2,  6]);
 liamMargaret.addItem(1, "wall-meet",                 [ 7,  9]);

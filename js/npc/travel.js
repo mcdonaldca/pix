@@ -79,11 +79,11 @@ Travel.prototype.step = function(t) {
 
       case 'exit':
         // Remove NPC from their current location & update current location.
-        game.areas[t.npc.currentLocation].removeNPC(t.npc.name);
+        game.areas[t.npc.currentLocation].removeNPC(t.npc);
         t.npc.currentLocation = step.to;
 
         // Add NPC to new location and update postion/direction.
-        game.areas[t.npc.currentLocation].addNPC(step.x, step.y, DIR.DW, t.npc, []);
+        game.areas[t.npc.currentLocation].addNPC(t.npc);
         t.npc.setPosition(step.x, step.y, /* arrivingInArea */ true)
              .faceDir(step.dir);
 

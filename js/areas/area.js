@@ -323,9 +323,7 @@ Area.prototype.build = function(removeEls, removeNPCs) {
 
   // Add and place all NPCs.
   for (var i = 0; i < this.NPCs.length; i++) {
-    var npc = this.NPCs[i];
-    this.space(npc.x, npc.y).setOccupied(npc);
-    this.append(npc.getEl());
+    this.append(this.NPCs[i].getEl());
   }
 }
 
@@ -484,12 +482,9 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
   @param npc         NPC object.
   @param interactDir (Optional) Directions from which interaction are valid.
 **/
-Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
+Area.prototype.addNPC = function(npc) {
   // Add to NPC collection.
   this.NPCs.push(npc);
-  // Call addInteraction with parameters.
-  this.addInteraction(x, y, npc, interactDir);
-
   // If player currently in area, add the NPC's element.
   if (game.area == this) this.append(npc.getEl());
 }
@@ -498,20 +493,12 @@ Area.prototype.addNPC = function(x, y, dir, npc, interactDir) {
   Removes an NPC from the area.
   @param npcName The name of the NPC to remove
 **/
-Area.prototype.removeNPC = function(npcName) {
-  var removeIndex = undefined;
-  for (var i = 0; i < this.NPCs.length; i++) {
-    if (this.NPCs[i].name == npcName) {
-      removeIndex = i;
-    }
-  }
+Area.prototype.removeNPC = function(npc) {
+  var removeIndex = this.NPCs.indexOf(npc);
 
-  if (removeIndex != undefined) { 
+  if (removeIndex != -1) { 
     var npc = this.NPCs[removeIndex];
-    this.space(npc.x, npc.y).clearInteractionZone()
-                            .setUnoccupied();
     $(npc.getEl()).remove();
-
     this.NPCs.splice(removeIndex, 1); 
   }
 };

@@ -39,8 +39,11 @@ function Time() {
   this.NPCSchedule = {};
   for (var day = 0; day < 7; day++) {
     this.NPCSchedule[day] = {};
-    for (var time = 0; time < 24; time++) {
-      this.NPCSchedule[day][time] = [];
+    for (var hour = 0; hour < 24; hour++) {
+      this.NPCSchedule[day][hour] = {};
+      for (var min = 0; min < 60; min += 10) {
+        this.NPCSchedule[day][hour][min] = [];
+      }
     }
   }
 }
@@ -219,7 +222,7 @@ Time.prototype.setWeekday = function(season) {
 Time.prototype.scheduleEvent = function(when, callback) {
   switch(when) {
     case 'tomorrow':
-      var day = this.day;
+      var day = this.daysPassed;
       var season = this.season;
       day += 1;
       if (day == 31) {
@@ -269,12 +272,12 @@ Time.prototype.sleep = function() {
   }
 
   if (sleepTiming == 'early' || sleepTiming == 'normal') {
-    this.incDay(1);
+    this.daysPassed += 1;
   }
 
   // Check for scheduled events.
   var scheduledSeason = this.season;
-  var scheduledDay = this.day;
+  var scheduledDay = this.daysPassed;
   if (this.scheduled[scheduledSeason] != undefined 
    && this.scheduled[scheduledSeason][scheduledDay] != undefined) {
     for (var i = 0; i < this.scheduled[scheduledSeason][scheduledDay].length; i++) {
@@ -341,7 +344,7 @@ Time.prototype.today = function() {
   @param skipTravel If travel instructions between locations should be ignored.
 **/
 Time.prototype.updateNPClocations = function(skipTravel) {
-  var locations = this.NPCSchedule[this.weekday][this.hour];
+  var locations = this.NPCSchedule[this.weekday][this.hour][this.minute];
   
   for (var i = 0; i < locations.length; i++) {
     var NPCName = locations[i][0];
@@ -357,8 +360,10 @@ Time.prototype.updateNPClocations = function(skipTravel) {
 **/
 Time.prototype.augmentNPCSchedule = function(name, schedule) {
   for (var day = 0; day < 7; day++) {
-    for (var time = 0; time < 24; time++) {
-      this.NPCSchedule[day][time].push([name, schedule[day][time]]);
+    for (var hour = 0; hour < 24; hour++) {
+      for (var min = 0; min < 60; min += 10) {
+        this.NPCSchedule[day][hour][min].push([name, schedule[day][hour][min]]);
+      }
     }
   }
 }

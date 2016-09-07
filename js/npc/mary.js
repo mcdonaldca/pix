@@ -4,7 +4,7 @@
 function Mary() {
   $.extend(this, new NPC('mary', 'characters/mary', 'shadow_sm'));
 
-  this.SCHEDULE = { everyday: [[0, 1]] };
+  this.SCHEDULE = { everyday: [[1, 0, 0]] };
   this.SCHEDULE_STATUSES = {
     1: {
       area: 'library',
@@ -16,7 +16,6 @@ function Mary() {
   }
 
   this.buildNPCSchedule();
-  this.currentLocation = 'library';
 }
 
 /**

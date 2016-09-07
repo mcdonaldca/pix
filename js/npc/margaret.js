@@ -4,7 +4,7 @@
 function Margaret() {
   $.extend(this, new NPC('margaret', 'characters/margaret', 'shadow_sm'));
 
-  this.SCHEDULE = { weekday: [[0, 1], [7, 2], [8, 3], [21, 1]], weekend: [[0, 1]] };
+  this.SCHEDULE = { weekday: [[1, 0, 0], [2, 6, 50], [3, 8, 0], [1, 20, 50]], weekend: [[1, 0, 0]] };
   this.SCHEDULE_STATUSES = {
     1: {
         area: 'liam-margaret',
@@ -77,7 +77,6 @@ function Margaret() {
   }
 
   this.buildNPCSchedule();
-  this.currentLocation = 'liam-margaret';
 }
 
 /**

@@ -11,7 +11,7 @@ function Holland() {
     { name: 'New linens', item: 'linens', price: 100 }
   ];
 
-  this.SCHEDULE = { everyday: [[0, 1]] };
+  this.SCHEDULE = { everyday: [[1, 0, 0]] };
   this.SCHEDULE_STATUSES = {
     1: {
       area: 'le-chateau-lobby',
@@ -23,7 +23,6 @@ function Holland() {
   }
 
   this.buildNPCSchedule();
-  this.currentLocation = 'le-chateau-lobby';
 }
 
 /**

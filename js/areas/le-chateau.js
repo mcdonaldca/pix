@@ -2,7 +2,6 @@
 
 var leChateauLobby = new Area(10, 7, "le-chateau-lobby");
 
-leChateauLobby.addNPC(6, 2, DIR.DW, game.getNPC("holland"), [DIR.LF, DIR.UP]);
 leChateauLobby.addInteraction(5, 2, game.getNPC("holland"), [DIR.RT]);
 
 leChateauLobby.addItem(2, "counter", [6, 2]);

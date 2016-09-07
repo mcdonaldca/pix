@@ -178,11 +178,15 @@ Avatar.prototype.moveDir = function(dir) {
   @param x              The left offset in blocks.
   @param y              The bottom offset in blocks.
   @param arrivingInArea If the avatar is arriving in the area.
+  @param prevLocation   The avatar's previous area.
   @returns              The avatar object, for chaining calls.
 **/
-Avatar.prototype.setPosition = function(x, y, arrivingInArea) {
+Avatar.prototype.setPosition = function(x, y, arrivingInArea, prevLocation) {
   if (this.currentLocation) {
-    if (!arrivingInArea) game.areas[this.currentLocation].space(this.x, this.y).setUnoccupied();
+    // If we're arriving in a new area, we need to unblock our previous location.
+    // Also need to check if prevLocation is present (when game initializes).
+    var unoccupyArea = arrivingInArea && prevLocation ? prevLocation : this.currentLocation;
+    game.areas[unoccupyArea].space(this.x, this.y).setUnoccupied();
     game.areas[this.currentLocation].space(x, y).setOccupied(this);
   }
   this.x = x;

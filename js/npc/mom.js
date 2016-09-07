@@ -3,6 +3,17 @@
 **/
 function Mom() {
   $.extend(this, new NPC("mom", "characters/mom", "shadow_sm"));
+
+  this.SCHEDULE = { everyday: [[1, 0, 0]] };
+  this.SCHEDULE_STATUSES = {
+    1: {
+      area: 'hewitt-home',
+      x: 5,
+      y: 2,
+      face: DIR.DW,
+    }
+  }
+  this.buildNPCSchedule();
 }
 
 /**
