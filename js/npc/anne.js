@@ -8,24 +8,24 @@ function Anne() {
   this.SCHEDULE = { everyday: [[1, 0, 0], [2, 5, 30], [1, 18, 30]], wednesday: [[1, 0, 0]] };
   this.SCHEDULE_STATUSES = {
     1: {
-      area: 'city-ne',
-      x: 12,
-      y: 24,
-      face: DIR.DW,
-      dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
+      area: 'anne-home',
+      x: 7,
+      y: 5,
+      face: DIR.LF,
     },
     2: {
       area: 'ritual-roasters',
       x: 5,
       y: 4,
       face: DIR.DW,
-      dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
     }
   };
   this.SCHEDULE_TRAVEL = {
-    'city-ne': {
+    'anne-home': {
       'ritual-roasters': new Travel(this, [
-          { act: 'path', area: 'city-ne', start: { x: 12, y: 24 }, end: { x: 0, y: 26 }, dur: ANIM_LENGTH_NPC },
+          { act: 'path', area: 'anne-home', start: { x: 7, y: 5 }, end: { x: 3, y: 7 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'city-ne', x: 10, y: 23 },
+          { act: 'path', area: 'city-ne', start: { x: 10, y: 23 }, end: { x: 0, y: 26 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-nw', x: 31, y: 26 },
           { act: 'path', area: 'city-nw', start: { x: 31, y: 26 }, end: { x: 24, y: 24 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'ritual-roasters', x: 3, y: 8 },
@@ -34,12 +34,14 @@ function Anne() {
         ])
     },
     'ritual-roasters': {
-      'city-ne': new Travel(this, [
+      'anne-home': new Travel(this, [
           { act: 'path', area: 'ritual-roasters', start: { x: 5, y: 4 }, end: { x: 3, y: 8 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-nw', x: 24, y: 24 },
           { act: 'path', area: 'city-nw', start: { x: 24, y: 24 }, end: { x: 31, y: 26 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-ne', x: 0, y: 26 },
-          { act: 'path', area: 'city-ne', start: { x: 0, y: 26 }, end: { x: 12, y: 24 }, dur: ANIM_LENGTH_NPC },
+          { act: 'path', area: 'city-ne', start: { x: 0, y: 26 }, end: { x: 10, y: 23 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'anne-home', x: 3, y: 7 },
+          { act: 'path', area: 'anne-home', start: { x: 3, y: 7 }, end: { x: 7, y: 5 }, dur: ANIM_LENGTH_NPC },
           { act: 'face', dir: DIR.DW }
         ])
     }
@@ -56,7 +58,8 @@ Anne.prototype.interact = function(prompt, dir) {
 
   switch(this.count) {
     case 0:
-      if (dir == DIR.DW) this.faceUp();
+      this.saveFace = this.face;
+      this.faceOppositeDir(dir);
       var options = ['Great!', 'Okay', 'Terrible.'];
       if (game.player.getJob() == 'unemployed') {
         options.push('I\'d like a job.');
@@ -99,7 +102,7 @@ Anne.prototype.interact = function(prompt, dir) {
       break;
 
     case 2:
-      this.faceDown();
+      this.faceDir(this.saveFace);
       game.prompt.removeMessage();
       this.count = -1;
       status = 'free';
