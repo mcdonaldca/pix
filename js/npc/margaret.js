@@ -41,15 +41,15 @@ function Margaret() {
           { act: 'path', area: 'city-sw', start: { x: 29, y: 2 }, end: { x: 24, y: 1 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-nw', x: 24, y: 31 },
           { act: 'path', area: 'city-nw', start: { x: 24, y: 31 }, end: { x: 24, y: 24 }, dur: ANIM_LENGTH_NPC },
-          { act: 'exit', to: 'ritual-roasters', x: 3, y: 8 },
-          { act: 'path', area: 'ritual-roasters', start: { x: 3, y: 8 }, end: { x: 1, y: 2 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'ritual-roasters', x: 4, y: 8 },
+          { act: 'path', area: 'ritual-roasters', start: { x: 4, y: 8 }, end: { x: 2, y: 2 }, dur: ANIM_LENGTH_NPC },
           { act: 'face', dir: DIR.LF }
         ])
     },
     'ritual-roasters': {
       'library': 
         new Travel(this, [
-          { act: 'path', area: 'ritual-roasters', start: { x: 1, y: 2 }, end: { x: 3, y: 8 }, dur: ANIM_LENGTH_NPC },
+          { act: 'path', area: 'ritual-roasters', start: { x: 2, y: 2 }, end: { x: 4, y: 8 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-nw', x: 24, y: 24 },
           { act: 'path', area: 'city-nw', start: { x: 24, y: 24 }, end: { x: 24, y: 31 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-sw', x: 24, y: 1 },

@@ -15,7 +15,7 @@ function Anne() {
     },
     2: {
       area: 'ritual-roasters',
-      x: 5,
+      x: 6,
       y: 4,
       face: DIR.DW,
     }
@@ -28,14 +28,14 @@ function Anne() {
           { act: 'path', area: 'city-ne', start: { x: 10, y: 23 }, end: { x: 0, y: 26 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-nw', x: 31, y: 26 },
           { act: 'path', area: 'city-nw', start: { x: 31, y: 26 }, end: { x: 24, y: 24 }, dur: ANIM_LENGTH_NPC },
-          { act: 'exit', to: 'ritual-roasters', x: 3, y: 8 },
-          { act: 'path', area: 'ritual-roasters', start: { x: 3, y: 8 }, end: { x: 5, y: 4 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'ritual-roasters', x: 4, y: 8 },
+          { act: 'path', area: 'ritual-roasters', start: { x: 4, y: 8 }, end: { x: 6, y: 4 }, dur: ANIM_LENGTH_NPC },
           { act: 'face', dir: DIR.DW }
         ])
     },
     'ritual-roasters': {
       'anne-home': new Travel(this, [
-          { act: 'path', area: 'ritual-roasters', start: { x: 5, y: 4 }, end: { x: 3, y: 8 }, dur: ANIM_LENGTH_NPC },
+          { act: 'path', area: 'ritual-roasters', start: { x: 6, y: 4 }, end: { x: 4, y: 8 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-nw', x: 24, y: 24 },
           { act: 'path', area: 'city-nw', start: { x: 24, y: 24 }, end: { x: 31, y: 26 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-ne', x: 0, y: 26 },
@@ -93,7 +93,7 @@ Anne.prototype.interact = function(prompt, dir) {
         case 3:
           game.prompt.displayMessage('Of course! Whenever you want to come into work, just walk through that door back there.', 'anne');
           game.player.employ('Ritual Roasters Barista', 12);
-          game.area.space(3, 2).unblock();
+          game.area.space(4, 2).unblock();
           game.area.getItem('counter-end').hide();
           game.area.getItem('counter').hide();
         default:
