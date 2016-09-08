@@ -33,8 +33,8 @@ function Margaret() {
       'ritual-roasters': 
         new Travel(this, [
           { act: 'path', area: 'liam-margaret', start: { x: 20, y: 4 }, end: { x: 12, y: 12 }, dur: ANIM_LENGTH_NPC },
-          { act: 'exit', to: 'le-chateau-floor-1', x: 15, y: 2 },
-          { act: 'path', area: 'le-chateau-floor-1', start: { x: 15, y: 2 }, end: { x: 3, y: 2 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'le-chateau-floor-1', x: 16, y: 3 },
+          { act: 'path', area: 'le-chateau-floor-1', start: { x: 16, y: 3 }, end: { x: 4, y: 3 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'le-chateau-lobby', x: 2, y: 2 },
           { act: 'path', area: 'le-chateau-lobby', start: { x: 2, y: 2 }, end: { x: 2, y: 6 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-sw', x: 29, y: 2 },
@@ -65,13 +65,13 @@ function Margaret() {
           { act: 'path', area: 'library', start: { x: 8, y: 6 }, end: { x: 10, y: 15 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-sw', x: 13, y: 5 },
           { act: 'path', area: 'city-sw', start: { x: 13, y: 5 }, end: { x: 29, y: 2 }, dur: ANIM_LENGTH_NPC },
-          { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-lobby', x: 2, y: 6 },
+          { act: 'exit', to: 'le-chateau-lobby', x: 2, y: 6 },
           { act: 'path', area: 'le-chateau-lobby', start: { x: 2, y: 6 }, end: { x: 3, y: 2 }, dur: ANIM_LENGTH_NPC },
-          { act: 'exit', sub: 'npc', type: 'margaret', to: 'le-chateau-floor-1', x: 2, y: 2 },
-          { act: 'path', area: 'le-chateau-floor-1', start: { x: 2, y: 2 }, end: { x: 15, y: 2 }, dur: ANIM_LENGTH_NPC },
-          { act: 'exit', sub: 'npc', type: 'margaret', to: 'liam-margaret', x: 12, y: 12 },
+          { act: 'exit', to: 'le-chateau-floor-1', x: 3, y: 3 },
+          { act: 'path', area: 'le-chateau-floor-1', start: { x: 3, y: 3 }, end: { x: 16, y: 3 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'liam-margaret', x: 12, y: 12 },
           { act: 'path', area: 'liam-margaret', start: { x: 12, y: 12 }, end: { x: 20, y: 4 }, dur: ANIM_LENGTH_NPC },
-          { act: 'face', sub: 'npc', type: 'margaret', dir: DIR.DW }
+          { act: 'face', dir: DIR.DW }
         ])
     }
   }
