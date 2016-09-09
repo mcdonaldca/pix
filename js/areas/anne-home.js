@@ -6,7 +6,7 @@ var anneHome = new ResidentialArea(
 );
 
 anneHome.addItem(2, 'table',  [5, 4]);
-anneHome.addItem(2,   'bed',  [1, 2]);
+anneHome.addItem(2,   'bed',  [1, 3]);
 
 anneHome.addExit(3, 7, DIR.DW, 'city-ne');
 anneHome.addPositionData(3, 5, DIR.DW, 'default');
