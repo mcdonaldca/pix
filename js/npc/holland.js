@@ -15,8 +15,8 @@ function Holland() {
   this.SCHEDULE_STATUSES = {
     1: {
       area: 'le-chateau-lobby',
-      x: 6,
-      y: 2,
+      x: 7,
+      y: 3,
       face: DIR.DW,
       dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
     }
