@@ -35,14 +35,14 @@ function Area(width, height, name, areaOverride) {
   this.elements = [];     // HTML elements added to area.
   this.positionData = {}; // Player positioning based on entrances from other areas.
   
-  this.createAreaGrid();
-  this.createPaths();
+  this.createGridAndPaths();
 }
 
 /**
   Creates the area's space grid with blocked data.
+  Builds the paths NPCs can follow in the game.
 **/
-Area.prototype.createAreaGrid = function() {
+Area.prototype.createGridAndPaths = function() {
   var height = this.height;
   var width = this.width;
 
@@ -75,93 +75,49 @@ Area.prototype.createAreaGrid = function() {
     for (var blockX = 0; blockX < area.width; blockX++) {
       for (var blockY = 0; blockY < area.height; blockY++) {
         // Find the (inclusive) bounds of the block.
-        var xLeft = blockX * BLOCK;
-        var yTop = blockY * BLOCK;
-        var xRight = xLeft + BLOCK - 1;
-        var yBottom = yTop + BLOCK - 1;
+        var xLeft = blockX * BLOCK,
+            yTop = blockY * BLOCK,
+            xRight = xLeft + BLOCK - 1,
+            yBottom = yTop + BLOCK - 1;
 
         // Find middle x and y coordinates.
         // Don't want to use pixel at corner of block.
-        var xMid = xLeft + 8;
-        var yMid = yTop + 8;
+        var xQuarter = xLeft + (BLOCK / 4),
+            xMid = xLeft + (BLOCK / 2),
+            xThreeQuarter = xLeft + (BLOCK * 3 / 4),
+            yQuarter = yTop + (BLOCK / 4),
+            yMid = yTop + (BLOCK / 2),
+            yThreeQuarter = yTop + (BLOCK * 3 / 4);
 
         // Using combinations of coordinates, find index in image data.
-        var lfCheck = (yMid*imageData.width + xLeft) * 4;
-        var upCheck = (yTop*imageData.width + xMid) * 4;
-        var rtCheck = (yMid*imageData.width + xRight) * 4;
-        var dwCheck = (yBottom*imageData.width + xMid) * 4;
+        var lfBlockCheck = (yMid*imageData.width + xLeft) * 4,
+            upBlockCheck = (yTop*imageData.width + xMid) * 4,
+            rtBlockCheck = (yMid*imageData.width + xRight) * 4,
+            dwBlockCheck = (yBottom*imageData.width + xMid) * 4;
+
+        var lfPathCheck = (yMid*imageData.width + xQuarter) * 4,
+            upPathCheck = (yQuarter*imageData.width + xMid) * 4,
+            rtPathCheck = (yMid*imageData.width + xThreeQuarter) * 4,
+            dwPathCheck = (yThreeQuarter*imageData.width + xMid) * 4;
 
         // Check if R value of pixel at each location is NOT 'ff'
         // If the R value is anything else, should be non-white and indicate a mask.
-        var lfBlocked = imageData.data[lfCheck].toString(16) != 'ff';
-        var upBlocked = imageData.data[upCheck].toString(16) != 'ff';
-        var rtBlocked = imageData.data[rtCheck].toString(16) != 'ff';
-        var dwBlocked = imageData.data[dwCheck].toString(16) != 'ff';
+        var lfBlocked = imageData.data[lfBlockCheck].toString(16) != 'ff',
+            upBlocked = imageData.data[upBlockCheck].toString(16) != 'ff',
+            rtBlocked = imageData.data[rtBlockCheck].toString(16) != 'ff',
+            dwBlocked = imageData.data[dwBlockCheck].toString(16) != 'ff';
+
+        var lfPath = imageData.data[lfPathCheck].toString(16) != 'ff',
+            upPath = imageData.data[upPathCheck].toString(16) != 'ff',
+            rtPath = imageData.data[rtPathCheck].toString(16) != 'ff',
+            dwPath = imageData.data[dwPathCheck].toString(16) != 'ff';
 
         // Collect blocked directions.
         var blockedDirections = [];
-        if (lfBlocked) { blockedDirections.push(DIR.RT); }
-        if (upBlocked) { blockedDirections.push(DIR.DW); }
-        if (rtBlocked) { blockedDirections.push(DIR.LF); }
-        if (dwBlocked) { blockedDirections.push(DIR.UP); }
-
-        // If there are indeed blocked directions, set them on the related Space.
-        if (blockedDirections.length > 0) {
-          area.space(blockX, blockY).setBlocked(blockedDirections);
-        }
-      }
-    }
-  };
-  
-  // Onload will be called after image is set.
-  image.src = 'img/areas/' + this.svgName + '_mask.png';
-};
-
-/**
-  Builds the paths NPCs can follow in the game.
-**/
-Area.prototype.createPaths = function() {
-  // We'll load the path as an image and then check the image data.
-  var image = new Image();
-  image.crossOrigin = 'Anonymous';
-
-  // Process image data when path image loads.
-  var area = this;
-  image.onload = function() {
-    var canvas = document.createElement('canvas');
-    canvas.width = image.width;
-    canvas.height = image.height;
-
-    var context = canvas.getContext('2d');
-    context.drawImage(image, 0, 0);
-
-    var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    
-    // Iterating through BLOCKS, not individual pixels.
-    for (var blockX = 0; blockX < area.width; blockX++) {
-      for (var blockY = 0; blockY < area.height; blockY++) {
-        // Find the (inclusive) bounds of the block.
-        var xLeft = blockX * BLOCK;
-        var yTop = blockY * BLOCK;
-        var xRight = xLeft + BLOCK - 1;
-        var yBottom = yTop + BLOCK - 1;
-
-        // Find middle x and y coordinates.
-        var xMid = xLeft + 8;
-        var yMid = yTop + 8;
-
-        // Using combinations of coordinates, find index in image data.
-        var lfCheck = (yMid*imageData.width + xLeft) * 4;
-        var upCheck = (yTop*imageData.width + xMid) * 4;
-        var rtCheck = (yMid*imageData.width + xRight) * 4;
-        var dwCheck = (yBottom*imageData.width + xMid) * 4;
-
-        // Check if R value of pixel at each location is NOT 'ff'
-        // If the R value is anything else, should be non-white and indicate a mask.
-        var lfPath = imageData.data[lfCheck].toString(16) != 'ff';
-        var upPath = imageData.data[upCheck].toString(16) != 'ff';
-        var rtPath = imageData.data[rtCheck].toString(16) != 'ff';
-        var dwPath = imageData.data[dwCheck].toString(16) != 'ff';
+        if (lfBlocked) blockedDirections.push(DIR.RT);
+        if (upBlocked) blockedDirections.push(DIR.DW);
+        if (rtBlocked) blockedDirections.push(DIR.LF);
+        if (dwBlocked) blockedDirections.push(DIR.UP);
 
         // Collect path directions.
         var nodePaths = [];
@@ -170,17 +126,17 @@ Area.prototype.createPaths = function() {
         if (rtPath) nodePaths.push(DIR.RT);
         if (dwPath) nodePaths.push(DIR.DW);
 
+        // If there are indeed blocked directions, set them on the related Space.
+        if (blockedDirections.length > 0) area.space(blockX, blockY).setBlocked(blockedDirections);
         // If there are indeed path directions, set them on the related Space.
-        if (nodePaths.length > 0) {
-          area.space(blockX, blockY).setPaths(nodePaths);
-        }
+        if (nodePaths.length > 0) area.space(blockX, blockY).setPaths(nodePaths);
       }
     }
   };
   
   // Onload will be called after image is set.
-  image.src = 'img/areas/' + this.svgName + '_path.png';
-};
+  image.src = 'img/areas/' + this.svgName + '_data.png';
+}
 
 /**
   Calculates the directions necessary to get form one coordinate to another in an area.
