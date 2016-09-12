@@ -2,7 +2,7 @@
   Initial apartment for the player.
 **/
 function RundownApt() {
-  $.extend(this, new Area(7, 6, "rundown-apt"));
+  $.extend(this, new Area(7, 7, "rundown-apt"));
   this.renovations = {};
 }
 
@@ -70,18 +70,18 @@ RundownApt.prototype.addRenovation = function(width, height, item, startCoord, z
 
 var rundownApt = new RundownApt();
 
-rundownApt.addItem(1, "bed",    [5, 3]);
-rundownApt.addItem(1, "covers", [5, 4]);
+rundownApt.addItem(1, "bed",    [5, 4]);
+rundownApt.addItem(1, "covers", [5, 5]);
 
-rundownApt.addRenovation(5, 2, "wallpaper", [1, 0], 0);
+rundownApt.addRenovation(5, 3, "wallpaper", [1, 0], 0);
 rundownApt.addRenovation(1, 2, "window",    [4, 0], 1);
-rundownApt.addRenovation(5, 4, "carpet",    [1, 2], 0);
-rundownApt.addRenovation(1, 3, "linens",    [5, 3], 1);
+rundownApt.addRenovation(5, 5, "carpet",    [1, 2], 0);
+rundownApt.addRenovation(1, 3, "linens",    [5, 4], 1);
 
-rundownApt.addInteraction(1, 1, new Fridge(), [DIR.UP]);
-rundownApt.addInteraction(5, 4, new SleepZone());
+rundownApt.addInteraction(1, 2, new Fridge(), [DIR.UP]);
+rundownApt.addInteraction(5, 5, new SleepZone());
 
-rundownApt.addExit(2, 5, DIR.DW, "le-chateau-floor-1");
-rundownApt.addPositionData(3, 4, DIR.UP, "default");
+rundownApt.addExit(2, 6, DIR.DW, "le-chateau-floor-1");
+rundownApt.addPositionData(3, 5, DIR.UP, "default");
 
 game.addArea(rundownApt.getName(), rundownApt);

@@ -16,7 +16,7 @@ function Holland() {
     1: {
       area: 'le-chateau-lobby',
       x: 7,
-      y: 3,
+      y: 2,
       face: DIR.DW,
       dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
     }

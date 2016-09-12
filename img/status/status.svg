@@ -4,7 +4,6 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="188px" height="25px" viewBox="0 0 188 25" enable-background="new 0 0 188 25" xml:space="preserve">
 <path fill="#010101" d="M128,0h57v1h2v2h1v22h-1v-2h-2v-1h-60V3h1V1h2V0z"/>
-<path d="M185,0h3v3h-1V1h-2V0z"/>
 <path fill="#010101" d="M3,9h41v1h2v2h1v10H3v1H1v2H0V12h1v-2h2V9z"/>
 <path fill="#5BAE7A" d="M9,11h1v1h2v1h1v1h-2v-1h-1v2h2v1h1v2h-1v1h-2v1H9v-1H7v-1H6v-1h2v1h1v-2H7v-1H6v-2h1v-1h2V11z"/>
 <path fill="#010101" d="M8,13h1v2H8V13z"/>
