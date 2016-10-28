@@ -26,13 +26,13 @@ game.addArea(leChateauLobby.getName(), leChateauLobby);
 var leChateauFloor1 = new Area(26, 6, 'le-chateau-floor-1');
 
 leChateauFloor1.addInteraction(11, 1, new Message('Unoccupied'), [DIR.UP]);
-leChateauFloor1.addInteraction(17, 1, new Message('Margaret & Liam\'s Apartment'), [DIR.UP]);
+leChateauFloor1.addInteraction(17, 1, new Message('Simon & Margaret\'s Apartment'), [DIR.UP]);
 leChateauFloor1.addInteraction(23, 1, new Message(game.name + '\'s Apartment'), [DIR.UP]);
 
 leChateauFloor1.addExit( 3, 2, DIR.UP, 'le-chateau-elevator-floor-1', 'left');
 leChateauFloor1.addExit( 4, 2, DIR.UP, 'le-chateau-elevator-floor-1', 'right');
 leChateauFloor1.addExit(10, 2, DIR.UP, 'upgrade-apt');
-leChateauFloor1.addExit(16, 2, DIR.UP, 'liam-margaret');
+leChateauFloor1.addExit(16, 2, DIR.UP, 'simon-margaret');
 leChateauFloor1.addExit(22, 2, DIR.UP, 'rundown-apt');
 leChateauFloor1.addPositionData(22, 2, DIR.DW, 'default');
 

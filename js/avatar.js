@@ -44,7 +44,7 @@ Avatar.prototype.build = function() {
     this.spriteEl = $('#sprite');
   } else {
     /* Sample HTML
-       <div class="npc npc-liam">
+       <div class="npc npc-margaret">
          <div class="avatar"></div>
          <div class="shadow"></div>
        </div>

@@ -7,7 +7,7 @@ function Margaret() {
   this.SCHEDULE = { weekday: [[1, 0, 0], [2, 6, 50], [3, 8, 0], [1, 20, 50]], weekend: [[1, 0, 0]] };
   this.SCHEDULE_STATUSES = {
     1: {
-        area: 'liam-margaret',
+        area: 'simon-margaret',
         x: 20,
         y: 4,
         face: DIR.DW,
@@ -29,10 +29,10 @@ function Margaret() {
     },
   };
   this.SCHEDULE_TRAVEL = {
-    'liam-margaret': {
+    'simon-margaret': {
       'ritual-roasters': 
         new Travel(this, [
-          { act: 'path', area: 'liam-margaret', start: { x: 20, y: 4 }, end: { x: 12, y: 12 }, dur: ANIM_LENGTH_NPC },
+          { act: 'path', area: 'simon-margaret', start: { x: 20, y: 4 }, end: { x: 12, y: 12 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'le-chateau-floor-1', x: 16, y: 3 },
           { act: 'path', area: 'le-chateau-floor-1', start: { x: 16, y: 3 }, end: { x: 4, y: 3 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'le-chateau-lobby', x: 3, y: 3 },
@@ -60,7 +60,7 @@ function Margaret() {
         ])
     },
     'library': {
-      'liam-margaret': 
+      'simon-margaret': 
         new Travel(this, [
           { act: 'path', area: 'library', start: { x: 8, y: 6 }, end: { x: 10, y: 15 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'city-sw', x: 13, y: 5 },
@@ -69,8 +69,8 @@ function Margaret() {
           { act: 'path', area: 'le-chateau-lobby', start: { x: 3, y: 7 }, end: { x: 4, y: 3 }, dur: ANIM_LENGTH_NPC },
           { act: 'exit', to: 'le-chateau-floor-1', x: 3, y: 3 },
           { act: 'path', area: 'le-chateau-floor-1', start: { x: 3, y: 3 }, end: { x: 16, y: 3 }, dur: ANIM_LENGTH_NPC },
-          { act: 'exit', to: 'liam-margaret', x: 12, y: 12 },
-          { act: 'path', area: 'liam-margaret', start: { x: 12, y: 12 }, end: { x: 20, y: 4 }, dur: ANIM_LENGTH_NPC },
+          { act: 'exit', to: 'simon-margaret', x: 12, y: 12 },
+          { act: 'path', area: 'simon-margaret', start: { x: 12, y: 12 }, end: { x: 20, y: 4 }, dur: ANIM_LENGTH_NPC },
           { act: 'face', dir: DIR.DW }
         ])
     }

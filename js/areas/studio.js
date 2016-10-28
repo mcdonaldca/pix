@@ -1,6 +1,6 @@
 var studio = new Area(10, 9, "studio");
 
-//studio.addNPC(6, 6, DIR.DW, game.getNPC("liam"), [DIR.RT, DIR.UP]);
+//studio.addNPC(6, 6, DIR.DW, game.getNPC("simon"), [DIR.RT, DIR.UP]);
 //studio.addNPC(8, 4, DIR.DW, game.getNPC("vio"), [DIR.LF, DIR.UP, DIR.RT, DIR.DW]);
 
 studio.addItem(3, "bed",        [7, 2]);
@@ -12,7 +12,7 @@ studio.addItem(1, "houseplant", [9, 7]);
 studio.addInteraction(0, 1, new Fridge(), [DIR.UP]);
 studio.addInteraction(1, 1, new Fridge(), [DIR.UP]);
 var tvMessage = new Message([
-    "Liam is watching \"The Office\"", 
+    "Simon is watching \"Parks and Rec\"", 
     "It'd probabably be rude to change the channel now."
     ]);
 studio.addInteraction(5, 8, tvMessage, [DIR.DW]);
