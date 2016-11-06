@@ -27,6 +27,7 @@ var citySE = new Area(32, 32, 'city-se');
 citySE.addExit(6,  1, DIR.UP, 'city-ne', 'left');
 citySE.addExit(7,  1, DIR.UP, 'city-ne', 'center');
 citySE.addExit(8,  1, DIR.UP, 'city-ne', 'right');
+citySE.addExit(10, 1, DIR.UP, 'elizabeth-alan');
 citySE.addExit(0,  4, DIR.LF, 'city-sw', 'top-1');
 citySE.addExit(0,  5, DIR.LF, 'city-sw', 'middle-1');
 citySE.addExit(0,  6, DIR.LF, 'city-sw', 'bottom-1');
