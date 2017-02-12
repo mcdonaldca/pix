@@ -2,10 +2,8 @@
   Simon is a character in the game.
 **/
 function Simon() {
-  $.extend(this, new NPC('simon', 'characters/simon', 'shadow_lg'));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'simon-margaret',
       x: 24,
@@ -13,7 +11,8 @@ function Simon() {
       face: DIR.DW,
     }
   }
-  this.buildNPCSchedule();
+
+  $.extend(this, new NPC('simon', 'characters/simon', 'shadow_lg', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -26,7 +25,3 @@ Simon.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
   return 'free';
 }
-
-// Add Simon object to game's NPC collection.
-var simon = new Simon();
-game.addNPC(simon.name, simon);

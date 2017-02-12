@@ -2,10 +2,8 @@
   Hopper is one of Elizabeth & Nick's cats.
 **/
 function Hopper() {
-  $.extend(this, new NPC("hopper", "pets/hopper", "shadow_sm"));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'elizabeth-alan',
       x: 17,
@@ -13,7 +11,8 @@ function Hopper() {
       face: DIR.DW,
     }
   }
-  this.buildNPCSchedule();
+
+  $.extend(this, new NPC('hopper', 'pets/hopper', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -36,9 +35,5 @@ Hopper.prototype.interact = function(prompt, dir) {
   } 
 
   this.reactLove();
-  return "free";
+  return 'free';
 }
-
-// Add Hopper object to game's NPC collection.
-var hopper = new Hopper();
-game.addNPC(hopper.name, hopper);

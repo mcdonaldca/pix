@@ -2,7 +2,7 @@
   Vio is a test pet.
 **/
 function Vio() {
-  $.extend(this, new NPC("vio", "pets/white-cat", "shadow_sm"));
+  $.extend(this, new NPC("vio", "pets/white-cat", "shadow_sm", SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -27,7 +27,3 @@ Vio.prototype.interact = function(prompt, dir) {
   this.reactLove();
   return "free";
 }
-
-// Add Vio object to game's NPC collection.
-var vio = new Vio();
-game.addNPC(vio.name, vio);

@@ -2,10 +2,8 @@
   Alan is a SF resident.
 **/
 function Alan() {
-  $.extend(this, new NPC('alan', 'characters/alan', 'shadow_lg'));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'elizabeth-alan',
       x: 6,
@@ -13,7 +11,8 @@ function Alan() {
       face: DIR.DW,
     }
   }
-  this.buildNPCSchedule();
+
+  $.extend(this, new NPC('alan', 'characters/alan', 'shadow_lg', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -26,7 +25,3 @@ Alan.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
   return 'free';
 }
-
-// Add Alan object to game's NPC collection.
-var alan = new Alan();
-game.addNPC(alan.name, alan);

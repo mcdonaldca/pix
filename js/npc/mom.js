@@ -2,10 +2,8 @@
   The player's mom.
 **/
 function Mom() {
-  $.extend(this, new NPC("mom", "characters/mom", "shadow_sm"));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'hewitt-home',
       x: 5,
@@ -13,7 +11,8 @@ function Mom() {
       face: DIR.DW,
     }
   }
-  this.buildNPCSchedule();
+
+  $.extend(this, new NPC('mom', 'characters/mom', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -21,9 +20,5 @@ function Mom() {
 **/
 Mom.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
-  return "free";
+  return 'free';
 }
-
-// Add Mom object to game's NPC collection.
-var mom = new Mom();
-game.addNPC(mom.name, mom);

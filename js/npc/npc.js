@@ -4,7 +4,7 @@
   @param sprite The url for the sprite image.
   @param shadow The url for the shadow, if any.
 **/
-function NPC(name, sprite, shadow) {
+function NPC(name, sprite, shadow, schedule, scheduleStatuses, scheduleTravel) {
   // Use name provided or random string instead.
   this.name = name || Math.random().toString(36).substring(7);
   $.extend(this, new Avatar(false, this.name, sprite, shadow));
@@ -14,10 +14,11 @@ function NPC(name, sprite, shadow) {
   this.talkedTo = false; // Tracks if the character has been spoken to.
 
   // Schedule related values.
-  this.SCHEDULE = {};
-  this.SCHEDULE_STATUSES = {};
-  this.SCHEDULE_TRAVEL = {};
+  this.SCHEDULE = schedule;
+  this.SCHEDULE_STATUSES = scheduleStatuses;
+  this.SCHEDULE_TRAVEL = scheduleTravel;
   this.scheduleStatus = 0;
+  this.buildNPCSchedule();
 
   // Set in NPC.updateScheduleStatus
   this.currentLocation = undefined;
@@ -49,7 +50,7 @@ NPC.prototype.buildNPCSchedule = function() {
   if (this.SCHEDULE.weekend)  this.generateDailySchedule(scheduleData, [0, 6], this.SCHEDULE.weekend);
   if (this.SCHEDULE.wednesday)  this.generateDailySchedule(scheduleData, [3], this.SCHEDULE.wednesday);
 
-  game.time.augmentNPCSchedule(this.name, scheduleData);
+  this.scheduleData = scheduleData;
 }
 
 /**

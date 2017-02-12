@@ -1,11 +1,9 @@
 /**
-  Librarian.
+  SF Librarian.
 **/
 function Mary() {
-  $.extend(this, new NPC('mary', 'characters/mary', 'shadow_sm'));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'library',
       x: 7,
@@ -15,7 +13,7 @@ function Mary() {
     }
   }
 
-  this.buildNPCSchedule();
+  $.extend(this, new NPC('mary', 'characters/mary', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -115,7 +113,3 @@ Mary.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 };
-
-// Add Mary object to game's NPC collection.
-var mary = new Mary();
-game.addNPC(mary.name, mary);

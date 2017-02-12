@@ -2,7 +2,6 @@
   Holland is the doorman for the apartment building.
 **/
 function Holland() {
-  $.extend(this, new NPC('holland', 'characters/holland', 'shadow_lg'));
   // Available renovations.
   this.renovations = [
     { name: 'New wallpaper', item: 'wallpaper', price: 350 },
@@ -11,8 +10,8 @@ function Holland() {
     { name: 'New linens', item: 'linens', price: 100 }
   ];
 
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'le-chateau-lobby',
       x: 7,
@@ -22,7 +21,7 @@ function Holland() {
     }
   }
 
-  this.buildNPCSchedule();
+  $.extend(this, new NPC('holland', 'characters/holland', 'shadow_lg', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -143,7 +142,3 @@ Holland.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
-
-// Add Holland object to game's NPC collection.
-var holland = new Holland();
-game.addNPC(holland.name, holland);

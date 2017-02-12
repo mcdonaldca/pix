@@ -2,10 +2,8 @@
   Elizabeth is a SF resident.
 **/
 function Elizabeth() {
-  $.extend(this, new NPC('elizabeth', 'characters/elizabeth', 'shadow_sm'));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'elizabeth-alan',
       x: 18,
@@ -13,7 +11,8 @@ function Elizabeth() {
       face: DIR.DW,
     }
   }
-  this.buildNPCSchedule();
+
+  $.extend(this, new NPC('elizabeth', 'characters/elizabeth', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -26,7 +25,3 @@ Elizabeth.prototype.interact = function(prompt, dir) {
   this.talkedTo = true;
   return 'free';
 }
-
-// Add Elizabeth object to game's NPC collection.
-var elizabeth = new Elizabeth();
-game.addNPC(elizabeth.name, elizabeth);

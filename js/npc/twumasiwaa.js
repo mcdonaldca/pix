@@ -2,10 +2,8 @@
   Rama
 **/
 function Twumasiwaa() {
-  $.extend(this, new NPC('twumasiwaa', 'characters/twumasiwaa', 'shadow_sm'));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0], [2, 5, 50], [1, 18, 10]], wednesday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0], [2, 5, 50], [1, 18, 10]], wednesday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'city-nw',
       x: 15,
@@ -21,7 +19,7 @@ function Twumasiwaa() {
       dir: [DIR.LF, DIR.UP, DIR.RT, DIR.DW],
     },
   };
-  this.SCHEDULE_TRAVEL = {
+  var SCHEDULE_TRAVEL = {
     'city-nw': {
       'ritual-roasters': new Travel(this, [
           { act: 'path', area: 'city-nw', start: { x: 15, y: 24 }, end: { x: 24, y: 24 }, dur: ANIM_LENGTH_NPC },
@@ -39,8 +37,15 @@ function Twumasiwaa() {
         ])
     }
   };
-
-  this.buildNPCSchedule();
+  
+  $.extend(this, new NPC(
+    'twumasiwaa', 
+    'characters/twumasiwaa', 
+    'shadow_sm',
+    SCHEDULE,
+    SCHEDULE_STATUSES,
+    SCHEDULE_TRAVEL
+  ));
 }
 
 /**
@@ -77,7 +82,3 @@ Twumasiwaa.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
-
-// Add Twumasiwaa object to game's NPC collection.
-var twumasiwaa = new Twumasiwaa();
-game.addNPC(twumasiwaa.name, twumasiwaa);

@@ -2,10 +2,8 @@
   Margaret is a character in the game.
 **/
 function Margaret() {
-  $.extend(this, new NPC('margaret', 'characters/margaret', 'shadow_sm'));
-
-  this.SCHEDULE = { weekday: [[1, 0, 0], [2, 6, 50], [3, 8, 0], [1, 20, 50]], weekend: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { weekday: [[1, 0, 0], [2, 6, 50], [3, 8, 0], [1, 20, 50]], weekend: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
         area: 'simon-margaret',
         x: 20,
@@ -28,7 +26,7 @@ function Margaret() {
       dir: [DIR.UP, DIR.DW, DIR.LF],
     },
   };
-  this.SCHEDULE_TRAVEL = {
+  var SCHEDULE_TRAVEL = {
     'simon-margaret': {
       'ritual-roasters': 
         new Travel(this, [
@@ -76,7 +74,14 @@ function Margaret() {
     }
   }
 
-  this.buildNPCSchedule();
+  $.extend(this, new NPC(
+    'margaret', 
+    'characters/margaret', 
+    'shadow_sm',
+    SCHEDULE,
+    SCHEDULE_STATUSES,
+    SCHEDULE_TRAVEL
+  ));
 
   this.relationshipStatus = {
     foundRoomate: false,
@@ -200,7 +205,3 @@ Margaret.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
-
-// Add Margaret object to game's NPC collection.
-var margaret = new Margaret();
-game.addNPC(margaret.name, margaret);

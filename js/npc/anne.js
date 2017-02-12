@@ -2,11 +2,8 @@
   Anne
 **/
 function Anne() {
-  $.extend(this, new NPC('anne', 'characters/anne', 'shadow_sm'));
-  this.talkedTo = true;
-
-  this.SCHEDULE = { everyday: [[1, 0, 0], [2, 5, 30], [1, 18, 30]], wednesday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0], [2, 5, 30], [1, 18, 30]], wednesday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'anne-home',
       x: 7,
@@ -20,7 +17,7 @@ function Anne() {
       face: DIR.DW,
     }
   };
-  this.SCHEDULE_TRAVEL = {
+  var SCHEDULE_TRAVEL = {
     'anne-home': {
       'ritual-roasters': new Travel(this, [
           { act: 'path', area: 'anne-home', start: { x: 7, y: 5 }, end: { x: 3, y: 7 }, dur: ANIM_LENGTH_NPC },
@@ -47,7 +44,15 @@ function Anne() {
     }
   };
 
-  this.buildNPCSchedule();
+  $.extend(this, new NPC(
+    'anne', 
+    'characters/anne', 
+    'shadow_sm', 
+    SCHEDULE, 
+    SCHEDULE_STATUSES, 
+    SCHEDULE_TRAVEL
+  ));
+  this.talkedTo = true;
 }
 
 /**
@@ -114,7 +119,3 @@ Anne.prototype.interact = function(prompt, dir) {
   this.count += 1;
   return status;
 }
-
-// Add Anne object to game's NPC collection.
-var anne = new Anne();
-game.addNPC(anne.name, anne);

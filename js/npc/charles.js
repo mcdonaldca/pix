@@ -2,10 +2,8 @@
   Charles is one of Elizabeth & Nick's cats.
 **/
 function Charles() {
-  $.extend(this, new NPC("charles", "pets/charles", "shadow_sm"));
-
-  this.SCHEDULE = { everyday: [[1, 0, 0]] };
-  this.SCHEDULE_STATUSES = {
+  var SCHEDULE = { everyday: [[1, 0, 0]] };
+  var SCHEDULE_STATUSES = {
     1: {
       area: 'elizabeth-alan',
       x: 5,
@@ -13,7 +11,8 @@ function Charles() {
       face: DIR.DW,
     }
   }
-  this.buildNPCSchedule();
+
+  $.extend(this, new NPC('charles', 'pets/charles', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
 }
 
 /**
@@ -37,9 +36,5 @@ Charles.prototype.interact = function(prompt, dir) {
   } 
 
   this.reactLove();
-  return "free";
+  return 'free';
 }
-
-// Add Charles object to game's NPC collection.
-var charles = new Charles();
-game.addNPC(charles.name, charles);

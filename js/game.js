@@ -13,9 +13,10 @@ function Game() {
   this.areas = {};         // Map of area names to their Area objects.
   this.screens = {};       // Map of screens to their varous objects.
   this.walkthroughs = {};  // Map of walkthroughs to their varous objects.
-  this.NPCs = {};          // Map of NPC names to their objects.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
+
+  this.initializeNPCs();   // Creates and maps all NPC objects.
 
   // Initialized in Game.start
   this.messager = undefined; // The Game's messaging system.
@@ -27,6 +28,34 @@ function Game() {
   this.name = 'Adele';
   this.city = 'San Francisco';
 }
+
+/**
+  Creates and maps all NPC objects as well as adds their travel schedules to 
+  the time tracking system.
+**/
+Game.prototype.initializeNPCs = function() {
+  this.NPCs = {}; // Map of NPC names to their objects.
+
+  var collection = [
+    new Alan(),
+    new Anne(),
+    new Charles(),
+    new Elizabeth(),
+    new Holland(),
+    new Hopper(),
+    new Margaret(),
+    new Mary(),
+    new Mom(),
+    new Simon(),
+    new Twumasiwaa(),
+  ];
+
+  for (var i = 0; i < collection.length; i++) {
+    var npcObj = collection[i];
+    this.NPCs[npcObj.name] = npcObj;
+    this.time.augmentNPCSchedule(npcObj.name, npcObj.scheduleData)
+  }
+};
 
 /**
   Called to start the game!
@@ -89,15 +118,6 @@ Game.prototype.addScreen = function (key, screen) {
 **/
 Game.prototype.addWalkthrough = function (key, walkthrough) {
   this.walkthroughs[key] = walkthrough;
-}
-
-/**
-  Adds an NPC to the Game.NPCs map.
-  @param key The key for the npc.
-  @param npc NPC object.
-**/
-Game.prototype.addNPC = function (key, npc) {
-  this.NPCs[key] = npc;
 }
 
 /**
@@ -501,7 +521,7 @@ Game.prototype.startWalkthrough = function(walkthrough) {
     walkthroughObj.start(this);
     this.focus = walkthroughObj;
   }
-}
+};
 
 /**
   Closes the current area and forces the player to exit.
@@ -511,11 +531,11 @@ Game.prototype.closeArea = function() {
   this.focus = closing;
   this.setStatus(closing.interact(this.prompt) || 'free');
   this.exit(this.area.exitTo);
-}
+};
 
 Game.prototype.updateKarma = function(key, change, logMessage) {
   game.player.karma.update(key, change, logMessage);
-}
+};
 
 Game.prototype.logHistory = function(logMessage, today) {
   game.player.karma.log(logMessage, game.time.today());
