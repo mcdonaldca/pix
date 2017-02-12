@@ -24,14 +24,9 @@
     </div>
     <div class="background"></div>
     <div id="game">
-      <div class="area">
-        <div id="avatar">
-          <div id="reaction" class="reaction"></div>
-          <div id="sprite" class="sprite"></div>
-          <div class="shadow"></div>
-        </div>
+      <div id="area-container">
+        <div class="area-shadow"></div>
       </div>
-      <div class="area-shadow"></div>
 
       <div id="screen">
         <div class="prompt">
@@ -399,7 +394,6 @@
   <script src="js/game.js"></script>
   <script src="js/space.js"></script>
   <script src="js/keys.js"></script>
-  <script> var game = new Game(); </script>
 
   <!-- Interactable objects. -->
   <script src="js/interact/message.js"></script>
@@ -409,50 +403,69 @@
   <script src="js/interact/work.js"></script>
   <script src="js/interact/computer.js"></script>
 
-  <!-- Interactable characters. -->
+  <!-- NPC building blocks. -->
+  <script src="js/npc/travel.js"></script>
   <script src="js/npc/npc.js"></script>
-  <script src="js/npc/simon.js"></script>
-  <script src="js/npc/vio.js"></script>
-  <script src="js/npc/holland.js"></script>
-  <script src="js/npc/mom.js"></script>
+  <!-- Interactable characters. -->
+  <script src="js/npc/alan.js"></script>
   <script src="js/npc/anne.js"></script>
-  <script src="js/npc/twumasiwaa.js"></script>
-  <script src="js/npc/mary.js"></script>
+  <script src="js/npc/charles.js"></script>
+  <script src="js/npc/elizabeth.js"></script>
+  <script src="js/npc/holland.js"></script>
+  <script src="js/npc/hopper.js"></script>
   <script src="js/npc/margaret.js"></script>
+  <script src="js/npc/mary.js"></script>
+  <script src="js/npc/mom.js"></script>
+  <script src="js/npc/simon.js"></script>
+  <script src="js/npc/twumasiwaa.js"></script>
+  <script src="js/npc/vio.js"></script>
+  <!-- Intializer (MUST BE LAST) -->
+  <script src="js/npc/initializer.js"></script>
 
   <!-- Event objects. -->
   <script src="js/event/mirror.js"></script>
   <script src="js/event/pool.js"></script>
   <script src="js/event/require-card.js"></script>
 
-  <!-- Different game areas. -->
+  <!-- Area building blocks. -->
   <script src="js/areas/area.js"></script>
   <script src="js/areas/limited-area.js"></script>
   <script src="js/areas/residential-area.js"></script>
-  <script src="js/areas/studio.js"></script>
-  <script src="js/areas/le-chateau.js"></script>
-  <script src="js/areas/rundown-apt.js"></script>
-  <script src="js/areas/hewitt-home.js"></script>
-  <script src="js/areas/ritual-roasters.js"></script>
-  <script src="js/areas/library.js"></script>
+  <!-- Different game areas. -->
+  <script src="js/areas/anne-home.js"></script>
   <script src="js/areas/city.js"></script>
+  <script src="js/areas/elizabeth-alan.js"></script>
+  <script src="js/areas/hewitt-home.js"></script>
+  <script src="js/areas/le-chateau.js"></script>
+  <script src="js/areas/library.js"></script>
+  <script src="js/areas/ritual-roasters.js"></script>
+  <script src="js/areas/rundown-apt.js"></script>
   <script src="js/areas/simon-margaret.js"></script>
+  <script src="js/areas/studio.js"></script>
+  <!-- Intializer (MUST BE LAST) -->
+  <script src="js/areas/initializer.js"></script>
 
-  <!-- Player walkthroughs -->
+  <!-- Walkthrough building blocks. -->
   <script src="js/walkthroughs/callbacks.js"></script>
   <script src="js/walkthroughs/walkthrough.js"></script>
-  <script src="js/walkthroughs/opening-hewitt.js"></script>
-  <script src="js/walkthroughs/opening-rundown-apt.js"></script>
+  <!-- Player walkthroughs. -->
   <script src="js/walkthroughs/anne-intro.js"></script>
   <script src="js/walkthroughs/no-library-card.js"></script>
+  <script src="js/walkthroughs/opening-hewitt.js"></script>
+  <script src="js/walkthroughs/opening-rundown-apt.js"></script>
+  <!-- Intializer (MUST BE LAST) -->
+  <script src="js/walkthroughs/initializer.js"></script>
 
-  <!-- Different player screens. -->
+  <!-- Screen building blocks. -->
   <script src="js/screens/callbacks.js"></script>
   <script src="js/screens/screen.js"></script>
+  <!-- Different player screens. -->
   <script src="js/screens/character-select.js"></script>
-  <script src="js/screens/newspaper.js"></script>
-  <script src="js/screens/keyboard.js"></script>
   <script src="js/screens/email.js"></script>
+  <script src="js/screens/keyboard.js"></script>
+  <script src="js/screens/newspaper.js"></script>
+  <!-- Intializer (MUST BE LAST) -->
+  <script src="js/screens/initializer.js"></script>
 
   <!-- SPEC INCLUDES -->
 
