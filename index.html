@@ -122,32 +122,34 @@
   <script src="js/walkthroughs/opening-hewitt.js"></script>
   <script src="js/walkthroughs/opening-rundown-apt.js"></script>
 
-  <script> var game = new Game(); </script>
-
-  <!-- Different player screens. -->
+  <!-- Screen building blocks. -->
   <script src="js/screens/callbacks.js"></script>
   <script src="js/screens/screen.js"></script>
+  <!-- Different player screens. -->
   <script src="js/screens/character-select.js"></script>
-  <script src="js/screens/newspaper.js"></script>
-  <script src="js/screens/keyboard.js"></script>
   <script src="js/screens/email.js"></script>
+  <script src="js/screens/keyboard.js"></script>
+  <script src="js/screens/newspaper.js"></script>
 
   <!-- Let the game begin! -->
   <script>
+    /* Production:
+    $(document).ready(function() {
+      var prompt = new Prompt();
+      var game = new Game();
+      game.start();
+    });    
+    //*/
+
+    //* Testing:
+    var game = new Game();
     var x = parseInt(window.sessionStorage.getItem("x")),
         y = parseInt(window.sessionStorage.getItem("y")),
         face = window.sessionStorage.getItem("face"),
         area = window.sessionStorage.getItem("area");
 
     area == undefined ? game.start(7, 4, DIR.DW, "studio") : game.start(x, y, face, area);
-
-    /* Production:
-      $(document).ready(function() {
-        var prompt = new Prompt();
-        var game = new Game();
-        game.start(7, 4, DIR.DW, "studio");
-      });    
-    */
+    //*/
   </script>
 </body>
 </html>

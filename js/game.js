@@ -10,13 +10,13 @@ function Game() {
   this.time = new Time(); // Tracks time in game.
 
   this.area = undefined;   // The current area.
-  this.screens = {};       // Map of screens to their varous objects.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
 
-  this.initializeNPCs();   // Creates and maps all NPC objects.
-  this.initializeAreas();  // Creates and maps all game areas.
-  this.initiliazeWalkthroughs(); // Creates and maps all player walkthroughs.
+  this.initializeNPCs();         // Creates and maps all NPC objects.
+  this.initializeAreas();        // Creates and maps all game areas.
+  this.initializeWalkthroughs(); // Creates and maps all player walkthroughs.
+  this.initializeScreens();      // Creates and maps all player screens.
 
   // Initialized in Game.start
   this.messager = undefined; // The Game's messaging system.
@@ -95,8 +95,8 @@ Game.prototype.initializeAreas = function() {
 /**
   Creates and maps all player walkthroughs. Sets callbacks if necessary.
 **/
-Game.prototype.initiliazeWalkthroughs = function() {
-  this.walkthroughs = {};  // Map of walkthroughs to their varous objects.
+Game.prototype.initializeWalkthroughs = function() {
+  this.walkthroughs = {}; // Map of walkthroughs to their varous objects.
 
   var collection = [
     { walkthrough: new AnneIntro(), callback: this.anneIntroCallback() },
@@ -111,6 +111,28 @@ Game.prototype.initiliazeWalkthroughs = function() {
 
     walkthroughObj.setCallback(walkthroughCallback);
     this.walkthroughs[walkthroughObj.name] = walkthroughObj;
+  }
+};
+
+/**
+  Creates and maps all player screens. Sets callbacks if necessary.
+**/
+Game.prototype.initializeScreens = function() {
+  this.screens = {}; // Map of screens to their varous objects.
+
+  var collection = [
+    { screen: new CharacterSelect(), callback: this.characterSelectCallback() },
+    { screen: new Email() },
+    { screen: new Keyboard(), callback: this.keyboardCallback() },
+    { screen: new Newspaper(), callback: this.newspaperCallback() },
+  ];
+
+  for (var i = 0; i < collection.length; i++) {
+    var screenObj = collection[i].screen;
+    var screenCallback = collection[i].callback;
+
+    screenObj.setCallback(screenCallback);
+    this.screens[screenObj.name] = screenObj;
   }
 };
 

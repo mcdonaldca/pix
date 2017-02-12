@@ -1,10 +1,13 @@
 /** 
   Screen with selection involved (character selection, inventory, newspaper, etc.).
+  @param background The path to the background image for the screen.
+  @param name       The name of the screen.
 **/
-function Screen(background) {
+function Screen(background, name) {
   this.background = background; // Background for the screen.
-  this.screenEl = $("#screen"); // Access to the screen element (change bg).
-  this.status = "selection"; // Whether we're in selection mode or interacting w/ prompt.
+  this.name = name; // Name of the screen
+  this.screenEl = $('#screen'); // Access to the screen element (change bg).
+  this.status = 'selection'; // Whether we're in selection mode or interacting w/ prompt.
   this.exit = undefined; // The location to exit to after selection.
   this.elements = []; // The elements used on the screen.
   this.count = 0; // Keeps track of our point in the conversation.
@@ -23,7 +26,7 @@ Screen.prototype.display = function(prompt) {
   if (this.customDisplay) {
     this.customDisplay();
   }
-  this.screenEl.css("background-image", "url(" + this.background + ")");
+  this.screenEl.css('background-image', 'url(' + this.background + ')');
   for (var i = 0; i < this.elements.length; i++) {
     this.screenEl.append(this.elements[i]);
   }
@@ -47,7 +50,7 @@ Screen.prototype.setCallback = function(callback) {
   Cleans up after the screen is finished.
 **/
 Screen.prototype.endScreen = function() {
-  this.screenEl.css("background-image", "none");
+  this.screenEl.css('background-image', 'none');
   for (var i = 0; i < this.elements.length; i++) {
     this.elements[i].remove();
   }

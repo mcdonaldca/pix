@@ -9,7 +9,8 @@
   Newspaper
   @param city The city the player selects.
 **/
-Game.prototype.newspaperCallback = function(game) {
+Game.prototype.newspaperCallback = function() {
+  var game = this;
   return function(city) {
     game.city = city;
     game.screenEndFade();
@@ -23,7 +24,8 @@ Game.prototype.newspaperCallback = function(game) {
   @param hairColor The player's hair color.
   @param skinTone  The player's skin tone.
 **/
-Game.prototype.characterSelectCallback = function(game) {
+Game.prototype.characterSelectCallback = function() {
+  var game = this;
   return function(dataURL, hairColor, skinTone) {
     game.player.setBackgroundImage(dataURL);
 
@@ -49,7 +51,8 @@ Game.prototype.characterSelectCallback = function(game) {
   Keyboard
   @param name The player's name.
 **/
-Game.prototype.keyboardCallback = function(game) {
+Game.prototype.keyboardCallback = function() {
+  var game = this;
   return function(name) {
     game.name = name;
     game.displayScreen('character-select');
