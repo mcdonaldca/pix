@@ -184,13 +184,20 @@ body {
 
   &.visible {
     opacity: 1;
-  transition: opacity .5s;
+    transition: opacity .5s;
   }
+}
+
+#area-container {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
 }
 
 .area {
   position: absolute;
-  overflow: hidden;
   transition: transform $anim-speed linear;
   background-size: 100%;
 

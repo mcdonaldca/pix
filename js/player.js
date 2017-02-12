@@ -2,7 +2,7 @@
   Extension of Avatar for the player.
 **/
 function Player() {
-  $.extend(this, new Avatar(true));
+  $.extend(this, new Avatar(true, '', 'characters/adele'));
   this.class = 'Player';
 
   this.wallet = new Wallet();

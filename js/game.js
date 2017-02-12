@@ -8,6 +8,11 @@ function Game() {
   this.prompt = new Prompt(); // Interface with on-screen prompt.
   this.messager = new Message('');
 
+  // The container which holds the current area.
+  this.areaContainer = $('#area-container'); 
+  // This value will get set when the game is started (Game.start)
+  this.area = undefined;
+
   this.time = new Time(); // Tracks time in game.
 
   this.area = undefined;   // The current area.
@@ -103,10 +108,14 @@ Game.prototype.moveToArea = function(area) {
   // Initialize values to empty.
   var from = '';
   var door = '';
-  // New area to move to.
+
+  // Save where we're coming from.
   var oldArea = this.area;
+
+  // New area to move to -- allow param to be either string or area object.
   if (typeof area == 'string') { area = this.areas[area]; }
   this.area = area;
+
   // If it's not a new game and we're in an area.
   if (oldArea != undefined) {
     from = oldArea.name;
@@ -114,13 +123,20 @@ Game.prototype.moveToArea = function(area) {
     window.sessionStorage.setItem('from', from);
     door = window.sessionStorage.getItem('door');
 
-    // Set wherever we were in the previous area to unoccupied.
+    // Set wherever we were in the previous area to unoccupied and
+    // remove the previous area.
+    oldArea.getEl().remove();
     oldArea.space(this.player.x, this.player.y).setUnoccupied();
+    this.player.getEl().remove();
 
-    this.area.build(oldArea.elements, oldArea.NPCs);
+    this.areaContainer.append(this.area.getEl());
+    this.area.append(this.player.getEl());
   } else {
-    this.area.build();
+    this.areaContainer.append(this.area.getEl());
+    this.area.append(this.player.getEl());
   }
+
+  // Save which area we're currently in.
   window.sessionStorage.setItem('area', area.name);
   // Remove door data until it's set again by a specific exit door.
   window.sessionStorage.removeItem('door');

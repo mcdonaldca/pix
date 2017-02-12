@@ -9,19 +9,15 @@ function AreaSpec() {
       var svgName = 'test';
       var area = new Area(width, height, svgName); 
 
-      expect(area).to.have.property('class', 'area');
+      expect(area).to.have.property('class', 'Area');
       expect(area).to.have.property('height', height);
       expect(area).to.have.property('width', width);
       expect(area).to.have.property('svgName', svgName);
-      expect(area.grid).to.have.property('length', width);
-      expect(area.grid[0]).to.have.property('length', height);
-    });
-
-    spec.it('correctly calculates mask limitations', function() {
-      // TODO
     });
   });
   
+
+
   spec.describe('.build', function() {
     spec.it('correctly builds area div (height, width, background image)', function() {
       var width = 10;
@@ -37,6 +33,8 @@ function AreaSpec() {
       expect(area.areaEl.css('background-image')).to.contain('img/areas/' + svgName + '.svg');
     })
   });
+
+
 
   spec.describe('.setPlacementLimits', function() {
     spec.it('correctly calculates placement limits when width and height are less than the size of the screen', function() {
@@ -63,6 +61,26 @@ function AreaSpec() {
       expect(area).to.have.property('minY', -3);
     });
   });
+
+
+
+  spec.describe('.createGridAndPaths', function() {
+    // TODO
+  });
+
+
+
+  spec.describe('.build', function() {
+    spec.it('creates divs and sets css values', function() {
+      var area = new Area(5, 7, 'test');
+      expect(area.areaEl.is('div')).to.equal(true);
+      expect(area.areaEl.css('width')).to.equal((area.width * BLOCK * MULT).toString() + 'px');
+      expect(area.areaEl.css('height')).to.equal((area.height * BLOCK * MULT).toString() + 'px');
+      expect(area.areaEl.css('background-image')).to.equal('url("img/areas/test.svg")');
+    });
+  });
+
+
 
   spec.describe('.updateAreaPosition', function() {
     spec.it('correctly calculates translation when player is not at screen limits', function() {
@@ -103,6 +121,25 @@ function AreaSpec() {
     });
   });
 
+
+
+  spec.describe('.pathBetween', function() {
+    // TODO
+  });
+
+
+
+  spec.describe('.getEl', function() {
+    spec.it('returns the areaEl element', function() {
+      var area = new Area(5, 5, 'test');
+      var areaEl = area.getEl();
+
+      expect(area.areaEl).to.equal(areaEl);
+    });
+  });
+
+
+
   spec.describe('.space', function() {
     spec.it('returns a valid space when coordinates are valid', function() {
       var area = new Area(5, 5, 'test');
@@ -116,6 +153,9 @@ function AreaSpec() {
       expect(space).to.equal(undefined);
     });
   });
+
+
+
 
   spec.describe('.validZone', function() {
     spec.it('returns true when valid zone', function() {
@@ -134,65 +174,97 @@ function AreaSpec() {
     });
   });
 
+
+
   spec.describe('.addItem', function() {
     // TODO
   });
+
+
 
   spec.describe('.addInteraction', function() {
     // TODO
   });
 
+
+
   spec.describe('.addNPC', function() {
     // TODO
   });
+
+
 
   spec.describe('.removeNPC', function() {
     // TODO
   });
 
+
+
   spec.describe('.hasNPC', function() {
     // TODO
   });
+
+
 
   spec.describe('.addEventZone', function() {
     // TODO
   });
 
+
+
   spec.describe('.addExit', function() {
     // TODO
   });
+
+
 
   spec.describe('.addPositionData', function() {
     // TODO
   });
 
+
+
   spec.describe('.getPositionData', function() {
     // TODO
   });
+
+
 
   spec.describe('.getItem', function() {
     // TODO
   });
 
+
+
   spec.describe('.getName', function() {
     // TODO
   });
+
+
 
   spec.describe('.append', function() {
     // TODO
   });
 
+
+
   spec.describe('.setVisited', function() {
     // TODO
   });
+
+
 
   spec.describe('.isVisited', function() {
     // TODO
   });
 
+
+
   spec.describe('.isLimited', function() {
     // TODO
   });
+
+
 
   spec.describe('.isResidential', function() {
     // TODO

@@ -6,14 +6,17 @@
   @param areaOverride Name of area's svg (if different from name).
 **/
 function Area(width, height, name, areaOverride) {
-  this.class = 'area'; // For testing.
+  this.class = 'Area'; // For testing.
   
   this.width = width;   // Width of the area in blocks.
   this.height = height; // Height of the area in blocks.
   this.name = name;     // Name of the area.
   this.svgName = areaOverride || name; // Name of the SVG for the area.
 
-  this.areaEl = $('.area'); // The area element to manipulate.
+  // The following value gets set in Area.build
+  this.areaEl = undefined;
+  this.build();
+
 
   // Following values are set in Area.setPlacementLimits
   this.maxX = undefined;   // Greatest translate X value (in blocks) area should go.
@@ -32,7 +35,6 @@ function Area(width, height, name, areaOverride) {
 
   this.items = {};        // Item collection.
   this.NPCs = [];         // Collection of NPCs in area.
-  this.elements = [];     // HTML elements added to area.
   this.positionData = {}; // Player positioning based on entrances from other areas.
   
   // Following value is set in Area.createGridAndPaths
@@ -174,40 +176,17 @@ Area.prototype.createGridAndPaths = function() {
 
 
 /**
-  Called when we've entered an area and the HTML should be built out.
-  @param removeEls The elements set by the previous area that should be removed.
+  Builds the area element which well contain all items, NPCs, etc.
 **/
-Area.prototype.build = function(removeEls, removeNPCs) {
-  // Save that we've entered a new room.
-  window.sessionStorage.setItem('room', name);
-
-  // Remove previous area's elements.
-  removeEls = removeEls || [];
-  for (var i = 0; i < removeEls.length; i++) {
-    $(removeEls[i]).remove();
-  }
-
-  // Remove previous area's NPCs.
-  removeNPCs = removeNPCs || {};
-  for (var i = 0; i < removeNPCs.length; i++) {
-    $(removeNPCs[i].getEl()).remove();
-  }
+Area.prototype.build = function() {
+  // Create the element and apply area styles to it.
+  this.areaEl = $(document.createElement('div')).addClass('area');
 
   // Set the height and width of the area element.
   // Set the background image to the area's svg.
   this.areaEl.css('width', (this.width * BLOCK * MULT).toString() + 'px')
              .css('height', (this.height * BLOCK * MULT).toString() + 'px')
              .css('background-image', 'url(img/areas/' + this.svgName + '.svg)');
-
-  // Add all the elements created upon intialization of the area.
-  for (var i = 0; i < this.elements.length; i++) {
-    this.append(this.elements[i]);
-  }
-
-  // Add and place all NPCs.
-  for (var i = 0; i < this.NPCs.length; i++) {
-    this.append(this.NPCs[i].getEl());
-  }
 }
 
 
@@ -361,6 +340,16 @@ Area.prototype.pathBetween = function(startCoord, endCoord) {
 
 
 /**
+  Returns the element containing all items, NPCs, etc.
+  @return Element
+**/
+Area.prototype.getEl = function() {
+  return this.areaEl;
+};
+
+
+
+/**
   Returns a space from the Area's grid.
   @param x The x block coordinate.
   @param y The y block coordinate.
@@ -427,10 +416,10 @@ Area.prototype.addItem = function(width, item, startCoord, extra) {
       );
   }
 
-  // Add to element collection.
-  this.elements.push(div);
   // Add to item collection.
   this.items[item] = $(div);
+
+  this.append(div);
 }
 
 
@@ -463,8 +452,7 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
 Area.prototype.addNPC = function(npc) {
   // Add to NPC collection.
   this.NPCs.push(npc);
-  // If player currently in area, add the NPC's element.
-  if (game.area == this) this.append(npc.getEl());
+  this.append(npc.getEl());
 }
 
 
@@ -518,7 +506,7 @@ Area.prototype.addEventZone = function(startCoord, endCoord, event) {
   // Add any elements the event needs created.
   eventElements = event.getElements();
   for (var i = 0; i < eventElements.length; i++) {
-    this.elements.push(eventElements[i]);
+    this.append(eventElements[i]);
   }
 }
 

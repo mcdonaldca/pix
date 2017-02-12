@@ -3,7 +3,9 @@
 **/
 function RundownApt() {
   $.extend(this, new Area(7, 7, 'rundown-apt'));
-  this.renovations = {};
+
+  // Collection of rundown items to hide as renovations are paid for.
+  this.renovations = {}; 
 
   this.addItem(1, 'bed',    [5, 4]);
   this.addItem(1, 'covers', [5, 5]);
@@ -30,24 +32,12 @@ RundownApt.prototype.renovate = function(item, final) {
   return function() {
     var area = game.areas['rundown-apt'];
     var div = area.renovations[item];
-    $(div).hide();
+    $(div).remove();
 
     // Update bed items
     if (item == 'linens') {
       area.items['bed'].css('background-position', (BLOCK * MULT).toString() + 'px 0');
       area.items['covers'].css('background-position', (BLOCK * MULT).toString() + 'px 0');
-    }
-
-    // If it's the last renovations, remove all the items.
-    if (final) {
-      // Iterate through renovations object.
-      for (var key in area.renovations) {
-        if (area.renovations.hasOwnProperty(key)) {
-          var itemDiv = area.renovations[key];
-          var i = area.elements.indexOf(itemDiv);
-          area.elements.splice(i, 1);
-        }
-      }
     }
   }
 }
@@ -77,7 +67,5 @@ RundownApt.prototype.addRenovation = function(width, height, item, startCoord, z
 
   // Add to element collection.
   this.renovations[item] = div;
-
-  // Add to element collection.
-  this.elements.push(div);
+  this.append(div);
 }

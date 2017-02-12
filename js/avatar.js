@@ -13,6 +13,10 @@ function Avatar(isPlayer, name, sprite, shadow) {
   this.img = sprite || 'characters/test-char';  // The sprite image for the character.
   this.shadow = shadow;  // The type of shadow for the character (if any).
 
+  // The following values are set in Avatar.build
+  this.avatarEl = undefined;
+  this.reactionEl = undefined;
+  this.spriteEl = undefined;
   this.build();
 
   // Sprite constant values.
@@ -38,41 +42,41 @@ function Avatar(isPlayer, name, sprite, shadow) {
   Builds the elements to display an avatar in the game.
 **/
 Avatar.prototype.build = function() {
+  /* Sample HTML
+     <div class="npc npc-margaret">
+       <div class="avatar"></div>
+       <div class="shadow"></div>
+     </div>
+  */
+  var div = document.createElement('div');
   if (this.isPlayer) {
-    this.avatarEl = $('#avatar');
-    this.reactionEl = $('#reaction');
-    this.spriteEl = $('#sprite');
+    $(div).attr('id', 'avatar');
   } else {
-    /* Sample HTML
-       <div class="npc npc-margaret">
-         <div class="avatar"></div>
-         <div class="shadow"></div>
-       </div>
-    */
-    var div = document.createElement('div');
     $(div).addClass('npc npc-' + this.name);
-
-    var reaction = document.createElement('div');
-    $(reaction).addClass('reaction');
-    $(div).append(reaction);
-
-    var sprite = document.createElement('div');
-    $(sprite).addClass('sprite')
-             .css('background-image', 'url(img/' + this.img + '.svg)');
-    $(div).append(sprite);
-
-    // Some Avatars don't have shadows.
-    if (this.shadow != undefined) {
-      var shadow = document.createElement('div');
-      $(shadow).addClass('shadow')
-               .css('background-image', 'url(img/characters/' + this.shadow + '.svg)');
-      $(div).append(shadow);
-    }
-
-    this.avatarEl = $(div);
-    this.reactionEl = $(reaction);
-    this.spriteEl = $(sprite);
   }
+
+  var reaction = document.createElement('div');
+  $(reaction).addClass('reaction');
+  if (this.isPlayer) $(reaction).attr('id', 'reaction');
+  $(div).append(reaction);
+
+  var sprite = document.createElement('div');
+  $(sprite).addClass('sprite')
+           .css('background-image', 'url(img/' + this.img + '.svg)');
+  if (this.isPlayer) $(sprite).attr('id', 'sprite');
+  $(div).append(sprite);
+
+  // Some Avatars don't have shadows.
+  if (this.shadow != undefined) {
+    var shadow = document.createElement('div');
+    $(shadow).addClass('shadow')
+             .css('background-image', 'url(img/characters/' + this.shadow + '.svg)');
+    $(div).append(shadow);
+  }
+
+  this.avatarEl = $(div);
+  this.reactionEl = $(reaction);
+  this.spriteEl = $(sprite);
 };
 
 /**
