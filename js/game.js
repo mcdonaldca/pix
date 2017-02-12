@@ -10,13 +10,13 @@ function Game() {
   this.time = new Time(); // Tracks time in game.
 
   this.area = undefined;   // The current area.
-  this.areas = {};         // Map of area names to their Area objects.
   this.screens = {};       // Map of screens to their varous objects.
   this.walkthroughs = {};  // Map of walkthroughs to their varous objects.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
 
   this.initializeNPCs();   // Creates and maps all NPC objects.
+  this.initializeAreas();  // Creates and maps all game areas.
 
   // Initialized in Game.start
   this.messager = undefined; // The Game's messaging system.
@@ -53,7 +53,42 @@ Game.prototype.initializeNPCs = function() {
   for (var i = 0; i < collection.length; i++) {
     var npcObj = collection[i];
     this.NPCs[npcObj.name] = npcObj;
-    this.time.augmentNPCSchedule(npcObj.name, npcObj.scheduleData)
+    this.time.augmentNPCSchedule(npcObj.name, npcObj.scheduleData);
+  }
+};
+
+/**
+  Creates and maps all areas in the game.
+**/
+Game.prototype.initializeAreas = function() {
+  this.areas = {}; // Map of area names to their Area objects.
+
+  var collection = [
+    AnneHome(),
+    CityNE(),
+    CityNW({ 
+      ritualRoastersHours: RitualRoasters().hoursMessage(),
+    }),
+    CitySE(),
+    CitySW({
+      libraryHours: Library({ mary: null }).hoursMessage(),
+    }),
+    ElizabethAlan(),
+    HewittHome(),
+    LeChateauLobby({ holland: this.getNPC('holland') }),
+    LeChateauFloor1({ displayName: this.name }),
+    LeChateauElevatorLobby(),
+    LeChateauElevatorFloor1(),
+    Library({ mary: this.getNPC('mary') }),
+    RitualRoasters(),
+    new RundownApt(),
+    SimonMargaret(),
+    Studio(),
+  ];
+
+  for (var i = 0; i < collection.length; i++) {
+    var areaObj = collection[i];
+    this.areas[areaObj.name] = areaObj;
   }
 };
 
@@ -91,15 +126,6 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   this.faceDir(startFace);
   this.moveToSpace(startX, startY, startFace);
   //*/
-}
-
-/**
-  Adds an area to the Game.areas map.
-  @param key The key (name) of the Area object.
-  @param area Area object.
-**/
-Game.prototype.addArea = function (key, area) {
-  this.areas[key] = area;
 }
 
 /**
