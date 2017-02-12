@@ -2,7 +2,7 @@
   Walkthrough when trying to enter library without card.
 **/
 function NoLibraryCard() {
-  $.extend(this, new Walkthrough());
+  $.extend(this, new Walkthrough('no-library-card'));
 };
 
 /**
@@ -11,11 +11,11 @@ function NoLibraryCard() {
 NoLibraryCard.prototype.start = function() {
   // Instructions for the walkthrough.
   this.instructions = [
-    { act: "react", sub: "npc", type: "mary", react: "surprise", dur: 1000 },
-    { act: "face", sub: "player", dir: DIR.DW, dur: ANIM_LENGTH_NPC },
-    { act: "message", message: "You can't enter without a library card!", name: "mary" },
-    { act: "walk", sub: "player", dir: DIR.DW, dist: 2, dur: ANIM_LENGTH },
-    { act: "callback" }
+    { act: 'react', sub: 'npc', type: 'mary', react: 'surprise', dur: 1000 },
+    { act: 'face', sub: 'player', dir: DIR.DW, dur: ANIM_LENGTH_NPC },
+    { act: 'message', message: 'You can\'t enter without a library card!', name: 'mary' },
+    { act: 'walk', sub: 'player', dir: DIR.DW, dist: 2, dur: ANIM_LENGTH },
+    { act: 'callback' }
   ];
 
   // Begin instruction sequence.
@@ -27,24 +27,20 @@ NoLibraryCard.prototype.start = function() {
 **/
 NoLibraryCard.prototype.interact = function() {
   switch(this.status) {
-    case "prompt":
+    case 'prompt':
       if (this.current == 2) {
         game.prompt.removeMessage();
         this.continue();
       }
       break;
 
-    case "done":
-      return "free";
+    case 'done':
+      return 'free';
       break;
 
-    case "playing":
+    case 'playing':
     default:
       break;
   }
-  return "focused";
+  return 'focused';
 };
-
-// Add NoLibraryCard object to game's walkthrough selection.
-var noLibraryCard = new NoLibraryCard();
-game.addWalkthrough("no-library-card", noLibraryCard);

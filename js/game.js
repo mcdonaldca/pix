@@ -11,12 +11,12 @@ function Game() {
 
   this.area = undefined;   // The current area.
   this.screens = {};       // Map of screens to their varous objects.
-  this.walkthroughs = {};  // Map of walkthroughs to their varous objects.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
 
   this.initializeNPCs();   // Creates and maps all NPC objects.
   this.initializeAreas();  // Creates and maps all game areas.
+  this.initiliazeWalkthroughs(); // Creates and maps all player walkthroughs.
 
   // Initialized in Game.start
   this.messager = undefined; // The Game's messaging system.
@@ -93,6 +93,28 @@ Game.prototype.initializeAreas = function() {
 };
 
 /**
+  Creates and maps all player walkthroughs. Sets callbacks if necessary.
+**/
+Game.prototype.initiliazeWalkthroughs = function() {
+  this.walkthroughs = {};  // Map of walkthroughs to their varous objects.
+
+  var collection = [
+    { walkthrough: new AnneIntro(), callback: this.anneIntroCallback() },
+    { walkthrough: new NoLibraryCard() },
+    { walkthrough: new OpeningHewitt(), callback: this.openingHewittCallback() },
+    { walkthrough: new OpeningRundownApt(), callback: this.openingRundownAptCallback() },
+  ];
+
+  for (var i = 0; i < collection.length; i++) {
+    var walkthroughObj = collection[i].walkthrough;
+    var walkthroughCallback = collection[i].callback;
+
+    walkthroughObj.setCallback(walkthroughCallback);
+    this.walkthroughs[walkthroughObj.name] = walkthroughObj;
+  }
+};
+
+/**
   Called to start the game!
   @param startX    The x coordinate to start the player at.
   @param startY    The y coordinate to start the player at.
@@ -135,15 +157,6 @@ Game.prototype.start = function(startX, startY, startFace, area) {
 **/
 Game.prototype.addScreen = function (key, screen) {
   this.screens[key] = screen;
-}
-
-/**
-  Adds a walkthrough to the Game.walkthroughs map.
-  @param key         The key for the screen.
-  @param walkthrough Walkthrough's object.
-**/
-Game.prototype.addWalkthrough = function (key, walkthrough) {
-  this.walkthroughs[key] = walkthrough;
 }
 
 /**

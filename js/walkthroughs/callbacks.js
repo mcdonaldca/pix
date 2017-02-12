@@ -6,10 +6,25 @@
 **/
 
 /**
+  Anne Intro
+  @param acceptedJob If the player accepted the job at the shop.
+**/
+Game.prototype.anneIntroCallback = function() {
+  var game = this;
+  return function(acceptedJob) {
+    if (acceptedJob) {
+      game.area.space(4, 2).unblock();
+      game.player.employ('Ritual Roasters Barista', 12);
+    }
+  }
+}
+
+/**
   Opening - Hewitt
   @param count The number of times the callback has been called.
 **/
-Game.prototype.openingHewittCallback = function(game) {
+Game.prototype.openingHewittCallback = function() {
+  var game = this;
   return function(count) {
     if (count == 1) {
       game.displayScreen('newspaper');
@@ -25,25 +40,13 @@ Game.prototype.openingHewittCallback = function(game) {
 /**
   Opening - Rundown Apartment
 **/
-Game.prototype.openingRundownAptCallback = function(game) {
+Game.prototype.openingRundownAptCallback = function() {
+  var game = this;
   return function() {
     game.time.startTime();
     var leChateauFloor1 = game.areas['le-chateau-floor-1'];
     leChateauFloor1.addInteraction(23, 2, new Message(game.name + '\'s Apartment'), [DIR.UP]);
     game.getNPC('holland').show()
                           .updateScheduleStatus(1, /* skipTravel */ true, /* forcePlace */ true);
-  }
-}
-
-/**
-  Anne Intro
-  @param acceptedJob If the player accepted the job at the shop.
-**/
-Game.prototype.anneIntroCallback = function(game) {
-  return function(acceptedJob) {
-    if (acceptedJob) {
-      game.area.space(4, 2).unblock();
-      game.player.employ('Ritual Roasters Barista', 12);
-    }
   }
 }

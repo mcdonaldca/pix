@@ -1,9 +1,11 @@
 /**
   Walkthrough object to control a scene.
+  @param name The name of the walkthrough
 **/
-function Walkthrough() {
+function Walkthrough(name) {
   // Callback is set upon walkthrough initialization.
   this.callback = undefined;
+  this.name = name;
 
   this.status = 'playing'; // Current status of the walkthrough.
   this.current = 0;        // Current instruction step of the walkthrough.

@@ -2,7 +2,7 @@
   Walkthrough at very beginning of the game.
 **/
 function OpeningHewitt() {
-  $.extend(this, new Walkthrough());
+  $.extend(this, new Walkthrough('opening-hewitt'));
 };
 
 /**
@@ -104,8 +104,3 @@ OpeningHewitt.prototype.interact = function() {
   }
   return 'focused';
 };
-
-// Add OpeningHewitt object to game's walkthrough selection.
-var openingHewitt = new OpeningHewitt();
-openingHewitt.setCallback(game.openingHewittCallback(game));
-game.addWalkthrough('opening-hewitt', openingHewitt);
