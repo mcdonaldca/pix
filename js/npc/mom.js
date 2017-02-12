@@ -6,7 +6,7 @@ function Mom() {
   var SCHEDULE_STATUSES = {
     1: {
       area: 'hewitt-home',
-      x: 5,
+      x: 6,
       y: 2,
       face: DIR.DW,
     }
