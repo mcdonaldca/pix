@@ -6,7 +6,7 @@
   @param areaOverride Name of area's svg (if different from name).
 **/
 function Area(width, height, name, areaOverride) {
-  this.class = 'area';
+  this.class = 'area'; // For testing.
   
   this.width = width;   // Width of the area in blocks.
   this.height = height; // Height of the area in blocks.
@@ -35,8 +35,41 @@ function Area(width, height, name, areaOverride) {
   this.elements = [];     // HTML elements added to area.
   this.positionData = {}; // Player positioning based on entrances from other areas.
   
+  // Following value is set in Area.createGridAndPaths
+  this.grid = undefined;
   this.createGridAndPaths();
 }
+
+
+
+/**
+  Called to set the max and min values to position the area within the game window.
+**/
+Area.prototype.setPlacementLimits = function() {
+  // If the area isn't as wide or as tall as the game window, the max and min
+  // should be the same (and centered within the game window). If the area is
+  // wider or taller than the game window, the greatest offset should be 0 and 
+  // the smallest offset should be all of the area hidden but the width or height
+  // of the game window.
+
+  if (this.width < GAME_WIDTH) {
+    this.maxX = (GAME_WIDTH - this.width) / 2;
+    this.minX = this.maxX;
+  } else {
+    this.maxX = 0;
+    this.minX = -1 * (this.width - GAME_WIDTH);
+  }
+
+  if (this.height < GAME_HEIGHT) {
+    this.maxY = (GAME_HEIGHT - this.height) / 2;
+    this.minY = this.maxY;
+  } else {
+    this.maxY = 0;
+    this.minY = -1 * (this.height - GAME_HEIGHT);
+  }
+};
+
+
 
 /**
   Creates the area's space grid with blocked data.
@@ -136,7 +169,86 @@ Area.prototype.createGridAndPaths = function() {
   
   // Onload will be called after image is set.
   image.src = 'img/areas/' + this.svgName + '_data.png';
+};
+
+
+
+/**
+  Called when we've entered an area and the HTML should be built out.
+  @param removeEls The elements set by the previous area that should be removed.
+**/
+Area.prototype.build = function(removeEls, removeNPCs) {
+  // Save that we've entered a new room.
+  window.sessionStorage.setItem('room', name);
+
+  // Remove previous area's elements.
+  removeEls = removeEls || [];
+  for (var i = 0; i < removeEls.length; i++) {
+    $(removeEls[i]).remove();
+  }
+
+  // Remove previous area's NPCs.
+  removeNPCs = removeNPCs || {};
+  for (var i = 0; i < removeNPCs.length; i++) {
+    $(removeNPCs[i].getEl()).remove();
+  }
+
+  // Set the height and width of the area element.
+  // Set the background image to the area's svg.
+  this.areaEl.css('width', (this.width * BLOCK * MULT).toString() + 'px')
+             .css('height', (this.height * BLOCK * MULT).toString() + 'px')
+             .css('background-image', 'url(img/areas/' + this.svgName + '.svg)');
+
+  // Add all the elements created upon intialization of the area.
+  for (var i = 0; i < this.elements.length; i++) {
+    this.append(this.elements[i]);
+  }
+
+  // Add and place all NPCs.
+  for (var i = 0; i < this.NPCs.length; i++) {
+    this.append(this.NPCs[i].getEl());
+  }
 }
+
+
+
+/**
+  Called when the player moves and the area position may need to be adjusted.
+  @param playerX The player's new x coordinate.
+  @param playerY The player's new y coordinate.
+**/
+Area.prototype.updateAreaPosition = function(playerX, playerY) {
+  // Game width & height should always be odd, so player is visually centered.
+  var gameWidthHalf = (GAME_WIDTH - 1) / 2;
+  var gameHeightHalf = (GAME_HEIGHT - 1) / 2;
+
+  // Area background should be placed half of the screen width to the left of the player.
+  var translateX = (-1 * (playerX - gameWidthHalf) * BLOCK * MULT).toString() + 'px';
+  // Close to left side, fix area X position.
+  if (playerX <= gameWidthHalf - 1) {
+    translateX = (this.maxX * BLOCK * MULT).toString() + 'px';
+  // Close to right side, fix area X position.
+  } else if (playerX >= this.width - gameWidthHalf) {
+    translateX = (this.minX * BLOCK * MULT).toString() + 'px';
+  }
+
+  // Area background should be placed half of the screen above the player.
+  var translateY = (-1 * (playerY - gameHeightHalf) * BLOCK * MULT).toString() + 'px';
+  // Close to top, fix area Y position.
+  if (playerY <= gameHeightHalf) {
+    translateY = (this.maxY * BLOCK * MULT).toString() + 'px';
+  // Close to bottom, fix area Y position.
+  } else if (playerY >= this.height - gameHeightHalf - 1) {
+    translateY = (this.minY * BLOCK * MULT).toString() + 'px';
+  }
+
+  // Mostly for testings, since transform value isn't accessible for checks w/ jquery.
+  this.computedXOffset = translateX;
+  this.computedYOffset = translateY;
+  this.areaEl.css('transform', 'translate(' + translateX + ', ' + translateY + ')');
+}
+
+
 
 /**
   Calculates the directions necessary to get form one coordinate to another in an area.
@@ -246,105 +358,7 @@ Area.prototype.pathBetween = function(startCoord, endCoord) {
   return path;
 };
 
-/**
-  Called when we've entered an area and the HTML should be built out.
-  @param removeEls The elements set by the previous area that should be removed.
-**/
-Area.prototype.build = function(removeEls, removeNPCs) {
-  // Save that we've entered a new room.
-  window.sessionStorage.setItem('room', name);
 
-  // Remove previous area's elements.
-  removeEls = removeEls || [];
-  for (var i = 0; i < removeEls.length; i++) {
-    $(removeEls[i]).remove();
-  }
-
-  // Remove previous area's NPCs.
-  removeNPCs = removeNPCs || {};
-  for (var i = 0; i < removeNPCs.length; i++) {
-    $(removeNPCs[i].getEl()).remove();
-  }
-
-  // Set the height and width of the area element.
-  // Set the background image to the area's svg.
-  this.areaEl.css('width', (this.width * BLOCK * MULT).toString() + 'px')
-             .css('height', (this.height * BLOCK * MULT).toString() + 'px')
-             .css('background-image', 'url(img/areas/' + this.svgName + '.svg)');
-
-  // Add all the elements created upon intialization of the area.
-  for (var i = 0; i < this.elements.length; i++) {
-    this.append(this.elements[i]);
-  }
-
-  // Add and place all NPCs.
-  for (var i = 0; i < this.NPCs.length; i++) {
-    this.append(this.NPCs[i].getEl());
-  }
-}
-
-/**
-  Called to set the max and min values to position the area within the game window.
-**/
-Area.prototype.setPlacementLimits = function() {
-  // If the area isn't as wide or as tall as the game window, the max and min
-  // should be the same (and centered within the game window). If the area is
-  // wider or taller than the game window, the greatest offset should be 0 and 
-  // the smallest offset should be all of the area hidden but the width or height
-  // of the game window.
-
-  if (this.width < GAME_WIDTH) {
-    this.maxX = (GAME_WIDTH - this.width) / 2;
-    this.minX = this.maxX;
-  } else {
-    this.maxX = 0;
-    this.minX = -1 * (this.width - GAME_WIDTH);
-  }
-
-  if (this.height < GAME_HEIGHT) {
-    this.maxY = (GAME_HEIGHT - this.height) / 2;
-    this.minY = this.maxY;
-  } else {
-    this.maxY = 0;
-    this.minY = -1 * (this.height - GAME_HEIGHT);
-  }
-}
-
-/**
-  Called when the player moves and the area position may need to be adjusted.
-  @param playerX The player's new x coordinate.
-  @param playerY The player's new y coordinate.
-**/
-Area.prototype.updateAreaPosition = function(playerX, playerY) {
-  // Game width & height should always be odd, so player is visually centered.
-  var gameWidthHalf = (GAME_WIDTH - 1) / 2;
-  var gameHeightHalf = (GAME_HEIGHT - 1) / 2;
-
-  // Area background should be placed half of the screen width to the left of the player.
-  var translateX = (-1 * (playerX - gameWidthHalf) * BLOCK * MULT).toString() + 'px';
-  // Close to left side, fix area X position.
-  if (playerX <= gameWidthHalf - 1) {
-    translateX = (this.maxX * BLOCK * MULT).toString() + 'px';
-  // Close to right side, fix area X position.
-  } else if (playerX >= this.width - gameWidthHalf) {
-    translateX = (this.minX * BLOCK * MULT).toString() + 'px';
-  }
-
-  // Area background should be placed half of the screen above the player.
-  var translateY = (-1 * (playerY - gameHeightHalf) * BLOCK * MULT).toString() + 'px';
-  // Close to top, fix area Y position.
-  if (playerY <= gameHeightHalf) {
-    translateY = (this.maxY * BLOCK * MULT).toString() + 'px';
-  // Close to bottom, fix area Y position.
-  } else if (playerY >= this.height - gameHeightHalf - 1) {
-    translateY = (this.minY * BLOCK * MULT).toString() + 'px';
-  }
-
-  // Mostly for testings, since transform value isn't accessible for checks w/ jquery.
-  this.computedXOffset = translateX;
-  this.computedYOffset = translateY;
-  this.areaEl.css('transform', 'translate(' + translateX + ', ' + translateY + ')');
-}
 
 /**
   Returns a space from the Area's grid.
@@ -355,6 +369,8 @@ Area.prototype.updateAreaPosition = function(playerX, playerY) {
 Area.prototype.space = function(x, y) {
   return this.validZone(x,y) ? this.grid[x][y] : undefined;
 }
+
+
 
 /** 
   Checks if the x, y coordinate is within the Area's grid.
@@ -368,6 +384,8 @@ Area.prototype.validZone = function(x, y) {
          y >= 0 &&
          y <= this.height - 1;
 }
+
+
 
 /**
   Adds new items to an area.
@@ -415,6 +433,8 @@ Area.prototype.addItem = function(width, item, startCoord, extra) {
   this.items[item] = $(div);
 }
 
+
+
 /**
   Adds an interaction to a Space.
   @param x           The x coordinate to add interaction at.
@@ -429,6 +449,8 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
     this.space(x, y).setInteractionDirection(dir);
   }
 }
+
+
 
 /**
   Creates the NPC element, then calles Space.addInteraction.
@@ -445,6 +467,8 @@ Area.prototype.addNPC = function(npc) {
   if (game.area == this) this.append(npc.getEl());
 }
 
+
+
 /**
   Removes an NPC from the area.
   @param npcName The name of the NPC to remove
@@ -459,6 +483,8 @@ Area.prototype.removeNPC = function(npc) {
   }
 };
 
+
+
 /**
   Determines if an NPC is within an area.
   @param name The name of the NPC.
@@ -472,6 +498,8 @@ Area.prototype.hasNPC = function(name) {
   }
   return false;
 }
+
+
 
 /**
   Adds new event zones to an area.
@@ -493,6 +521,8 @@ Area.prototype.addEventZone = function(startCoord, endCoord, event) {
     this.elements.push(eventElements[i]);
   }
 }
+
+
 
 /**
   Adds an exit to an area.
@@ -517,6 +547,8 @@ Area.prototype.addExit = function(x, y, dir, location, door) {
   this.addPositionData(x, y, oppDir, location, door);
 }
 
+
+
 /**
   Adds information about player positioning when entering an area.
   @param x        The x coordinate to be placed at.
@@ -535,6 +567,8 @@ Area.prototype.addPositionData = function(x, y, dir, location, door) {
   }
   this.positionData[key] = { x: x, y: y, face: dir};
 }
+
+
 
 /**
   Find where the player should be placed give they came from a certain area/door.
@@ -563,6 +597,8 @@ Area.prototype.getPositionData = function(areaFrom, door) {
   }
 }
 
+
+
 /**
   Gets an item that belongs to the area.
   @param key The key for the item map.
@@ -572,6 +608,8 @@ Area.prototype.getItem = function(key) {
   return this.items[key];
 }
 
+
+
 /**
   Getter for Area.name
   @return The area name.
@@ -579,6 +617,8 @@ Area.prototype.getItem = function(key) {
 Area.prototype.getName = function() {
   return this.name;
 }
+
+
 
 /**
   Appends an HTML element to the area element.
@@ -588,12 +628,16 @@ Area.prototype.append = function(el) {
   this.areaEl.append(el);
 }
 
+
+
 /** 
   Marks the area as visited.
 **/
 Area.prototype.setVisited = function() {
   this.visited = true;
 };
+
+
 
 /** 
   Getter for Area.visited.
@@ -603,6 +647,8 @@ Area.prototype.isVisited = function() {
   return this.visited;
 };
 
+
+
 /**
   Getter for Area.limited.
   @return Boolean
@@ -610,6 +656,8 @@ Area.prototype.isVisited = function() {
 Area.prototype.isLimited = function() {
   return this.limited;
 }
+
+
 
 /**
   Getter for Area.residential.
