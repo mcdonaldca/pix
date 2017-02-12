@@ -3,6 +3,17 @@
 **/
 function Simon() {
   $.extend(this, new NPC('simon', 'characters/simon', 'shadow_lg'));
+
+  this.SCHEDULE = { everyday: [[1, 0, 0]] };
+  this.SCHEDULE_STATUSES = {
+    1: {
+      area: 'simon-margaret',
+      x: 24,
+      y: 12,
+      face: DIR.DW,
+    }
+  }
+  this.buildNPCSchedule();
 }
 
 /**

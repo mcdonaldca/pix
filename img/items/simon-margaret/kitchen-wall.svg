@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- generated at drububu.com  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="96px" height="16px" viewBox="0 0 96 16" enable-background="new 0 0 96 16" xml:space="preserve">
-<path fill="#9EA39E" d="M0,0h81v1H0V0z"/>
-<path fill="#E3E8E3" d="M81,0h5v1h4V0h5v4H0V1h81V0z"/>
-<path fill="#9EA39E" d="M86,0h4v1h-4V0z"/>
-<path fill="#9EA39E" d="M95,0h1v9H69V8h26V0z"/>
-<path fill="#B8BDB8" d="M0,4h95v1H0V4z"/>
-<path fill="#CCD1CC" d="M0,5h95v3H69v1h-1v3h-3v-2H47v2h-3V9h-1V8H0V5z"/>
-<path fill="#9EA39E" d="M0,8h43v1H0V8z"/>
-<path fill="#C2C7C2" d="M0,9h43v1H0V9z"/>
-<path fill="#9EA39E" d="M43,9h1v7h-1V9z"/>
-<path fill="#9EA39E" d="M68,9h1v7h-1V9z"/>
-<path fill="#C2C7C2" d="M69,9h26v1H69V9z"/>
-<path fill="#A5A9A5" d="M95,9h1v1h-1V9z"/>
-<path fill="#CCD1CC" d="M0,10h43v1H0V10z"/>
-<path fill="#808480" d="M47,10h18v1H47V10z"/>
-<path fill="#CCD1CC" d="M69,10h26v1H69V10z"/>
-<path fill="#AEB2AE" d="M95,10h1v1h-1V10z"/>
-<path fill="#D7DCD7" d="M0,11h43v5H0V11z"/>
-<path fill="#9EA39E" d="M47,11h1v5h-1V11z"/>
-<path fill="#9EA39E" d="M64,11h1v5h-1V11z"/>
-<path fill="#D7DCD7" d="M69,11h26v5H69V11z"/>
-<path fill="#B7BBB7" d="M95,11h1v5h-1V11z"/>
-<path fill="#D7DCD7" d="M44,12h3v4h-3V12z"/>
-<path fill="#D7DCD7" d="M65,12h3v4h-3V12z"/>
+<svg version="1.1" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="96px" height="16px" viewBox="0 0 96 16">
+<path d="M0 0h80v1h-80v-1z" fill="rgb(148,148,146)"/>
+<path d="M80 0h1v1h-1v-1z" fill="rgb(146,151,146)"/>
+<path d="M81 0h5v1h4v-1h5v4h-95v-3h81v-1z" fill="rgb(255,255,255)"/>
+<path d="M86 0h4v1h-4v-1z" fill="rgb(105,105,105)"/>
+<path d="M95 0h1v1h-1v-1z" fill="rgb(146,151,146)"/>
+<path d="M95 1h1v8h-96v-1h95v-7z" fill="rgb(148,148,146)"/>
+<path d="M0 4h95v1h-95v-1z" fill="rgb(181,181,181)"/>
+<path d="M0 5h95v3h-95v-3z" fill="rgb(238,238,238)"/>
+<path d="M0 9h95v1h-95v-1z" fill="rgb(227,227,227)"/>
+<path d="M95 9h1v1h-1v-1z" fill="rgb(170,170,170)"/>
+<path d="M0 10h95v1h-95v-1z" fill="rgb(238,238,238)"/>
+<path d="M95 10h1v1h-1v-1z" fill="rgb(178,178,178)"/>
+<path d="M0 11h95v5h-26v-1h-1v-1h-24v1h-1v1h-43v-5z" fill="rgb(244,244,244)"/>
+<path d="M95 11h1v5h-1v-5z" fill="rgb(183,183,183)"/>
+<path d="M44 14h24v1h-24v-1z" fill="rgb(148,148,146)"/>
+<path d="M43 15h1v1h-1v-1z" fill="rgb(148,148,146)"/>
+<path d="M44 15h24v1h-24v-1z" fill="rgb(255,255,255)"/>
+<path d="M68 15h1v1h-1v-1z" fill="rgb(148,148,146)"/>
 </svg>
