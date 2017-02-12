@@ -6,12 +6,19 @@ function Game() {
   this.areaShadowEl = $('.area-shadow'); // Area shadow.
   this.player = new Player(); // Player.
   this.prompt = new Prompt(); // Interface with on-screen prompt.
+  this.messager = new Message('');
 
   this.time = new Time(); // Tracks time in game.
 
   this.area = undefined;   // The current area.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
+
+  // The following are populated in their related initializers.
+  this.NPCs = {};         // Map of NPC names to their objects.
+  this.areas = {};        // Map of area names to their Area objects.
+  this.walkthroughs = {}; // Map of walkthroughs to their varous objects.
+  this.screens = {};      // Map of screens to their varous objects.
 
   this.initializeNPCs();         // Creates and maps all NPC objects.
   this.initializeAreas();        // Creates and maps all game areas.
@@ -30,113 +37,6 @@ function Game() {
 }
 
 /**
-  Creates and maps all NPC objects as well as adds their travel schedules to 
-  the time tracking system.
-**/
-Game.prototype.initializeNPCs = function() {
-  this.NPCs = {}; // Map of NPC names to their objects.
-
-  var collection = [
-    new Alan(),
-    new Anne(),
-    new Charles(),
-    new Elizabeth(),
-    new Holland(),
-    new Hopper(),
-    new Margaret(),
-    new Mary(),
-    new Mom(),
-    new Simon(),
-    new Twumasiwaa(),
-  ];
-
-  for (var i = 0; i < collection.length; i++) {
-    var npcObj = collection[i];
-    this.NPCs[npcObj.name] = npcObj;
-    this.time.augmentNPCSchedule(npcObj.name, npcObj.scheduleData);
-  }
-};
-
-/**
-  Creates and maps all areas in the game.
-**/
-Game.prototype.initializeAreas = function() {
-  this.areas = {}; // Map of area names to their Area objects.
-
-  var collection = [
-    AnneHome(),
-    CityNE(),
-    CityNW({ 
-      ritualRoastersHours: RitualRoasters().hoursMessage(),
-    }),
-    CitySE(),
-    CitySW({
-      libraryHours: Library({ mary: null }).hoursMessage(),
-    }),
-    ElizabethAlan(),
-    HewittHome(),
-    LeChateauLobby({ holland: this.getNPC('holland') }),
-    LeChateauFloor1({ displayName: this.name }),
-    LeChateauElevatorLobby(),
-    LeChateauElevatorFloor1(),
-    Library({ mary: this.getNPC('mary') }),
-    RitualRoasters(),
-    new RundownApt(),
-    SimonMargaret(),
-    Studio(),
-  ];
-
-  for (var i = 0; i < collection.length; i++) {
-    var areaObj = collection[i];
-    this.areas[areaObj.name] = areaObj;
-  }
-};
-
-/**
-  Creates and maps all player walkthroughs. Sets callbacks if necessary.
-**/
-Game.prototype.initializeWalkthroughs = function() {
-  this.walkthroughs = {}; // Map of walkthroughs to their varous objects.
-
-  var collection = [
-    { walkthrough: new AnneIntro(), callback: this.anneIntroCallback() },
-    { walkthrough: new NoLibraryCard() },
-    { walkthrough: new OpeningHewitt(), callback: this.openingHewittCallback() },
-    { walkthrough: new OpeningRundownApt(), callback: this.openingRundownAptCallback() },
-  ];
-
-  for (var i = 0; i < collection.length; i++) {
-    var walkthroughObj = collection[i].walkthrough;
-    var walkthroughCallback = collection[i].callback;
-
-    walkthroughObj.setCallback(walkthroughCallback);
-    this.walkthroughs[walkthroughObj.name] = walkthroughObj;
-  }
-};
-
-/**
-  Creates and maps all player screens. Sets callbacks if necessary.
-**/
-Game.prototype.initializeScreens = function() {
-  this.screens = {}; // Map of screens to their varous objects.
-
-  var collection = [
-    { screen: new CharacterSelect(), callback: this.characterSelectCallback() },
-    { screen: new Email() },
-    { screen: new Keyboard(), callback: this.keyboardCallback() },
-    { screen: new Newspaper(), callback: this.newspaperCallback() },
-  ];
-
-  for (var i = 0; i < collection.length; i++) {
-    var screenObj = collection[i].screen;
-    var screenCallback = collection[i].callback;
-
-    screenObj.setCallback(screenCallback);
-    this.screens[screenObj.name] = screenObj;
-  }
-};
-
-/**
   Called to start the game!
   @param startX    The x coordinate to start the player at.
   @param startY    The y coordinate to start the player at.
@@ -144,8 +44,6 @@ Game.prototype.initializeScreens = function() {
   @param area      The area to start in.
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
-  this.messager = new Message('');
-
   /* Production: 
   this.displayScreen('keyboard');
   // Fade in/out animation between areas.
