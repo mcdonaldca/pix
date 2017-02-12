@@ -39,7 +39,9 @@ function Game() {
   // Defaults (should be set in opening sequence).
   this.name = 'Adele';
   this.city = 'San Francisco';
-}
+};
+
+
 
 /**
   Called to start the game!
@@ -73,7 +75,9 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   this.faceDir(startFace);
   this.moveToSpace(startX, startY, startFace);
   //*/
-}
+};
+
+
 
 /**
   Adds an screen to the Game.screens map.
@@ -82,7 +86,9 @@ Game.prototype.start = function(startX, startY, startFace, area) {
 **/
 Game.prototype.addScreen = function (key, screen) {
   this.screens[key] = screen;
-}
+};
+
+
 
 /**
   Getter for an NPC in the game.
@@ -91,14 +97,18 @@ Game.prototype.addScreen = function (key, screen) {
 **/
 Game.prototype.getNPC = function (key) {
   return this.NPCs[key];
-}
+};
+
+
 
 /**
   Setter for Game.status
 **/
 Game.prototype.setStatus = function(status) {
   this.status = status;
-}
+};
+
+
 
 /**
   Set up for transitioning to a new area in the game.
@@ -162,7 +172,9 @@ Game.prototype.moveToArea = function(area) {
   window.setTimeout(function() {
     game.setStatus(game.focus == undefined ? 'free' : 'focused');
   }, 500);
-}
+};
+
+
 
 /**
   Called to change direction player is facing.
@@ -197,7 +209,9 @@ Game.prototype.faceDir = function(dir) {
   if (this.event != undefined) {
     this.event.fireFace(this.face);
   }
-}
+};
+
+
 
 /**
   Moves player one space to the left.
@@ -205,7 +219,9 @@ Game.prototype.faceDir = function(dir) {
 Game.prototype.moveLeft = function() {
   this.faceDir(DIR.LF);
   this.moveToSpace(this.player.x - 1, this.player.y, DIR.LF);
-}
+};
+
+
 
 /**
   Moves player one space up.
@@ -213,7 +229,9 @@ Game.prototype.moveLeft = function() {
 Game.prototype.moveUp = function() {
   this.faceDir(DIR.UP);
   this.moveToSpace(this.player.x, this.player.y - 1, DIR.UP);
-}
+};
+
+
 
 /**
   Moves player one space to the right.
@@ -221,7 +239,9 @@ Game.prototype.moveUp = function() {
 Game.prototype.moveRight = function() {
   this.faceDir(DIR.RT);
   this.moveToSpace(this.player.x + 1, this.player.y, DIR.RT);
-}
+};
+
+
 
 /**
   Moves player one space down.
@@ -229,7 +249,9 @@ Game.prototype.moveRight = function() {
 Game.prototype.moveDown = function() {
   this.faceDir(DIR.DW);
   this.moveToSpace(this.player.x, this.player.y + 1, DIR.DW);
-}
+};
+
+
 
 /** 
   Starts the walking animation for the avatar.
@@ -240,7 +262,9 @@ Game.prototype.startWalking = function(dir) {
   if (this.event != undefined) {
     this.event.fireWalkStart(dir);
   }
-}
+};
+
+
 
 /**
   Stops the avatars walking animation.
@@ -250,7 +274,9 @@ Game.prototype.stopWalking = function() {
   if (this.event != undefined) {
     this.event.fireWalkStop();
   }
-}
+};
+
+
 
 /**
   Moves player to a new space if it's valid. Activates event zones, etc.
@@ -307,7 +333,9 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir, arrivingInArea) {
       this.area.updateAreaPosition(toX, toY);
     }
   } 
-}
+};
+
+
 
 /** 
   Checks if space is a valid zone of the game (accounts for walls).
@@ -319,7 +347,9 @@ Game.prototype.validZone = function(x, y) {
       && x <= this.area.width - 1
       && y >= 1
       && y <= this.area.height - 1;
-}
+};
+
+
 
 /** 
   Handles a player using the backspace key.
@@ -335,7 +365,9 @@ Game.prototype.backspace = function() {
     default:
       break;
   }
-}
+};
+
+
 
 /**
   Handles a player trying to interact with something
@@ -387,7 +419,9 @@ Game.prototype.interact = function() {
     default:
       break;
   }
-}
+};
+
+
 
 /**
   If we're in an outside space, update the dusk level of the space.
@@ -420,7 +454,9 @@ Game.prototype.updateDuskLevel = function() {
   } else {
     this.areaShadowEl.css('opacity', '0');
   }
-}
+};
+
+
 
 /**
   Exits to another area.
@@ -470,7 +506,9 @@ Game.prototype.exit = function(exitTo) {
 
     this.moveToArea(area);
   }
-}
+};
+
+
 
 /**
   Called to display an option screen (newspaper, inventory, etc.)
@@ -483,7 +521,9 @@ Game.prototype.displayScreen = function(screen) {
     this.focus = screenObj;
     this.setStatus('focused');
   }
-}
+};
+
+
 
 /**
   Called to start a walkthrough.
@@ -498,6 +538,8 @@ Game.prototype.startWalkthrough = function(walkthrough) {
   }
 };
 
+
+
 /**
   Closes the current area and forces the player to exit.
 **/
@@ -508,10 +550,24 @@ Game.prototype.closeArea = function() {
   this.exit(this.area.exitTo);
 };
 
+
+
+/**
+  Updates the karma based on a specific action.
+  @param key        The key to identify the karma value to change.
+  @param change     The amount by which to change the karma.
+  @param logMessage A log message related to the change.
+**/
 Game.prototype.updateKarma = function(key, change, logMessage) {
   game.player.karma.update(key, change, logMessage);
 };
 
-Game.prototype.logHistory = function(logMessage, today) {
-  game.player.karma.log(logMessage, game.time.today());
+
+
+/**
+  Writes a log message to the karma history.
+  @param logMessage The message to log.
+**/
+Game.prototype.logHistory = function(logMessage) {
+  game.player.karma.log(logMessage, this.time.today());
 };

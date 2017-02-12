@@ -16,7 +16,9 @@ function Prompt() {
   this.currentSelect = 0;          // Which option is currently selected.
   this.originalSelect = undefined; // Will highlight an option in red if used.
   this.selectOptions = [];         // Options from which the player can select.
-}
+};
+
+
 
 /**
   Used to display a message on the screen.
@@ -34,7 +36,9 @@ Prompt.prototype.displayMessage = function(message, name) {
   }
   this.messageContent.html(message);
   this.messages.show();
-}
+};
+
+
 
 /**
   Used to display a multiline message.
@@ -59,6 +63,8 @@ Prompt.prototype.displayMultilineMessage = function(message, name) {
   this.messages.show();
 };
 
+
+
 /**
   Updates the currently visible message.
   @param message The message to display.
@@ -72,7 +78,9 @@ Prompt.prototype.updateMessage = function(message, name) {
     message = name.toUpperCase() + ": " + message;
   }
   this.messageContent.html(message);
-}
+};
+
+
 
 /**
   Updates the currently visible message with a multiline message.
@@ -92,7 +100,9 @@ Prompt.prototype.updateMultilineMessage = function(message, name) {
   }
   multiline += message[message.length - 1];
   this.messageContent.html(multiline);
-}
+};
+
+
 
 /**
   Remove currently visible message.
@@ -102,7 +112,9 @@ Prompt.prototype.removeMessage = function() {
   this.messages.hide();
   this.messageContent.html("");
   this.nextArrow.show();
-}
+};
+
+
 
 /**
   Generates and displays the HTML for any conversation options.
@@ -129,7 +141,9 @@ Prompt.prototype.displayOptions = function(message, options, name, start) {
   this.currentSelect = start || 0;
   this.setSelectArrow();
   this.options.show();
-}
+};
+
+
 
 /**
   Called to update the options being displayed.
@@ -150,7 +164,9 @@ Prompt.prototype.updateOptions = function(message, options, name, start) {
   // Builds the list's HTML.
   var optionsHtml = this.generateOptionsHTML(options, start);
   this.optionsContent.html(optionsHtml);
-}
+};
+
+
 
 /**
   Remove and clean up after currently displayed options.
@@ -164,7 +180,9 @@ Prompt.prototype.removeOptions = function() {
   this.messages.hide();
   this.nextArrow.show();
   this.messageContent.html("");
-}
+};
+
+
 
 /**
   Generates the HTML for the options to display.
@@ -183,7 +201,9 @@ Prompt.prototype.generateOptionsHTML = function(options, start) {
     html += options[i] + "</div>";
   }
   return html;
-}
+};
+
+
 
 /**
   Getter for Prompt.displaying.
@@ -193,6 +213,8 @@ Prompt.prototype.isDisplaying = function() {
   return this.displaying;
 };
 
+
+
 /**
   Moves the player's selection arrow and updates Interactable.currentSelect.
 **/
@@ -201,7 +223,9 @@ Prompt.prototype.arrowUp = function() {
     this.currentSelect -= 1;
     this.setSelectArrow();
   }
-}
+};
+
+
 
 /**
   Moves the player's selection arrow and updates Interactable.currentSelect.
@@ -211,14 +235,18 @@ Prompt.prototype.arrowDown = function() {
     this.currentSelect += 1;
     this.setSelectArrow();
   }
-}
+};
+
+
 
 /**
   Sets the location of the player's selection arrow.
 **/
 Prompt.prototype.setSelectArrow = function() {
   this.selectArrow.css("top", (4 + 10 * this.currentSelect) * MULT);
-}
+};
+
+
 
 /**
   Getter from prompt.currentSelect.

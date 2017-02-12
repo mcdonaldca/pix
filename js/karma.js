@@ -6,7 +6,9 @@ function Karma() {
 
   this.status = { karma: 0 };
   this.history = {};
-}
+};
+
+
 
 /**
   Called to update a specific karma level.
@@ -21,11 +23,14 @@ Karma.prototype.update = function(key, change, logMessage, today) {
 
   this.status[key] += change;
   this.log(logMessage, today);
-}
+};
+
+
 
 /**
   Called to log an event of some kind.
   @param logMessage The log associated with the event.
+  @param today      The day associated with the message.
 **/
 Karma.prototype.log = function(logMessage, today) {
   if (!this.history[today]) {
@@ -33,4 +38,4 @@ Karma.prototype.log = function(logMessage, today) {
   }
 
   this.history[today].push(logMessage);
-}
+};

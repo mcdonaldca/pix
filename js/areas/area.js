@@ -17,7 +17,6 @@ function Area(width, height, name, areaOverride) {
   this.areaEl = undefined;
   this.build();
 
-
   // Following values are set in Area.setPlacementLimits
   this.maxX = undefined;   // Greatest translate X value (in blocks) area should go.
   this.minX = undefined;   // Smallest translate X value (in blocks) area should go.

@@ -46,7 +46,9 @@ function Time() {
       }
     }
   }
-}
+};
+
+
 
 /**
   Called to begin the timing interval.
@@ -54,21 +56,27 @@ function Time() {
 Time.prototype.begin = function() {
   this.interval = setInterval(this.tick(this), 100);
   this.statusEl.css('opacity', 1);
-}
+};
+
+
 
 /**
   Pauses the time.
 **/
 Time.prototype.pauseTime = function() {
   this.active = false;
-}
+};
+
+
 
 /**
   Continues the time.
 **/
 Time.prototype.startTime = function() {
   this.active = true;
-}
+};
+
+
 
 /**
   Returns the function called every .1 seconds.
@@ -86,7 +94,9 @@ Time.prototype.tick = function(time) {
       }
     }
   }
-}
+};
+
+
 
 /**
   Increases the minute value by some amount.
@@ -101,6 +111,8 @@ Time.prototype.incMin = function(inc) {
     this.setTime(this.daysPassed, this.hour, this.minute);
   }
 };
+
+
 
 /**
   Increases the hour value by some amount.
@@ -117,6 +129,8 @@ Time.prototype.incHour = function(inc) {
   }
 };
 
+
+
 /**
   Increases the day value by some amount.
   @param inc The increase amount.
@@ -126,6 +140,8 @@ Time.prototype.incDay = function(inc) {
   this.daysPassed += inc;
   this.setTime(this.daysPassed, this.hour, this.minute);
 };
+
+
 
 /**
   Sets the current time of the game.
@@ -155,7 +171,9 @@ Time.prototype.setTime = function(daysPassed, hour, minute, skipTravel) {
 
   this.updateNPClocations(skipTravel);
   this.updateDisplay();
-}
+};
+
+
 
 /**
   Updates the time display.
@@ -179,7 +197,9 @@ Time.prototype.updateDisplay = function() {
       '0 0' :
       '0 -' + (8 * MULT).toString() + 'px'
     );
-}
+};
+
+
 
 /**
   Called to adjust a displayed number.
@@ -194,7 +214,9 @@ Time.prototype.setNumber = function(numberEl, value, hour) {
   } else {
     numberEl.css('background-position', '0 0');
   }
-}
+};
+
+
 
 /**
   Sets the displayed season.
@@ -203,7 +225,9 @@ Time.prototype.setNumber = function(numberEl, value, hour) {
 Time.prototype.setSeason = function(season) {
   var offset = season * 8 * MULT;
   this.seasonEl.css('background-position', '0 -' + offset.toString() + 'px');
-}
+};
+
+
 
 /**
   Sets the displayed day of the week.
@@ -212,7 +236,9 @@ Time.prototype.setSeason = function(season) {
 Time.prototype.setWeekday = function(season) {
   var offset = season * 8 * MULT;
   this.weekdayEl.css('background-position', '0 -' + offset.toString() + 'px');
-}
+};
+
+
 
 /**
   Schedule an event for the future.
@@ -238,7 +264,9 @@ Time.prototype.scheduleEvent = function(when, callback) {
     default:
       break;
   }
-}
+};
+
+
 
 /**
   Returns 0, 1, or 2 for the level of dusk outside.
@@ -250,7 +278,9 @@ Time.prototype.duskLevel = function() {
   if (this.hour >= 21) return 2;
   if (this.hour >= 19) return 1;
   return 0;
-}
+};
+
+
 
 /**
   Function called when the player goes to sleep.
@@ -292,7 +322,9 @@ Time.prototype.sleep = function() {
     setHour = 10;
   }
   this.setTime(this.daysPassed, setHour, 0);
-}
+};
+
+
 
 /**
   Function called when the player goes to work.
@@ -321,6 +353,8 @@ Time.prototype.work = function(closeHour) {
   }
 };
 
+
+
 /**
   Called to find the general time of day.
   @return String, time of day.
@@ -330,14 +364,18 @@ Time.prototype.timeOfDay = function() {
   if (this.hour < 12) return 'morning';
   if (this.hour < 17) return 'afternoon';
   if (this.hour <= 23) return 'evening';
-}
+};
+
+
 
 /**
   @return String, date in DD-SS-YY format
 **/
 Time.prototype.today = function() {
   return String(this.day) + '-' + this.seasons[this.season] + '-' + String(this.year);
-}
+};
+
+
 
 /**
   Updates the locations of NPCs who will move.

@@ -21,7 +21,9 @@ function Space(area, x, y) {
   this.exitDir = undefined;     // The direction to face to exit.
   this.door = undefined;        // The door (left or right) the player would exit through.
   this.paths = undefined;       // Directions an NPC can travel from the current space.
-}
+};
+
+
 
 /**
   Setter for Space.blocked.
@@ -31,7 +33,9 @@ function Space(area, x, y) {
 Space.prototype.setBlocked = function(dir) {
   this.blocked = dir;
   return this;
-}
+};
+
+
 
 /**
   Returns true if the space is blocked from a particular direction.
@@ -44,7 +48,9 @@ Space.prototype.isBlocked = function(dir) {
     isBlockedDir = this.blocked.indexOf(dir) != -1;
   }
   return isBlockedDir || this.isOccupied();
-}
+};
+
+
 
 /**
   Getter for Space.blocked.
@@ -52,7 +58,9 @@ Space.prototype.isBlocked = function(dir) {
 **/
 Space.prototype.blockedFrom = function() {
   return this.blocked != undefined ? this.blocked : [];
-}
+};
+
+
 
 /**
   Marks a space as unblocked.
@@ -61,8 +69,7 @@ Space.prototype.blockedFrom = function() {
 Space.prototype.unblock = function() {
   this.blocked = undefined;
   return this;
-}
-
+};
 
 
 
@@ -74,7 +81,9 @@ Space.prototype.unblock = function() {
 Space.prototype.setOccupied = function(npc) {
   this.occupied = npc;
   return this;
-}
+};
+
+
 
 /**
   Setter for Space.occupied.
@@ -83,7 +92,9 @@ Space.prototype.setOccupied = function(npc) {
 Space.prototype.setUnoccupied = function() {
   this.occupied = undefined;
   return this;
-}
+};
+
+
 
 /**
   Returns true if the space is occupied by an NPC.
@@ -91,7 +102,9 @@ Space.prototype.setUnoccupied = function() {
 **/
 Space.prototype.isOccupied = function() {
   return this.occupied != undefined;
-}
+};
+
+
 
 /**
   Getter for Space.occupied.
@@ -99,9 +112,7 @@ Space.prototype.isOccupied = function() {
 **/
 Space.prototype.getOccupant = function() {
   return this.occupied;
-}
-
-
+};
 
 
 
@@ -113,7 +124,9 @@ Space.prototype.getOccupant = function() {
 Space.prototype.setInteractionZone = function(interaction) {
   this.interaction = interaction;
   return this;
-}
+};
+
+
 
 /**
   Setter for Space.interactDir.
@@ -123,7 +136,9 @@ Space.prototype.setInteractionZone = function(interaction) {
 Space.prototype.setInteractionDirection = function(dir) {
   this.interactDir = dir;
   return this;
-}
+};
+
+
 
 /**
   Returns true if the space has an Interactable.
@@ -132,7 +147,9 @@ Space.prototype.setInteractionDirection = function(dir) {
 Space.prototype.isInteractZone = function() {
   return this.interaction != undefined 
     && this.interactDir == undefined;
-}
+};
+
+
 
 /**
   Returns true if the space can be interacted with from a particular direction.
@@ -141,7 +158,9 @@ Space.prototype.isInteractZone = function() {
 Space.prototype.canInteract = function(dir) {
   var validInteractDir = this.interactDir != undefined && this.interactDir.indexOf(dir) != -1;
   return validInteractDir || this.isOccupied();
-}
+};
+
+
 
 /**
   Getter for Space.interaction.
@@ -149,7 +168,9 @@ Space.prototype.canInteract = function(dir) {
 **/
 Space.prototype.getInteraction = function() {
   return this.getOccupant() || this.interaction;
-}
+};
+
+
 
 /** 
   Sets a space as no longer an interaction zone.
@@ -159,9 +180,7 @@ Space.prototype.clearInteractionZone = function() {
   this.interaction = undefined;
   this.interactDir = undefined;
   return this;
-}
-
-
+};
 
 
 
@@ -173,7 +192,9 @@ Space.prototype.clearInteractionZone = function() {
 Space.prototype.setEvent = function(event) {
   this.event = event;
   return this;
-}
+};
+
+
 
 /**
   Returns true if the event has a space.
@@ -181,7 +202,9 @@ Space.prototype.setEvent = function(event) {
 **/
 Space.prototype.hasEvent = function() {
   return this.event != undefined;
-}
+};
+
+
 
 /** 
   Getter for Space.event.
@@ -189,9 +212,7 @@ Space.prototype.hasEvent = function() {
 **/
 Space.prototype.getEvent = function() {
   return this.event;
-}
-
-
+};
 
 
 
@@ -205,7 +226,9 @@ Space.prototype.setExit = function(dir, location) {
   this.exit = location;
   this.exitDir = dir;
   return this;
-}
+};
+
+
 
 /**
   Setter for Space.door.
@@ -215,7 +238,9 @@ Space.prototype.setExit = function(dir, location) {
 Space.prototype.setExitDoor = function(door) {
   this.door = door;
   return this;
-}
+};
+
+
 
 /**
   Returns true if the player is facing an exit.
@@ -224,7 +249,9 @@ Space.prototype.setExitDoor = function(door) {
 **/
 Space.prototype.hasExitAdjacent = function(dir) {
   return this.exit != undefined && this.exitDir == dir;
-}
+};
+
+
 
 /**
   Returns true if the exit has a specified door.
@@ -232,7 +259,9 @@ Space.prototype.hasExitAdjacent = function(dir) {
 **/
 Space.prototype.hasExitDoor = function() {
   return this.door != undefined;
-}
+};
+
+
 
 /**
   Getter for Space.door.
@@ -240,7 +269,9 @@ Space.prototype.hasExitDoor = function() {
 **/
 Space.prototype.getDoor = function() {
   return this.hasExitDoor() ? this.door : "";
-}
+};
+
+
 
 /**
   Getter for Space.exit.
@@ -248,9 +279,7 @@ Space.prototype.getDoor = function() {
 **/
 Space.prototype.exitTo = function() {
   return this.exit != undefined ? this.exit : "";
-}
-
-
+};
 
 
 
@@ -262,7 +291,9 @@ Space.prototype.exitTo = function() {
 **/
 Space.prototype.getId = function() {
   return this.id;
-}
+};
+
+
 
 /**
   Setter for the path directions a space can go.
@@ -272,7 +303,9 @@ Space.prototype.getId = function() {
 Space.prototype.setPaths = function(paths) {
   this.paths = paths;
   return this;
-}
+};
+
+
 
 /**
   Setter for the path directions a space can go.
@@ -280,7 +313,9 @@ Space.prototype.setPaths = function(paths) {
 **/
 Space.prototype.getPaths = function() {
   return this.paths;
-}
+};
+
+
 
 /**
   If a space has determined paths.
@@ -288,4 +323,4 @@ Space.prototype.getPaths = function() {
 **/
 Space.prototype.hasPaths = function() {
   return this.paths && this.paths.length > 0;
-}
+};

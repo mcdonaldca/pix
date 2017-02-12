@@ -14,7 +14,9 @@ function Wallet() {
   this.amount = 0;
   this.updateDisplay();
   this.numbers[3].css("background-position", "0 0");
-}
+};
+
+
 
 /** 
   Update status display with wallet amount.
@@ -36,6 +38,8 @@ Wallet.prototype.updateDisplay = function() {
   this.setNumber(this.numbers[3], singles, true);
 };
 
+
+
 /**
   Called to adjust a displayed number.
   @param el       The number element to adjust.
@@ -53,6 +57,8 @@ Wallet.prototype.setNumber = function(el, value, hitValue) {
   return value > 0 || hitValue;
 };
 
+
+
 /**
   Spend money from the wallet.
   @param x The amount to spend.
@@ -64,6 +70,8 @@ Wallet.prototype.spend = function(x) {
   }
 };
 
+
+
 /**
   Checks if the wallet can afford a certain amount.
   @param x The amount to check.
@@ -71,7 +79,9 @@ Wallet.prototype.spend = function(x) {
 **/
 Wallet.prototype.afford = function(x) {
   return this.amount >= x;
-}
+};
+
+
 
 /**
   Add an amount to the wallet.

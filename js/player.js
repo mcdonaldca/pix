@@ -13,7 +13,9 @@ function Player() {
   this.salary = 0;
 
   this.libraryAccess = false;
-}
+};
+
+
 
 /**
   Easter egg to become a cat (or reverse).
@@ -24,7 +26,9 @@ Player.prototype.becomeCat = function() {
     this.isCat ? "url(img/characters/adele.svg)" : "url(img/pets/black-cat.svg)"
     );
   this.isCat = !this.isCat;
-}
+};
+
+
 
 /**
   Getter for Player.job
@@ -33,6 +37,8 @@ Player.prototype.becomeCat = function() {
 Player.prototype.getJob = function() {
   return this.job;
 };
+
+
 
 /**
   Setter for Player.job and Player.salary
@@ -44,20 +50,24 @@ Player.prototype.employ = function(job, salary) {
   this.salary = salary;
 };
 
+
+
 /**
   Called when the player works some number of hours.
   @param hours The number of hours worked.
 **/
 Player.prototype.work = function(hours) {
   this.wallet.add(Math.floor(hours * this.salary));
-}
+};
+
+
 
 /**
   Called to give the player a library card.
 **/
 Player.prototype.getLibraryCard = function() {
   this.libraryAccess = true;
-}
+};
 
 /**
   Getter for Player.libraryAccess

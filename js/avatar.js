@@ -36,7 +36,9 @@ function Avatar(isPlayer, name, sprite, shadow) {
   this.x = 0;
   this.y = 0;
   this.face = DIR.DW;
-}
+};
+
+
 
 /**
   Builds the elements to display an avatar in the game.
@@ -79,6 +81,8 @@ Avatar.prototype.build = function() {
   this.spriteEl = $(sprite);
 };
 
+
+
 /**
   Shows the entire avatar.
   @returns The avatar object, for chaining calls.
@@ -86,7 +90,9 @@ Avatar.prototype.build = function() {
 Avatar.prototype.show = function() {
   this.avatarEl.show();
   return this;
-}
+};
+
+
 
 /**
   Hides the entire avatar.
@@ -95,7 +101,9 @@ Avatar.prototype.show = function() {
 Avatar.prototype.hide = function() {
   this.avatarEl.hide();
   return this;
-}
+};
+
+
 
 /**
   Called to have the avatar perform a reaction.
@@ -114,7 +122,9 @@ Avatar.prototype.react = function(reaction) {
     }, reactionDuration);
   }
   return this;
-}
+};
+
+
 
 /** 
   Methods to call `react`
@@ -126,6 +136,8 @@ Avatar.prototype.reactSleep = function() { return this.react('sleep'); }
 Avatar.prototype.reactSurprise = function() { return this.react('surprise'); }
 Avatar.prototype.reactWat = function() { return this.react('wat'); }
 
+
+
 /**
   Calls setPosition with new x value.
   @param x The left offset in blocks.
@@ -133,7 +145,9 @@ Avatar.prototype.reactWat = function() { return this.react('wat'); }
 **/
 Avatar.prototype.setLeft = function(x) {
   return this.setPosition(x, this.y);
-}
+};
+
+
 
 /**
   Calls setPosition with new y value.
@@ -142,7 +156,9 @@ Avatar.prototype.setLeft = function(x) {
 **/
 Avatar.prototype.setBottom = function(y) {
   return this.setPosition(this.x, y);
-}
+};
+
+
 
 /**
   Method that routes calls to set position.
@@ -175,7 +191,9 @@ Avatar.prototype.moveDir = function(dir) {
   }
 
   return this.setPosition(newX, newY);
-}
+};
+
+
 
 /**
   Sets the transform value + z-index for the avatar.
@@ -210,14 +228,18 @@ Avatar.prototype.setPosition = function(x, y, arrivingInArea, prevLocation) {
   return this;
 };
 
+
+
 /**
   Methods to call `face`.
   @returns The avatar object, for chaining calls.
 **/
-Avatar.prototype.faceLeft = function() { return this.faceDir(DIR.LF); }
-Avatar.prototype.faceUp = function() { return this.faceDir(DIR.UP); }
-Avatar.prototype.faceRight = function() { return this.faceDir(DIR.RT); }
-Avatar.prototype.faceDown = function() { return this.faceDir(DIR.DW); }
+Avatar.prototype.faceLeft = function() { return this.faceDir(DIR.LF); };
+Avatar.prototype.faceUp = function() { return this.faceDir(DIR.UP); };
+Avatar.prototype.faceRight = function() { return this.faceDir(DIR.RT); };
+Avatar.prototype.faceDown = function() { return this.faceDir(DIR.DW); };
+
+
 
 /**
   Adjusts sprite to display facing a specific direction.
@@ -252,6 +274,8 @@ Avatar.prototype.faceDir = function(dir) {
   return this;
 };
 
+
+
 /**
   Called to face an opposite direction.
   @param dir The original direction.
@@ -281,6 +305,8 @@ Avatar.prototype.faceOppositeDir = function(dir) {
   this.faceDir(oppDir);
 };
 
+
+
 /**
   Called to begining sprite's walking animation.
   @param dir The direction to walk in.
@@ -309,7 +335,9 @@ Avatar.prototype.walk = function(dir) {
   }
 
   return this;
-}
+};
+
+
 
 /**
   Called to stop walking animation.
@@ -319,7 +347,9 @@ Avatar.prototype.stopWalking = function() {
   this.spriteEl.removeClass();
   this.spriteEl.addClass('sprite');
   return this;
-}
+};
+
+
 
 /**
   Sets the background image for the avatar's sprite.
@@ -329,7 +359,9 @@ Avatar.prototype.stopWalking = function() {
 Avatar.prototype.setBackgroundImage = function(url) {
   this.spriteEl.css('background-image', 'url(' + url + ')');
   return this;
-}
+};
+
+
 
 /** 
   Getter for Avatar.avatarEL
@@ -337,4 +369,4 @@ Avatar.prototype.setBackgroundImage = function(url) {
 **/
 Avatar.prototype.getEl = function() {
   return this.avatarEl;
-}
+};
