@@ -2,6 +2,7 @@
 
 function CityNE() {
   var cityNE = new Area(32, 32, 'city-ne');
+  cityNE.setIsOutside();
 
   cityNE.addExit(0,  25, DIR.LF, 'city-nw', 'top');
   cityNE.addExit(0,  26, DIR.LF, 'city-nw', 'middle');
@@ -26,6 +27,7 @@ function CityNE() {
 
 function CitySE() {
   var citySE = new Area(32, 32, 'city-se');
+  citySE.setIsOutside();
 
   citySE.addExit(6,  1, DIR.UP, 'city-ne', 'left');
   citySE.addExit(7,  1, DIR.UP, 'city-ne', 'center');
@@ -55,6 +57,7 @@ function CitySE() {
 
 function CitySW(objs) {
   var citySW = new Area(32, 32, 'city-sw');
+  citySW.setIsOutside();
 
   citySW.addInteraction(15, 4, objs.libraryHours, [DIR.UP]);
 
@@ -87,6 +90,7 @@ function CitySW(objs) {
 
 function CityNW(objs) {
   var cityNW = new Area(32, 32, 'city-nw');
+  cityNW.setIsOutside();
 
   cityNW.addInteraction(26, 24, objs.ritualRoastersHours, [DIR.UP]);
 

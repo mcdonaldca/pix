@@ -27,6 +27,7 @@ function Area(width, height, name, areaOverride) {
   this.computedYOffset = undefined;
 
   this.visited = false;     // If the area has been visited yet.
+  this.outside = false;   // If the area is outside.
   this.limited = false;     // No hourly limit.
   this.residential = false; // No occupancy requirements.
 
@@ -617,4 +618,19 @@ Area.prototype.isLimited = function() {
 **/
 Area.prototype.isResidential = function() {
   return this.residential;
+}
+
+/** 
+  Marks the area as an outside area.
+**/
+Area.prototype.setIsOutside = function() {
+  this.outside = true;
+};
+
+/**
+  Getter for Area.outside.
+  @return Boolean
+**/
+Area.prototype.isOutside = function() {
+  return this.outside;
 }

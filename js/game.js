@@ -479,14 +479,7 @@ Game.prototype.interact = function() {
   If we're in an outside space, update the dusk level of the space.
 **/
 Game.prototype.updateDuskLevel = function() {
-  var outsideAreas = [
-    'city-ne',
-    'city-se',
-    'city-sw',
-    'city-nw'
-  ];
-
-  if (outsideAreas.indexOf(this.area.name) != -1) {
+  if (this.area.isOutside()) {
     switch(this.time.duskLevel()) {
       case 0:
         this.areaShadowEl.css('opacity', '0');
