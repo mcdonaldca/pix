@@ -12,7 +12,12 @@ function Elizabeth() {
     }
   }
 
-  $.extend(this, new NPC('elizabeth', 'characters/elizabeth', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES
+  };
+
+  $.extend(this, new NPC('elizabeth', 'characters/elizabeth', 'shadow_sm', schedule));
 }
 
 /**

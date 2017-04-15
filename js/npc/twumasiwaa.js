@@ -37,14 +37,18 @@ function Twumasiwaa() {
         ])
     }
   };
+
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES,
+    travel: SCHEDULE_TRAVEL
+  };
   
   $.extend(this, new NPC(
     'twumasiwaa', 
     'characters/twumasiwaa', 
     'shadow_sm',
-    SCHEDULE,
-    SCHEDULE_STATUSES,
-    SCHEDULE_TRAVEL
+    schedule
   ));
 }
 

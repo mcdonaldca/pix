@@ -21,7 +21,12 @@ function Holland() {
     }
   }
 
-  $.extend(this, new NPC('holland', 'characters/holland', 'shadow_lg', SCHEDULE, SCHEDULE_STATUSES));
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES
+  };
+
+  $.extend(this, new NPC('holland', 'characters/holland', 'shadow_lg', schedule));
 }
 
 /**

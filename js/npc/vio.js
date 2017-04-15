@@ -2,7 +2,7 @@
   Vio is a test pet.
 **/
 function Vio() {
-  $.extend(this, new NPC("vio", "pets/white-cat", "shadow_sm", SCHEDULE, SCHEDULE_STATUSES));
+  $.extend(this, new NPC("vio", "pets/white-cat", "shadow_sm", {}));
 }
 
 /**

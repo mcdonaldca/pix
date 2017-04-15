@@ -12,7 +12,12 @@ function Simon() {
     }
   }
 
-  $.extend(this, new NPC('simon', 'characters/simon', 'shadow_lg', SCHEDULE, SCHEDULE_STATUSES));
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES
+  };
+
+  $.extend(this, new NPC('simon', 'characters/simon', 'shadow_lg', schedule));
 }
 
 /**
