@@ -12,7 +12,12 @@ function Hopper() {
     }
   }
 
-  $.extend(this, new NPC('hopper', 'pets/hopper', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES
+  };
+
+  $.extend(this, new NPC('hopper', 'pets/hopper', 'shadow_sm', schedule));
 }
 
 /**

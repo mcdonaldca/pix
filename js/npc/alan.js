@@ -12,7 +12,12 @@ function Alan() {
     }
   }
 
-  $.extend(this, new NPC('alan', 'characters/alan', 'shadow_lg', SCHEDULE, SCHEDULE_STATUSES));
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES,
+  }
+
+  $.extend(this, new NPC('alan', 'characters/alan', 'shadow_lg', schedule));
 }
 
 /**

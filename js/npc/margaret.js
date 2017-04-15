@@ -74,13 +74,17 @@ function Margaret() {
     }
   }
 
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES,
+    travel: SCHEDULE_TRAVEL
+  };
+
   $.extend(this, new NPC(
     'margaret', 
     'characters/margaret', 
     'shadow_sm',
-    SCHEDULE,
-    SCHEDULE_STATUSES,
-    SCHEDULE_TRAVEL
+    schedule
   ));
 
   this.relationshipStatus = {

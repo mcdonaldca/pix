@@ -44,13 +44,17 @@ function Anne() {
     }
   };
 
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES,
+    travel: SCHEDULE_TRAVEL
+  };
+
   $.extend(this, new NPC(
     'anne', 
     'characters/anne', 
     'shadow_sm', 
-    SCHEDULE, 
-    SCHEDULE_STATUSES, 
-    SCHEDULE_TRAVEL
+    schedule
   ));
   this.talkedTo = true;
 }

@@ -12,7 +12,12 @@ function Charles() {
     }
   }
 
-  $.extend(this, new NPC('charles', 'pets/charles', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES
+  };
+
+  $.extend(this, new NPC('charles', 'pets/charles', 'shadow_sm', schedule));
 }
 
 /**

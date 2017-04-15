@@ -12,7 +12,12 @@ function Mom() {
     }
   }
 
-  $.extend(this, new NPC('mom', 'characters/mom', 'shadow_sm', SCHEDULE, SCHEDULE_STATUSES));
+  var schedule = {
+    skeleton: SCHEDULE,
+    statuses: SCHEDULE_STATUSES
+  };
+
+  $.extend(this, new NPC('mom', 'characters/mom', 'shadow_sm', schedule));
 }
 
 /**
