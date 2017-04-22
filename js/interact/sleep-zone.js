@@ -28,13 +28,13 @@ SleepZone.prototype.interact = function(prompt, dir) {
       var s = prompt.selected();
       prompt.removeOptions();
       if (s == 0) {
-        game.areaShadowEl.css("opacity", ".8");
+        game.world.areaShadowEl.css("opacity", ".8");
         game.player.reactSleep();
 
         // Clean up.
         setTimeout(function() {
           game.time.sleep();
-          game.areaShadowEl.css("opacity", "0");
+          game.world.areaShadowEl.css("opacity", "0");
           setTimeout(function() {
             // Force interaction to free game play.
             game.interact(dir);

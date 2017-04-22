@@ -1,5 +1,5 @@
 function AreaSpec() {
-  $.extend(this, new Spec('.areas__area'))
+  $.extend(this, new Spec('.world__area'))
 
   var spec = this;
   spec.describe('.constructor', function() {

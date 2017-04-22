@@ -123,7 +123,7 @@ Holland.prototype.interact = function(prompt, dir) {
           if (game.player.wallet.afford(renov.price)) {
             prompt.displayMessage('All right, it should be done tomorrow!', this.name);
             var final = options.length == 2;
-            game.time.scheduleEvent('tomorrow', game.areas['rundown-apt'].renovate(renov.item, final));
+            game.time.scheduleEvent('tomorrow', game.world.getArea('rundown-apt').renovate(renov.item, final));
             game.player.wallet.spend(renov.price);
             this.renovations.splice(s, 1);
           } else {

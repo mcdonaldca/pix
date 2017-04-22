@@ -26,7 +26,7 @@ OpeningHewitt.prototype.start = function(game) {
   this.game = game;
 
   // Move to the hewitt home if not already there.
-  if (game.area == undefined) {
+  if (game.world.getCurrentArea() == undefined) {
     game.exit('hewitt-home');
     game.getNPC('mom').hide();
   }

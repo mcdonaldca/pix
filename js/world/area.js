@@ -442,12 +442,9 @@ Area.prototype.addInteraction = function(x, y, interaction, dir) {
 
 
 /**
-  Creates the NPC element, then calles Space.addInteraction.
-  @param x           The x coordinate to add interaction at.
-  @param y           The y coordinate to add interaction at.
-  @param dir         The direction for the NPC to start facing.
-  @param npc         NPC object.
-  @param interactDir (Optional) Directions from which interaction are valid.
+  Adds the NPC element to the NPC collection and its element to the
+  the area's element.
+  @param npc NPC object.
 **/
 Area.prototype.addNPC = function(npc) {
   // Add to NPC collection.
@@ -655,12 +652,16 @@ Area.prototype.isResidential = function() {
   return this.residential;
 }
 
+
+
 /** 
   Marks the area as an outside area.
 **/
 Area.prototype.setIsOutside = function() {
   this.outside = true;
 };
+
+
 
 /**
   Getter for Area.outside.

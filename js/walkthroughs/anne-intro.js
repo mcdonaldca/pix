@@ -143,8 +143,8 @@ AnneIntro.prototype.interact = function() {
           game.getNPC('anne').faceLeft();
           var wt = this;
           setTimeout(function() {
-            game.area.getItem('counter').show();
-            game.area.getItem('counter-end').show();
+            game.world.getCurrentArea().getItem('counter').show();
+            game.world.getCurrentArea().getItem('counter-end').show();
             wt.continue();
           }, ANIM_LENGTH_NPC);
         } else {

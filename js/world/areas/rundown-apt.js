@@ -30,7 +30,7 @@ function RundownApt() {
 **/
 RundownApt.prototype.renovate = function(item, final) {
   return function() {
-    var area = game.areas['rundown-apt'];
+    var area = game.world.getArea('rundown-apt');
     var div = area.renovations[item];
     $(div).remove();
 

@@ -33,9 +33,9 @@ OpeningRundownApt.prototype.start = function(game) {
   game.exit('rundown-apt');
   var holland = game.getNPC('holland');
   holland.hide()
-         .setPosition(2, 5)
+         .setPosition(2, 6)
          .faceUp();
-  game.area.append(holland.getEl());
+  game.world.getCurrentArea().append(holland.getEl());
   // Begin instruction sequence.
   this.step(this)();
 }

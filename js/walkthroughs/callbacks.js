@@ -13,7 +13,7 @@ Game.prototype.anneIntroCallback = function() {
   var game = this;
   return function(acceptedJob) {
     if (acceptedJob) {
-      game.area.space(4, 2).unblock();
+      game.world.getCurrentArea().space(4, 2).unblock();
       game.player.employ('Ritual Roasters Barista', 12);
     }
   }
@@ -44,7 +44,7 @@ Game.prototype.openingRundownAptCallback = function() {
   var game = this;
   return function() {
     game.time.startTime();
-    var leChateauFloor1 = game.areas['le-chateau-floor-1'];
+    var leChateauFloor1 = game.world.getArea('le-chateau-floor-1');
     leChateauFloor1.addInteraction(23, 2, new Message(game.name + '\'s Apartment'), [DIR.UP]);
     game.getNPC('holland').show()
                           .updateScheduleStatus(1, /* skipTravel */ true, /* forcePlace */ true);

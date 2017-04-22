@@ -35,7 +35,7 @@ Travel.prototype.step = function(t) {
       case 'path':
         // If the path hasn't been generated yet, do so.
         if (!t.currentPath) {
-          var directions = game.areas[step.area].pathBetween(step.start, step.end);
+          var directions = game.world.getArea(step.area).pathBetween(step.start, step.end);
           var route = t.processRoute(directions);
           t.currentPath = route;
         }
@@ -79,12 +79,12 @@ Travel.prototype.step = function(t) {
 
       case 'exit':
         // Remove NPC from their current location & update current location.
-        game.areas[t.npc.currentLocation].removeNPC(t.npc);
+        game.world.getArea(t.npc.currentLocation).removeNPC(t.npc);
         var prevLocation = t.npc.currentLocation;
         t.npc.currentLocation = step.to;
 
         // Add NPC to new location and update postion/direction.
-        game.areas[t.npc.currentLocation].addNPC(t.npc);
+        game.world.getArea(t.npc.currentLocation).addNPC(t.npc);
         t.npc.setPosition(step.x, step.y, /* arrivingInArea */ true, prevLocation)
              .faceDir(step.dir);
 

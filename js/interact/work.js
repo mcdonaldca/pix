@@ -25,19 +25,19 @@ Work.prototype.interact = function(prompt, dir) {
       var s = prompt.selected();
       prompt.removeOptions();
       if (s == 0) {
-        game.areaShadowEl.css("opacity", "1");
+        game.world.areaShadowEl.css("opacity", "1");
 
         // Finalize work effects.
         setTimeout(function() {
           var hours = 0;
           // If the area can close, pass the closing hour.
-          if (game.area.isLimited()) hours = game.time.work(game.area.closingTime(game.time.weekday));
+          if (game.world.getCurrentArea().isLimited()) hours = game.time.work(game.world.getCurrentArea().closingTime(game.time.weekday));
           // If the area doesn't have a closing time
           else hours = game.time.work();
 
           game.player.work(hours);
           game.player.faceDown();
-          game.areaShadowEl.css("opacity", "0");
+          game.world.areaShadowEl.css("opacity", "0");
           setTimeout(function() {
             // Don't display all done if prompt is occupied (by closing time message).
             if (!game.prompt.isDisplaying()) game.prompt.displayMessage("All done!");

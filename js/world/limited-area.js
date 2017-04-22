@@ -13,10 +13,12 @@ function LimitedArea(width, height, name, fullName, hours, exitTo) {
 
   this.limited = true;         // Marks the area as a limited hours.
   this.fullName = fullName;    // Full name of the area.
-  this.hoursText = hours[0] // Text description of hours.
+  this.hoursText = hours[0]    // Text description of hours.
   this.hours = hours[1];       // List of hours specifications.
   this.exitTo = exitTo;        // Area to exit to when the area closes.
 }
+
+
 
 /**
   Returns a message declaring the area's hours.
@@ -25,6 +27,8 @@ function LimitedArea(width, height, name, fullName, hours, exitTo) {
 LimitedArea.prototype.hoursMessage = function() {
   return new Message([this.fullName.toUpperCase(), this.hoursText]);
 };
+
+
 
 /**
   Whether or not the place is open.
@@ -37,6 +41,8 @@ LimitedArea.prototype.isOpen = function(weekday, hour) {
   return hour >= todaysHours[0] && hour <= todaysHours[1] - 1;
 };
 
+
+
 /**
   Whether or not the place is closed.
   @return Boolean
@@ -44,6 +50,8 @@ LimitedArea.prototype.isOpen = function(weekday, hour) {
 LimitedArea.prototype.isClosed = function(weekday, hour) {
   return !this.isOpen(weekday, hour);
 };
+
+
 
 /**
   Returns the hour of closing for the area.
@@ -54,4 +62,24 @@ LimitedArea.prototype.closingTime = function(weekday) {
   if (todaysHours.length == 0) return 0;
 
   return todaysHours[1];
+};
+
+
+
+/**
+  Getter for Area.fullName
+  @return The area's full name.
+**/
+LimitedArea.prototype.getFullName = function() {
+  return this.fullName;
+};
+
+
+
+/**
+  Getter for Area.exitTo
+  @return The area to exit to when the area closes.
+**/
+LimitedArea.prototype.getExitTo = function() {
+  return this.exitTo;
 };

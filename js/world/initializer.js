@@ -1,7 +1,7 @@
 /**
-  Creates and maps all areas in the game.
+  Creates and maps all areas in the game and builds the World object.
 **/
-Game.prototype.initializeAreas = function() {
+Game.prototype.initializeWorld = function() {
   var collection = [
     AnneHome(),
     CityNE(),
@@ -26,7 +26,6 @@ Game.prototype.initializeAreas = function() {
   ];
 
   for (var i = 0; i < collection.length; i++) {
-    var areaObj = collection[i];
-    this.areas[areaObj.name] = areaObj;
+    this.world.addArea(collection[i]);
   }
 };

@@ -14,6 +14,7 @@ function NPC(name, sprite, shadow, schedule) {
   this.talkedTo = false; // Tracks if the character has been spoken to.
 
   // Schedule related values.
+  schedule = schedule || {};
   this.SCHEDULE = schedule.skeleton;
   this.SCHEDULE_STATUSES = schedule.statuses;
   this.SCHEDULE_TRAVEL = schedule.travel;
@@ -45,10 +46,12 @@ NPC.prototype.buildNPCSchedule = function() {
     }
   }
 
-  if (this.SCHEDULE.everyday) this.generateDailySchedule(scheduleData, [0, 1, 2, 3, 4, 5, 6], this.SCHEDULE.everyday)
-  if (this.SCHEDULE.weekday)  this.generateDailySchedule(scheduleData, [1, 2, 3, 4, 5], this.SCHEDULE.weekday);
-  if (this.SCHEDULE.weekend)  this.generateDailySchedule(scheduleData, [0, 6], this.SCHEDULE.weekend);
-  if (this.SCHEDULE.wednesday)  this.generateDailySchedule(scheduleData, [3], this.SCHEDULE.wednesday);
+  if (this.SCHEDULE) {
+    if (this.SCHEDULE.everyday) this.generateDailySchedule(scheduleData, [0, 1, 2, 3, 4, 5, 6], this.SCHEDULE.everyday)
+    if (this.SCHEDULE.weekday)  this.generateDailySchedule(scheduleData, [1, 2, 3, 4, 5], this.SCHEDULE.weekday);
+    if (this.SCHEDULE.weekend)  this.generateDailySchedule(scheduleData, [0, 6], this.SCHEDULE.weekend);
+    if (this.SCHEDULE.wednesday)  this.generateDailySchedule(scheduleData, [3], this.SCHEDULE.wednesday);
+  }
 
   this.scheduleData = scheduleData;
 }
@@ -123,18 +126,21 @@ NPC.prototype.updateScheduleStatus = function(newStatus, skipTravel, forcePlace)
     var y = this.SCHEDULE_STATUSES[newStatus].y;
     var face = this.SCHEDULE_STATUSES[newStatus].face;
 
+    var travelDirections = undefined;
     // When game initially starts, no locations are set.
-    if (this.currentLocation) {
-      if (this.SCHEDULE_TRAVEL[this.currentLocation]) var travelDirections = this.SCHEDULE_TRAVEL[this.currentLocation][area];
+    if (this.currentLocation &&
+        this.SCHEDULE_TRAVEL &&
+        this.SCHEDULE_TRAVEL[this.currentLocation]) {
+      travelDirections = this.SCHEDULE_TRAVEL[this.currentLocation][area];
     }
 
     if (travelDirections && !skipTravel) {
       travelDirections.start();
     } else {
       if(this.currentLocation) {
-        game.areas[this.currentLocation].removeNPC(this);
+        game.world.getArea(this.currentLocation).removeNPC(this);
       }
-      game.areas[area].addNPC(this);
+      game.world.getArea(area).addNPC(this);
       if (this.currentLocation != area) {
         var previousLocation = this.currentLocation;
         this.currentLocation = area;

@@ -1,5 +1,5 @@
 function ResidentialAreaSpec() {
-  $.extend(this, new Spec('.areas__residential-area'))
+  $.extend(this, new Spec('.world__residential-area'))
 
   var spec = this;
   spec.describe('.constructor', function() {
@@ -19,14 +19,14 @@ function ResidentialAreaSpec() {
   spec.describe('.residentsPresent', function() {
     spec.it('returns true when resident is present', function() {
       var residentialArea = new ResidentialArea(5, 5, 'test', ['alice'], 'another-area');
-      residentialArea.addNPC(2, 2, DIR.DW, new NPC('alice'));
+      residentialArea.addNPC(new NPC('alice'));
 
       expect(residentialArea.residentsPresent()).to.equal(true);
     });
 
     spec.it('returns true when one of the residents is present', function() {
       var residentialArea = new ResidentialArea(5, 5, 'test', ['alice', 'bob'], 'another-area');
-      residentialArea.addNPC(2, 2, DIR.DW, new NPC('bob'));
+      residentialArea.addNPC(new NPC('bob'));
 
       expect(residentialArea.residentsPresent()).to.equal(true);
     });
@@ -47,14 +47,14 @@ function ResidentialAreaSpec() {
 
     spec.it('returns false when resident is present', function() {
       var residentialArea = new ResidentialArea(5, 5, 'test', ['alice'], 'another-area');
-      residentialArea.addNPC(2, 2, DIR.DW, new NPC('alice'));
+      residentialArea.addNPC(new NPC('alice'));
 
       expect(residentialArea.residentsAbsent()).to.equal(false);
     });
 
     spec.it('returns false when one of the residents is present', function() {
       var residentialArea = new ResidentialArea(5, 5, 'test', ['alice', 'bob'], 'another-area');
-      residentialArea.addNPC(2, 2, DIR.DW, new NPC('bob'));
+      residentialArea.addNPC(new NPC('bob'));
 
       expect(residentialArea.residentsAbsent()).to.equal(false);
     });

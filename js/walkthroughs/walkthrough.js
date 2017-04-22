@@ -166,7 +166,7 @@ Walkthrough.prototype.getSubject = function(instruction) {
       break;
 
     case 'item':
-      subject = game.area.getItem(instruction.type);
+      subject = game.world.getCurrentArea().getItem(instruction.type);
 
     default:
       break;

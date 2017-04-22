@@ -1,5 +1,5 @@
 function LimitedAreaSpec() {
-  $.extend(this, new Spec('.areas__limited-area'))
+  $.extend(this, new Spec('.world__limited-area'))
 
   var spec = this;
   spec.describe('.constructor', function() {

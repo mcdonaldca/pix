@@ -158,15 +158,16 @@ Time.prototype.setTime = function(daysPassed, hour, minute, skipTravel) {
   this.hour = hour;
   this.minute = minute;
 
-  if (game.area && 
-      game.area.isLimited() && 
-      game.area.isClosed(this.weekday, this.hour)
+  if (game.world.getCurrentArea() && 
+      game.world.getCurrentArea().isLimited() && 
+      game.world.getCurrentArea().isClosed(this.weekday, this.hour)
   ) {
     game.closeArea();
   }
 
-  if (this.duskLevel() != 0) {
-    game.updateDuskLevel();
+  var duskLevel = this.duskLevel();
+  if (duskLevel != 0) {
+    game.updateDuskLevel(duskLevel);
   }
 
   this.updateNPClocations(skipTravel);

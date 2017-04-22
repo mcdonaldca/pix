@@ -3,35 +3,28 @@
 **/
 function Game() {
   this.gameEl = $('#game');   // Game element.
-  this.areaShadowEl = $('.area-shadow'); // Area shadow.
   this.player = new Player(); // Player.
   this.prompt = new Prompt(); // Interface with on-screen prompt.
   this.messager = new Message('');
 
   // The container which holds the current area.
-  this.areaContainer = $('#area-container'); 
-  // This value will get set when the game is started (Game.start)
-  this.area = undefined;
+  this.areaContainer = $('#area-container');
 
   this.time = new Time(); // Tracks time in game.
 
-  this.area = undefined;   // The current area.
   this.focus = undefined;  // The current focus.
   this.event = undefined;  // The current event.
 
   // The following are populated in their related initializers.
-  this.NPCs = {};         // Map of NPC names to their objects.
-  this.areas = {};        // Map of area names to their Area objects.
-  this.walkthroughs = {}; // Map of walkthroughs to their varous objects.
-  this.screens = {};      // Map of screens to their varous objects.
+  this.NPCs = {};           // Map of NPC names to their objects.
+  this.world = new World(); // Object that builds and tracks the world map.
+  this.walkthroughs = {};   // Map of walkthroughs to their varous objects.
+  this.screens = {};        // Map of screens to their varous objects.
 
   this.initializeNPCs();         // Creates and maps all NPC objects.
-  this.initializeAreas();        // Creates and maps all game areas.
+  this.initializeWorld();        // Creates and maps all game areas.
   this.initializeWalkthroughs(); // Creates and maps all player walkthroughs.
   this.initializeScreens();      // Creates and maps all player screens.
-
-  // Initialized in Game.start
-  this.messager = undefined; // The Game's messaging system.
 
   // Start the keyboard controller for key events (see js/keys.js).
   this.keyboardController(); 
@@ -120,11 +113,11 @@ Game.prototype.moveToArea = function(area) {
   var door = '';
 
   // Save where we're coming from.
-  var oldArea = this.area;
+  var oldArea = this.world.getCurrentArea();
 
   // New area to move to -- allow param to be either string or area object.
-  if (typeof area == 'string') { area = this.areas[area]; }
-  this.area = area;
+  if (typeof area == 'string') { area = this.world.getArea(area); }
+  this.world.setCurrentArea(area);
 
   // If it's not a new game and we're in an area.
   if (oldArea != undefined) {
@@ -139,11 +132,11 @@ Game.prototype.moveToArea = function(area) {
     oldArea.space(this.player.x, this.player.y).setUnoccupied();
     this.player.getEl().remove();
 
-    this.areaContainer.append(this.area.getEl());
-    this.area.append(this.player.getEl());
+    this.areaContainer.append(area.getEl());
+    area.append(this.player.getEl());
   } else {
-    this.areaContainer.append(this.area.getEl());
-    this.area.append(this.player.getEl());
+    this.areaContainer.append(area.getEl());
+    area.append(this.player.getEl());
   }
 
   // Save which area we're currently in.
@@ -151,7 +144,7 @@ Game.prototype.moveToArea = function(area) {
   // Remove door data until it's set again by a specific exit door.
   window.sessionStorage.removeItem('door');
 
-  var positionData = this.area.getPositionData(from, door);
+  var positionData = area.getPositionData(from, door);
   this.faceDir(positionData.face);
   this.moveToSpace(
     positionData.x, 
@@ -159,7 +152,7 @@ Game.prototype.moveToArea = function(area) {
     positionData.face, 
     true /* arrivingInArea */
   );
-  this.updateDuskLevel();
+  this.updateDuskLevel(this.time.duskLevel());
 
   // Fade in/out animation between areas.
   this.gameEl.removeClass('visible');
@@ -285,14 +278,15 @@ Game.prototype.stopWalking = function() {
   @param fromDir Direction traveling from.
 **/
 Game.prototype.moveToSpace = function(toX, toY, fromDir, arrivingInArea) {
+  var currentArea = this.world.getCurrentArea();
   // First check if we're trying to move into an exit.
-  if (this.area.space(this.player.x, this.player.y) &&
-      this.area.space(this.player.x, this.player.y).hasExitAdjacent(this.face)) {
+  if (currentArea.space(this.player.x, this.player.y) &&
+      currentArea.space(this.player.x, this.player.y).hasExitAdjacent(this.face)) {
     // If there is a specific door we're exiting, save it.
     if (space.hasExitDoor()) {
       window.sessionStorage.setItem('door', space.getDoor())
     }
-    var exitSpace = this.area.space(this.player.x, this.player.y);
+    var exitSpace = currentArea.space(this.player.x, this.player.y);
     exitSpace.setUnoccupied();
     this.exit(exitSpace.exitTo());
     return;
@@ -300,7 +294,7 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir, arrivingInArea) {
 
   // Check if we're trying to enter a valid zone.
   if (this.validZone(toX, toY)) {
-    space = this.area.space(toX, toY);
+    space = currentArea.space(toX, toY);
 
     // Make sure we can travel into that space from our current direction.
     if (!space.isBlocked(fromDir)) {
@@ -327,10 +321,10 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir, arrivingInArea) {
       }
 
       // Set the player's new position.
-      if (!arrivingInArea) this.area.space(this.player.x, this.player.y).setUnoccupied();
-      this.area.space(toX, toY).setOccupied();
+      if (!arrivingInArea) currentArea.space(this.player.x, this.player.y).setUnoccupied();
+      currentArea.space(toX, toY).setOccupied();
       this.player.setPosition(toX, toY);      
-      this.area.updateAreaPosition(toX, toY);
+      currentArea.updateAreaPosition(toX, toY);
     }
   } 
 };
@@ -343,10 +337,11 @@ Game.prototype.moveToSpace = function(toX, toY, fromDir, arrivingInArea) {
   @param y The y coordinate.
 **/
 Game.prototype.validZone = function(x, y) {
+  var currentArea = this.world.getCurrentArea();
   return x >= 0
-      && x <= this.area.width - 1
+      && x <= currentArea.width - 1
       && y >= 1
-      && y <= this.area.height - 1;
+      && y <= currentArea.height - 1;
 };
 
 
@@ -376,14 +371,14 @@ Game.prototype.interact = function() {
   switch(this.status) {
     // If the game is in free mode, try and interact with something.
     case 'free':
-      currentSpace = this.area.space(this.player.x, this.player.y);
+      currentSpace = this.world.getCurrentArea().space(this.player.x, this.player.y);
 
       // Find the x, y coordinate we're facing.
       faceX = this.face == DIR.LF ? this.player.x - 1 : this.player.x;
       faceX = this.face == DIR.RT ? this.player.x + 1 : faceX;
       faceY = this.face == DIR.UP ? this.player.y - 1 : this.player.y;
       faceY = this.face == DIR.DW ? this.player.y + 1 : faceY;
-      faceSpace = this.area.space(faceX, faceY);
+      faceSpace = this.world.getCurrentArea().space(faceX, faceY);
 
       // If we're in an interact zone, focus on that.
       if (currentSpace.isInteractZone()) {
@@ -426,27 +421,8 @@ Game.prototype.interact = function() {
 /**
   If we're in an outside space, update the dusk level of the space.
 **/
-Game.prototype.updateDuskLevel = function() {
-  if (this.area.isOutside()) {
-    switch(this.time.duskLevel()) {
-      case 0:
-        this.areaShadowEl.css('opacity', '0');
-        break;
-
-      case 1:
-        this.areaShadowEl.css('opacity', '.4');
-        break;
-
-      case 2:
-        this.areaShadowEl.css('opacity', '.6');
-        break;
-
-      default:
-        break;
-    } 
-  } else {
-    this.areaShadowEl.css('opacity', '0');
-  }
+Game.prototype.updateDuskLevel = function(duskLevel) {
+  this.world.updateDuskLevel(duskLevel);
 };
 
 
@@ -456,7 +432,7 @@ Game.prototype.updateDuskLevel = function() {
   @param exitTo The name of the area to go to.
 **/
 Game.prototype.exit = function(exitTo) {
-  var area = this.areas[exitTo];
+  var area = this.world.getArea(exitTo);
 
   // If the player is entering a work place.
   if (exitTo == 'work') {
@@ -482,7 +458,7 @@ Game.prototype.exit = function(exitTo) {
     this.focus = this.messager;
     this.setStatus(this.messager.interact(this.prompt) || 'free');
   } else if (area.isLimited() && area.isClosed(this.time.weekday, this.time.hour)) {
-    this.messager.setMessage(area.fullName + ' is closed right now.');
+    this.messager.setMessage(area.getFullName() + ' is closed right now.');
     this.focus = this.messager;
     this.setStatus(this.messager.interact(this.prompt) || 'free');
   } else if (area.isResidential() && area.residentsAbsent()) {
@@ -537,10 +513,10 @@ Game.prototype.startWalkthrough = function(walkthrough) {
   Closes the current area and forces the player to exit.
 **/
 Game.prototype.closeArea = function() {
-  var closing = new Message(this.area.fullName + ' is now closed.');
+  var closing = new Message(this.world.getCurrentArea().getFullName() + ' is now closed.');
   this.focus = closing;
   this.setStatus(closing.interact(this.prompt) || 'free');
-  this.exit(this.area.exitTo);
+  this.exit(this.world.getCurrentArea().getExitTo());
 };
 
 

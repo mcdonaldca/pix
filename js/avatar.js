@@ -208,8 +208,8 @@ Avatar.prototype.setPosition = function(x, y, arrivingInArea, prevLocation) {
     // If we're arriving in a new area, we need to unblock our previous location.
     // Also need to check if prevLocation is present (when game initializes).
     var unoccupyArea = arrivingInArea && prevLocation ? prevLocation : this.currentLocation;
-    game.areas[unoccupyArea].space(this.x, this.y).setUnoccupied();
-    game.areas[this.currentLocation].space(x, y).setOccupied(this);
+    game.world.getArea(unoccupyArea).space(this.x, this.y).setUnoccupied();
+    game.world.getArea(this.currentLocation).space(x, y).setOccupied(this);
   }
   this.x = x;
   this.y = y;
