@@ -44,7 +44,7 @@ function Game() {
   @param area      The area to start in.
 **/
 Game.prototype.start = function(startX, startY, startFace, area) {
-  /* Production: 
+  //* Production: 
   this.displayScreen('keyboard');
   // Fade in/out animation between areas.
   this.gameEl.removeClass('visible');
@@ -59,7 +59,7 @@ Game.prototype.start = function(startX, startY, startFace, area) {
   }, 500);
   //*/
 
-  //* For skipping playthrough (for testing).
+  /* For skipping playthrough (for testing).
   this.time.setTime(0, 8, 0, true);
   this.player.wallet.add(200);
   this.time.begin();
